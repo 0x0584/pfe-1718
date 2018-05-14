@@ -1,0 +1,59 @@
+#+TITLE: Rapport Du Stage
+#+DATE: 05/12/2018
+#+AUTHOR: Anas Rchid
+#+EMAIL: rchid.anas@gmail.com
+
+#+OPTIONS: toc:nil
+#+LaTeX_CLASS_OPTIONS: [a4paper,twoside]
+#+LaTeX_CLASS_OPTIONS: [captions=tableheading]
+#+LaTex_CLASS: report
+#+LATEX_HEADER: \usepackage[margin=0.80in]{geometry}
+
+#+LaTeX_HEADER: \hypersetup {
+#+LaTeX_HEADER:     colorlinks,
+#+LaTeX_HEADER:     citecolor=black,
+#+LaTeX_HEADER:     filecolor=black,
+#+LaTeX_HEADER:     linkcolor=blue,
+#+LaTeX_HEADER:     urlcolor=blue
+#+LaTeX_HEADER: }
+
+#+LATEX_COMPILER: pdflatex
+#+OPTIONS: author:nil date:nil
+#+LATEX: \tableofcontents
+
+
+\begin{abstract}
+  Ce projet et la resulta d'un stage que j'ai passez chez la [[http://www.flshj.ucd.ac.ma/][Faculte Des Lettres et Des Science Humaines, El Jadida]] avec la supervision du [[mailto://madaniabdellah@gmail.com][Mr. A. Madani]].
+  
+  Cette application, =GHumain=, et une application programmez en Java avec la sauvgarde des fichiers en =XML= qui permet pour les les responsables du /Service du resources humaine/ de geree d'une mannier efficace leur donnees. 
+\end{abstract}
+
+* Intoduction
+  Le but de cette application c'est de:
+
+  + [ ] gestion des professeurs et des fonctionnaires
+  + [ ] gestion des grades, conge, autorisations, absences
+  + [ ] generee des document pour tous ce qui est precedant
+
+* Data Structure
+  #+BEGIN_QUOTE
+   Tout les donnees ce sont sauvgarder sur des fichier =XML=. Ces fichier sont geree par la class Java =HandleXml=
+  #+END_QUOTE
+
+* Person
+  Tout les gens sont des persons
+
+  #+BEGIN_SRC xml
+    <person id="1">
+      <name> Foo </name>
+      <fname> Bar </fname>
+      <sexe ismale="true"/>
+    </person>
+  #+END_SRC
+
+* Professeurs
+* Fonctionnaire
+
+* References
+# + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
+ + JDOM :: http://jdom.org/
