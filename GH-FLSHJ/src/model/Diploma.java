@@ -1,18 +1,17 @@
 package model;
 
-import xml.XmlSet;
+import xml.XmlSchema;
+import xml.XmlTag;
 
 public class Diploma {
 	private String title, institue;
 	private String session; /* e.g. 2017-2018 */
 	private Mention mention;
-	private XmlSet xtags;
+	private XmlSchema xset;
 
 	public Diploma() {
 		super( );
-		xtags = new XmlSet("diplomas", new String[] {
-						"diploma", "institute"
-		}, new String[] { });
+		xset = XmlSchema.initSet(this.getClass( ));
 	}
 
 	public Diploma(	String title, String institue, String session,
@@ -22,6 +21,7 @@ public class Diploma {
 		this.institue = institue;
 		this.session = session;
 		this.mention = mention;
+		xset = XmlSchema.initSet(this.getClass( ));
 	}
 
 	@Override
@@ -60,5 +60,13 @@ public class Diploma {
 
 	public void setMention(Mention mention) {
 		this.mention = mention;
+	}
+
+	public XmlSchema getXSet( ) {
+		return xset;
+	}
+
+	public void setXSet(XmlSchema xset) {
+		this.xset = xset;
 	}
 }

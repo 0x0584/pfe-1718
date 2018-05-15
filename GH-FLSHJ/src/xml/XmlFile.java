@@ -62,7 +62,7 @@ public class XmlFile {
 	public ArrayList<Diploma> getDiplomas( ) {
 		ArrayList<Diploma> tmp = new ArrayList<Diploma>( );
 		List<Element> list = rootNode.getChildren();
-		
+		// TODO: here
 		return tmp;
 	}
 
