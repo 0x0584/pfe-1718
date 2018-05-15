@@ -84,12 +84,12 @@
     <name> Anas </name>
     <familyname> Rchid </familyname> <!-- last name -->
     <birth> 19940915 </birth>	     <!-- yyyymmdd -->
-    <nationality ma="true"/>
+    <nationality ma="t"/>
     <brithplace> Rass El Ain </brithplace>
     <address> 99 Ibn Sina, OD Frej El Jadida </address>
     <phone> 0642857134 </phone>
-    <state married="true"/>
-    <partner name="NULL" job="NULL"/>
+    <state married="t"/>
+    <partner name="nil" job="nil"/>
     <children number="0"/>
 
     <diplomas>
@@ -109,14 +109,14 @@
     </diplomas>
   </employee>
 
-  <employee>
+  <employee department="nil">
     <name> Anas </name>
     <familyname> Rchid </familyname>
     <birth> 19940915 </birth>
-    <nationality ma="false"> French </nationality>
+    <nationality ma="nil"> French </nationality>
     <brithplace> Rass El Ain </brithplace>
     <phone> 0642857134 </phone>
-    <state married="false"/>
+    <state married="nil"/>
     <diplomas>
       <diploma mention="Bien"> TSDI </diploma>
       <institute city="ElJadida"> ISTA </institute>
