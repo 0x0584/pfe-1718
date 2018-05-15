@@ -1,6 +1,7 @@
+<?xml encoding="UTF-8"?>
+
 <!-- BEGIN DTD -->
 <!DOCTYPE Employee [
-<?xml encoding="UTF-8"?>
 
 <!ELEMENT Employee (employee)+>
 <!ATTLIST Employee

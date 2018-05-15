@@ -1,12 +1,18 @@
 package model;
 
+import xml.XmlSet;
+
 public class Diploma {
 	private String title, institue;
 	private String session; /* e.g. 2017-2018 */
 	private Mention mention;
+	private XmlSet xtags;
 
 	public Diploma() {
 		super( );
+		xtags = new XmlSet("diplomas", new String[] {
+						"diploma", "institute"
+		}, new String[] { });
 	}
 
 	public Diploma(	String title, String institue, String session,
