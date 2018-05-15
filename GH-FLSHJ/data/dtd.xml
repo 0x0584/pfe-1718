@@ -1,0 +1,78 @@
+<!-- BEGIN DTD -->
+<!DOCTYPE Employee [
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT Employee (employee)+>
+<!ATTLIST Employee
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT employee (name,familyname,birth,nationality,brithplace,
+                    address?,phone,state,(partner,children)?,diplomas+)>
+<!ATTLIST employee
+  xmlns CDATA #FIXED ''
+  department NMTOKEN #IMPLIED>
+
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST name
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT familyname (#PCDATA)>
+<!ATTLIST familyname
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT birth (#PCDATA)>
+<!ATTLIST birth
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT nationality (#PCDATA)>
+<!ATTLIST nationality
+  xmlns CDATA #FIXED ''
+  ma NMTOKEN #REQUIRED>
+
+<!ELEMENT brithplace (#PCDATA)>
+<!ATTLIST brithplace
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT address (#PCDATA)>
+<!ATTLIST address
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT phone (#PCDATA)>
+<!ATTLIST phone
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT state EMPTY>
+<!ATTLIST state
+  xmlns CDATA #FIXED ''
+  married NMTOKEN #REQUIRED>
+
+<!ELEMENT partner EMPTY>
+<!ATTLIST partner
+  xmlns CDATA #FIXED ''
+  job NMTOKEN #REQUIRED
+  name NMTOKEN #REQUIRED>
+
+<!ELEMENT children EMPTY>
+<!ATTLIST children
+  xmlns CDATA #FIXED ''
+  number CDATA #REQUIRED>
+
+<!ELEMENT diplomas (diploma,institute,session)>
+<!ATTLIST diplomas
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT diploma (#PCDATA)>
+<!ATTLIST diploma
+  xmlns CDATA #FIXED ''
+  mention NMTOKEN #REQUIRED>
+
+<!ELEMENT institute (#PCDATA)>
+<!ATTLIST institute
+  xmlns CDATA #FIXED ''
+  city NMTOKEN #REQUIRED>
+
+<!ELEMENT session (#PCDATA)>
+<!ATTLIST session
+  xmlns CDATA #FIXED ''>
+]>
+<!-- END DTD -->

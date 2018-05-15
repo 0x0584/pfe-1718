@@ -1,0 +1,9 @@
+#+TITLE: Notes about the XML files
+
+* Intoduction
+  The data would saved in =xml= files
+
+* Notes
+
+  + [[file://empl.xml]] :: List of all employees
+

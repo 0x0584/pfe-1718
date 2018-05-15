@@ -1,0 +1,23 @@
+<diagramme>
+	<classe>
+		<nom>Classe1</nom>
+		<attribut>
+			<nom>attribut1</nom>
+			<type>String</type>
+			<valeur>valeur1</valeur>
+		</attribut>
+		<methode>
+			<nom>afficher</nom>
+			<retour>String</retour>
+		</methode>
+	</classe>
+	<classe>
+		<nom>Classe2</nom>
+		<attribut>
+			<nom>VALEUR</nom>
+			<type>String</type>
+			<valeur>constante</valeur>
+			<static />
+		</attribut>
+	</classe>
+</diagramme>
