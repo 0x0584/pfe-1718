@@ -10,7 +10,6 @@ package xml;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-//import java.util.List;
 import java.util.Iterator;
 
 import org.jdom2.Document;
@@ -20,7 +19,6 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import model.AdministrativeStatus;
 import model.Diploma;
 import model.Employee;
 import model.Uplift;
@@ -70,16 +68,31 @@ public class XmlFile {
 		}
 	}
 
+	public static ArrayList<Diploma> getDiplomas(Employee empl) {
+		ArrayList<Diploma> tmp = new ArrayList<Diploma>( );
+		// List<Element> list = rootNode.getChildren();
+		// XmlSchema xs = XmlSchema.initSet(Diploma.class);
+
+		Iterator<Element> i = new XmlFile( ).getRoot( ).getChildren( )
+						.iterator( );
+
+		while (i.hasNext( )) {
+			Element e = i.next( );
+			Diploma d = new Diploma( );
+			d.setTitle(e.getChildText(""));
+			// d.setInstitue(institue);
+			// d.setMention(mention);
+			// d.setSession(session);
+			tmp.add(d);
+		}
+
+		return tmp;
+	}
 	public ArrayList<Employee> getEmployees( ) {
 		ArrayList<Employee> tmp = new ArrayList<Employee>( );
 		return tmp;
 	}
-
-	public ArrayList<AdministrativeStatus> getAdministrativeStatuses( ) {
-		ArrayList<AdministrativeStatus> tmp = new ArrayList<AdministrativeStatus>( );
-		return tmp;
-	}
-
+	
 	public ArrayList<Uplift> getUplift( ) {
 		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
 		return tmp;

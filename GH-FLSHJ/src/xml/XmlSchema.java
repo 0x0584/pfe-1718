@@ -2,7 +2,6 @@ package xml;
 
 import java.util.ArrayList;
 
-import model.AdministrativeStatus;
 import model.Diploma;
 import model.Person;
 import model.Uplift;
@@ -47,8 +46,6 @@ public class XmlSchema {
 			xset.xtags.add(new XmlTag("children", new String[] {
 							"number"
 			}));
-		} else if (xmlObject instanceof AdministrativeStatus) {
-			// TODO: finish this
 		} else if (xmlObject instanceof Uplift) {
 			// TODO: finish this
 		}
