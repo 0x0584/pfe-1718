@@ -1,9 +1,17 @@
 package xml;
 
+/*  Notes about this XmlFile
+ *  ========================
+ *  
+ * 	deal with the XML storage of all the data and query the xml files
+ *  this is specific to the classes in the model
+ * */
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
+import java.util.Iterator;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -18,27 +26,31 @@ import model.Employee;
 import model.Uplift;
 
 public class XmlFile {
-	@SuppressWarnings("unused")
-	private static String DEFAULT_FILENAMES[] = new String[] {
-					"hr.xml"
-	};
 	private String filepath;
 	private File file;
 	private Document doc;
 	private XMLOutputter xmlout;
-	private Element rootNode;
+	private Element root;
 
-	public XmlFile(String filepath) {
+	public XmlFile() {
+		this(Files.HUMAIN_RESOURCES);
+	}
+
+	public XmlFile(Files file) {
 		super( );
 		this.xmlout = new XMLOutputter(Format.getPrettyFormat( ));
-		setFilePath(filepath);
+		setFilePath(file.getFilePath( ));
 	}
 
 	@Override
 	public String toString( ) {
 		return "XmlFile [filepath=" + filepath + ", file=" + file + ", doc="
-						+ doc + ", xmlout=" + xmlout + ", rootNode=" + rootNode
+						+ doc + ", xmlout=" + xmlout + ", rootNode=" + root
 						+ "]";
+	}
+
+	public Element getRoot( ) {
+		return root;
 	}
 
 	public String getFilePath( ) {
@@ -51,28 +63,20 @@ public class XmlFile {
 
 		try {
 			this.doc = new SAXBuilder( ).build(this.file);
-			this.rootNode = doc.getRootElement( );
+			this.root = doc.getRootElement( );
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace( );
 			System.out.println(e.getMessage( ));
 		}
 	}
 
-
-	public ArrayList<Diploma> getDiplomas( ) {
-		ArrayList<Diploma> tmp = new ArrayList<Diploma>( );
-		List<Element> list = rootNode.getChildren();
-		// TODO: here
+	public ArrayList<Employee> getEmployees( ) {
+		ArrayList<Employee> tmp = new ArrayList<Employee>( );
 		return tmp;
 	}
 
 	public ArrayList<AdministrativeStatus> getAdministrativeStatuses( ) {
 		ArrayList<AdministrativeStatus> tmp = new ArrayList<AdministrativeStatus>( );
-		return tmp;
-	}
-
-	public ArrayList<Employee> getEmployees( ) {
-		ArrayList<Employee> tmp = new ArrayList<Employee>( );
 		return tmp;
 	}
 

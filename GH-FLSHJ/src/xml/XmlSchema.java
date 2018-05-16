@@ -12,13 +12,6 @@ public class XmlSchema {
 
 	public XmlSchema() {
 		xtags = new ArrayList<XmlTag>( );
-
-	}
-
-	public XmlSchema(ArrayList<XmlTag> tags) {
-		super( );
-		this.xtags = tags;
-
 	}
 
 	public static <T> XmlSchema initSet(T xmlObject) {
