@@ -3,7 +3,7 @@ package xml;
 import java.util.Arrays;
 
 public class XmlTag {
-	private String XmlAttrs[], root;
+	private String root, XmlAttrs[];
 	public static short PARENT = 0;
 
 	public XmlTag(String root, String[] xmlAttrs) {
