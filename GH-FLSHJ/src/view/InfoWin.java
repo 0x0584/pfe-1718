@@ -3,17 +3,14 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.Component;
-import javax.swing.Box;
+
 import javax.swing.ButtonGroup;
 
-import java.awt.GridBagLayout;
 import javax.swing.JTable;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Color;
+
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -24,14 +21,12 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.GridLayout;
 import model.Employee.Cadre;
 import javax.swing.JSpinner;
 import java.awt.SystemColor;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JScrollPane;
 
-public class MainWin {
+public class InfoWin {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -58,7 +53,7 @@ public class MainWin {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					MainWin window = new MainWin( );
+					InfoWin window = new InfoWin( );
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -70,7 +65,7 @@ public class MainWin {
 	/**
 	 * Create the application.
 	 */
-	public MainWin() {
+	public InfoWin() {
 		initialize( );
 	}
 
@@ -326,19 +321,24 @@ public class MainWin {
 		panel_5.setBounds(12, 360, 571, 136);
 		frame.getContentPane( ).add(panel_5);
 
-		String columnNames[][] = {
-		    {	"الشهادات", "الميزة", "المؤسسة",
-			"تاريخ الحصول عليها"
-		    }, {
-			"السلم", "الرتبة", "الرقم الإستدلالي",
-			"التاريخ"
-		    }
+		String cols[] = {
+						"c1", "c2", "c3", "c4"
 		};
-		DefaultTableModel dataModel0 = new DefaultTableModel( );
-		for (int col = 0; col < columnNames[0].length; col++) {
-			dataModel0.addColumn(columnNames[0][col]);
+		DefaultTableModel dmodel_0 = new DefaultTableModel( ),
+						dmodel_1 = new DefaultTableModel( );
+		for (int col = 0; col < cols.length; col++) {
+			dmodel_0.addColumn(cols[col]);
+			dmodel_1.addColumn(cols[col]);
 		}
-		table = new JTable(dataModel0);
+		dmodel_0.addRow(new String[] {
+						"تاريخ الحصول عليها", "المؤسسة", "الميزة", "الشهادات",
+		});
+
+		dmodel_1.addRow(new String[] {
+						"التاريخ", "الرقم الإستدلالي", "الرتبة", "السلم",
+		});
+
+		table = new JTable(dmodel_0);
 		table.setBounds(0, 24, 571, 112);
 		panel_5.add(table);
 
@@ -351,11 +351,7 @@ public class MainWin {
 		panel_6.setBounds(12, 508, 571, 136);
 		frame.getContentPane( ).add(panel_6);
 
-		DefaultTableModel dataModel1 = new DefaultTableModel( );
-		for (int col = 0; col < columnNames[1].length; col++) {
-			dataModel1.addColumn(columnNames[1][col]);
-		}
-		table_1 = new JTable(dataModel1);
+		table_1 = new JTable(dmodel_1);
 		table_1.setBounds(0, 24, 571, 112);
 		panel_6.add(table_1);
 
