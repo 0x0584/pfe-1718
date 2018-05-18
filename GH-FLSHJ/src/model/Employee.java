@@ -22,7 +22,7 @@ public class Employee extends Person {
 	};
 
 	private Cadre cadre;
-	private String reference, rent, CIN; /* rent number */
+	private String ref, rent, CIN; /* rent number */
 	private String fstatus; /* financial status */
 	private String mission, reason, notes;
 	private String pjob, cjob; /* previous and current jobs */
@@ -36,54 +36,34 @@ public class Employee extends Person {
 
 	public Employee(String ref) {
 		super( );
+		this.ref = ref;
+
+		// TODO: fill this employee based on the reference
+		uplifts = Uplift.getUpliftsHistory(jdate);
 	}
 
 	public ArrayList<Diploma> getDiplomas( ) {
 		return diplomas;
 	}
 
-	public void setDiplomas(ArrayList<Diploma> diplomas) {
-		this.diplomas = diplomas;
-	}
-
 	public String getReference( ) {
-		return reference;
-	}
-
-	public void setReference(String reference) {
-		this.reference = reference;
+		return ref;
 	}
 
 	public String getRent( ) {
 		return rent;
 	}
 
-	public void setRent(String rent) {
-		this.rent = rent;
-	}
-
 	public String getFinancialstatus( ) {
 		return fstatus;
-	}
-
-	public void setFstatus(String fstatus) {
-		this.fstatus = fstatus;
 	}
 
 	public String getMission( ) {
 		return mission;
 	}
 
-	public void setMission(String mission) {
-		this.mission = mission;
-	}
-
 	public String getShiftingReason( ) {
 		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
 	}
 
 	public String getNotes( ) {
@@ -128,10 +108,6 @@ public class Employee extends Person {
 
 	public ArrayList<Uplift> getUplifts( ) {
 		return uplifts;
-	}
-
-	public void setUplifts(ArrayList<Uplift> uplifts) {
-		this.uplifts = uplifts;
 	}
 
 	public Cadre getCadre( ) {

@@ -1,22 +1,43 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Uplift {
-	private short grade, rank;
+	private final static byte RANK[] = new byte[] {
+					/* 4 years */
+					1, 1, 1, 1,
+					/* 8 years */
+					2, 2, 3, 3,
+					/* 11 years */
+					4, 4, 3
+	}, GRADE[] = new byte[] {
+					9, 10, 11, 12
+	};
 	private String indice;
 	private Date date;
+	private short grade;
+	private short rank;
 
-	public Uplift() {
+	/**
+	 * @param indice
+	 * @param date
+	 * @param grade
+	 * @param rank
+	 */
+	public Uplift(String indice, Date date, short grade, short rank) {
 		super( );
-	}
-
-	public Uplift(short grade, short rank, String indice, Date date) {
-		super( );
-		this.grade = grade;
-		this.rank = rank;
 		this.indice = indice;
 		this.date = date;
+		this.grade = grade;
+		this.rank = rank;
+	}
+
+	public static ArrayList<Uplift> getUpliftsHistory(Date hiringdate) {
+		return null;
+
+		// TODO: this should be filled up automatically
+		// using RANK and GRADE
 	}
 
 	@Override
@@ -29,32 +50,32 @@ public class Uplift {
 		return grade;
 	}
 
-	 public void setGrade(short grade) {
-	 this.grade = grade;
-	 }
+	// public void setGrade(short grade) {
+	// this.grade = grade;
+	// }
 
 	public short getRank( ) {
 		return rank;
 	}
 
-	 public void setRank(short rank) {
-	 this.rank = rank;
-	 }
+	// public void setRank(short rank) {
+	// this.rank = rank;
+	// }
 
 	public String getIndice( ) {
 		return indice;
 	}
 
-	 public void setIndice(String indice) {
-	 this.indice = indice;
-	 }
+	// public void setIndice(String indice) {
+	// this.indice = indice;
+	// }
 
 	public Date getDate( ) {
 		return date;
 	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
+	//
+	// public void setDate(Date date) {
+	// this.date = date;
+	// }
 
 }
