@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Employee extends Person {
+	/**
+	 * @author arubu
+	 *
+	 */
 	public static enum Cadre {
 		C_1("cadre un"), C_2("cadre deux");
 		private String title;
@@ -27,11 +31,28 @@ public class Employee extends Person {
 	private String mission, reason, notes;
 	private String pjob, cjob; /* previous and current jobs */
 	private Date hdate, jdate; /* hiring and joining date */
+	/**
+	 * 
+	 */
 	private ArrayList<Uplift> uplifts;
+	/**
+	 * 
+	 */
 	private ArrayList<Diploma> diplomas;
 
+	/**
+	 * 
+	 */
 	public Employee() {
 		super( );
+		this.name = "Anas";
+		this.fname = "Rchid";
+		this.ismoroccan = true;
+		this.ref = "124511202";
+		this.hdate = new Date();
+		uplifts = Uplift.getUpliftsHistory(jdate);
+		
+		// uplifts.get(uplifts.size( )); the current grade
 	}
 
 	public Employee(String ref) {

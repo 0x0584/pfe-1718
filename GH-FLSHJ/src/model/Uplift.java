@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Uplift {
+	/**
+	 * 
+	 */
 	private final static byte RANK[] = new byte[] {
 					/* 4 years */
 					1, 1, 1, 1,
@@ -16,8 +19,8 @@ public class Uplift {
 	};
 	private String indice;
 	private Date date;
-	private short grade;
-	private short rank;
+	private byte grade;
+	private byte rank;
 
 	/**
 	 * @param indice
@@ -25,7 +28,7 @@ public class Uplift {
 	 * @param grade
 	 * @param rank
 	 */
-	public Uplift(String indice, Date date, short grade, short rank) {
+	public Uplift(String indice, Date date, byte grade, byte rank) {
 		super( );
 		this.indice = indice;
 		this.date = date;
@@ -33,8 +36,14 @@ public class Uplift {
 		this.rank = rank;
 	}
 
+	/**
+	 * @param hiringdate
+	 * @return
+	 */
 	public static ArrayList<Uplift> getUpliftsHistory(Date hiringdate) {
-		return null;
+		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
+		tmp.add(new Uplift("152/2018", new Date( ), (byte) 9, (byte) 4));
+		return tmp;
 
 		// TODO: this should be filled up automatically
 		// using RANK and GRADE

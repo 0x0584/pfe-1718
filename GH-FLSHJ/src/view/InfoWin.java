@@ -3,16 +3,16 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Sides;
+//import javax.print.Doc;
+//import javax.print.DocFlavor;
+//import javax.print.DocPrintJob;
+//import javax.print.PrintException;
+//import javax.print.PrintService;
+//import javax.print.PrintServiceLookup;
+//import javax.print.SimpleDoc;
+//import javax.print.attribute.HashPrintRequestAttributeSet;
+//import javax.print.attribute.PrintRequestAttributeSet;
+//import javax.print.attribute.standard.Sides;
 import javax.swing.ButtonGroup;
 
 import javax.swing.JTable;
@@ -32,20 +32,20 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import model.Employee.Cadre;
-import operation.Printer;
+//import operation.Printer;
 
 import javax.swing.JSpinner;
 import java.awt.SystemColor;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Arrays;
+//import java.awt.print.PageFormat;
+//import java.awt.print.PrinterException;
+//import java.awt.print.PrinterJob;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
+//import java.io.IOException;
+//import java.util.Arrays;
 import java.awt.event.ActionEvent;
 
 public class InfoWin {
@@ -377,7 +377,7 @@ public class InfoWin {
 		button_3.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				// TODO: this is the printing protocol
-				// 
+				//
 				// PrinterJob pjob = PrinterJob.getPrinterJob( );
 				// PageFormat preformat = pjob.defaultPage( );
 				// preformat.setOrientation(PageFormat.LANDSCAPE);
@@ -392,7 +392,6 @@ public class InfoWin {
 				// try {
 				// pjob.print( );
 				// } catch (PrinterException e1) {
-				// // TODO Auto-generated catch block
 				// e1.printStackTrace( );
 				// System.err.println(e1.getMessage( ));
 				// }
