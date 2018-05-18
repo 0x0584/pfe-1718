@@ -3,15 +3,29 @@ package model;
 import java.util.Date;
 
 public class Person {
-	private String name, fname, addr, phone;
-	private String bplace;
-	private Date bday;
-	private boolean ismoroccan, ismarried;
-	private Person partner;
-	private short nchildren;
+	protected String name, fname, addr, phone;
+	protected String bplace;
+	protected Date bday;
+	protected boolean ismoroccan, ismarried;
+	protected Person partner;
+	protected short nchildren;
 
-	public Person() {}
+	public Person() {
+		super( );
+	}
 
+	/**
+	 * @param name
+	 * @param fname
+	 * @param addr
+	 * @param phone
+	 * @param bplace
+	 * @param bday
+	 * @param ismoroccan
+	 * @param ismarried
+	 * @param partner
+	 * @param nchildren
+	 */
 	public Person(	String name, String fname, String addr, String phone,
 					String bplace, Date bday, boolean ismoroccan,
 					boolean ismarried, Person partner, short nchildren) {
@@ -116,5 +130,5 @@ public class Person {
 	public void setNumberOfchildren(short nchildren) {
 		this.nchildren = nchildren;
 	}
-	
+
 }
