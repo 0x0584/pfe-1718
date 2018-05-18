@@ -3,7 +3,16 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Sides;
 import javax.swing.ButtonGroup;
 
 import javax.swing.JTable;
@@ -16,19 +25,37 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import model.Employee.Cadre;
+import operation.Printer;
+
 import javax.swing.JSpinner;
 import java.awt.SystemColor;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
+import java.awt.event.ActionEvent;
 
 public class InfoWin {
 
 	private JFrame frame;
+
+	public JFrame getFrame( ) {
+		return frame;
+	}
+
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -343,8 +370,50 @@ public class InfoWin {
 		panel_5.add(table);
 
 		JLabel label_18 = new JLabel("الشهادات");
-		label_18.setBounds(250, 0, 70, 15);
+		label_18.setBounds(250, 5, 70, 15);
 		panel_5.add(label_18);
+
+		JButton button_3 = new JButton("mod");
+		button_3.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				// TODO: this is the printing protocol
+				// 
+				// PrinterJob pjob = PrinterJob.getPrinterJob( );
+				// PageFormat preformat = pjob.defaultPage( );
+				// preformat.setOrientation(PageFormat.LANDSCAPE);
+				// PageFormat postformat = pjob.pageDialog(preformat);
+				// // If user does not hit cancel then print.
+				//
+				// if (preformat != postformat) {
+				// // Set print component
+				// pjob.setPrintable(new Printer(frame), postformat);
+				// // have to find
+				// if (pjob.printDialog( )) {
+				// try {
+				// pjob.print( );
+				// } catch (PrinterException e1) {
+				// // TODO Auto-generated catch block
+				// e1.printStackTrace( );
+				// System.err.println(e1.getMessage( ));
+				// }
+				// }
+				// }
+			}
+		});
+		button_3.setBounds(393, 0, 70, 25);
+		panel_5.add(button_3);
+
+		JButton button_4 = new JButton("+");
+		button_4.setForeground(
+			UIManager.getColor("OptionPane.questionDialog.border.background"));
+		button_4.setBounds(475, 0, 44, 25);
+		panel_5.add(button_4);
+
+		JButton button_5 = new JButton("-");
+		button_5.setForeground(
+			UIManager.getColor("OptionPane.errorDialog.border.background"));
+		button_5.setBounds(527, 0, 44, 25);
+		panel_5.add(button_5);
 
 		JPanel panel_6 = new JPanel( );
 		panel_6.setLayout(null);
@@ -356,7 +425,7 @@ public class InfoWin {
 		panel_6.add(table_1);
 
 		JLabel lblUplifts = new JLabel("الترقيات");
-		lblUplifts.setBounds(250, 0, 70, 15);
+		lblUplifts.setBounds(250, 5, 70, 15);
 		panel_6.add(lblUplifts);
 	}
 }
