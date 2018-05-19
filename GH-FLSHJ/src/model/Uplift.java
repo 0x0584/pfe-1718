@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Uplift {
-	/**
-	 * 
-	 */
 	private final static byte RANK[] = new byte[] {
 					/* 4 years */
 					1, 1, 1, 1,
@@ -21,6 +18,7 @@ public class Uplift {
 	private Date date;
 	private byte grade;
 	private byte rank;
+	private boolean byexam;
 
 	/**
 	 * @param indice

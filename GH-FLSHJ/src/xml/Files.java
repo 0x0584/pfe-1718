@@ -2,7 +2,7 @@ package xml;
 
 public enum Files {
 	HUMAIN_RESOURCES("hr"), DEPARTMENTS("dep");
-	private final static String root = "data";
+	private final static String root = "data/xml/";
 	private String fpath;
 
 	private Files(String path) {

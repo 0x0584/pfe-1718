@@ -1,52 +1,31 @@
 package view;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-//import javax.print.Doc;
-//import javax.print.DocFlavor;
-//import javax.print.DocPrintJob;
-//import javax.print.PrintException;
-//import javax.print.PrintService;
-//import javax.print.PrintServiceLookup;
-//import javax.print.SimpleDoc;
-//import javax.print.attribute.HashPrintRequestAttributeSet;
-//import javax.print.attribute.PrintRequestAttributeSet;
-//import javax.print.attribute.standard.Sides;
-import javax.swing.ButtonGroup;
-
-import javax.swing.JTable;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JRadioButton;
+import java.awt.SystemColor;
 
-import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ButtonGroup;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.SpinnerNumberModel;
+
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextPane;
+import javax.swing.JSpinner;
+import javax.swing.JButton;
 
 import model.Employee.Cadre;
-//import operation.Printer;
-
-import javax.swing.JSpinner;
-import java.awt.SystemColor;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-//import java.awt.print.PageFormat;
-//import java.awt.print.PrinterException;
-//import java.awt.print.PrinterJob;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
-//import java.util.Arrays;
-import java.awt.event.ActionEvent;
 
 public class InfoWin {
 
@@ -348,6 +327,7 @@ public class InfoWin {
 		panel_5.setBounds(12, 360, 571, 136);
 		frame.getContentPane( ).add(panel_5);
 
+		// TODO: fix column names
 		String cols[] = {
 						"c1", "c2", "c3", "c4"
 		};
