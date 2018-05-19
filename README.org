@@ -35,6 +35,7 @@
   + [ ] gestion des grades, conge, autorisations, absences
   + [ ] generee des document pour tous ce qui est precedant
 
+    
 * Data Structure
   #+BEGIN_QUOTE
    Tout les donnees ce sont sauvgarder sur des fichier =XML=. Ces fichier sont geree par la class Java =HandleXml=

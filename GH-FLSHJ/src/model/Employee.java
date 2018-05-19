@@ -2,12 +2,17 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+
+import org.jdom2.Element;
+
+import model.Employee.Type;
+import xml.XmlFile;
 
 public class Employee extends Person {
-	/**
-	 * @author arubu
-	 *
-	 */
 	public static enum Cadre {
 		C_1("cadre un"), C_2("cadre deux");
 		private String title;
@@ -23,22 +28,20 @@ public class Employee extends Person {
 		private void setTitle(String title) {
 			this.title = title;
 		}
-	};
+	}
 
-	private Cadre cadre;
-	private String ref, rent, CIN; /* rent number */
-	private String fstatus; /* financial status */
-	private String mission, reason, notes;
-	private String pjob, cjob; /* previous and current jobs */
-	private Date hdate, jdate; /* hiring and joining date */
-	/**
-	 * 
-	 */
-	private ArrayList<Uplift> uplifts;
-	/**
-	 * 
-	 */
-	private ArrayList<Diploma> diplomas;
+	public static enum Type {
+		Normal, Prof, All
+	}
+
+	protected Cadre cadre;
+	protected String ref, CIN; /* rent number */
+	protected String fstatus; /* financial status */
+	protected String mission, reason, notes;
+	protected String pjob, cjob; /* previous and current jobs */
+	protected Date hdate, jdate; /* hiring and joining date */
+	protected ArrayList<Uplift> uplifts;
+	protected ArrayList<Diploma> diplomas;
 
 	/**
 	 * 
@@ -49,9 +52,9 @@ public class Employee extends Person {
 		this.fname = "Rchid";
 		this.ismoroccan = true;
 		this.ref = "124511202";
-		this.hdate = new Date();
+		this.hdate = new Date( );
 		uplifts = Uplift.getUpliftsHistory(jdate);
-		
+
 		// uplifts.get(uplifts.size( )); the current grade
 	}
 
@@ -69,10 +72,6 @@ public class Employee extends Person {
 
 	public String getReference( ) {
 		return ref;
-	}
-
-	public String getRent( ) {
-		return rent;
 	}
 
 	public String getFinancialstatus( ) {
@@ -146,4 +145,70 @@ public class Employee extends Person {
 	public void setCIN(String cIN) {
 		CIN = cIN;
 	}
+
+	// TODO: fix column names
+	public static DefaultTableModel getModelFromXml(Type t) {
+		DefaultTableModel model = new DefaultTableModel( );
+		String scale = null, echlon = null;
+		Iterator<Element> ifoo, ibar; // temporary iterators
+		Element foo, bar; // temporary elements
+
+		// add columns to the model
+		model.addColumn("SOM");
+		model.addColumn("CIN");
+		model.addColumn("name");
+		model.addColumn("family_name");
+		model.addColumn("scale");
+		model.addColumn("echlon");
+		model.addColumn("diploma_count");
+
+		// TODO: find how to show column names
+		model.addRow(new String[] {
+						"SOM", "CIN", "Name", "Family Name", "Scale", "Echlon",
+						"Diplomas"
+		});
+		// loop over the employee
+		ifoo = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
+		while (ifoo.hasNext( )) {
+			foo = ifoo.next( );
+			/* skip employee based on filter */
+			if (t == Type.Normal && foo.getAttributeValue("department")
+							.compareTo("nil") != 0) {
+				/*
+				 * this means that this is a professor
+				 */
+				continue;
+			} else if (t == Type.Prof && foo.getAttributeValue("department")
+							.compareTo("nil") == 0) {
+				/*
+				 * this means that this is a normal one
+				 */
+				continue;
+			}
+			// get current scale and echlon
+			ibar = foo.getChild("administrative").getChildren("uplift")
+							.iterator( );
+			while (ibar.hasNext( )) {
+				bar = ibar.next( );
+				if (bar.getAttributeValue("state").compareTo("current") == 0) {
+					scale = bar.getChildText("scale");
+					echlon = bar.getChildText("echlon");
+					break;
+				}
+			}
+
+			// add rows
+			model.addRow(new String[] {
+							foo.getAttributeValue("reference"),
+							foo.getChild("administrative").getChildText("cin"),
+							foo.getChild("personal").getChildText("name"),
+							foo.getChild("personal").getChildText("familyname"),
+							scale, echlon, String.format(
+								"%d", foo.getChildren("diplomas").size( ))
+			});
+		}
+
+		return model;
+	}
+
 }
