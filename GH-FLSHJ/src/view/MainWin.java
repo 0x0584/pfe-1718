@@ -82,24 +82,39 @@ public class MainWin {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		/* add all the employee to the table */
-		table = new JTable(Employee.getModelFromXml(Employee.Type.All));
+		table = new JTable(Employee.getModelFromXml(type));
 
 		panel.add(table, BorderLayout.CENTER);
 
-		JCheckBox checkBox = new JCheckBox("موظفين");
-		checkBox.setSelected(true);
-		checkBox.addChangeListener(new ChangeListener( ) {
-			public void stateChanged(ChangeEvent e) {
+		JCheckBox profchk = new JCheckBox("أساتذة");
+		profchk.setSelected(true);
+		profchk.setBounds(425, 49, 65, 23);
 
+		JCheckBox emplchk = new JCheckBox("موظفين");
+		emplchk.setSelected(true);
+		emplchk.setBounds(345, 49, 76, 23);
+
+		emplchk.addChangeListener(new ChangeListener( ) {
+			public void stateChanged(ChangeEvent e) {
+				// TODO: change type of filter
+				boolean a = profchk.isSelected( );
+				boolean b = emplchk.isSelected( );
+				type = Type.filter(a, b);
+				table.setModel(Employee.getModelFromXml(type));
 			}
 		});
-		checkBox.setBounds(345, 49, 76, 23);
-		frame.getContentPane( ).add(checkBox);
 
-		JCheckBox checkBox_1 = new JCheckBox("أساتذة");
-		checkBox_1.setSelected(true);
-		checkBox_1.setBounds(425, 49, 65, 23);
-		frame.getContentPane( ).add(checkBox_1);
+		profchk.addChangeListener(new ChangeListener( ) {
+			public void stateChanged(ChangeEvent e) {
+				boolean a = profchk.isSelected( );
+				boolean b = emplchk.isSelected( );
+				type = Type.filter(a, b);
+				table.setModel(Employee.getModelFromXml(type));
+			}
+		});
+
+		frame.getContentPane( ).add(emplchk);
+		frame.getContentPane( ).add(profchk);
 
 		JButton button = new JButton("get info");
 		button.setBounds(12, 48, 89, 25);
