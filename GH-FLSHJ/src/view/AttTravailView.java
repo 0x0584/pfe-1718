@@ -10,11 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import model.Employee;
+import model.Professor;
 import operation.Printer;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.awt.Color;
+import java.awt.FlowLayout;
 
 public class AttTravailView {
 
@@ -34,7 +35,7 @@ public class AttTravailView {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					AttTravailView window = new AttTravailView(new Employee( ),
+					AttTravailView window = new AttTravailView(new Professor( ),
 						true);
 					window.frame.setVisible(true);
 					PrinterJob pjob = PrinterJob.getPrinterJob( );
@@ -70,7 +71,7 @@ public class AttTravailView {
 	 * TODO: add employee and professor
 	 */
 	public AttTravailView(Employee e, boolean isprof) {
-		initialize(e, isprof);
+		initialize(e, isprof = true);
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class AttTravailView {
 	private void initialize(Employee e, boolean isprof) {
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 565, 638);
+		frame.setBounds(100, 100, 741, 748);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 		try {
@@ -93,48 +94,59 @@ public class AttTravailView {
 			System.err.println(e1.getMessage( ));
 		}
 		JLabel lblRoyaumeDuMaroc = new JLabel("Royaume du Maroc");
-		lblRoyaumeDuMaroc.setBounds(22, 70, 154, 15);
+		lblRoyaumeDuMaroc.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblRoyaumeDuMaroc.setBounds(20, 12, 154, 15);
 		frame.getContentPane( ).add(lblRoyaumeDuMaroc);
 
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(22, 39, 70, 15);
+		JLabel lblNewLabel = new JLabel("Faculté des Lettres et des Sciences");
+		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel.setBounds(20, 66, 263, 15);
 		frame.getContentPane( ).add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(22, 12, 70, 15);
+		JLabel lblNewLabel_1 = new JLabel("Université Chouaib Doukkali");
+		lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(20, 39, 202, 15);
 		frame.getContentPane( ).add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(22, 97, 70, 15);
+		JLabel lblNewLabel_2 = new JLabel("Humaines - El Jadida");
+		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(20, 97, 152, 15);
 		frame.getContentPane( ).add(lblNewLabel_2);
 
-		JLabel label = new JLabel("Royaume du Maroc");
-		label.setBounds(409, 12, 134, 15);
+		JLabel label = new JLabel("المملكة المغربية");
+		label.setFont(new Font("Dialog", Font.PLAIN, 14));
+		label.setBounds(606, 12, 100, 15);
 		frame.getContentPane( ).add(label);
 
-		JLabel label_1 = new JLabel("New label");
-		label_1.setBounds(473, 39, 70, 15);
+		JLabel label_1 = new JLabel("جامعة شعيب دكالي");
+		label_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+		label_1.setBounds(592, 39, 114, 15);
 		frame.getContentPane( ).add(label_1);
 
-		JLabel label_2 = new JLabel("New label");
-		label_2.setBounds(473, 70, 70, 15);
+		JLabel label_2 = new JLabel("كلية الآداب والعلوم الإنسانية");
+		label_2.setFont(new Font("Dialog", Font.PLAIN, 14));
+		label_2.setBounds(544, 70, 162, 15);
 		frame.getContentPane( ).add(label_2);
 
-		JLabel label_3 = new JLabel("New label");
-		label_3.setBounds(473, 97, 70, 15);
+		JLabel label_3 = new JLabel("الجديدة");
+		label_3.setFont(new Font("Dialog", Font.PLAIN, 14));
+		label_3.setBounds(657, 97, 49, 15);
 		frame.getContentPane( ).add(label_3);
 
 		JPanel panel = new JPanel( );
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(235, 12, 95, 95);
+		panel.setBounds(320, 12, 100, 100);
 		frame.getContentPane( ).add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
 
 		try {
-			BufferedImage myPicture = null;
-			myPicture = ImageIO.read(new File("data/imgs/logo.png"));
-			JLabel label_11 = new JLabel(new ImageIcon(myPicture));
-			panel.add(label_11, BorderLayout.CENTER);
+			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			JLabel label_11 = new JLabel(new ImageIcon(
+				ImageIO.read(new File("data/imgs/logo.png")).getScaledInstance(
+					(panel.getWidth( ) - 5), (panel.getHeight( ) - 5),
+					Image.SCALE_SMOOTH)));
+			label_11.setBounds(0, 0, 95, 95);
+			label_11.setVisible(true);
+			panel.add(label_11);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace( );
@@ -143,62 +155,86 @@ public class AttTravailView {
 		JLabel label_4 = new JLabel(
 			"______________________________________________________");
 		label_4.setFont(new Font("Dialog", Font.BOLD, 17));
-		label_4.setBounds(32, 97, 500, 33);
+		label_4.setBounds(120, 97, 500, 33);
 		frame.getContentPane( ).add(label_4);
 
 		JLabel lblLeDoyenDe = new JLabel(
 			"Le Doyen de la faculte des Lettres et des Sciences Humaines");
-		lblLeDoyenDe.setBounds(56, 184, 442, 15);
+		lblLeDoyenDe.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblLeDoyenDe.setBounds(110, 220, 485, 15);
 		frame.getContentPane( ).add(lblLeDoyenDe);
 
 		JLabel lblAttesteQueMr = new JLabel("atteste que Mr:");
-		lblAttesteQueMr.setBounds(42, 204, 134, 15);
+		lblAttesteQueMr.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblAttesteQueMr.setBounds(65, 239, 134, 15);
 		frame.getContentPane( ).add(lblAttesteQueMr);
 
 		JLabel lblNomCompletes = new JLabel(String.format(
 			"Nom complete: %s %s", e.getFamilyname( ), e.getName( )));
-		lblNomCompletes.setBounds(67, 251, 431, 15);
+		lblNomCompletes.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNomCompletes.setBounds(120, 287, 431, 15);
 		frame.getContentPane( ).add(lblNomCompletes);
 
 		JLabel label_5 = new JLabel(String.format(
 			"Nationalite: %s", e.isMoroccan( ) ? "Maroccaine" : "Etrange"));
-		label_5.setBounds(67, 278, 431, 15);
+		label_5.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_5.setBounds(120, 314, 431, 15);
 		frame.getContentPane( ).add(label_5);
 
 		JLabel label_6 = new JLabel(String.format(
 			"Grade: %s",
 			e.getUplifts( ).get(e.getUplifts( ).size( ) - 1).getGrade( )));
-		label_6.setBounds(67, 305, 159, 15);
+		label_6.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_6.setBounds(120, 341, 159, 15);
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
 			String.format("S.O.M.: %s", e.getReference( )));
-		label_7.setBounds(67, 332, 431, 15);
+		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_7.setBounds(120, 368, 431, 15);
 		frame.getContentPane( ).add(label_7);
-
+		Professor p = (Professor) e;
 		JLabel lblExerceSeFonctions = new JLabel(
-			"Exerce   se   fonctions  dans   cet  etablissement   depuis");
-		lblExerceSeFonctions.setBounds(56, 383, 432, 15);
+			"Exerce    ses     fonctions       dans      cet    etablissement ");
+		lblExerceSeFonctions.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblExerceSeFonctions.setBounds(110, 419, 542, 15);
 		frame.getContentPane( ).add(lblExerceSeFonctions);
 
 		JLabel lblElJadidaLe = new JLabel(
 			String.format("El Jadida le: %s", new Date( )));
-		lblElJadidaLe.setBounds(137, 567, 291, 15);
+		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblElJadidaLe.setBounds(193, 662, 354, 15);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		// TODO: verify whether it's hiring date or joining date
 		JLabel label_10 = new JLabel(
-			String.format(" le %s", e.getHiringdate( ).toString( )));
-		label_10.setBounds(42, 403, 354, 15);
+			String.format("depuis le %s", e.getHiringdate( ).toString( )));
+		label_10.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_10.setBounds(isprof ? 300 : 66, isprof ? 450 : 440, 354, 15);
 		frame.getContentPane( ).add(label_10);
 
 		JLabel label_8 = new JLabel(
 			"La presente attestation est delivree a l'interesse(e) pour servir ");
-		label_8.setBounds(56, 438, 499, 15);
+		label_8.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_8.setBounds(114, 523, 566, 15);
 		frame.getContentPane( ).add(label_8);
 
 		JLabel label_9 = new JLabel("et valoir ce que de droit");
-		label_9.setBounds(42, 457, 184, 15);
+		label_9.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_9.setBounds(69, 542, 243, 15);
 		frame.getContentPane( ).add(label_9);
+
+		JLabel lblAttestationDeTravail = new JLabel("Attestation De Travail");
+		lblAttestationDeTravail.setFont(
+			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+		lblAttestationDeTravail.setBounds(249, 145, 243, 15);
+		frame.getContentPane( ).add(lblAttestationDeTravail);
+
+		JLabel lblAuDepartements = new JLabel(
+			isprof ? String.format("au departement %s ", p.getDepartment( ))
+							: " ");
+		lblAuDepartements.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblAuDepartements.setBounds(65, 446, 486, 23);
+		frame.getContentPane( ).add(lblAuDepartements);
 	}
 }
