@@ -80,55 +80,55 @@
 
 <Employee>
 
-  <employee department="Informatique">
-    <name> Anas </name>
-    <familyname> Rchid </familyname> <!-- last name -->
-    <birth> 19940915 </birth>	     <!-- yyyymmdd -->
-    <nationality ma="t"/>
-    <brithplace> Rass El Ain </brithplace>
-    <address> 99 Ibn Sina, OD Frej El Jadida </address>
-    <phone> 0642857134 </phone>
-    <state married="t"/>
-    <partner name="nil" job="nil"/>
-    <children number="0"/>
+	<employee department="Informatique">
+		<name> Anas </name>
+		<familyname> Rchid </familyname> <!-- last name -->
+		<birth> 19940915 </birth>	     <!-- yyyymmdd -->
+		<nationality ma="t" />
+		<brithplace> Rass El Ain </brithplace>
+		<address> 99 Ibn Sina, OD Frej El Jadida </address>
+		<phone> 0642857134 </phone>
+		<state married="t" />
+		<partner name="Fatima" job="nil" />
+		<children number="0" />
 
-    <diplomas>
-      <diploma mention="Passable"> Science Math A </diploma>
-      <institute city="ODFrej"> 6 Novembre </institute>
-      <session> 20102012 </session> <!-- yyyyYYYY -->
-    </diplomas>
-    <diplomas>
-      <diploma mention="Bien"> TSDI </diploma>
-      <institute city="ElJadida"> ISTA </institute>
-      <session> 20152017 </session>
-    </diplomas>
-    <diplomas>
-      <diploma mention="Bien"> Licence </diploma>
-      <institute city="ElJadida"> UCD FS </institute>
-      <session> 20172018 </session> <!-- yyyyYYYY -->
-    </diplomas>
-  </employee>
+		<diplomas>
+			<diploma mention="Passable"> Science Math A </diploma>
+			<institute city="ODFrej"> 6 Novembre </institute>
+			<session> 20102012 </session> <!-- yyyyYYYY -->
+		</diplomas>
+		<diplomas>
+			<diploma mention="Bien"> TSDI </diploma>
+			<institute city="ElJadida"> ISTA </institute>
+			<session> 20152017 </session>
+		</diplomas>
+		<diplomas>
+			<diploma mention="Bien"> Licence </diploma>
+			<institute city="ElJadida"> UCD FS </institute>
+			<session> 20172018 </session> <!-- yyyyYYYY -->
+		</diplomas>
+	</employee>
 
-  <employee department="nil">
-    <name> Anas </name>
-    <familyname> Rchid </familyname>
-    <birth> 19940915 </birth>
-    <nationality ma="nil"> French </nationality>
-    <brithplace> Rass El Ain </brithplace>
-    <phone> 0642857134 </phone>
-    <state married="nil"/>
-    <diplomas>
-      <diploma mention="Bien"> TSDI </diploma>
-      <institute city="ElJadida"> ISTA </institute>
-      <session> 20162018 </session> <!-- yyyyYYYY -->
-    </diplomas>
-    <diplomas>
-      <diploma mention="Bien"> TSDI </diploma>
-      <institute city="ElJadida"> ISTA </institute>
-      <session> 20162018 </session> <!-- yyyyYYYY -->
-    </diplomas>
-  </employee>
+	<employee department="nil">
+		<name> Anas </name>
+		<familyname> Rchid </familyname>
+		<birth> 19940915 </birth>
+		<nationality ma="nil"> French </nationality>
+		<brithplace> Rass El Ain </brithplace>
+		<phone> 0642857134 </phone>
+		<state married="nil" />
+		<diplomas>
+			<diploma mention="Bien"> TSDI </diploma>
+			<institute city="ElJadida"> ISTA </institute>
+			<session> 20162018 </session> <!-- yyyyYYYY -->
+		</diplomas>
+		<diplomas>
+			<diploma mention="Bien"> TSDI </diploma>
+			<institute city="ElJadida"> ISTA </institute>
+			<session> 20162018 </session> <!-- yyyyYYYY -->
+		</diplomas>
+	</employee>
 
 </Employee>
 
-<!-- AUTHOR:	Anas Rchid <rchid.anas@gmail.com> -->
+<!-- AUTHOR: Anas Rchid <rchid.anas@gmail.com> -->
