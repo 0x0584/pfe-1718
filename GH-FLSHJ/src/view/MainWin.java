@@ -1,11 +1,13 @@
 package view;
 
+/**
+ * TODO: clean this code; use meaningful variable names. */
+
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,12 +18,18 @@ import model.Employee;
 import model.Employee.Type;
 
 import javax.swing.event.ChangeListener;
+
+import com.alee.laf.WebLookAndFeel;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.awt.SystemColor;
 import java.awt.Color;
 import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainWin {
 
@@ -61,18 +69,14 @@ public class MainWin {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize( ) {
+		WebLookAndFeel.install( );
 		type = Type.All;
+
 		frame = new JFrame( );
 		frame.setBounds(100, 100, 632, 569);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
-		try {
-			UIManager.setLookAndFeel(
-				UIManager.getInstalledLookAndFeels( )[1].getClassName( ));
-		} catch (Exception e) {
-			// e.printStackTrace( );
-			System.err.println(e.getMessage( ));
-		}
+
 
 		JComboBox<String> comboBox = new JComboBox<String>( );
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {
@@ -91,12 +95,9 @@ public class MainWin {
 		frame.getContentPane( ).add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		/* add all the employee to the table */
-		// table = new JTable(Employee.getModelFromXml(type));
-		/*
-		 * panel.add(table, BorderLayout.CENTER);
-		 */
+		// add all the employee to the table
 		table = new JTable(Employee.getModelFromXml(type));
+		setupJTable(table);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		panel.add(scrollPane, BorderLayout.CENTER);
@@ -115,6 +116,7 @@ public class MainWin {
 				boolean b = emplchk.isSelected( );
 				type = Type.filter(a, b);
 				table.setModel(Employee.getModelFromXml(type));
+				setupJTable(table);
 			}
 		});
 
@@ -124,6 +126,7 @@ public class MainWin {
 				boolean b = emplchk.isSelected( );
 				type = Type.filter(a, b);
 				table.setModel(Employee.getModelFromXml(type));
+				setupJTable(table);
 			}
 		});
 
@@ -131,49 +134,69 @@ public class MainWin {
 		frame.getContentPane( ).add(profchk);
 
 		JButton button = new JButton("السجل الكامل");
+		button.addActionListener(new ActionListener( ) {
+			// this would create a new `Employee` based on the selected row and
+			// create a new `InfoWin` to show all of it's info
+			public void actionPerformed(ActionEvent e) {
+				new InfoWin(new Employee(
+					table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
+									.toString( ))).getFrame( ).setVisible(true);
+			}
+		});
 		button.setBounds(16, 502, 129, 25);
 		frame.getContentPane( ).add(button);
-		
-		JPanel panel_1 = new JPanel();
+
+		JPanel panel_1 = new JPanel( );
 		panel_1.setLayout(null);
 		panel_1.setBounds(16, 46, 604, 127);
-		frame.getContentPane().add(panel_1);
-		
+		frame.getContentPane( ).add(panel_1);
+
 		JLabel lblsss = new JLabel("السيد%s %s، %s سنة");
 		lblsss.setBounds(439, 12, 139, 15);
 		panel_1.add(lblsss);
-		
+
 		JLabel lblss = new JLabel("السلم %s/الرتبة %s");
 		lblss.setBounds(449, 25, 117, 15);
 		panel_1.add(lblss);
-		
+
 		JLabel label_2 = new JLabel("الملاحظات:");
 		label_2.setBounds(312, 39, 76, 15);
 		panel_1.add(label_2);
-		
-		JPanel panel_2 = new JPanel();
+
+		JPanel panel_2 = new JPanel( );
 		panel_2.setLayout(null);
 		panel_2.setBackground(SystemColor.activeCaption);
 		panel_2.setBounds(12, 12, 104, 103);
 		panel_1.add(panel_2);
-		
+
 		JLabel label_3 = new JLabel("(Image)");
 		label_3.setForeground(Color.WHITE);
 		label_3.setBackground(Color.WHITE);
 		label_3.setBounds(17, 12, 70, 15);
 		panel_2.add(label_3);
-		
-		JTextPane textPane = new JTextPane();
+
+		JTextPane textPane = new JTextPane( );
 		textPane.setEditable(false);
 		textPane.setBounds(153, 66, 425, 49);
 		panel_1.add(textPane);
-		
+
 		JLabel lbls = new JLabel("ب.ت.و.: %s");
 		lbls.setBounds(153, 12, 123, 15);
 		panel_1.add(lbls);
-		
+
 		JLabel lbls_1 = new JLabel("ر.ت: %s");
 		lbls_1.setBounds(153, 25, 100, 15);
 		panel_1.add(lbls_1);
+	}
+
+	private void setupJTable(JTable table) {
+		if (table.getRowCount( ) != 0) {
+			// select one line at the time
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			// just in case
+			table.clearSelection( );
+			// select first line
+			table.addRowSelectionInterval(0, 0);
+		}
 	}
 }

@@ -24,6 +24,7 @@ import java.awt.FlowLayout;
 public class AttTravailView {
 
 	private JFrame frame;
+	private boolean isprof;
 
 	public JFrame getFrame( ) {
 		return frame;
@@ -31,13 +32,15 @@ public class AttTravailView {
 
 	/**
 	 * Launch the application.
+	 * 
+	 * TODO: find how to call both the view and the printing menu
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					AttTravailView window = new AttTravailView(new Professor( ),
-						true);
+					AttTravailView window = new AttTravailView(
+						new Professor( ));
 					window.frame.setVisible(true);
 					Printer.doPrint(window.frame);
 				} catch (Exception e) {
@@ -50,8 +53,9 @@ public class AttTravailView {
 	/**
 	 * Create the application.
 	 */
-	public AttTravailView(Employee e, boolean isprof) {
-		initialize(e, isprof = true);
+	public AttTravailView(Employee e) {
+		isprof = (e instanceof Professor);
+		initialize(e, isprof);
 	}
 
 	/**
@@ -174,7 +178,10 @@ public class AttTravailView {
 		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_7.setBounds(120, 368, 431, 15);
 		frame.getContentPane( ).add(label_7);
-		Professor p = (Professor) e;
+		Professor p = null;
+		if (isprof) {
+			p = (Professor) e;
+		}
 		JLabel lblExerceSeFonctions = new JLabel(
 			"Exerce    ses     fonctions       dans      cet    etablissement ");
 		lblExerceSeFonctions.setFont(new Font("Dialog", Font.PLAIN, 16));

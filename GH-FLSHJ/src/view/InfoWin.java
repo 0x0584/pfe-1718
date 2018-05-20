@@ -25,9 +25,14 @@ import javax.swing.JTextPane;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 
+import model.Employee;
 import model.Employee.Cadre;
+import model.Professor;
+
 import javax.swing.JScrollPane;
-import javax.swing.table.TableModel;
+
+import com.alee.laf.WebLookAndFeel;
+
 import javax.swing.ListSelectionModel;
 
 public class InfoWin {
@@ -38,31 +43,34 @@ public class InfoWin {
 		return frame;
 	}
 
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_14;
-	private JTextField textField_15;
+	private JTextField tf_name;
 	private JTable table_1;
-	private JTextField textField_5;
 	private JTable table;
+	private JTextField tf_fname;
+	private JTextField bplace;
+	private JTextField tf_add;
+	private JTextField tf_phone;
+	private JTextField tf_partner_name;
+	private JTextField tf_partner_job;
+	private JTextField tf_ref;
+	private JTextField tf_date_hiring;
+	private JTextField tf_finance;
+	private JTextField tf_job_prev;
+	private JTextField tf_job_current;
+	private JTextField tf_date_join;
+	private JTextField tf_mission;
 
 	/**
 	 * Launch the application.
+	 * 
+	 * TODO: get info
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					InfoWin window = new InfoWin( );
+
+					InfoWin window = new InfoWin(new Professor( ));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -73,27 +81,26 @@ public class InfoWin {
 
 	/**
 	 * Create the application.
+	 * 
+	 * @param employee
 	 */
-	public InfoWin() {
-		initialize( );
+	public InfoWin(Employee e) {
+		initialize(e);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
+	 * @param empl
 	 */
-	private void initialize( ) {
-		frame = new JFrame( );
+	private void initialize(Employee empl) {
+		WebLookAndFeel.install( );
+
+		frame = new JFrame("البطاقة الشخصية و الوضعية الإدارية");
 		frame.setBounds(100, 100, 597, 692);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
-		try {
-			UIManager.setLookAndFeel(
-				UIManager.getInstalledLookAndFeels( )[1].getClassName( ));
-		} catch (Exception e) {
-			// e.printStackTrace( );
-			System.err.println(e.getMessage( ));
-		}
 		JPanel panel = new JPanel( );
 		panel.setBounds(12, 151, 571, 197);
 		frame.getContentPane( ).add(panel);
@@ -108,181 +115,181 @@ public class InfoWin {
 		panel_1.setLayout(null);
 
 		JLabel label = new JLabel("الإسم الشخصي");
-		label.setBounds(25, 15, 98, 15);
+		label.setBounds(25, 11, 98, 15);
 		panel_1.add(label);
 
 		JLabel label_1 = new JLabel("الإسم العائلي");
-		label_1.setBounds(32, 45, 84, 15);
+		label_1.setBounds(32, 44, 84, 15);
 		panel_1.add(label_1);
 
 		JLabel label_2 = new JLabel("تاريخ وَ مكان الإزدياد");
-		label_2.setBounds(12, 75, 124, 15);
+		label_2.setBounds(12, 77, 124, 15);
 		panel_1.add(label_2);
 
 		JLabel label_3 = new JLabel("متزوج؟");
-		label_3.setBounds(334, 22, 61, 15);
+		label_3.setBounds(334, 20, 61, 15);
 		panel_1.add(label_3);
 
 		JLabel label_4 = new JLabel("إسم الزوج");
-		label_4.setBounds(327, 59, 75, 15);
+		label_4.setBounds(327, 54, 75, 15);
 		panel_1.add(label_4);
 
 		JLabel label_5 = new JLabel("مهنة الزوج");
-		label_5.setBounds(327, 96, 75, 15);
+		label_5.setBounds(327, 91, 75, 15);
 		panel_1.add(label_5);
 
 		JLabel lblChildren = new JLabel("عدد الأطفال");
-		lblChildren.setBounds(327, 133, 75, 15);
+		lblChildren.setBounds(327, 126, 75, 15);
 		panel_1.add(lblChildren);
 
-		textField = new JTextField( );
-		textField.setColumns(10);
-		textField.setBounds(154, 12, 114, 19);
-		panel_1.add(textField);
-
-		textField_1 = new JTextField( );
-		textField_1.setColumns(10);
-		textField_1.setBounds(154, 43, 114, 19);
-		panel_1.add(textField_1);
-
-		textField_2 = new JTextField( );
-		textField_2.setColumns(10);
-		textField_2.setBounds(154, 74, 114, 19);
-		panel_1.add(textField_2);
-
-		textField_3 = new JTextField( );
-		textField_3.setColumns(10);
-		textField_3.setBounds(424, 55, 114, 19);
-		panel_1.add(textField_3);
-
-		textField_4 = new JTextField( );
-		textField_4.setColumns(10);
-		textField_4.setBounds(424, 92, 114, 19);
-		panel_1.add(textField_4);
-
-		textField_6 = new JTextField( );
-		textField_6.setColumns(10);
-		textField_6.setBounds(154, 105, 114, 19);
-		panel_1.add(textField_6);
+		tf_name = new JTextField(empl.getName( ));
+		tf_name.setColumns(10);
+		tf_name.setBounds(135, 4, 148, 29);
+		panel_1.add(tf_name);
 
 		JLabel label_7 = new JLabel("العنوان الشخصي");
-		label_7.setBounds(19, 105, 111, 15);
+		label_7.setBounds(19, 110, 111, 15);
 		panel_1.add(label_7);
 
-		textField_7 = new JTextField( );
-		textField_7.setColumns(10);
-		textField_7.setBounds(154, 136, 114, 19);
-		panel_1.add(textField_7);
-
 		JLabel label_8 = new JLabel("الهاتف");
-		label_8.setBounds(47, 135, 54, 15);
+		label_8.setBounds(47, 143, 54, 15);
 		panel_1.add(label_8);
 
-		JRadioButton radioButton = new JRadioButton("نعم");
-		radioButton.setBounds(424, 18, 61, 19);
-		panel_1.add(radioButton);
+		JRadioButton rd_ismarried_yes = new JRadioButton("نعم");
+		rd_ismarried_yes.setBounds(424, 18, 61, 19);
+		panel_1.add(rd_ismarried_yes);
 
-		JRadioButton radioButton_1 = new JRadioButton("لا");
-		radioButton_1.setSelected(true);
-		radioButton_1.setBounds(490, 18, 61, 19);
-		panel_1.add(radioButton_1);
+		JRadioButton rd_ismarried_no = new JRadioButton("لا");
+		rd_ismarried_no.setSelected(true);
+		rd_ismarried_no.setBounds(490, 18, 61, 19);
+		panel_1.add(rd_ismarried_no);
 
 		ButtonGroup bg = new ButtonGroup( );
-		bg.add(radioButton);
-		bg.add(radioButton_1);
-		JSpinner spinner = new JSpinner( );
-		spinner.setModel(
+		bg.add(rd_ismarried_yes);
+		bg.add(rd_ismarried_no);
+		JSpinner spin_nchildren = new JSpinner( );
+		spin_nchildren.setModel(
 			new SpinnerNumberModel(new Short((short) 0), new Short((short) 0),
 				new Short((short) 10), new Short((short) 1)));
-		spinner.setBounds(424, 129, 114, 20);
-		panel_1.add(spinner);
+		spin_nchildren.setBounds(403, 119, 148, 29);
+		panel_1.add(spin_nchildren);
+
+		tf_fname = new JTextField(empl.getFamilyname( ));
+		tf_fname.setColumns(10);
+		tf_fname.setBounds(135, 37, 148, 29);
+		panel_1.add(tf_fname);
+
+		bplace = new JTextField( );
+		bplace.setColumns(10);
+		bplace.setBounds(135, 70, 148, 29);
+		panel_1.add(bplace);
+
+		tf_add = new JTextField( );
+		tf_add.setColumns(10);
+		tf_add.setBounds(135, 103, 148, 29);
+		panel_1.add(tf_add);
+
+		tf_phone = new JTextField( );
+		tf_phone.setColumns(10);
+		tf_phone.setBounds(135, 136, 148, 29);
+		panel_1.add(tf_phone);
+
+		tf_partner_name = new JTextField( );
+		tf_partner_name.setColumns(10);
+		tf_partner_name.setBounds(403, 47, 148, 29);
+		panel_1.add(tf_partner_name);
+
+		tf_partner_job = new JTextField( );
+		tf_partner_job.setColumns(10);
+		tf_partner_job.setBounds(403, 84, 148, 29);
+		panel_1.add(tf_partner_job);
 
 		JPanel panel_2 = new JPanel( );
 		tabbedPane.addTab("الوضعية الإدارية", null, panel_2, null);
 		panel_2.setLayout(null);
 
 		JLabel lblCadre = new JLabel("الإطار");
-		lblCadre.setBounds(46, 15, 53, 15);
+		lblCadre.setBounds(46, 11, 53, 15);
 		panel_2.add(lblCadre);
 
 		JLabel lblReference_1 = new JLabel("ر. المنصب المالي");
-		lblReference_1.setBounds(15, 45, 114, 15);
+		lblReference_1.setBounds(15, 44, 114, 15);
 		panel_2.add(lblReference_1);
 
 		JLabel lblRentReference = new JLabel("ر. التأجير");
-		lblRentReference.setBounds(36, 75, 72, 15);
+		lblRentReference.setBounds(36, 77, 72, 15);
 		panel_2.add(lblRentReference);
 
 		JLabel lblEmployment = new JLabel("تاريخ التوظيف");
-		lblEmployment.setBounds(303, 22, 92, 15);
+		lblEmployment.setBounds(303, 17, 92, 15);
 		panel_2.add(lblEmployment);
 
 		JLabel lblJoined = new JLabel("تاريخ الإلتحاق بالكلية");
-		lblJoined.setBounds(283, 59, 132, 15);
+		lblJoined.setBounds(283, 56, 132, 15);
 		panel_2.add(lblJoined);
 
 		JLabel lblReason = new JLabel("سبب الإنتقال");
-		lblReason.setBounds(310, 96, 81, 15);
+		lblReason.setBounds(310, 95, 81, 15);
 		panel_2.add(lblReason);
 
-		textField_9 = new JTextField( );
-		textField_9.setColumns(10);
-		textField_9.setBounds(151, 46, 114, 19);
-		panel_2.add(textField_9);
-
-		textField_10 = new JTextField( );
-		textField_10.setColumns(10);
-		textField_10.setBounds(151, 76, 114, 19);
-		panel_2.add(textField_10);
-
-		textField_11 = new JTextField( );
-		textField_11.setColumns(10);
-		textField_11.setBounds(422, 17, 114, 19);
-		panel_2.add(textField_11);
-
-		textField_12 = new JTextField( );
-		textField_12.setColumns(10);
-		textField_12.setBounds(422, 53, 114, 19);
-		panel_2.add(textField_12);
-
-		textField_14 = new JTextField( );
-		textField_14.setColumns(10);
-		textField_14.setBounds(422, 130, 114, 19);
-		panel_2.add(textField_14);
-
 		JLabel lblMission = new JLabel("المهمة");
-		lblMission.setBounds(323, 133, 53, 15);
+		lblMission.setBounds(323, 134, 53, 15);
 		panel_2.add(lblMission);
 
-		textField_15 = new JTextField( );
-		textField_15.setColumns(10);
-		textField_15.setBounds(151, 106, 114, 19);
-		panel_2.add(textField_15);
-
 		JLabel lblPreviousJob = new JLabel("مقر العمل السابق ");
-		lblPreviousJob.setBounds(12, 105, 121, 15);
+		lblPreviousJob.setBounds(12, 110, 121, 15);
 		panel_2.add(lblPreviousJob);
 
-		JComboBox<Cadre> comboBox = new JComboBox<Cadre>( );
-		comboBox.setModel(new DefaultComboBoxModel<Cadre>(Cadre.values( )));
-		comboBox.setBounds(151, 11, 114, 24);
-		panel_2.add(comboBox);
+		JComboBox<Cadre> comb_cadre = new JComboBox<Cadre>( );
+		comb_cadre.setModel(new DefaultComboBoxModel<Cadre>(Cadre.values( )));
+		comb_cadre.setBounds(128, 4, 148, 29);
+		panel_2.add(comb_cadre);
 
-		JComboBox<String> comboBox_1 = new JComboBox<String>( );
-		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {
+		JComboBox<String> comb_reason = new JComboBox<String>( );
+		comb_reason.setModel(new DefaultComboBoxModel<String>(new String[] {
 						"إنتقال", "مبارة"
 		}));
-		comboBox_1.setBounds(422, 89, 114, 24);
-		panel_2.add(comboBox_1);
+		comb_reason.setBounds(405, 88, 148, 29);
+		panel_2.add(comb_reason);
 
 		JLabel lblCurrentJob = new JLabel("مقر العمل الحالي");
-		lblCurrentJob.setBounds(17, 135, 111, 15);
+		lblCurrentJob.setBounds(17, 143, 111, 15);
 		panel_2.add(lblCurrentJob);
 
-		textField_5 = new JTextField( );
-		textField_5.setColumns(10);
-		textField_5.setBounds(151, 136, 114, 19);
-		panel_2.add(textField_5);
+		tf_ref = new JTextField(empl.getReference( ));
+		tf_ref.setColumns(10);
+		tf_ref.setBounds(128, 70, 148, 29);
+		panel_2.add(tf_ref);
+
+		tf_date_hiring = new JTextField(empl.getHiringdate( ).toString( ));
+		tf_date_hiring.setColumns(10);
+		tf_date_hiring.setBounds(405, 10, 148, 29);
+		panel_2.add(tf_date_hiring);
+
+		tf_finance = new JTextField( );
+		tf_finance.setColumns(10);
+		tf_finance.setBounds(128, 37, 148, 29);
+		panel_2.add(tf_finance);
+
+		tf_job_prev = new JTextField( );
+		tf_job_prev.setColumns(10);
+		tf_job_prev.setBounds(128, 103, 148, 29);
+		panel_2.add(tf_job_prev);
+
+		tf_job_current = new JTextField( );
+		tf_job_current.setColumns(10);
+		tf_job_current.setBounds(128, 136, 148, 29);
+		panel_2.add(tf_job_current);
+
+		tf_date_join = new JTextField( );
+		tf_date_join.setColumns(10);
+		tf_date_join.setBounds(405, 49, 148, 29);
+		panel_2.add(tf_date_join);
+
+		tf_mission = new JTextField( );
+		tf_mission.setColumns(10);
+		tf_mission.setBounds(405, 127, 148, 29);
+		panel_2.add(tf_mission);
 
 		JPanel panel_3 = new JPanel( );
 		panel_3.setBounds(12, 12, 571, 127);
@@ -290,15 +297,15 @@ public class InfoWin {
 		panel_3.setLayout(null);
 
 		JLabel lblMrRchidAnas = new JLabel("السيد أنس ارشيد، 23 سنة");
-		lblMrRchidAnas.setBounds(397, 12, 162, 15);
+		lblMrRchidAnas.setBounds(397, 0, 162, 15);
 		panel_3.add(lblMrRchidAnas);
 
 		JLabel lblSingle = new JLabel("السلم 9/الرتبة 4");
-		lblSingle.setBounds(455, 25, 104, 15);
+		lblSingle.setBounds(426, 13, 104, 15);
 		panel_3.add(lblSingle);
 
 		JLabel lblDiplomas = new JLabel("الملاحظات:");
-		lblDiplomas.setBounds(293, 39, 76, 15);
+		lblDiplomas.setBounds(308, 39, 76, 15);
 		panel_3.add(lblDiplomas);
 
 		JPanel panel_4 = new JPanel( );
@@ -318,11 +325,11 @@ public class InfoWin {
 		panel_3.add(textPane);
 
 		JLabel lblM = new JLabel("ب.ت.و.: M550630");
-		lblM.setBounds(134, 12, 123, 15);
+		lblM.setBounds(134, 0, 123, 15);
 		panel_3.add(lblM);
 
 		JLabel lblRef = new JLabel("ر.ت: 15462021");
-		lblRef.setBounds(134, 25, 100, 15);
+		lblRef.setBounds(134, 13, 100, 15);
 		panel_3.add(lblRef);
 
 		JPanel panel_5 = new JPanel( );
@@ -334,7 +341,7 @@ public class InfoWin {
 
 		DefaultTableModel dmodel_0 = new DefaultTableModel( );
 		DefaultTableModel dmodel_1 = new DefaultTableModel( );
-		
+
 		for (String str : new String[] {
 						"تاريخ الحصول عليها", "المؤسسة",
 
@@ -342,14 +349,6 @@ public class InfoWin {
 		}) {
 			dmodel_0.addColumn(str);
 		}
-
-		// dmodel_0.addRow(new String[] {
-		// "تاريخ الحصول عليها", "المؤسسة", "الميزة", "الشهادات",
-		// });
-
-		// dmodel_1.addRow(new String[] {
-		// "التاريخ", "الرقم الإستدلالي", "الرتبة", "السلم",
-		// });
 
 		for (String str : new String[] {
 						"التاريخ", "الرقم الإستدلالي",
@@ -366,27 +365,8 @@ public class InfoWin {
 		JButton button_3 = new JButton("mod");
 		button_3.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: this is the printing protocol
-				//
-				// PrinterJob pjob = PrinterJob.getPrinterJob( );
-				// PageFormat preformat = pjob.defaultPage( );
-				// preformat.setOrientation(PageFormat.LANDSCAPE);
-				// PageFormat postformat = pjob.pageDialog(preformat);
-				// // If user does not hit cancel then print.
-				//
-				// if (preformat != postformat) {
-				// // Set print component
-				// pjob.setPrintable(new Printer(frame), postformat);
-				// // have to find
-				// if (pjob.printDialog( )) {
-				// try {
-				// pjob.print( );
-				// } catch (PrinterException e1) {
-				// e1.printStackTrace( );
-				// System.err.println(e1.getMessage( ));
-				// }
-				// }
-				// }
+				// TODO: this must modify the content that has been edited on
+				// the JTable
 			}
 		});
 		button_3.setBounds(393, 0, 70, 25);
@@ -407,7 +387,7 @@ public class InfoWin {
 		table = new JTable(dmodel_0);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setColumnSelectionAllowed(true);
-		
+
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 24, 571, 112);
 		panel_5.add(scrollPane);
@@ -420,7 +400,7 @@ public class InfoWin {
 		table_1 = new JTable(dmodel_1);
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table_1.setColumnSelectionAllowed(true);
-		
+
 		JLabel lblUplifts = new JLabel("الترقيات");
 		lblUplifts.setBounds(250, 5, 70, 15);
 		panel_6.add(lblUplifts);

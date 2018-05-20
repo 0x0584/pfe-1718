@@ -47,11 +47,14 @@ public class Employee extends Person {
 	}
 
 	protected Cadre cadre;
-	protected String ref, CIN; /* rent number */
-	protected String fstatus; /* financial status */
+	protected String ref, CIN;
+	// financial status
+	protected String fstatus;
 	protected String mission, reason, notes;
-	protected String pjob, cjob; /* previous and current jobs */
-	protected Date hdate, jdate; /* hiring and joining date */
+	// previous and current jobs
+	protected String pjob, cjob;
+	// hiring and joining date
+	protected Date hdate, jdate;
 	protected ArrayList<Uplift> uplifts;
 	protected ArrayList<Diploma> diplomas;
 
@@ -73,8 +76,14 @@ public class Employee extends Person {
 	public Employee(String ref) {
 		super( );
 		this.ref = ref;
-
-		// TODO: fill this employee based on the reference
+		this.name = "Anas";
+		this.fname = "Rchid";
+		this.ismoroccan = true;
+		this.ref = "124511202";
+		this.hdate = new Date( );
+		
+		// TODO: fill employee from xml based on the reference
+		
 		uplifts = Uplift.getUpliftsHistory(jdate);
 	}
 
@@ -158,14 +167,14 @@ public class Employee extends Person {
 		CIN = cIN;
 	}
 
-	/* TODO: fix column names */
+	// TODO: fix column names
 	public static DefaultTableModel getModelFromXml(Type t) {
 		DefaultTableModel model = new DefaultTableModel( );
 		String scale = null, echlon = null;
-		Iterator<Element> ifoo, ibar; /* temporary iterators */
-		Element foo, bar; /* temporary elements */
+		Iterator<Element> ifoo, ibar; // temporary iterators
+		Element foo, bar; // temporary elements
 
-		/* add columns to the model */
+		// add columns to the model
 		model.addColumn("ر.ت.");
 		model.addColumn("ب.ت.و.");
 		model.addColumn("الإسم");
@@ -174,19 +183,19 @@ public class Employee extends Person {
 		model.addColumn("الرتبة");
 		model.addColumn("عدد الشواهد");
 
-		/* loop over the employee */
+		// loop over the employee
 		ifoo = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
 		while (ifoo.hasNext( )) {
 			foo = ifoo.next( );
-			/* skip employee based on filter */
+			// skip employee based on filter
 			if (t == Type.Normal && foo.getAttributeValue("department")
 							.compareTo("nil") != 0) {
-				continue; /* this means that this is a professor */
+				continue; // this means that this is a professor
 			} else if (t == Type.Prof && foo.getAttributeValue("department")
 							.compareTo("nil") == 0) {
-				continue; /* this means that this is a normal one */
+				continue; // this means that this is a normal one
 			}
-			/* get current scale and echlon */
+			// get current scale and echlon
 			ibar = foo.getChild("administrative").getChildren("uplift")
 							.iterator( );
 			while (ibar.hasNext( )) {
@@ -198,7 +207,7 @@ public class Employee extends Person {
 				}
 			}
 
-			/* add rows */
+			// add rows
 			model.addRow(new String[] {
 							foo.getAttributeValue("reference"),
 							foo.getChild("administrative").getChildText("cin"),
