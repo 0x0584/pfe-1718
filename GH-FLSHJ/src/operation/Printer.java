@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 
 public class Printer implements Printable {
 	final Component comp;
@@ -35,5 +37,27 @@ public class Printer implements Printable {
 		comp.paint(g2);
 
 		return Printable.PAGE_EXISTS;
+	}
+
+	public static void doPrint(Component cmp) {
+		PrinterJob pjob = PrinterJob.getPrinterJob( );
+		PageFormat preformat = pjob.defaultPage( );
+		preformat.setOrientation(PageFormat.PORTRAIT);
+		PageFormat postformat = pjob.pageDialog(preformat);
+
+		// if user does not hit cancel then print.
+		if (preformat != postformat) {
+			// Set print component
+			pjob.setPrintable(new Printer(cmp), postformat);
+			// have to find
+			if (pjob.printDialog( )) {
+				try {
+					pjob.print( );
+				} catch (PrinterException e1) {
+					e1.printStackTrace( );
+					System.err.println(e1.getMessage( ));
+				}
+			}
+		}
 	}
 }

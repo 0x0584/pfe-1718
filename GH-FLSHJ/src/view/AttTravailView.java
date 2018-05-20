@@ -15,9 +15,6 @@ import operation.Printer;
 
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -27,6 +24,10 @@ import java.awt.FlowLayout;
 public class AttTravailView {
 
 	private JFrame frame;
+
+	public JFrame getFrame( ) {
+		return frame;
+	}
 
 	/**
 	 * Launch the application.
@@ -38,26 +39,7 @@ public class AttTravailView {
 					AttTravailView window = new AttTravailView(new Professor( ),
 						true);
 					window.frame.setVisible(true);
-					PrinterJob pjob = PrinterJob.getPrinterJob( );
-					PageFormat preformat = pjob.defaultPage( );
-					preformat.setOrientation(PageFormat.LANDSCAPE);
-					PageFormat postformat = pjob.pageDialog(preformat);
-
-					// if user does not hit cancel then print.
-					if (preformat != postformat) {
-						// Set print component
-						pjob.setPrintable(
-							new Printer(window.frame), postformat);
-						// have to find
-						if (pjob.printDialog( )) {
-							try {
-								pjob.print( );
-							} catch (PrinterException e1) {
-								e1.printStackTrace( );
-								System.err.println(e1.getMessage( ));
-							}
-						}
-					}
+					Printer.doPrint(window.frame);
 				} catch (Exception e) {
 					e.printStackTrace( );
 				}
@@ -67,8 +49,6 @@ public class AttTravailView {
 
 	/**
 	 * Create the application.
-	 * 
-	 * TODO: add employee and professor
 	 */
 	public AttTravailView(Employee e, boolean isprof) {
 		initialize(e, isprof = true);
@@ -86,6 +66,7 @@ public class AttTravailView {
 		frame.setBounds(100, 100, 741, 748);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
+
 		try {
 			UIManager.setLookAndFeel(
 				UIManager.getInstalledLookAndFeels( )[1].getClassName( ));
@@ -93,6 +74,7 @@ public class AttTravailView {
 			// e.printStackTrace( );
 			System.err.println(e1.getMessage( ));
 		}
+
 		JLabel lblRoyaumeDuMaroc = new JLabel("Royaume du Maroc");
 		lblRoyaumeDuMaroc.setFont(new Font("Dialog", Font.PLAIN, 14));
 		lblRoyaumeDuMaroc.setBounds(20, 12, 154, 15);
@@ -147,9 +129,8 @@ public class AttTravailView {
 			label_11.setBounds(0, 0, 95, 95);
 			label_11.setVisible(true);
 			panel.add(label_11);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace( );
+		} catch (IOException ex) {
+			ex.printStackTrace( );
 		}
 
 		JLabel label_4 = new JLabel(

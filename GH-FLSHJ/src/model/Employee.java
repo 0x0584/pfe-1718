@@ -3,13 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
-
 import org.jdom2.Element;
 
-import model.Employee.Type;
 import xml.XmlFile;
 
 public class Employee extends Person {
@@ -34,7 +31,7 @@ public class Employee extends Person {
 		Normal, Prof, All;
 		public static Type filter(boolean a, boolean b) {
 			Type type;
-			
+
 			if (a && b) {
 				type = Type.All;
 			} else if (a) {
@@ -161,46 +158,35 @@ public class Employee extends Person {
 		CIN = cIN;
 	}
 
-	// TODO: fix column names
+	/* TODO: fix column names */
 	public static DefaultTableModel getModelFromXml(Type t) {
 		DefaultTableModel model = new DefaultTableModel( );
 		String scale = null, echlon = null;
-		Iterator<Element> ifoo, ibar; // temporary iterators
-		Element foo, bar; // temporary elements
+		Iterator<Element> ifoo, ibar; /* temporary iterators */
+		Element foo, bar; /* temporary elements */
 
-		// add columns to the model
-		model.addColumn("SOM");
-		model.addColumn("CIN");
-		model.addColumn("name");
-		model.addColumn("family_name");
-		model.addColumn("scale");
-		model.addColumn("echlon");
-		model.addColumn("diploma_count");
+		/* add columns to the model */
+		model.addColumn("ر.ت.");
+		model.addColumn("ب.ت.و.");
+		model.addColumn("الإسم");
+		model.addColumn("النسب");
+		model.addColumn("السلم");
+		model.addColumn("الرتبة");
+		model.addColumn("عدد الشواهد");
 
-		// TODO: find how to show column names
-		model.addRow(new String[] {
-						"SOM", "CIN", "Name", "Family Name", "Scale", "Echlon",
-						"Diplomas"
-		});
-		// loop over the employee
+		/* loop over the employee */
 		ifoo = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
 		while (ifoo.hasNext( )) {
 			foo = ifoo.next( );
 			/* skip employee based on filter */
 			if (t == Type.Normal && foo.getAttributeValue("department")
 							.compareTo("nil") != 0) {
-				/*
-				 * this means that this is a professor
-				 */
-				continue;
+				continue; /* this means that this is a professor */
 			} else if (t == Type.Prof && foo.getAttributeValue("department")
 							.compareTo("nil") == 0) {
-				/*
-				 * this means that this is a normal one
-				 */
-				continue;
+				continue; /* this means that this is a normal one */
 			}
-			// get current scale and echlon
+			/* get current scale and echlon */
 			ibar = foo.getChild("administrative").getChildren("uplift")
 							.iterator( );
 			while (ibar.hasNext( )) {
@@ -212,7 +198,7 @@ public class Employee extends Person {
 				}
 			}
 
-			// add rows
+			/* add rows */
 			model.addRow(new String[] {
 							foo.getAttributeValue("reference"),
 							foo.getChild("administrative").getChildText("cin"),
