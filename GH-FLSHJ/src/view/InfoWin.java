@@ -26,6 +26,9 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 
 import model.Employee.Cadre;
+import javax.swing.JScrollPane;
+import javax.swing.table.TableModel;
+import javax.swing.ListSelectionModel;
 
 public class InfoWin {
 
@@ -48,9 +51,9 @@ public class InfoWin {
 	private JTextField textField_12;
 	private JTextField textField_14;
 	private JTextField textField_15;
-	private JTable table;
 	private JTable table_1;
 	private JTextField textField_5;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -328,26 +331,33 @@ public class InfoWin {
 		frame.getContentPane( ).add(panel_5);
 
 		// TODO: fix column names
-		String cols[] = {
-						"c1", "c2", "c3", "c4"
-		};
-		DefaultTableModel dmodel_0 = new DefaultTableModel( ),
-						dmodel_1 = new DefaultTableModel( );
-		for (int col = 0; col < cols.length; col++) {
-			dmodel_0.addColumn(cols[col]);
-			dmodel_1.addColumn(cols[col]);
+
+		DefaultTableModel dmodel_0 = new DefaultTableModel( );
+		DefaultTableModel dmodel_1 = new DefaultTableModel( );
+		
+		for (String str : new String[] {
+						"تاريخ الحصول عليها", "المؤسسة",
+
+						"الميزة", "الشهادات",
+		}) {
+			dmodel_0.addColumn(str);
 		}
-		dmodel_0.addRow(new String[] {
-						"تاريخ الحصول عليها", "المؤسسة", "الميزة", "الشهادات",
-		});
 
-		dmodel_1.addRow(new String[] {
-						"التاريخ", "الرقم الإستدلالي", "الرتبة", "السلم",
-		});
+		// dmodel_0.addRow(new String[] {
+		// "تاريخ الحصول عليها", "المؤسسة", "الميزة", "الشهادات",
+		// });
 
-		table = new JTable(dmodel_0);
-		table.setBounds(0, 24, 571, 112);
-		panel_5.add(table);
+		// dmodel_1.addRow(new String[] {
+		// "التاريخ", "الرقم الإستدلالي", "الرتبة", "السلم",
+		// });
+
+		for (String str : new String[] {
+						"التاريخ", "الرقم الإستدلالي",
+
+						"الرتبة", "السلم",
+		}) {
+			dmodel_1.addColumn(str);
+		}
 
 		JLabel label_18 = new JLabel("الشهادات");
 		label_18.setBounds(250, 5, 70, 15);
@@ -394,17 +404,29 @@ public class InfoWin {
 		button_5.setBounds(527, 0, 44, 25);
 		panel_5.add(button_5);
 
+		table = new JTable(dmodel_0);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setColumnSelectionAllowed(true);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 24, 571, 112);
+		panel_5.add(scrollPane);
+
 		JPanel panel_6 = new JPanel( );
 		panel_6.setLayout(null);
 		panel_6.setBounds(12, 508, 571, 136);
 		frame.getContentPane( ).add(panel_6);
 
 		table_1 = new JTable(dmodel_1);
-		table_1.setBounds(0, 24, 571, 112);
-		panel_6.add(table_1);
-
+		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table_1.setColumnSelectionAllowed(true);
+		
 		JLabel lblUplifts = new JLabel("الترقيات");
 		lblUplifts.setBounds(250, 5, 70, 15);
 		panel_6.add(lblUplifts);
+
+		JScrollPane scrollPane_1 = new JScrollPane(table_1);
+		scrollPane_1.setBounds(0, 27, 571, 109);
+		panel_6.add(scrollPane_1);
 	}
 }
