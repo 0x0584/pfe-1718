@@ -7,7 +7,7 @@ public class Person {
 	protected String bplace;
 	protected Date bday;
 	protected boolean ismoroccan, ismarried;
-	protected Person partner;
+	protected String partnerName, partnerJob;
 	protected short nchildren;
 
 	public Person() {
@@ -23,12 +23,11 @@ public class Person {
 	 * @param bday
 	 * @param ismoroccan
 	 * @param ismarried
-	 * @param partner
 	 * @param nchildren
 	 */
 	public Person(	String name, String fname, String addr, String phone,
 					String bplace, Date bday, boolean ismoroccan,
-					boolean ismarried, Person partner, short nchildren) {
+					boolean ismarried, short nchildren) {
 		super( );
 		this.name = name;
 		this.fname = fname;
@@ -38,8 +37,8 @@ public class Person {
 		this.bday = bday;
 		this.ismoroccan = ismoroccan;
 		this.ismarried = ismarried;
-		this.partner = partner;
 		this.nchildren = nchildren;
+		// TODO: partner setup
 	}
 
 	@Override
@@ -47,8 +46,8 @@ public class Person {
 		return "Person [name=" + name + ", fname=" + fname + ", addr=" + addr
 						+ ", phone=" + phone + ", bplace=" + bplace + ", bday="
 						+ bday + ", ismoroccan=" + ismoroccan + ", ismarried="
-						+ ismarried + ", partner=" + partner + ", nchildren="
-						+ nchildren + ", diplomas=" + "]";
+						+ ismarried + ", nchildren=" + nchildren + ", diplomas="
+						+ "]";
 	}
 
 	public String getName( ) {
@@ -115,12 +114,21 @@ public class Person {
 		this.ismarried = ismarried;
 	}
 
-	public Person getPartner( ) {
-		return partner;
+	public String getPartnerName( ) {
+		return partnerName == null ? "بدون" : partnerName;
 	}
 
-	public void setPartner(Person partner) {
-		this.partner = partner;
+	public void setPartnerName(String name) {
+		this.partnerName = name;
+	}
+
+	public String getPartnerJob( ) {
+		return partnerJob == null || partnerJob.compareTo("nil") == 0 ? "بدون"
+						: partnerJob;
+	}
+
+	public void setPartnerJob(String job) {
+		this.partnerJob = job;
 	}
 
 	public short getNumberOfchildren( ) {
