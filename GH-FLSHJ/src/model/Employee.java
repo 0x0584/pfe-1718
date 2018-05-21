@@ -2,10 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-
-import javax.swing.table.DefaultTableModel;
-import org.jdom2.Element;
 
 import xml.XmlFile;
 
@@ -24,25 +20,6 @@ public class Employee extends Person {
 
 		private void setTitle(String title) {
 			this.title = title;
-		}
-	}
-
-	public static enum Type {
-		Normal, Prof, All;
-		public static Type filter(boolean a, boolean b) {
-			Type type;
-
-			if (a && b) {
-				type = Type.All;
-			} else if (a) {
-				type = Type.Prof;
-			} else if (b) {
-				type = Type.Normal;
-			} else {
-				type = Type.All;
-			}
-
-			return type;
 		}
 	}
 
@@ -81,10 +58,12 @@ public class Employee extends Person {
 		this.ismoroccan = true;
 		this.ref = "124511202";
 		this.hdate = new Date( );
+
+		uplifts = Uplift.getUpliftsHistory(jdate);
 		
 		// TODO: fill employee from xml based on the reference
+		new XmlFile().setEmployee(this, ref);
 		
-		uplifts = Uplift.getUpliftsHistory(jdate);
 	}
 
 	public ArrayList<Diploma> getDiplomas( ) {
@@ -165,60 +144,6 @@ public class Employee extends Person {
 
 	public void setCIN(String cIN) {
 		CIN = cIN;
-	}
-
-	// TODO: fix column names
-	public static DefaultTableModel getModelFromXml(Type t) {
-		DefaultTableModel model = new DefaultTableModel( );
-		String scale = null, echlon = null;
-		Iterator<Element> ifoo, ibar; // temporary iterators
-		Element foo, bar; // temporary elements
-
-		// add columns to the model
-		model.addColumn("ر.ت.");
-		model.addColumn("ب.ت.و.");
-		model.addColumn("الإسم");
-		model.addColumn("النسب");
-		model.addColumn("السلم");
-		model.addColumn("الرتبة");
-		model.addColumn("عدد الشواهد");
-
-		// loop over the employee
-		ifoo = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
-		while (ifoo.hasNext( )) {
-			foo = ifoo.next( );
-			// skip employee based on filter
-			if (t == Type.Normal && foo.getAttributeValue("department")
-							.compareTo("nil") != 0) {
-				continue; // this means that this is a professor
-			} else if (t == Type.Prof && foo.getAttributeValue("department")
-							.compareTo("nil") == 0) {
-				continue; // this means that this is a normal one
-			}
-			// get current scale and echlon
-			ibar = foo.getChild("administrative").getChildren("uplift")
-							.iterator( );
-			while (ibar.hasNext( )) {
-				bar = ibar.next( );
-				if (bar.getAttributeValue("state").compareTo("current") == 0) {
-					scale = bar.getChildText("scale");
-					echlon = bar.getChildText("echlon");
-					break;
-				}
-			}
-
-			// add rows
-			model.addRow(new String[] {
-							foo.getAttributeValue("reference"),
-							foo.getChild("administrative").getChildText("cin"),
-							foo.getChild("personal").getChildText("name"),
-							foo.getChild("personal").getChildText("familyname"),
-							scale, echlon, String.format(
-								"%d", foo.getChildren("diplomas").size( ))
-			});
-		}
-
-		return model;
 	}
 
 }

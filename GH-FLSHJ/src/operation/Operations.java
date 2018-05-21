@@ -6,5 +6,5 @@ public enum Operations {
 	/* conge administrative */
 	CONGE,
 	/* fiche annual de notation */
-	FICHE_NOTATION
+	FICHE_NOTATION;
 }
