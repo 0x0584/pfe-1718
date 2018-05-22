@@ -1,6 +1,14 @@
 package view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -9,17 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.alee.laf.WebLookAndFeel;
+
 import model.Employee;
 import model.Professor;
 import operation.Printer;
-
-import java.awt.Font;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.awt.Color;
-import java.awt.FlowLayout;
 
 public class AttTravailView {
 
@@ -65,19 +67,13 @@ public class AttTravailView {
 	 * @param e
 	 */
 	private void initialize(Employee e, boolean isprof) {
+		WebLookAndFeel.install( );
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
 		frame.setBounds(100, 100, 741, 748);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
-
-		try {
-			UIManager.setLookAndFeel(
-				UIManager.getInstalledLookAndFeels( )[1].getClassName( ));
-		} catch (Exception e1) {
-			// e.printStackTrace( );
-			System.err.println(e1.getMessage( ));
-		}
 
 		JLabel lblRoyaumeDuMaroc = new JLabel("Royaume du Maroc");
 		lblRoyaumeDuMaroc.setFont(new Font("Dialog", Font.PLAIN, 14));
@@ -189,14 +185,14 @@ public class AttTravailView {
 		frame.getContentPane( ).add(lblExerceSeFonctions);
 
 		JLabel lblElJadidaLe = new JLabel(
-			String.format("El Jadida le: %s", new Date( )));
+			String.format("El Jadida le: %s", fmt.format(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblElJadidaLe.setBounds(193, 662, 354, 15);
+		lblElJadidaLe.setBounds(274, 662, 193, 15);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		// TODO: verify whether it's hiring date or joining date
 		JLabel label_10 = new JLabel(
-			String.format("depuis le %s", e.getHiringdate( ).toString( )));
+			String.format("depuis le %s", fmt.format(e.getHiringDate( ))));
 		label_10.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_10.setBounds(isprof ? 300 : 66, isprof ? 450 : 440, 354, 15);
 		frame.getContentPane( ).add(label_10);

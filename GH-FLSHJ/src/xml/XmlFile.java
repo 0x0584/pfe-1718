@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -30,6 +31,7 @@ import model.Employee;
 import model.Employee.Cadre;
 import model.Professor;
 import model.Uplift;
+import operation.SearchField;
 import operation.Type;
 
 public class XmlFile {
@@ -192,10 +194,10 @@ public class XmlFile {
 		empl.setCadre(Cadre.parseCadre(bar.getChildTextTrim("cadre")));
 		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
 
-		// list of uplift tags
+		// TODO: list of uplift tags
 		ups = bar.getChildren("uplift");
 
-		// list of diploma tags
+		// TODO: list of diploma tags
 		dips = e.getChildren("diplomas");
 	}
 
@@ -218,26 +220,44 @@ public class XmlFile {
 		// using RANK and GRADE
 	}
 
-	// TODO: fix column names
-	public static DefaultTableModel getModelFromXml(Type t) {
+	private static DefaultTableModel getDefaultModel( ) {
 		DefaultTableModel model = new DefaultTableModel( );
-		String scale = null, echlon = null;
-		Iterator<Element> ifoo, ibar; // temporary iterators
-		Element foo, bar; // temporary elements
 
-		// add columns to the model
 		model.addColumn("ر.ت.");
 		model.addColumn("ب.ت.و.");
 		model.addColumn("الإسم");
 		model.addColumn("النسب");
-		model.addColumn("السلم");
-		model.addColumn("الرتبة");
-		model.addColumn("عدد الشواهد");
+		// model.addColumn("السلم");
+		// model.addColumn("الرتبة");
+		// model.addColumn("عدد الشواهد");
+
+		return model;
+	}
+
+	// TODO: fix column names
+	public static DefaultTableModel getModel(Type t) {
+		return (DefaultTableModel) getModel(null, null, t);
+	}
+
+	public static TableModel getModel(String text, SearchField sf, Type t) {
+		DefaultTableModel model = getDefaultModel( );
+		Iterator<Element> ifoo, ibar; // temporary iterators
+		Element foo, bar; // temporary elements
+		// String scale = null, echlon = null;
+		boolean filter = !(sf == null || text.compareTo("") == 0);
 
 		// loop over the employee
 		ifoo = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
 		while (ifoo.hasNext( )) {
 			foo = ifoo.next( );
+
+			// skip unwanted elements
+			if (filter && !foo.getChild(sf.getParent( ))
+							.getChildTextTrim(sf.getXmlTag( )).toLowerCase( )
+							.contains(text.toLowerCase( ))) {
+				continue;
+			}
+
 			// skip employee based on filter
 			if (t == Type.Normal && foo.getAttributeValue("department")
 							.compareTo("nil") != 0) {
@@ -246,19 +266,20 @@ public class XmlFile {
 							.compareTo("nil") == 0) {
 				continue; // this means that this is a normal one
 			}
-			// get current scale and echlon
-			ibar = foo.getChild("administrative").getChildren("uplift")
-							.iterator( );
-			while (ibar.hasNext( )) {
-				bar = ibar.next( );
-				if (bar.getAttributeValue("state").compareTo("current") == 0) {
-					scale = bar.getChildTextTrim("scale");
-					echlon = bar.getChildTextTrim("echlon");
-					break;
-				}
-			}
 
-			// add rows
+			// get current scale and echlon
+			// ibar = foo.getChild("administrative").getChildren("uplift")
+			// .iterator( );
+			// while (ibar.hasNext( )) {
+			// bar = ibar.next( );
+			// if (bar.getAttributeValue("state").compareTo("current") == 0) {
+			// scale = bar.getChildTextTrim("scale");
+			// echlon = bar.getChildTextTrim("echlon");
+			// break;
+			// }
+			// }
+
+			// add row to model
 			model.addRow(new String[] {
 							foo.getAttributeValue("reference"),
 							foo.getChild("administrative")
@@ -266,8 +287,8 @@ public class XmlFile {
 							foo.getChild("personal").getChildTextTrim("name"),
 							foo.getChild("personal")
 											.getChildTextTrim("familyname"),
-							scale, echlon, String.format(
-								"%d", foo.getChildren("diplomas").size( ))
+							// scale, echlon, String.format(
+							// "%d", foo.getChildren("diplomas").size( ))
 			});
 		}
 

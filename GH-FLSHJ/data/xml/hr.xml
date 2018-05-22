@@ -6,6 +6,9 @@
 <!ATTLIST Employee
   xmlns CDATA #FIXED ''>
 <!ELEMENT notes (#PCDATA)>
+<!ATTLIST notes
+  xmlns CDATA #FIXED ''>
+  
 <!ELEMENT employee (notes,personal,administrative,diplomas+)>
 <!ATTLIST employee
   xmlns CDATA #FIXED ''
@@ -17,7 +20,7 @@
 <!ATTLIST personal
   xmlns CDATA #FIXED ''>
 
-<!ELEMENT administrative (cadre,fstatus,cin,mission,hday,jday,reason,
+<!ELEMENT administrative (reference,cadre,fstatus,cin,mission,hday,jday,reason,
 			  pjob,cjob,uplift+)>
 <!ATTLIST administrative
   xmlns CDATA #FIXED ''>
@@ -26,6 +29,10 @@
 <!ATTLIST diplomas
   xmlns CDATA #FIXED ''>
 
+<!ELEMENT reference (#PCDATA)>
+<!ATTLIST reference
+  xmlns CDATA #FIXED ''>
+  
 <!ELEMENT name (#PCDATA)>
 <!ATTLIST name
   xmlns CDATA #FIXED ''>
@@ -163,6 +170,7 @@
 		</personal>
 
 		<administrative>
+			<reference> 0112358 </reference>
 			<cadre> C_1 </cadre>
 			<fstatus> 12452 </fstatus>
 			<cin> M550630 </cin>
@@ -220,6 +228,7 @@
 		</personal>
 
 		<administrative>
+			<reference> 01123411 </reference>
 			<cadre> C_1 </cadre>
 			<fstatus> 12452 </fstatus>
 			<cin> M550630 </cin>
