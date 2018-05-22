@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Uplift {
@@ -32,19 +31,6 @@ public class Uplift {
 		this.date = date;
 		this.grade = grade;
 		this.rank = rank;
-	}
-
-	/**
-	 * @param hiringdate
-	 * @return
-	 */
-	public static ArrayList<Uplift> getUpliftsHistory(Date hiringdate) {
-		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
-		tmp.add(new Uplift("152/2018", new Date( ), (byte) 9, (byte) 4));
-		return tmp;
-
-		// TODO: this should be filled up automatically
-		// using RANK and GRADE
 	}
 
 	@Override

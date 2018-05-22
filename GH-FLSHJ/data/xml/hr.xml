@@ -5,8 +5,8 @@
 <!ELEMENT Employee (employee)+>
 <!ATTLIST Employee
   xmlns CDATA #FIXED ''>
-
-<!ELEMENT employee (personal,administrative,diplomas+)>
+<!ELEMENT notes (#PCDATA)>
+<!ELEMENT employee (notes,personal,administrative,diplomas+)>
 <!ATTLIST employee
   xmlns CDATA #FIXED ''
   department NMTOKEN #REQUIRED
@@ -147,105 +147,105 @@
 
 <Employee>
 
-  <employee reference="0112358" department="Informatique">
+	<employee reference="0112358" department="Informatique">
+		<notes> THIS GUY WOULD DO ALL OF THE THINGS THAT HE WANTED ONE DAY! BELIEVE IN HIM! </notes>
+		<personal>
+			<name> Anas </name>
+			<familyname> Rchid </familyname> <!-- last name -->
+			<birth> 1994-09-15 </birth>	       <!-- yyyymmdd -->
+			<nationality ma="t" />
+			<brithplace> Rass El Ain </brithplace>
+			<address> 99 Ibn Sina, OD Frej El Jadida </address>
+			<phone> 0642857134 </phone>
+			<state married="t" />
+			<partner name="Fatima" job="nil" />
+			<children number="1" />
+		</personal>
 
-    <personal>
-      <name> Anas </name>
-      <familyname> Rchid </familyname> <!-- last name -->
-      <birth> 19940915 </birth>	       <!-- yyyymmdd -->
-      <nationality ma="t" />
-      <brithplace> Rass El Ain </brithplace>
-      <address> 99 Ibn Sina, OD Frej El Jadida </address>
-      <phone> 0642857134 </phone>
-      <state married="t" />
-      <partner name="Fatima" job="nil" />
-      <children number="1" />
-    </personal>
+		<administrative>
+			<cadre> C_1 </cadre>
+			<fstatus> 12452 </fstatus>
+			<cin> M550630 </cin>
+			<mission> programming </mission>
+			<hday> 2018-10-15 </hday>
+			<jday> 2018-11-21 </jday>
+			<reason> exam </reason>
+			<pjob> UCD FS </pjob>
+			<cjob> CapGemini Casablanca </cjob>
 
-    <administrative>
-      <cadre> C_1 </cadre>
-      <fstatus> 12452 </fstatus>
-      <cin> M550630 </cin>
-      <mission> programming </mission>
-      <hday> 20181015 </hday>
-      <jday> 20181121 </jday>
-      <reason> exam </reason>
-      <pjob> UCD FS </pjob>
-      <cjob> CapGemini Casablanca </cjob>
+			<uplift state="current" type="exam">
+				<scale> 10 </scale>
+				<echlon> 1 </echlon>
+				<indice> 451245 </indice>
+				<update> 2018-06-15 </update>
+			</uplift>
+			<uplift state="old" type="normal">
+				<scale> 9 </scale>
+				<echlon> 6 </echlon>
+				<indice> 451245 </indice>
+				<update> 2018-06-15 </update>
+			</uplift>
 
-      <uplift state="current" type="exam">
-	<scale> 10 </scale>
-	<echlon> 1 </echlon>
-	<indice> 451245 </indice>
-	<update> 20180615 </update>
-      </uplift>
-      <uplift state="old" type="normal">
-	<scale> 9 </scale>
-	<echlon> 6 </echlon>
-	<indice> 451245 </indice>
-	<update> 20180615 </update>
-      </uplift>
+		</administrative>
 
-    </administrative>
+		<diplomas>
+			<diploma mention="Passable"> Science Math A </diploma>
+			<institute city="ODFrej"> 6 Novembre </institute>
+			<session> 2010-2012 </session> <!-- yyyyYYYY -->
+		</diplomas>
+		<diplomas>
+			<diploma mention="Bien"> TSDI </diploma>
+			<institute city="ElJadida"> ISTA </institute>
+			<session> 2015-2017 </session>
+		</diplomas>
+		<diplomas>
+			<diploma mention="Bien"> Licence </diploma>
+			<institute city="ElJadida"> UCD FS </institute>
+			<session> 2017-2018 </session> <!-- yyyyYYYY -->
+		</diplomas>
 
-    <diplomas>
-      <diploma mention="Passable"> Science Math A </diploma>
-      <institute city="ODFrej"> 6 Novembre </institute>
-      <session> 20102012 </session> <!-- yyyyYYYY -->
-    </diplomas>
-    <diplomas>
-      <diploma mention="Bien"> TSDI </diploma>
-      <institute city="ElJadida"> ISTA </institute>
-      <session> 20152017 </session>
-    </diplomas>
-    <diplomas>
-      <diploma mention="Bien"> Licence </diploma>
-      <institute city="ElJadida"> UCD FS </institute>
-      <session> 20172018 </session> <!-- yyyyYYYY -->
-    </diplomas>
+	</employee>
 
-  </employee>
+	<employee reference="01123411" department="nil">
+		<notes> NIKO IS A WHITEHEARTED MAN! BUT, HE MUST DISCOVER HIS MANHOOD </notes>
+		<personal>
+			<name> Aymen </name>
+			<familyname> Rchid </familyname> <!-- last name -->
+			<birth> 1999-10-15 </birth>	       <!-- yyyymmdd -->
+			<nationality ma="t" />
+			<brithplace> Rass El Ain </brithplace>
+			<address> 99 Ibn Sina, OD Frej El Jadida </address>
+			<phone> 0642857134 </phone>
+			<state married="nil" />
+		</personal>
 
-  <employee reference="01123411" department="nil">
+		<administrative>
+			<cadre> C_1 </cadre>
+			<fstatus> 12452 </fstatus>
+			<cin> M550630 </cin>
+			<mission> programming </mission>
+			<hday> 2018-10-15 </hday>
+			<jday> 2018-11-21 </jday>
+			<reason> exam </reason>
+			<pjob> UCD FS </pjob>
+			<cjob> CapGemini Casablanca </cjob>
 
-    <personal>
-      <name> Aymen </name>
-      <familyname> Rchid </familyname> <!-- last name -->
-      <birth> 19940915 </birth>	       <!-- yyyymmdd -->
-      <nationality ma="t" />
-      <brithplace> Rass El Ain </brithplace>
-      <address> 99 Ibn Sina, OD Frej El Jadida </address>
-      <phone> 0642857134 </phone>
-      <state married="nil" />
-    </personal>
+			<uplift state="current" type="exam">
+				<scale> 11 </scale>
+				<echlon> 1 </echlon>
+				<indice> 451245 </indice>
+				<update> 2018-06-15 </update>
+			</uplift>
 
-    <administrative>
-      <cadre> C_1 </cadre>
-      <fstatus> 12452 </fstatus>
-      <cin> M550630 </cin>
-      <mission> programming </mission>
-      <hday> 20181015 </hday>
-      <jday> 20181121 </jday>
-      <reason> exam </reason>
-      <pjob> UCD FS </pjob>
-      <cjob> CapGemini Casablanca </cjob>
+		</administrative>
 
-      <uplift state="current" type="exam">
-	<scale> 10 </scale>
-	<echlon> 1 </echlon>
-	<indice> 451245 </indice>
-	<update> 20180615 </update>
-      </uplift>
+		<diplomas>
+			<diploma mention="Bien"> Licence </diploma>
+			<institute city="ElJadida"> UCD FS </institute>
+			<session> 2017-2018 </session> <!-- yyyyYYYY -->
+		</diplomas>
 
-    </administrative>
-
-    <diplomas>
-      <diploma mention="Bien"> Licence </diploma>
-      <institute city="ElJadida"> UCD FS </institute>
-      <session> 20172018 </session> <!-- yyyyYYYY -->
-    </diplomas>
-
-  </employee>
+	</employee>
 
 </Employee>
 

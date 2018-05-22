@@ -9,8 +9,12 @@ package xml;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +27,8 @@ import org.jdom2.output.XMLOutputter;
 
 import model.Diploma;
 import model.Employee;
+import model.Employee.Cadre;
+import model.Professor;
 import model.Uplift;
 import operation.Type;
 
@@ -68,6 +74,7 @@ public class XmlFile {
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace( );
 			System.out.println(e.getMessage( ));
+			// TODO: create a normal file if the original is not found
 		}
 	}
 
@@ -82,7 +89,7 @@ public class XmlFile {
 		while (i.hasNext( )) {
 			Element e = i.next( );
 			Diploma d = new Diploma( );
-			d.setTitle(e.getChildText(""));
+			d.setTitle(e.getChildTextTrim(""));
 			// d.setInstitue(institue);
 			// d.setMention(mention);
 			// d.setSession(session);
@@ -102,56 +109,113 @@ public class XmlFile {
 		return tmp;
 	}
 
-	public void setEmployee(Employee empl, String ref) {
-		Iterator<Element> i = new XmlFile( ).getRoot( ).getChildren( )
-						.iterator( );
+	private static Element getEmployee(String ref) {
+		Iterator<Element> i;
 		Element e;
-		String pname, pjob;
-		short nchildren;
 
+		i = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
 		while (i.hasNext( )) {
-			if ((e = i.next( )).getAttributeValue("reference")
-							.compareTo(ref) != 0) {
+			e = i.next( );
+			if (e.getAttributeValue("reference").compareTo(ref) != 0) {
 				continue;
-			}
-			empl.setName(e.getChild("personal").getChildText("name"));
-			empl.setFamilyname(
-				e.getChild("personal").getChildText("familyname"));
-			// TODO: parse birth date
-			empl.setBirthPlace(
-				e.getChild("personal").getChildText("birthplace"));
-			empl.setAddress(e.getChild("personal").getChildText("address"));
-			empl.setPhone(e.getChild("personal").getChildText("phone"));
-			empl.setIsMarried(
-				e.getChild("personal").getChild("state")
-								.getAttributeValue("married")
-								.compareTo("t") == 0);
-			
-			// check if those are null
-			try {
-				pname = e.getChild("personal").getChild("partner")
-								.getAttributeValue("name");
-				pjob = e.getChild("personal").getChild("partner")
-								.getAttributeValue("job");
-				nchildren = Short.parseShort(
-					e.getChild("personal").getChild("children")
-									.getAttributeValue("number"));
-			} catch (Exception ex) {
-				pname = pjob = null;
-				nchildren = 0;
-			}
-
-			empl.setPartnerName(pname);
-			empl.setPartnerJob(pjob);
-			empl.setNumberOfchildren(nchildren);
-			//
-
-			// empl.setName(e.getChild("personal").getChildText("name"));
-			// empl.setName(e.getChild("personal").getChildText("name"));
-			// empl.setName(e.getChild("personal").getChildText("name"));
-			// empl.setName(e.getChild("personal").getChildText("name"));
-			// empl.setName(e.getChild("personal").getChildText("name"));
+			} else return e;
 		}
+
+		return null;
+	}
+
+	public static void setEmployee(Employee empl, String ref) {
+		Element e = getEmployee(ref), foo, bar;
+		List<Element> dips, ups;
+
+		empl.setNotes(e.getChildTextTrim("notes"));
+
+		// personal tag
+		foo = e.getChild("personal");
+
+		empl.setName(foo.getChildTextTrim("name"));
+		empl.setFamilyname(foo.getChildTextTrim("familyname"));
+		empl.setIsMoroccan(
+			foo.getChild("nationality").getAttributeValue("ma")
+							.compareTo("t") == 0);
+		try {
+			empl.setBirthDay(
+				new SimpleDateFormat("yyyy-mm-dd")
+								.parse(foo.getChildTextTrim("birth")));
+		} catch (ParseException e1) {
+			empl.setBirthDay(new Date( ));
+		}
+		empl.setBirthPlace(foo.getChildTextTrim("brithplace"));
+		empl.setAddress(foo.getChildTextTrim("address"));
+		empl.setPhone(foo.getChildTextTrim("phone"));
+		empl.setIsMarried(
+			foo.getChild("state").getAttributeValue("married")
+							.compareTo("t") == 0);
+
+		try {
+			Element tmp = foo.getChild("partner");
+			String str = foo.getChild("children").getAttributeValue("number");
+			empl.setNumberOfchildren(Short.parseShort(str));
+			empl.setPartnerName(tmp.getAttributeValue("name"));
+			empl.setPartnerJob(tmp.getAttributeValue("job"));
+		} catch (Exception ex) {
+			empl.setPartnerName(null);
+			empl.setPartnerJob(null);
+			empl.setNumberOfchildren((short) 0);
+		}
+
+		// administrative tag
+		bar = e.getChild("administrative");
+
+		empl.setReference(ref);
+		empl.setCIN(bar.getChildTextTrim("cin"));
+		empl.setMission(bar.getChildTextTrim("mission"));
+
+		try {
+			empl.setJoinDate(
+				new SimpleDateFormat("yyyy-mm-dd")
+								.parse(bar.getChildTextTrim("jday")));
+		} catch (ParseException e1) {
+			empl.setJoinDate(new Date( ));
+		}
+
+		try {
+			empl.setHiringDate(
+				new SimpleDateFormat("yyyy-mm-dd")
+								.parse(bar.getChildTextTrim("hday")));
+		} catch (ParseException e1) {
+			empl.setHiringDate(new Date( ));
+		}
+		empl.setReason(bar.getChildTextTrim("reason"));
+		empl.setPreviousJob(bar.getChildTextTrim("pjob"));
+		empl.setCurrentJob(bar.getChildTextTrim("cjob"));
+		empl.setCadre(Cadre.parseCadre(bar.getChildTextTrim("cadre")));
+		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
+
+		// list of uplift tags
+		ups = bar.getChildren("uplift");
+
+		// list of diploma tags
+		dips = e.getChildren("diplomas");
+	}
+
+	public static void setProfessor(Professor prof, String ref) {
+		// TODO Auto-generated method stub
+		setEmployee(prof, ref);
+		prof.setDepartment(getEmployee(ref).getAttributeValue("department"));
+	}
+
+	/**
+	 * @param hiringdate
+	 * @return
+	 */
+	public static ArrayList<Uplift> getUpliftsHistory(Date hiringdate) {
+		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
+		tmp.add(new Uplift("152/2018", new Date( ), (byte) 10, (byte) 4));
+		return tmp;
+
+		// TODO: this should be filled up automatically
+		// using RANK and GRADE
 	}
 
 	// TODO: fix column names
@@ -188,8 +252,8 @@ public class XmlFile {
 			while (ibar.hasNext( )) {
 				bar = ibar.next( );
 				if (bar.getAttributeValue("state").compareTo("current") == 0) {
-					scale = bar.getChildText("scale");
-					echlon = bar.getChildText("echlon");
+					scale = bar.getChildTextTrim("scale");
+					echlon = bar.getChildTextTrim("echlon");
 					break;
 				}
 			}
@@ -197,9 +261,11 @@ public class XmlFile {
 			// add rows
 			model.addRow(new String[] {
 							foo.getAttributeValue("reference"),
-							foo.getChild("administrative").getChildText("cin"),
-							foo.getChild("personal").getChildText("name"),
-							foo.getChild("personal").getChildText("familyname"),
+							foo.getChild("administrative")
+											.getChildTextTrim("cin"),
+							foo.getChild("personal").getChildTextTrim("name"),
+							foo.getChild("personal")
+											.getChildTextTrim("familyname"),
 							scale, echlon, String.format(
 								"%d", foo.getChildren("diplomas").size( ))
 			});
@@ -207,4 +273,5 @@ public class XmlFile {
 
 		return model;
 	}
+
 }

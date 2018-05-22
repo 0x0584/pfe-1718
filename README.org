@@ -55,6 +55,7 @@
 * Professeurs
 * Fonctionnaire
 
-* References
+* Dependencies
 # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
- + JDOM :: http://jdom.org/
+ + JDOM :: http://jdom.org/ Java library to to parse XML
+ + WebLaF :: [[http://weblookandfeel.com/]] Java library to enhance the look and feel
