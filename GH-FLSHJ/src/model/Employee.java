@@ -7,7 +7,8 @@ import xml.XmlFile;
 
 public class Employee extends Person {
 	public static enum Cadre {
-		C_1("cadre un"), C_2("cadre deux");
+		C_0("Engenieur 1er Grade"), C_1("Technicien 1er Grade"), C_2(
+						"Technicien 2eme Grade");
 		private String title;
 
 		private Cadre(String title) {
@@ -20,6 +21,18 @@ public class Employee extends Person {
 
 		private void setTitle(String title) {
 			this.title = title;
+		}
+
+		public static Cadre parseCadre(String cstr) {
+			for (Cadre c : values( )) {
+				if (c.title.compareTo(cstr) == 0) return c;
+			}
+
+			return C_0;
+		}
+
+		public String toString( ) {
+			return title;
 		}
 	}
 
@@ -35,47 +48,89 @@ public class Employee extends Person {
 	protected ArrayList<Uplift> uplifts;
 	protected ArrayList<Diploma> diplomas;
 
-	/**
-	 * 
-	 */
 	public Employee() {
 		super( );
 		this.name = "Anas";
 		this.fname = "Rchid";
 		this.ismoroccan = true;
-		this.ref = "124511202";
+		this.ref = "0112358"; // fbonacci;
 		this.hdate = new Date( );
-		uplifts = Uplift.getUpliftsHistory(jdate);
-
+		uplifts = XmlFile.getUpliftsHistory(hdate);
 		// uplifts.get(uplifts.size( )); the current grade
 	}
 
 	public Employee(String ref) {
 		super( );
-		this.ref = ref;
-		this.name = "Anas";
-		this.fname = "Rchid";
-		this.ismoroccan = true;
-		this.ref = "124511202";
-		this.hdate = new Date( );
+		uplifts = XmlFile.getUpliftsHistory(hdate);
+		XmlFile.setEmployee(this, ref);
+	}
 
-		uplifts = Uplift.getUpliftsHistory(jdate);
-		
-		// TODO: fill employee from xml based on the reference
-		new XmlFile().setEmployee(this, ref);
-		
+	public void setReference(String ref) {
+		this.ref = ref;
+	}
+
+	public String getFinancialStatus( ) {
+		return fstatus;
+	}
+
+	public void setFinancialStatus(String fstatus) {
+		this.fstatus = fstatus;
+	}
+
+	public String getReason( ) {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getPreviousJob( ) {
+		return pjob;
+	}
+
+	public void setPreviousJob(String pjob) {
+		this.pjob = pjob;
+	}
+
+	public String getCurrentJob( ) {
+		return cjob;
+	}
+
+	public void setCurrentJob(String cjob) {
+		this.cjob = cjob;
+	}
+
+	public void setHiringDate(Date hdate) {
+		this.hdate = hdate;
+	}
+
+	public void setJoinDate(Date jdate) {
+		this.jdate = jdate;
+	}
+
+	public void setMission(String mission) {
+		this.mission = mission;
+	}
+
+	public ArrayList<Uplift> getUplifts( ) {
+		return uplifts;
+	}
+
+	public void setUplifts(ArrayList<Uplift> uplifts) {
+		this.uplifts = uplifts;
 	}
 
 	public ArrayList<Diploma> getDiplomas( ) {
 		return diplomas;
 	}
 
-	public String getReference( ) {
-		return ref;
+	public void setDiplomas(ArrayList<Diploma> diplomas) {
+		this.diplomas = diplomas;
 	}
 
-	public String getFinancialstatus( ) {
-		return fstatus;
+	public String getReference( ) {
+		return ref;
 	}
 
 	public String getMission( ) {
@@ -94,40 +149,12 @@ public class Employee extends Person {
 		this.notes = notes;
 	}
 
-	public String getPreviousjob( ) {
-		return pjob;
-	}
-
-	public void setPreviousjob(String pjob) {
-		this.pjob = pjob;
-	}
-
-	public String getCurrentjob( ) {
-		return cjob;
-	}
-
-	public void setCurrentjob(String cjob) {
-		this.cjob = cjob;
-	}
-
-	public Date getHiringdate( ) {
+	public Date getHiringDate( ) {
 		return hdate;
 	}
 
-	public void setHiringdate(Date hdate) {
-		this.hdate = hdate;
-	}
-
-	public Date getJoiningDate( ) {
+	public Date getJoinDate( ) {
 		return jdate;
-	}
-
-	public void setJoiningDate(Date jdate) {
-		this.jdate = jdate;
-	}
-
-	public ArrayList<Uplift> getUplifts( ) {
-		return uplifts;
 	}
 
 	public Cadre getCadre( ) {

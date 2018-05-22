@@ -1,23 +1,17 @@
 package model;
 
+import xml.XmlFile;
+
 public class Professor extends Employee {
 	private String dep;
 
-	/**
-	 * 
-	 */
 	public Professor() {
 		super( );
 		this.dep = "Informatique";
 	}
 
-	/**
-	 * @param ref
-	 */
 	public Professor(String ref) {
-		super(ref);
-		// TODO fill professor based on ref
-		// xml.getProfessor(ref);
+		XmlFile.setProfessor(this, ref);
 	}
 
 	public String getDepartment( ) {
