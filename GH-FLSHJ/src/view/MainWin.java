@@ -16,8 +16,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import com.alee.laf.WebLookAndFeel;
 
@@ -167,7 +165,6 @@ public class MainWin {
 					window.getFrame( ).setVisible(true);
 					Printer.doPrint(window.getFrame( ));
 				}
-
 			}
 		});
 		btnConfirm.setBounds(534, 12, 86, 25);

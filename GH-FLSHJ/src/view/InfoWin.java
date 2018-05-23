@@ -28,7 +28,6 @@ import com.alee.laf.WebLookAndFeel;
 
 import model.Employee;
 import model.Employee.Cadre;
-import model.Professor;
 
 public class InfoWin {
 
@@ -67,7 +66,7 @@ public class InfoWin {
 			public void run( ) {
 				try {
 
-					InfoWin window = new InfoWin(new Professor( ));
+					InfoWin window = new InfoWin(new Employee( ));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
