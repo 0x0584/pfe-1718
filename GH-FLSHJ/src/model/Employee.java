@@ -7,8 +7,12 @@ import xml.XmlFile;
 
 public class Employee extends Person {
 	public static enum Cadre {
-		C_0("Engenieur 1er Grade"), C_1("Technicien 1er Grade"), C_2(
-						"Technicien 2eme Grade");
+		C_0("Engenieur 1er Grade"),
+
+		C_1("Technicien 1er Grade"),
+
+		C_2("Technicien 2eme Grade");
+
 		private String title;
 
 		private Cadre(String title) {
@@ -37,7 +41,7 @@ public class Employee extends Person {
 	}
 
 	protected Cadre cadre;
-	protected String ref, CIN;
+	protected String ref, CIN, dep;
 	// financial status
 	protected String fstatus;
 	protected String mission, reason, notes;
@@ -54,6 +58,7 @@ public class Employee extends Person {
 		this.fname = "Rchid";
 		this.ismoroccan = true;
 		this.ref = "0112358"; // fbonacci;
+		this.dep = "Informatique";
 		this.hdate = new Date( );
 		uplifts = XmlFile.getUpliftsHistory(hdate);
 		// uplifts.get(uplifts.size( )); the current grade
@@ -169,8 +174,19 @@ public class Employee extends Person {
 		return CIN;
 	}
 
-	public void setCIN(String cIN) {
-		CIN = cIN;
+	public void setCIN(String cin) {
+		CIN = cin;
 	}
 
+	public String getDepartment( ) {
+		return dep;
+	}
+
+	public void setDepartment(String dep) {
+		this.dep = dep.compareTo("nil") == 0 ? null : dep;
+	}
+
+	public boolean isProfessor( ) {
+		return dep != null;
+	}
 }

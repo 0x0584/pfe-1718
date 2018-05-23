@@ -29,7 +29,6 @@ import org.jdom2.output.XMLOutputter;
 import model.Diploma;
 import model.Employee;
 import model.Employee.Cadre;
-import model.Professor;
 import model.Uplift;
 import operation.SearchField;
 import operation.Type;
@@ -131,7 +130,7 @@ public class XmlFile {
 		List<Element> dips, ups;
 
 		empl.setNotes(e.getChildTextTrim("notes"));
-
+		empl.setDepartment(e.getAttributeValue("department"));
 		// personal tag
 		foo = e.getChild("personal");
 
@@ -199,12 +198,6 @@ public class XmlFile {
 
 		// TODO: list of diploma tags
 		dips = e.getChildren("diplomas");
-	}
-
-	public static void setProfessor(Professor prof, String ref) {
-		// TODO Auto-generated method stub
-		setEmployee(prof, ref);
-		prof.setDepartment(getEmployee(ref).getAttributeValue("department"));
 	}
 
 	/**
