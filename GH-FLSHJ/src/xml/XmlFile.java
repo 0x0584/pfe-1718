@@ -26,12 +26,13 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import app.Files;
+import app.SearchField;
+import app.Type;
 import model.Diploma;
 import model.Employee;
 import model.Employee.Cadre;
 import model.Uplift;
-import operation.SearchField;
-import operation.Type;
 
 public class XmlFile {
 	private String filepath;

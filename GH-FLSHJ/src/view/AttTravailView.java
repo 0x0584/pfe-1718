@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -14,12 +16,14 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import com.alee.laf.WebLookAndFeel;
 
+import app.Printer;
 import model.Employee;
-import operation.Printer;
 
 public class AttTravailView {
 
@@ -210,5 +214,19 @@ public class AttTravailView {
 		lblAuDepartements.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblAuDepartements.setBounds(240, 418, 486, 29);
 		frame.getContentPane( ).add(lblAuDepartements);
+		
+		JMenuBar menuBar = new JMenuBar( );
+		frame.setJMenuBar(menuBar);
+
+		JMenuItem mntmPrint = new JMenuItem("Print");
+		mntmPrint.addMouseListener(new MouseAdapter( ) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuBar.setVisible(false);
+				Printer.doPrint(frame);
+				menuBar.setVisible(true);
+			}
+		});
+		menuBar.add(mntmPrint);
 	}
 }

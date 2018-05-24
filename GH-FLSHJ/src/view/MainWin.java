@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -13,20 +15,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.alee.laf.WebLookAndFeel;
 
+import app.SearchField;
+import app.Type;
 import model.Employee;
-import operation.Printer;
-import operation.Type;
 import xml.XmlFile;
-import javax.swing.JTextField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import operation.SearchField;
 
 public class MainWin {
 
@@ -155,16 +154,22 @@ public class MainWin {
 		JButton btnConfirm = new JButton("إستخراج");
 		btnConfirm.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: finish this handle all of this
-				// TODO: distinguish between employee and professor
+				// TODO: handle all of this
 
 				if (chckbx1.isSelected( )) {
 					AttTravailView window = new AttTravailView(new Employee(
 						table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
 										.toString( )));
 					window.getFrame( ).setVisible(true);
-					Printer.doPrint(window.getFrame( ));
 				}
+
+				if (chckbx4.isSelected( )) {
+					NotationView window = new NotationView(new Employee(
+						table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
+										.toString( )));
+					window.getFrame( ).setVisible(true);
+				}
+
 			}
 		});
 		btnConfirm.setBounds(534, 12, 86, 25);
