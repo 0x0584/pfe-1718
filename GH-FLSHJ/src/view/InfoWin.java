@@ -362,8 +362,8 @@ public class InfoWin {
 		tf_cin.setBounds(128, 3, 148, 29);
 		panel_2.add(tf_cin);
 
-		JLabel label_11 = new JLabel("ر. المنصب المالي");
-		label_11.setBounds(15, 10, 114, 15);
+		JLabel label_11 = new JLabel("ب.ت.و.");
+		label_11.setBounds(46, 10, 53, 15);
 		panel_2.add(label_11);
 
 		JPanel panel_3 = new JPanel( );
@@ -400,7 +400,7 @@ public class InfoWin {
 
 		JLabel lblM = new JLabel(
 			String.format("ب.ت.و.: %s", empl.getReference( )));
-		lblM.setBounds(134, 13, 123, 15);
+		lblM.setBounds(134, 13, 141, 15);
 		panel_3.add(lblM);
 
 		JLabel lblRef = new JLabel(String.format("ر.ت: %s", empl.getCIN( )));

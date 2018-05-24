@@ -53,15 +53,8 @@ public class Employee extends Person {
 	protected ArrayList<Diploma> diplomas;
 
 	public Employee() {
-		super( );
-		this.name = "Anas";
-		this.fname = "Rchid";
-		this.ismoroccan = true;
-		this.ref = "0112358"; // fbonacci;
-		this.dep = "Informatique";
-		this.hdate = new Date( );
+		this("0112358");
 		uplifts = XmlFile.getUpliftsHistory(hdate);
-		// uplifts.get(uplifts.size( )); the current grade
 	}
 
 	public Employee(String ref) {

@@ -50,7 +50,6 @@ public class Printer implements Printable {
 		if (preformat != postformat) {
 			// Set print component
 			pjob.setPrintable(new Printer(cmp), postformat);
-			// have to find
 			if (pjob.printDialog( )) {
 				try {
 					pjob.print( );
