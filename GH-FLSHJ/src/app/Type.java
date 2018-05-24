@@ -1,4 +1,4 @@
-package operation;
+package app;
 
 public enum Type {
 	Normal, Prof, All;

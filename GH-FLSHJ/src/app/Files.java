@@ -1,4 +1,4 @@
-package xml;
+package app;
 
 public enum Files {
 	HUMAIN_RESOURCES("hr"), DEPARTMENTS("dep");

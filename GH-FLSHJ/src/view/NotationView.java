@@ -24,9 +24,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.alee.laf.WebLookAndFeel;
 
+import app.Printer;
+import app.TableCellListener;
 import model.Employee;
-import operation.Printer;
-import operation.TableCellListener;
 
 public class NotationView {
 
