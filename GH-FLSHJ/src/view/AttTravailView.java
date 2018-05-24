@@ -75,7 +75,7 @@ public class AttTravailView {
 
 		JLabel lblNewLabel = new JLabel("Faculté des Lettres et des Sciences");
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
-		lblNewLabel.setBounds(20, 66, 263, 15);
+		lblNewLabel.setBounds(20, 65, 263, 15);
 		frame.getContentPane( ).add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Université Chouaib Doukkali");
@@ -89,23 +89,23 @@ public class AttTravailView {
 		frame.getContentPane( ).add(lblNewLabel_2);
 
 		JLabel label = new JLabel("المملكة المغربية");
-		label.setFont(new Font("Dialog", Font.PLAIN, 14));
-		label.setBounds(606, 12, 100, 15);
+		label.setFont(new Font("Arial", Font.PLAIN, 16));
+		label.setBounds(626, 12, 77, 15);
 		frame.getContentPane( ).add(label);
 
 		JLabel label_1 = new JLabel("جامعة شعيب دكالي");
-		label_1.setFont(new Font("Dialog", Font.PLAIN, 14));
-		label_1.setBounds(592, 39, 114, 15);
+		label_1.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_1.setBounds(609, 39, 100, 15);
 		frame.getContentPane( ).add(label_1);
 
-		JLabel label_2 = new JLabel("كلية الآداب والعلوم الإنسانية");
-		label_2.setFont(new Font("Dialog", Font.PLAIN, 14));
-		label_2.setBounds(544, 70, 162, 15);
+		JLabel label_2 = new JLabel("كلية الآدب والعلوم الإنسانية");
+		label_2.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_2.setBounds(566, 65, 143, 15);
 		frame.getContentPane( ).add(label_2);
 
 		JLabel label_3 = new JLabel("الجديدة");
-		label_3.setFont(new Font("Dialog", Font.PLAIN, 14));
-		label_3.setBounds(657, 97, 49, 15);
+		label_3.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_3.setBounds(662, 97, 41, 15);
 		frame.getContentPane( ).add(label_3);
 
 		JPanel panel = new JPanel( );

@@ -131,7 +131,7 @@ public class Person {
 		this.partnerJob = job;
 	}
 
-	public short getNumberOfchildren( ) {
+	public short getNumberOfChildren( ) {
 		return nchildren;
 	}
 
