@@ -54,12 +54,10 @@ public class Employee extends Person {
 
 	public Employee() {
 		this("0112358");
-		uplifts = XmlFile.getUpliftsHistory(hdate);
 	}
 
 	public Employee(String ref) {
 		super( );
-		uplifts = XmlFile.getUpliftsHistory(hdate);
 		XmlFile.setEmployee(this, ref);
 	}
 

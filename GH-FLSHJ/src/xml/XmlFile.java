@@ -9,10 +9,7 @@ package xml;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +24,8 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import app.Files;
+import app.Mention;
+import app.Parser;
 import app.SearchField;
 import app.Type;
 import model.Diploma;
@@ -80,38 +79,43 @@ public class XmlFile {
 		}
 	}
 
+	public static ArrayList<Uplift> getUplifts(Employee empl) {
+		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
+		List<Element> dlist = getEmployee(empl.getReference( ))
+						.getChild("administrative").getChildren("uplift");
+
+		for (Element e : dlist) {
+			Uplift u = new Uplift( );
+			u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
+			u.setDate(Parser.parseDate(e.getChildTextTrim("update")));
+			u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
+			u.setIndice(e.getChildTextTrim("indice"));
+			tmp.add(u);
+		}
+
+		return tmp;
+	}
+
 	public static ArrayList<Diploma> getDiplomas(Employee empl) {
 		ArrayList<Diploma> tmp = new ArrayList<Diploma>( );
-		// List<Element> list = rootNode.getChildren();
-		// XmlSchema xs = XmlSchema.initSet(Diploma.class);
+		List<Element> dlist = getEmployee(empl.getReference( ))
+						.getChildren("diplomas");
 
-		Iterator<Element> i = new XmlFile( ).getRoot( ).getChildren( )
-						.iterator( );
-
-		while (i.hasNext( )) {
-			Element e = i.next( );
+		for (Element e : dlist) {
 			Diploma d = new Diploma( );
-			d.setTitle(e.getChildTextTrim(""));
-			// d.setInstitue(institue);
-			// d.setMention(mention);
-			// d.setSession(session);
+			d.setInstitue(e.getChildTextTrim("institute"));
+			d.setMention(
+				Mention.parseMention(
+					e.getChild("diploma").getAttributeValue("mention")));
+			d.setSession(e.getChildTextTrim("session"));
+			d.setTitle(e.getChildTextTrim("diploma"));
 			tmp.add(d);
 		}
 
 		return tmp;
 	}
 
-	public ArrayList<Employee> getEmployees( ) {
-		ArrayList<Employee> tmp = new ArrayList<Employee>( );
-		return tmp;
-	}
-
-	public ArrayList<Uplift> getUplift( ) {
-		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
-		return tmp;
-	}
-
-	private static Element getEmployee(String ref) {
+	public static Element getEmployee(String ref) {
 		Iterator<Element> i;
 		Element e;
 
@@ -128,10 +132,11 @@ public class XmlFile {
 
 	public static void setEmployee(Employee empl, String ref) {
 		Element e = getEmployee(ref), foo, bar;
-		List<Element> dips, ups;
+		// List<Element> dips, ups;
 
 		empl.setNotes(e.getChildTextTrim("notes"));
 		empl.setDepartment(e.getAttributeValue("department"));
+
 		// personal tag
 		foo = e.getChild("personal");
 
@@ -140,13 +145,8 @@ public class XmlFile {
 		empl.setIsMoroccan(
 			foo.getChild("nationality").getAttributeValue("ma")
 							.compareTo("t") == 0);
-		try {
-			empl.setBirthDay(
-				new SimpleDateFormat("yyyy-mm-dd")
-								.parse(foo.getChildTextTrim("birth")));
-		} catch (ParseException e1) {
-			empl.setBirthDay(new Date( ));
-		}
+		empl.setBirthDay(Parser.parseDate(foo.getChildTextTrim("birth")));
+
 		empl.setBirthPlace(foo.getChildTextTrim("brithplace"));
 		empl.setAddress(foo.getChildTextTrim("address"));
 		empl.setPhone(foo.getChildTextTrim("phone"));
@@ -172,49 +172,19 @@ public class XmlFile {
 		empl.setReference(ref);
 		empl.setCIN(bar.getChildTextTrim("cin"));
 		empl.setMission(bar.getChildTextTrim("mission"));
-
-		try {
-			empl.setJoinDate(
-				new SimpleDateFormat("yyyy-mm-dd")
-								.parse(bar.getChildTextTrim("jday")));
-		} catch (ParseException e1) {
-			empl.setJoinDate(new Date( ));
-		}
-
-		try {
-			empl.setHiringDate(
-				new SimpleDateFormat("yyyy-mm-dd")
-								.parse(bar.getChildTextTrim("hday")));
-		} catch (ParseException e1) {
-			empl.setHiringDate(new Date( ));
-		}
+		empl.setJoinDate(Parser.parseDate(bar.getChildTextTrim("jday")));
+		empl.setHiringDate(Parser.parseDate(bar.getChildTextTrim("hday")));
 		empl.setReason(bar.getChildTextTrim("reason"));
 		empl.setPreviousJob(bar.getChildTextTrim("pjob"));
 		empl.setCurrentJob(bar.getChildTextTrim("cjob"));
 		empl.setCadre(Cadre.parseCadre(bar.getChildTextTrim("cadre")));
 		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
+		empl.setUplifts(getUplifts(empl));
+		empl.setDiplomas(getDiplomas(empl));
 
-		// TODO: list of uplift tags
-		ups = bar.getChildren("uplift");
-
-		// TODO: list of diploma tags
-		dips = e.getChildren("diplomas");
 	}
 
-	/**
-	 * @param hiringdate
-	 * @return
-	 */
-	public static ArrayList<Uplift> getUpliftsHistory(Date hiringdate) {
-		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
-		tmp.add(new Uplift("152/2018", new Date( ), (byte) 10, (byte) 4));
-		return tmp;
-
-		// TODO: this should be filled up automatically
-		// using RANK and GRADE
-	}
-
-	private static DefaultTableModel getDefaultModel( ) {
+	private static DefaultTableModel getModelColumns( ) {
 		DefaultTableModel model = new DefaultTableModel( );
 
 		model.addColumn("ر.ت.");
@@ -228,15 +198,15 @@ public class XmlFile {
 		return model;
 	}
 
-	// TODO: fix column names
-	public static DefaultTableModel getModel(Type t) {
-		return (DefaultTableModel) getModel(null, null, t);
+	public static DefaultTableModel getDefaultModel(Type t) {
+		return (DefaultTableModel) getDefaultModel(null, null, t);
 	}
 
-	public static TableModel getModel(String text, SearchField sf, Type t) {
-		DefaultTableModel model = getDefaultModel( );
-		Iterator<Element> ifoo, ibar; // temporary iterators
-		Element foo, bar; // temporary elements
+	public static DefaultTableModel getDefaultModel(String text, SearchField sf,
+		Type t) {
+		DefaultTableModel model = getModelColumns( );
+		Iterator<Element> ifoo; // temporary iterators
+		Element foo; // temporary elements
 		// String scale = null, echlon = null;
 		boolean filter = !(sf == null || text.compareTo("") == 0);
 
@@ -261,18 +231,6 @@ public class XmlFile {
 				continue; // this means that this is a normal one
 			}
 
-			// get current scale and echlon
-			// ibar = foo.getChild("administrative").getChildren("uplift")
-			// .iterator( );
-			// while (ibar.hasNext( )) {
-			// bar = ibar.next( );
-			// if (bar.getAttributeValue("state").compareTo("current") == 0) {
-			// scale = bar.getChildTextTrim("scale");
-			// echlon = bar.getChildTextTrim("echlon");
-			// break;
-			// }
-			// }
-
 			// add row to model
 			model.addRow(new String[] {
 							foo.getAttributeValue("reference"),
@@ -289,4 +247,45 @@ public class XmlFile {
 		return model;
 	}
 
+	public static TableModel getDiplomasModel(Employee empl) {
+		DefaultTableModel model = new DefaultTableModel( );
+
+		for (String str : new String[] {
+						"تاريخ الحصول عليها", "المؤسسة",
+
+						"الميزة", "الشهادات",
+		}) {
+			model.addColumn(str);
+		}
+
+		for (Diploma d : empl.getDiplomas( )) {
+			model.addRow(new String[] {
+							d.getSession( ), d.getInstitue( ),
+							d.getMention( ).toString( ), d.getTitle( )
+			});
+		}
+
+		return model;
+	}
+
+	public static DefaultTableModel getUpliftModel(Employee empl) {
+		DefaultTableModel model = new DefaultTableModel( );
+
+		for (String str : new String[] {
+						"التاريخ", "الرقم الإستدلالي",
+
+						"الرتبة", "السلم",
+		}) {
+			model.addColumn(str);
+		}
+
+		for (Uplift u : empl.getUplifts( )) {
+			model.addRow(new String[] {
+							Parser.parseDate(u.getDate( )), u.getIndice( ),
+							"" + u.getRank( ), "" + u.getGrade( )
+			});
+		}
+
+		return model;
+	}
 }

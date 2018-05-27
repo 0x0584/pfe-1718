@@ -13,19 +13,23 @@ public class Uplift {
 	}, GRADE[] = new byte[] {
 					9, 10, 11, 12
 	};
+
 	private String indice;
 	private Date date;
-	private byte grade;
-	private byte rank;
+	private short grade;
+	private short rank;
 	private boolean byexam;
 
+	public Uplift() {
+		super( );
+	}
 	/**
 	 * @param indice
 	 * @param date
 	 * @param grade
 	 * @param rank
 	 */
-	public Uplift(String indice, Date date, byte grade, byte rank) {
+	public Uplift(String indice, Date date, short grade, short rank) {
 		super( );
 		this.indice = indice;
 		this.date = date;
@@ -43,32 +47,32 @@ public class Uplift {
 		return grade;
 	}
 
-	// public void setGrade(short grade) {
-	// this.grade = grade;
-	// }
+	public void setGrade(short grade) {
+		this.grade = grade;
+	}
 
 	public short getRank( ) {
 		return rank;
 	}
 
-	// public void setRank(short rank) {
-	// this.rank = rank;
-	// }
+	public void setRank(short rank) {
+		this.rank = rank;
+	}
 
 	public String getIndice( ) {
 		return indice;
 	}
 
-	// public void setIndice(String indice) {
-	// this.indice = indice;
-	// }
+	public void setIndice(String indice) {
+		this.indice = indice;
+	}
 
 	public Date getDate( ) {
 		return date;
 	}
-	//
-	// public void setDate(Date date) {
-	// this.date = date;
-	// }
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 }

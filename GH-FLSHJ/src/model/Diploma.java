@@ -1,5 +1,7 @@
 package model;
 
+import app.Mention;
+
 public class Diploma {
 	private String title, institue;
 	private String session; // e.g. 2017-2018
