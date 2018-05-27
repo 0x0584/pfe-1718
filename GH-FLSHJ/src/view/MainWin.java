@@ -26,6 +26,10 @@ import app.SearchField;
 import app.Type;
 import model.Employee;
 import xml.XmlFile;
+import app.Holiday;
+import javax.swing.JLabel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class MainWin {
 
@@ -35,9 +39,14 @@ public class MainWin {
 		return frame;
 	}
 
+	private final static int WIDTH = 632, HEIGHT = 430, EXTRA_HEIGHT = 491;
 	private JTable table;
 	private Type type;
 	private JTextField tf_search;
+	private JTextField tf_a;
+	private JTextField tf_de;
+	private String raison, de, a;
+	private JTextField tf_raison;
 
 	/**
 	 * Launch the application.
@@ -70,7 +79,7 @@ public class MainWin {
 		type = Type.All;
 
 		frame = new JFrame( );
-		frame.setBounds(100, 100, 632, 430);
+		frame.setBounds(100, 100, WIDTH, EXTRA_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
@@ -140,6 +149,12 @@ public class MainWin {
 		frame.getContentPane( ).add(chckbx1);
 
 		JCheckBox chckbx2 = new JCheckBox("إجازة");
+		chckbx2.addChangeListener(new ChangeListener( ) {
+			public void stateChanged(ChangeEvent e) {
+				frame.setSize(
+					WIDTH, chckbx2.isSelected( ) ? EXTRA_HEIGHT : HEIGHT);
+			}
+		});
 		chckbx2.setBounds(210, 13, 65, 23);
 		frame.getContentPane( ).add(chckbx2);
 
@@ -198,13 +213,67 @@ public class MainWin {
 				}
 
 				searchfield = (SearchField) comboFields.getSelectedItem( );
-				table.setModel(XmlFile.getDefaultModel(text, searchfield, type));
+				table.setModel(
+					XmlFile.getDefaultModel(text, searchfield, type));
 				setupJTable(table);
 			}
 		});
 		tf_search.setBounds(153, 364, 221, 25);
 		frame.getContentPane( ).add(tf_search);
 		tf_search.setColumns(10);
+
+		tf_raison = new JTextField( );
+		tf_raison.setBounds(161, 421, 148, 25);
+		frame.getContentPane( ).add(tf_raison);
+		tf_raison.setColumns(10);
+		tf_raison.setVisible(false);
+		JComboBox<String> comboBox_1 = new JComboBox<String>( );
+		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {
+						"Semester I", "Semester II", "Ete"
+		}));
+		comboBox_1.setBounds(161, 421, 148, 24);
+		frame.getContentPane( ).add(comboBox_1);
+		comboBox_1.setVisible(true);
+		JComboBox<Holiday> comboBox = new JComboBox<Holiday>( );
+		comboBox.addItemListener(new ItemListener( ) {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getItem( ) == Holiday.NORMAL) {
+					comboBox_1.setVisible(true);
+					tf_raison.setVisible(false);
+				} else if (e.getItem( ) == Holiday.EXCEP) {
+					comboBox_1.setVisible(false);
+					tf_raison.setVisible(true);
+				} else if (e.getItem( ) == Holiday.TO_QUIT) {
+					comboBox_1.setVisible(false);
+					tf_raison.setVisible(false);
+				}
+			}
+		});
+		comboBox.setModel(new DefaultComboBoxModel<Holiday>(Holiday.values( )));
+		comboBox.setBounds(12, 421, 141, 24);
+		frame.getContentPane( ).add(comboBox);
+
+		tf_a = new JTextField( );
+		tf_a.setBounds(509, 424, 114, 25);
+		frame.getContentPane( ).add(tf_a);
+		tf_a.setColumns(10);
+
+		tf_de = new JTextField( );
+		tf_de.setBounds(352, 424, 114, 25);
+		frame.getContentPane( ).add(tf_de);
+		tf_de.setColumns(10);
+
+		JLabel lblDe = new JLabel("A");
+		lblDe.setBounds(474, 426, 27, 15);
+		frame.getContentPane( ).add(lblDe);
+
+		JLabel lblDe_1 = new JLabel("De");
+		lblDe_1.setBounds(317, 426, 27, 15);
+		frame.getContentPane( ).add(lblDe_1);
+
+		JLabel lblOptionDeConge = new JLabel("Option de conge");
+		lblOptionDeConge.setBounds(256, 397, 129, 15);
+		frame.getContentPane( ).add(lblOptionDeConge);
 
 	}
 

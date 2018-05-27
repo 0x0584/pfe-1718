@@ -21,4 +21,7 @@ public enum Holiday {
 		this.title = title;
 	}
 
+	public String toString() {
+		return title;
+	}
 }
