@@ -80,7 +80,7 @@ public class MainWin {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		// add all the employee to the table
-		table = new JTable(XmlFile.getModel(type));
+		table = new JTable(XmlFile.getDefaultModel(type));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setupJTable(table);
 
@@ -100,7 +100,7 @@ public class MainWin {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
 				type = Type.filter(a, b);
-				table.setModel(XmlFile.getModel(type));
+				table.setModel(XmlFile.getDefaultModel(type));
 				setupJTable(table);
 			}
 		});
@@ -110,7 +110,7 @@ public class MainWin {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
 				type = Type.filter(a, b);
-				table.setModel(XmlFile.getModel(type));
+				table.setModel(XmlFile.getDefaultModel(type));
 				setupJTable(table);
 			}
 		});
@@ -198,7 +198,7 @@ public class MainWin {
 				}
 
 				searchfield = (SearchField) comboFields.getSelectedItem( );
-				table.setModel(XmlFile.getModel(text, searchfield, type));
+				table.setModel(XmlFile.getDefaultModel(text, searchfield, type));
 				setupJTable(table);
 			}
 		});

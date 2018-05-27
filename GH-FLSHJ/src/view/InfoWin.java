@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
-import java.text.SimpleDateFormat;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -22,12 +21,13 @@ import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
 
 import com.alee.laf.WebLookAndFeel;
 
+import app.Parser;
 import model.Employee;
 import model.Employee.Cadre;
+import xml.XmlFile;
 
 public class InfoWin {
 
@@ -91,25 +91,6 @@ public class InfoWin {
 	 */
 	private void initialize(Employee empl) {
 		WebLookAndFeel.install( );
-		DefaultTableModel dmodel_0 = new DefaultTableModel( );
-		DefaultTableModel dmodel_1 = new DefaultTableModel( );
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-
-		for (String str : new String[] {
-						"تاريخ الحصول عليها", "المؤسسة",
-
-						"الميزة", "الشهادات",
-		}) {
-			dmodel_0.addColumn(str);
-		}
-
-		for (String str : new String[] {
-						"التاريخ", "الرقم الإستدلالي",
-
-						"الرتبة", "السلم",
-		}) {
-			dmodel_1.addColumn(str);
-		}
 
 		frame = new JFrame("البطاقة الشخصية و الوضعية الإدارية");
 		frame.setBounds(100, 100, 597, 557);
@@ -242,10 +223,10 @@ public class InfoWin {
 		scrollPane.setBounds(0, 24, 542, 129);
 		panel_5.add(scrollPane);
 
-		tbl_diplomas = new JTable(dmodel_0);
+		tbl_diplomas = new JTable(XmlFile.getDiplomasModel(empl));
 		scrollPane.setViewportView(tbl_diplomas);
 
-		tf_bdate = new JTextField(fmt.format(empl.getBirthDay( )));
+		tf_bdate = new JTextField(Parser.parseDate(empl.getBirthDay( )));
 		tf_bdate.setColumns(10);
 		tf_bdate.setBounds(135, 103, 148, 29);
 		panel_1.add(tf_bdate);
@@ -311,7 +292,7 @@ public class InfoWin {
 		tf_ref.setBounds(128, 70, 148, 29);
 		panel_2.add(tf_ref);
 
-		tf_date_hiring = new JTextField(fmt.format(empl.getHiringDate( )));
+		tf_date_hiring = new JTextField(Parser.parseDate(empl.getHiringDate( )));
 		tf_date_hiring.setColumns(10);
 		tf_date_hiring.setBounds(410, 37, 148, 29);
 		panel_2.add(tf_date_hiring);
@@ -331,7 +312,7 @@ public class InfoWin {
 		tf_job_current.setBounds(128, 136, 148, 29);
 		panel_2.add(tf_job_current);
 
-		tf_date_join = new JTextField(fmt.format(empl.getJoinDate( )));
+		tf_date_join = new JTextField(Parser.parseDate(empl.getJoinDate( )));
 		tf_date_join.setColumns(10);
 		tf_date_join.setBounds(410, 70, 148, 29);
 		panel_2.add(tf_date_join);
@@ -354,7 +335,7 @@ public class InfoWin {
 		scrollPane_1.setBounds(0, 27, 542, 126);
 		panel_6.add(scrollPane_1);
 
-		tbl_uplifts = new JTable(dmodel_1);
+		tbl_uplifts = new JTable(XmlFile.getUpliftModel(empl));
 		scrollPane_1.setViewportView(tbl_uplifts);
 
 		tf_cin = new JTextField(empl.getCIN( ));
