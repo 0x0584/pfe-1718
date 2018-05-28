@@ -1,4 +1,4 @@
-package xml;
+package app.utils;
 
 /*  Notes about this XmlFile
  *  ========================
@@ -25,15 +25,16 @@ import org.jdom2.output.XMLOutputter;
 
 import app.Files;
 import app.Mention;
-import app.Parser;
 import app.SearchField;
-import app.Type;
+import app.Cadre;
+import app.EmployeeType;
 import model.Diploma;
 import model.Employee;
-import model.Employee.Cadre;
 import model.Uplift;
 
 public class XmlFile {
+	
+
 	private String filepath;
 	private File file;
 	private Document doc;
@@ -87,7 +88,7 @@ public class XmlFile {
 		for (Element e : dlist) {
 			Uplift u = new Uplift( );
 			u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
-			u.setDate(Parser.parseDate(e.getChildTextTrim("update")));
+			u.setDate(DateUtils.parseDate(e.getChildTextTrim("update")));
 			u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
 			u.setIndice(e.getChildTextTrim("indice"));
 			tmp.add(u);
@@ -145,7 +146,7 @@ public class XmlFile {
 		empl.setIsMoroccan(
 			foo.getChild("nationality").getAttributeValue("ma")
 							.compareTo("t") == 0);
-		empl.setBirthDay(Parser.parseDate(foo.getChildTextTrim("birth")));
+		empl.setBirthDay(DateUtils.parseDate(foo.getChildTextTrim("birth")));
 
 		empl.setBirthPlace(foo.getChildTextTrim("brithplace"));
 		empl.setAddress(foo.getChildTextTrim("address"));
@@ -172,8 +173,8 @@ public class XmlFile {
 		empl.setReference(ref);
 		empl.setCIN(bar.getChildTextTrim("cin"));
 		empl.setMission(bar.getChildTextTrim("mission"));
-		empl.setJoinDate(Parser.parseDate(bar.getChildTextTrim("jday")));
-		empl.setHiringDate(Parser.parseDate(bar.getChildTextTrim("hday")));
+		empl.setJoinDate(DateUtils.parseDate(bar.getChildTextTrim("jday")));
+		empl.setHiringDate(DateUtils.parseDate(bar.getChildTextTrim("hday")));
 		empl.setReason(bar.getChildTextTrim("reason"));
 		empl.setPreviousJob(bar.getChildTextTrim("pjob"));
 		empl.setCurrentJob(bar.getChildTextTrim("cjob"));
@@ -198,12 +199,12 @@ public class XmlFile {
 		return model;
 	}
 
-	public static DefaultTableModel getDefaultModel(Type t) {
+	public static DefaultTableModel getDefaultModel(EmployeeType t) {
 		return (DefaultTableModel) getDefaultModel(null, null, t);
 	}
 
 	public static DefaultTableModel getDefaultModel(String text, SearchField sf,
-		Type t) {
+		EmployeeType t) {
 		DefaultTableModel model = getModelColumns( );
 		Iterator<Element> ifoo; // temporary iterators
 		Element foo; // temporary elements
@@ -223,10 +224,10 @@ public class XmlFile {
 			}
 
 			// skip employee based on filter
-			if (t == Type.Normal && foo.getAttributeValue("department")
+			if (t == EmployeeType.Normal && foo.getAttributeValue("department")
 							.compareTo("nil") != 0) {
 				continue; // this means that this is a professor
-			} else if (t == Type.Prof && foo.getAttributeValue("department")
+			} else if (t == EmployeeType.Prof && foo.getAttributeValue("department")
 							.compareTo("nil") == 0) {
 				continue; // this means that this is a normal one
 			}
@@ -281,7 +282,7 @@ public class XmlFile {
 
 		for (Uplift u : empl.getUplifts( )) {
 			model.addRow(new String[] {
-							Parser.parseDate(u.getDate( )), u.getIndice( ),
+							DateUtils.parseDate(u.getDate( )), u.getIndice( ),
 							"" + u.getRank( ), "" + u.getGrade( )
 			});
 		}

@@ -1,4 +1,4 @@
-package view;
+package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,8 +24,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.Printer;
-import app.TableCellListener;
+import app.utils.Printer;
+import app.utils.TableCellListener;
 import model.Employee;
 
 public class NotationView {

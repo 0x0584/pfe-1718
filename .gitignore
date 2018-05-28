@@ -395,3 +395,4 @@ TSWLatexianTemp*
 # End of https://www.gitignore.io/api/tex,java,emacs,eclipse
 /README.pdf
 /README.tex
+*.png
