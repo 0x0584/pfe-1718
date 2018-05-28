@@ -1,5 +1,5 @@
 package app;
 
 public enum Uplift {
-	BY_EXAM, BY_AQDAMIYA
+	BY_EXAM, BY_TIME
 }

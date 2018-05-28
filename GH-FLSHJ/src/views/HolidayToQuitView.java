@@ -1,4 +1,4 @@
-package view;
+package views;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -9,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -22,10 +21,11 @@ import javax.swing.JPanel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.Printer;
+import app.utils.DateUtils;
+import app.utils.Printer;
 import model.Employee;
 
-public class AttTravailView {
+public class HolidayToQuitView {
 
 	private JFrame frame;
 
@@ -40,9 +40,9 @@ public class AttTravailView {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					AttTravailView window = new AttTravailView(new Employee( ));
+					HolidayToQuitView window = new HolidayToQuitView(
+						new Employee( ), null, null, null);
 					window.frame.setVisible(true);
-					Printer.doPrint(window.frame);
 				} catch (Exception e) {
 					e.printStackTrace( );
 				}
@@ -53,8 +53,8 @@ public class AttTravailView {
 	/**
 	 * Create the application.
 	 */
-	public AttTravailView(Employee e) {
-		initialize(e, e.isProfessor( ));
+	public HolidayToQuitView(Employee e, String raison, Date from, Date to) {
+		initialize(e, e.isProfessor( ), raison, from, to);
 	}
 
 	/**
@@ -63,9 +63,10 @@ public class AttTravailView {
 	 * @param isprof
 	 * @param e
 	 */
-	private void initialize(Employee e, boolean isprof) {
+	private void initialize(Employee e, boolean isprof, String raison,
+		Date from, Date to) {
 		WebLookAndFeel.install( );
-		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
 		frame.setBounds(100, 100, Printer.STD_WIDTH, Printer.STD_HEIGHT);
@@ -142,70 +143,71 @@ public class AttTravailView {
 		lblLeDoyenDe.setBounds(110, 235, 485, 33);
 		frame.getContentPane( ).add(lblLeDoyenDe);
 
-		JLabel lblAttesteQueMr = new JLabel("atteste que Mr:");
+		JLabel lblAttesteQueMr = new JLabel("d'El Jadida");
 		lblAttesteQueMr.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblAttesteQueMr.setBounds(70, 249, 134, 36);
+		lblAttesteQueMr.setBounds(70, 249, 525, 36);
 		frame.getContentPane( ).add(lblAttesteQueMr);
 
 		JLabel lblNomCompletes = new JLabel(String.format(
 			"Nom complete: %s %s", e.getFamilyname( ), e.getName( )));
 		lblNomCompletes.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblNomCompletes.setBounds(120, 306, 431, 29);
+		lblNomCompletes.setBounds(110, 438, 431, 29);
 		frame.getContentPane( ).add(lblNomCompletes);
 
 		JLabel label_5 = new JLabel(String.format(
 			"Nationalite: %s", e.isMoroccan( ) ? "Maroccaine" : "Etrange"));
 		label_5.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_5.setBounds(120, 329, 431, 33);
+		label_5.setBounds(110, 461, 431, 33);
 		frame.getContentPane( ).add(label_5);
 
 		JLabel label_6 = new JLabel(String.format(
 			"Grade: %s",
 			e.getUplifts( ).get(e.getUplifts( ).size( ) - 1).getGrade( )));
 		label_6.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_6.setBounds(120, 356, 159, 33);
+		label_6.setBounds(110, 488, 159, 33);
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
 			String.format("S.O.M.: %s", e.getReference( )));
 		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_7.setBounds(120, 383, 431, 33);
+		label_7.setBounds(110, 515, 431, 33);
 		frame.getContentPane( ).add(label_7);
 
 		JLabel lblExerceSeFonctions = new JLabel(
-			"Exerce    ses     fonctions       dans      cet    etablissement ");
+			"est autorise(e) a quitter le territoire national durant les vacances");
 		lblExerceSeFonctions.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblExerceSeFonctions.setBounds(110, 428, 542, 39);
+		lblExerceSeFonctions.setBounds(110, 590, 513, 39);
 		frame.getContentPane( ).add(lblExerceSeFonctions);
 
-		JLabel lblElJadidaLe = new JLabel(
-			String.format("El Jadida le: %s", fmt.format(new Date( ))));
+		JLabel lblElJadidaLe = new JLabel(String.format(
+			"El Jadida le: %s", DateUtils.parseDate(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblElJadidaLe.setBounds(276, 654, 181, 48);
+		lblElJadidaLe.setBounds(270, 816, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		// TODO: verify whether it's hiring date or joining date
-		JLabel label_10 = new JLabel(
-			String.format("depuis le %s", fmt.format(e.getHiringDate( ))));
-		label_10.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_10.setBounds(70, 451, 354, 29);
-		frame.getContentPane( ).add(label_10);
+		JLabel lbls = new JLabel(String.format(
+			"du %s du %s", raison, DateUtils.parseDate(from, to)));
+		lbls.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbls.setBounds(70, 613, 566, 29);
+		frame.getContentPane( ).add(lbls);
 
-		JLabel label_8 = new JLabel(
-			"La presente attestation est delivree a l'interesse(e) pour servir ");
-		label_8.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_8.setBounds(110, 505, 566, 33);
-		frame.getContentPane( ).add(label_8);
+		JLabel lblLinteresseeEstTenue = new JLabel(
+			"L'interesse(e) est tenu(e) d'aviser le service competent de la reprise de");
+		lblLinteresseeEstTenue.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblLinteresseeEstTenue.setBounds(70, 654, 566, 33);
+		frame.getContentPane( ).add(lblLinteresseeEstTenue);
 
-		JLabel label_9 = new JLabel("et valoir ce que de droit");
-		label_9.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_9.setBounds(70, 524, 243, 33);
-		frame.getContentPane( ).add(label_9);
+		JLabel lblSonTravailA = new JLabel(
+			"son travail a l'experation de son conge");
+		lblSonTravailA.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblSonTravailA.setBounds(70, 669, 356, 33);
+		frame.getContentPane( ).add(lblSonTravailA);
 
 		JLabel lblAttestationDeTravail = new JLabel("Attestation De Travail");
 		lblAttestationDeTravail.setFont(
 			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
-		lblAttestationDeTravail.setBounds(239, 161, 243, 15);
+		lblAttestationDeTravail.setBounds(245, 161, 243, 15);
 		frame.getContentPane( ).add(lblAttestationDeTravail);
 
 		JLabel lblAuDepartements = new JLabel(!e.isProfessor( ) ? " "
@@ -214,7 +216,35 @@ public class AttTravailView {
 		lblAuDepartements.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblAuDepartements.setBounds(240, 418, 486, 29);
 		frame.getContentPane( ).add(lblAuDepartements);
-		
+
+		JLabel lblVueLrDahir = new JLabel(
+			"Vue lr Dahir N 1.58.008 du 04 Chaabane 1377 (24/02/1958)");
+		lblVueLrDahir.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblVueLrDahir.setBounds(110, 280, 485, 36);
+		frame.getContentPane( ).add(lblVueLrDahir);
+
+		JLabel lblPortantStautGeneral = new JLabel(
+			"portant staut general de la fontion publique tel qu'ill a ete modifie ");
+		lblPortantStautGeneral.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblPortantStautGeneral.setBounds(70, 295, 525, 36);
+		frame.getContentPane( ).add(lblPortantStautGeneral);
+
+		JLabel lblEtComplete = new JLabel("et complete");
+		lblEtComplete.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblEtComplete.setBounds(70, 311, 525, 36);
+		frame.getContentPane( ).add(lblEtComplete);
+
+		JLabel lblDecide = new JLabel("DECIDE");
+		lblDecide.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+		lblDecide.setBounds(322, 380, 88, 15);
+		frame.getContentPane( ).add(lblDecide);
+
+		JLabel lblArticleUnique = new JLabel("Article Unique");
+		lblArticleUnique.setFont(
+			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+		lblArticleUnique.setBounds(70, 411, 158, 15);
+		frame.getContentPane( ).add(lblArticleUnique);
+
 		JMenuBar menuBar = new JMenuBar( );
 		frame.setJMenuBar(menuBar);
 

@@ -1,4 +1,4 @@
-package view;
+package wins;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -24,10 +24,10 @@ import javax.swing.event.ChangeListener;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.Parser;
+import app.Cadre;
+import app.utils.DateUtils;
+import app.utils.XmlFile;
 import model.Employee;
-import model.Employee.Cadre;
-import xml.XmlFile;
 
 public class InfoWin {
 
@@ -226,7 +226,7 @@ public class InfoWin {
 		tbl_diplomas = new JTable(XmlFile.getDiplomasModel(empl));
 		scrollPane.setViewportView(tbl_diplomas);
 
-		tf_bdate = new JTextField(Parser.parseDate(empl.getBirthDay( )));
+		tf_bdate = new JTextField(DateUtils.parseDate(empl.getBirthDay( )));
 		tf_bdate.setColumns(10);
 		tf_bdate.setBounds(135, 103, 148, 29);
 		panel_1.add(tf_bdate);
@@ -292,7 +292,7 @@ public class InfoWin {
 		tf_ref.setBounds(128, 70, 148, 29);
 		panel_2.add(tf_ref);
 
-		tf_date_hiring = new JTextField(Parser.parseDate(empl.getHiringDate( )));
+		tf_date_hiring = new JTextField(DateUtils.parseDate(empl.getHiringDate( )));
 		tf_date_hiring.setColumns(10);
 		tf_date_hiring.setBounds(410, 37, 148, 29);
 		panel_2.add(tf_date_hiring);
@@ -312,7 +312,7 @@ public class InfoWin {
 		tf_job_current.setBounds(128, 136, 148, 29);
 		panel_2.add(tf_job_current);
 
-		tf_date_join = new JTextField(Parser.parseDate(empl.getJoinDate( )));
+		tf_date_join = new JTextField(DateUtils.parseDate(empl.getJoinDate( )));
 		tf_date_join.setColumns(10);
 		tf_date_join.setBounds(410, 70, 148, 29);
 		panel_2.add(tf_date_join);

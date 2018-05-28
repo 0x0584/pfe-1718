@@ -1,4 +1,4 @@
-package view;
+package wins;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,9 +24,14 @@ import javax.swing.event.ChangeListener;
 import com.alee.laf.WebLookAndFeel;
 
 import app.SearchField;
-import app.Type;
+import app.utils.DateUtils;
+import app.utils.XmlFile;
+import app.EmployeeType;
 import model.Employee;
-import xml.XmlFile;
+import views.AttTravailView;
+import views.HolidayExcepView;
+import views.HolidayToQuitView;
+import views.NotationView;
 import app.Holiday;
 import javax.swing.JLabel;
 import java.awt.event.ItemListener;
@@ -34,6 +40,7 @@ import java.awt.event.ItemEvent;
 public class MainWin {
 
 	private JFrame frame;
+	private final static int REF_INDEX = 0;
 
 	public JFrame getFrame( ) {
 		return frame;
@@ -41,11 +48,12 @@ public class MainWin {
 
 	private final static int WIDTH = 632, HEIGHT = 430, EXTRA_HEIGHT = 491;
 	private JTable table;
-	private Type type;
+	private EmployeeType type;
 	private JTextField tf_search;
-	private JTextField tf_a;
-	private JTextField tf_de;
-	private String raison, de, a;
+	private JTextField tf_to;
+	private JTextField tf_from;
+	private String raison;
+	private Date fromDate, toDate;
 	private JTextField tf_raison;
 
 	/**
@@ -76,7 +84,10 @@ public class MainWin {
 	 */
 	private void initialize( ) {
 		WebLookAndFeel.install( );
-		type = Type.All;
+		type = EmployeeType.All;
+		raison = "";
+		fromDate = new Date( );
+		toDate = DateUtils.addDays(new Date( ), 1);
 
 		frame = new JFrame( );
 		frame.setBounds(100, 100, WIDTH, EXTRA_HEIGHT);
@@ -108,7 +119,7 @@ public class MainWin {
 			public void stateChanged(ChangeEvent e) {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
-				type = Type.filter(a, b);
+				type = EmployeeType.filter(a, b);
 				table.setModel(XmlFile.getDefaultModel(type));
 				setupJTable(table);
 			}
@@ -118,7 +129,7 @@ public class MainWin {
 			public void stateChanged(ChangeEvent e) {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
-				type = Type.filter(a, b);
+				type = EmployeeType.filter(a, b);
 				table.setModel(XmlFile.getDefaultModel(type));
 				setupJTable(table);
 			}
@@ -166,30 +177,6 @@ public class MainWin {
 		chckbx4.setBounds(378, 13, 112, 23);
 		frame.getContentPane( ).add(chckbx4);
 
-		JButton btnConfirm = new JButton("إستخراج");
-		btnConfirm.addActionListener(new ActionListener( ) {
-			public void actionPerformed(ActionEvent e) {
-				// TODO: handle all of this
-
-				if (chckbx1.isSelected( )) {
-					AttTravailView window = new AttTravailView(new Employee(
-						table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
-										.toString( )));
-					window.getFrame( ).setVisible(true);
-				}
-
-				if (chckbx4.isSelected( )) {
-					NotationView window = new NotationView(new Employee(
-						table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
-										.toString( )));
-					window.getFrame( ).setVisible(true);
-				}
-
-			}
-		});
-		btnConfirm.setBounds(534, 12, 86, 25);
-		frame.getContentPane( ).add(btnConfirm);
-
 		JComboBox<SearchField> comboFields = new JComboBox<SearchField>( );
 		comboFields.setModel(
 			new DefaultComboBoxModel<SearchField>(SearchField.values( )));
@@ -223,45 +210,112 @@ public class MainWin {
 		tf_search.setColumns(10);
 
 		tf_raison = new JTextField( );
+		tf_raison.addKeyListener(new KeyAdapter( ) {
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+				String text = tf_raison.getText( ).trim( );
+
+				switch (e.getKeyCode( )) {
+				case KeyEvent.VK_ALPHANUMERIC:
+					text.concat("" + e.getKeyChar( ));
+					break;
+				case KeyEvent.VK_DELETE:
+					text = text.substring(0, text.length( ) - 1);
+					break;
+				}
+
+				raison = text;
+			}
+		});
 		tf_raison.setBounds(161, 421, 148, 25);
 		frame.getContentPane( ).add(tf_raison);
 		tf_raison.setColumns(10);
 		tf_raison.setVisible(false);
-		JComboBox<String> comboBox_1 = new JComboBox<String>( );
-		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {
+		JComboBox<String> defaultHolidays = new JComboBox<String>( );
+		defaultHolidays.addItemListener(new ItemListener( ) {
+			public void itemStateChanged(ItemEvent e) {
+				tf_raison.setText(
+					defaultHolidays.getSelectedItem( ).toString( ));
+				raison = defaultHolidays.getSelectedItem( ).toString( );
+			}
+		});
+		defaultHolidays.setModel(new DefaultComboBoxModel<String>(new String[] {
 						"Semester I", "Semester II", "Ete"
 		}));
-		comboBox_1.setBounds(161, 421, 148, 24);
-		frame.getContentPane( ).add(comboBox_1);
-		comboBox_1.setVisible(true);
-		JComboBox<Holiday> comboBox = new JComboBox<Holiday>( );
-		comboBox.addItemListener(new ItemListener( ) {
+		defaultHolidays.setBounds(161, 421, 148, 24);
+		frame.getContentPane( ).add(defaultHolidays);
+		defaultHolidays.setVisible(true);
+		
+		raison = defaultHolidays.getSelectedItem( ).toString( );
+		
+		
+		JComboBox<Holiday> holidayTypes = new JComboBox<Holiday>( );
+		holidayTypes.addItemListener(new ItemListener( ) {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getItem( ) == Holiday.NORMAL) {
-					comboBox_1.setVisible(true);
+					defaultHolidays.setVisible(true);
 					tf_raison.setVisible(false);
+					tf_raison.setText(
+						defaultHolidays.getSelectedItem( ).toString( ));
 				} else if (e.getItem( ) == Holiday.EXCEP) {
-					comboBox_1.setVisible(false);
+					defaultHolidays.setVisible(false);
 					tf_raison.setVisible(true);
 				} else if (e.getItem( ) == Holiday.TO_QUIT) {
-					comboBox_1.setVisible(false);
+					defaultHolidays.setVisible(false);
 					tf_raison.setVisible(false);
+					tf_raison.setText("");
 				}
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel<Holiday>(Holiday.values( )));
-		comboBox.setBounds(12, 421, 141, 24);
-		frame.getContentPane( ).add(comboBox);
+		holidayTypes.setModel(
+			new DefaultComboBoxModel<Holiday>(Holiday.values( )));
+		holidayTypes.setBounds(12, 421, 141, 24);
+		frame.getContentPane( ).add(holidayTypes);
 
-		tf_a = new JTextField( );
-		tf_a.setBounds(509, 424, 114, 25);
-		frame.getContentPane( ).add(tf_a);
-		tf_a.setColumns(10);
+		tf_to = new JTextField(DateUtils.parseDate(toDate));
+		tf_to.setBounds(509, 424, 114, 25);
+		tf_to.addKeyListener(new KeyAdapter( ) {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String text = tf_to.getText( ).trim( );
 
-		tf_de = new JTextField( );
-		tf_de.setBounds(352, 424, 114, 25);
-		frame.getContentPane( ).add(tf_de);
-		tf_de.setColumns(10);
+				switch (e.getKeyCode( )) {
+				case KeyEvent.VK_ALPHANUMERIC:
+					text.concat("" + e.getKeyChar( ));
+					break;
+				case KeyEvent.VK_DELETE:
+					text = text.substring(0, text.length( ) - 1);
+					break;
+				}
+
+				toDate = DateUtils.parseDate(text);
+			}
+		});
+		frame.getContentPane( ).add(tf_to);
+		tf_to.setColumns(10);
+
+		tf_from = new JTextField(DateUtils.parseDate(fromDate));
+		tf_from.setBounds(352, 424, 114, 25);
+		tf_from.addKeyListener(new KeyAdapter( ) {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String text = tf_from.getText( ).trim( );
+
+				switch (e.getKeyCode( )) {
+				case KeyEvent.VK_ALPHANUMERIC:
+					text.concat("" + e.getKeyChar( ));
+					break;
+				case KeyEvent.VK_DELETE:
+					text = text.substring(0, text.length( ) - 1);
+					break;
+				}
+
+				fromDate = DateUtils.parseDate(text);
+			}
+		});
+		frame.getContentPane( ).add(tf_from);
+		tf_from.setColumns(10);
 
 		JLabel lblDe = new JLabel("A");
 		lblDe.setBounds(474, 426, 27, 15);
@@ -271,10 +325,51 @@ public class MainWin {
 		lblDe_1.setBounds(317, 426, 27, 15);
 		frame.getContentPane( ).add(lblDe_1);
 
-		JLabel lblOptionDeConge = new JLabel("Option de conge");
-		lblOptionDeConge.setBounds(256, 397, 129, 15);
-		frame.getContentPane( ).add(lblOptionDeConge);
+		JLabel lblerr = new JLabel("Option de conge");
+		lblerr.setBounds(22, 394, 364, 15);
+		frame.getContentPane( ).add(lblerr);
 
+		JButton btnConfirm = new JButton("إستخراج");
+		btnConfirm.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				// TODO: handle all of this
+
+				if (chckbx1.isSelected( )) {
+					AttTravailView window = new AttTravailView(
+						getSelectedEmployee(table));
+					window.getFrame( ).setVisible(true);
+				}
+
+				if (chckbx2.isSelected( )) {
+					if (fromDate != null && toDate != null) {
+						lblerr.setText("Option de conge");
+						if (Holiday.EXCEP.toString( ).compareTo(
+							holidayTypes.getSelectedItem( ).toString( )) != 0) {
+							HolidayToQuitView window = new HolidayToQuitView(
+								getSelectedEmployee(table), raison, fromDate,
+								toDate);
+							window.getFrame( ).setVisible(true);
+						} else {
+							HolidayExcepView window = new HolidayExcepView(
+								getSelectedEmployee(table));
+							window.getFrame( ).setVisible(true);
+						}
+					} else {
+						lblerr.setText("DATE FORMAT ERR: example: 1994-09-15");
+					}
+				}
+
+				if (chckbx4.isSelected( )) {
+					NotationView window = new NotationView(
+						getSelectedEmployee(table));
+					window.getFrame( ).setVisible(true);
+				}
+
+			}
+
+		});
+		btnConfirm.setBounds(534, 12, 86, 25);
+		frame.getContentPane( ).add(btnConfirm);
 	}
 
 	private void setupJTable(JTable table) {
@@ -284,5 +379,11 @@ public class MainWin {
 			// select first line
 			table.addRowSelectionInterval(0, 0);
 		}
+	}
+
+	private Employee getSelectedEmployee(JTable table) {
+		return new Employee(
+			table.getModel( ).getValueAt(table.getSelectedRow( ), REF_INDEX)
+							.toString( ));
 	}
 }

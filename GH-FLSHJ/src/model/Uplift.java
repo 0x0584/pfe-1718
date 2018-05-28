@@ -2,7 +2,12 @@ package model;
 
 import java.util.Date;
 
+import javax.swing.table.TableModel;
+
+import app.Period;
+
 public class Uplift {
+	// TODO: create a thread that solves this
 	private final static byte RANK[] = new byte[] {
 					/* 4 years */
 					1, 1, 1, 1,
@@ -23,6 +28,7 @@ public class Uplift {
 	public Uplift() {
 		super( );
 	}
+
 	/**
 	 * @param indice
 	 * @param date
@@ -73,6 +79,16 @@ public class Uplift {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	/**
+	 * this function tracks the uplifts once in a start up checks if some
+	 * employees would get an uplift in the next period
+	 */
+	public static TableModel trackUplifts(Period p) {
+		Date limit = new Date();
+		
+		return null;
 	}
 
 }
