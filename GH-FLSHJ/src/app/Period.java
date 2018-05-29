@@ -1,7 +1,9 @@
 package app;
 
 public enum Period {
-	WEEK, TWO_WEEKS, 
+	ONE_DAY, 
+	
+	ONE_WEEK, TWO_WEEKS, 
 	
 	ONE_MONTH, THREE_MONTHS, ONE_SEMESTRE,
 	

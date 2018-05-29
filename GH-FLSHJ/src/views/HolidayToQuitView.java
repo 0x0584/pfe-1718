@@ -204,10 +204,10 @@ public class HolidayToQuitView {
 		lblSonTravailA.setBounds(70, 669, 356, 33);
 		frame.getContentPane( ).add(lblSonTravailA);
 
-		JLabel lblAttestationDeTravail = new JLabel("Attestation De Travail");
+		JLabel lblAttestationDeTravail = new JLabel("Autorisation de Quitter le Territoire National");
 		lblAttestationDeTravail.setFont(
 			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
-		lblAttestationDeTravail.setBounds(245, 161, 243, 15);
+		lblAttestationDeTravail.setBounds(116, 161, 500, 15);
 		frame.getContentPane( ).add(lblAttestationDeTravail);
 
 		JLabel lblAuDepartements = new JLabel(!e.isProfessor( ) ? " "
