@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
+import app.Period;
+
 public class DateUtils {
 	private SimpleDateFormat fmt;
 
@@ -30,24 +32,36 @@ public class DateUtils {
 		}
 	}
 
-	public static Date addMonths(Date date, int n) {
+	public static Date add(Period p, Date date, int n) {
 		try {
-			return new DateUtils( ).fmt
-							.parse(LocalDate.now( ).plusMonths(n).toString( ));
+			Date foo = null;
+			if (p.equals(Period.ONE_MONTH)) {
+				foo = new DateUtils( ).fmt.parse(
+					LocalDate.now( ).plusMonths(n).toString( ));
+			} else if (p.equals(Period.ONE_WEEK)) {
+				foo = new DateUtils( ).fmt.parse(
+					LocalDate.now( ).plusDays(n * 7).toString( ));
+			} else if (p.equals(Period.ONE_YEAR)) {
+				foo = new DateUtils( ).fmt.parse(
+					LocalDate.now( ).plusYears(n).toString( ));
+			} else {
+				foo = new DateUtils( ).fmt.parse(
+					LocalDate.now( ).plusDays(n).toString( ));
+			}
+
+			return foo;
 		} catch (ParseException e) {
 			System.err.println(e.getMessage( ));
 			return null;
 		}
 	}
 
-	public static Date addDays(Date date, int n) {
-		try {
-			return new DateUtils( ).fmt
-							.parse(LocalDate.now( ).plusDays(n).toString( ));
-		} catch (ParseException e) {
-			System.err.println(e.getMessage( ));
-			return null;
-		}
+	public static long DateDiff(Period p, Date from, Date to) {
+		if (from != null && to != null) {
+			return (Math.abs(from.getTime( ) - to.getTime( ))
+							/ (1000 * 60 * 60 * 24))
+							- parseDate(LocalDate.MIN.toString( )).getTime( );
+		} else return 0;
 	}
 
 }

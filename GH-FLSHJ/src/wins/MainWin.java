@@ -29,10 +29,13 @@ import app.utils.XmlFile;
 import app.EmployeeType;
 import model.Employee;
 import views.AttTravailView;
+import views.HolidayAdminiView;
 import views.HolidayExcepView;
 import views.HolidayToQuitView;
 import views.NotationView;
 import app.Holiday;
+import app.Period;
+
 import javax.swing.JLabel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -87,10 +90,10 @@ public class MainWin {
 		type = EmployeeType.All;
 		raison = "";
 		fromDate = new Date( );
-		toDate = DateUtils.addDays(new Date( ), 1);
+		toDate = DateUtils.add(Period.ONE_DAY, new Date( ), 1);
 
 		frame = new JFrame( );
-		frame.setBounds(100, 100, WIDTH, EXTRA_HEIGHT);
+		frame.setBounds(100, 100, WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
@@ -246,10 +249,9 @@ public class MainWin {
 		defaultHolidays.setBounds(161, 421, 148, 24);
 		frame.getContentPane( ).add(defaultHolidays);
 		defaultHolidays.setVisible(true);
-		
+
 		raison = defaultHolidays.getSelectedItem( ).toString( );
-		
-		
+
 		JComboBox<Holiday> holidayTypes = new JComboBox<Holiday>( );
 		holidayTypes.addItemListener(new ItemListener( ) {
 			public void itemStateChanged(ItemEvent e) {
@@ -343,15 +345,20 @@ public class MainWin {
 				if (chckbx2.isSelected( )) {
 					if (fromDate != null && toDate != null) {
 						lblerr.setText("Option de conge");
-						if (Holiday.EXCEP.toString( ).compareTo(
-							holidayTypes.getSelectedItem( ).toString( )) != 0) {
+						if (cmp(Holiday.TO_QUIT, holidayTypes)) {
 							HolidayToQuitView window = new HolidayToQuitView(
 								getSelectedEmployee(table), raison, fromDate,
 								toDate);
 							window.getFrame( ).setVisible(true);
-						} else {
+						} else if (cmp(Holiday.EXCEP, holidayTypes)) {
 							HolidayExcepView window = new HolidayExcepView(
-								getSelectedEmployee(table));
+								getSelectedEmployee(table), raison, fromDate,
+								toDate);
+							window.getFrame( ).setVisible(true);
+						} else if (cmp(Holiday.NORMAL, holidayTypes)) {
+							HolidayAdminiView window = new HolidayAdminiView(
+								getSelectedEmployee(table), raison, fromDate,
+								toDate);
 							window.getFrame( ).setVisible(true);
 						}
 					} else {
@@ -365,6 +372,11 @@ public class MainWin {
 					window.getFrame( ).setVisible(true);
 				}
 
+			}
+
+			private boolean cmp(Holiday h, JComboBox<Holiday> c) {
+				return h.toString( ).compareTo(
+					c.getSelectedItem( ).toString( )) == 0;
 			}
 
 		});

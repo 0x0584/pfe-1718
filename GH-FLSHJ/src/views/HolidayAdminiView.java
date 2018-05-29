@@ -26,7 +26,7 @@ import app.utils.DateUtils;
 import app.utils.Printer;
 import model.Employee;
 
-public class HolidayExcepView {
+public class HolidayAdminiView {
 
 	private JFrame frame;
 
@@ -41,12 +41,12 @@ public class HolidayExcepView {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					HolidayExcepView window = new HolidayExcepView(
-						new Employee( ), "Des raisons personnelle", new Date( ),
-						DateUtils.add(Period.ONE_WEEK, new Date( ), 1));
+					HolidayAdminiView window = new HolidayAdminiView(
+						new Employee( ), null, new Date( ),
+						DateUtils.add(Period.ONE_MONTH, new Date( ), 1));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace( );
+					System.err.println(e.getMessage( ));
 				}
 			}
 		});
@@ -55,7 +55,7 @@ public class HolidayExcepView {
 	/**
 	 * Create the application.
 	 */
-	public HolidayExcepView(Employee e, String raison, Date from, Date to) {
+	public HolidayAdminiView(Employee e, String raison, Date from, Date to) {
 		initialize(e, e.isProfessor( ), raison, from, to);
 	}
 
@@ -153,45 +153,64 @@ public class HolidayExcepView {
 		JLabel lblNomCompletes = new JLabel(String.format(
 			"Nom complete: %s %s", e.getFamilyname( ), e.getName( )));
 		lblNomCompletes.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblNomCompletes.setBounds(110, 482, 431, 29);
+		lblNomCompletes.setBounds(110, 557, 431, 29);
 		frame.getContentPane( ).add(lblNomCompletes);
 
 		JLabel label_5 = new JLabel(String.format(
 			"Nationalite: %s", e.isMoroccan( ) ? "Maroccaine" : "Etrange"));
 		label_5.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_5.setBounds(110, 505, 431, 33);
+		label_5.setBounds(110, 580, 431, 33);
 		frame.getContentPane( ).add(label_5);
 
 		JLabel label_6 = new JLabel(String.format(
 			"Grade: %s",
 			e.getUplifts( ).get(e.getUplifts( ).size( ) - 1).getGrade( )));
 		label_6.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_6.setBounds(110, 532, 159, 33);
+		label_6.setBounds(110, 607, 159, 33);
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
 			String.format("S.O.M.: %s", e.getReference( )));
 		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_7.setBounds(110, 559, 431, 33);
+		label_7.setBounds(110, 634, 431, 33);
 		frame.getContentPane( ).add(label_7);
+
+		JLabel lblExerceSeFonctions = new JLabel(
+			"L'interesse(e) est autorise(e) a quitter le territoire national durant");
+		lblExerceSeFonctions.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblExerceSeFonctions.setBounds(110, 708, 513, 39);
+		frame.getContentPane( ).add(lblExerceSeFonctions);
 
 		JLabel lblElJadidaLe = new JLabel(String.format(
 			"El Jadida le: %s", DateUtils.parseDate(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblElJadidaLe.setBounds(270, 816, 193, 48);
+		lblElJadidaLe.setBounds(270, 831, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
-		JLabel lblAttestationDeTravail = new JLabel("Conge Exceptionnel");
+		// TODO: verify whether it's hiring date or joining date
+		JLabel lbls = new JLabel(" la period sus-indique");
+		lbls.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbls.setBounds(70, 731, 566, 29);
+		frame.getContentPane( ).add(lbls);
+
+		JLabel lblLinteresseeEstTenue = new JLabel(
+			"L'interesse(e) est tenu(e) d'aviser le service competent de la reprise de");
+		lblLinteresseeEstTenue.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblLinteresseeEstTenue.setBounds(70, 759, 566, 33);
+		frame.getContentPane( ).add(lblLinteresseeEstTenue);
+
+		JLabel lblSonTravailA = new JLabel(
+			"son travail a l'experation de son conge");
+		lblSonTravailA.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblSonTravailA.setBounds(70, 774, 356, 33);
+		frame.getContentPane( ).add(lblSonTravailA);
+
+		JLabel lblAttestationDeTravail = new JLabel(
+			"Decision de Conge Administratif");
 		lblAttestationDeTravail.setFont(
 			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
-		lblAttestationDeTravail.setBounds(245, 161, 243, 36);
+		lblAttestationDeTravail.setBounds(188, 161, 356, 29);
 		frame.getContentPane( ).add(lblAttestationDeTravail);
-
-		JLabel lblAuDepartements = new JLabel(!e.isProfessor( ) ? " "
-						: String.format(" %s ", e.getDepartment( )));
-		lblAuDepartements.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblAuDepartements.setBounds(503, 367, 486, 29);
-		frame.getContentPane( ).add(lblAuDepartements);
 
 		JLabel lblVueLrDahir = new JLabel(
 			"Vue le Dahir N 1.58.008 du 04 Chaabane 1377 (24/02/1958)");
@@ -202,70 +221,49 @@ public class HolidayExcepView {
 		JLabel lblPortantStautGeneral = new JLabel(
 			"portant staut general de la fontion publique tel qu'ill a ete modifie ");
 		lblPortantStautGeneral.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblPortantStautGeneral.setBounds(70, 295, 525, 36);
+		lblPortantStautGeneral.setBounds(70, 314, 525, 36);
 		frame.getContentPane( ).add(lblPortantStautGeneral);
 
 		JLabel lblEtComplete = new JLabel("et complete");
 		lblEtComplete.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblEtComplete.setBounds(70, 311, 525, 36);
+		lblEtComplete.setBounds(70, 330, 525, 36);
 		frame.getContentPane( ).add(lblEtComplete);
 
-		JLabel lblDecide = new JLabel("Arrete");
+		JLabel lblDecide = new JLabel("DECIDE");
 		lblDecide.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
-		lblDecide.setBounds(322, 404, 88, 15);
+		lblDecide.setBounds(322, 410, 88, 15);
 		frame.getContentPane( ).add(lblDecide);
 
 		JLabel lblArticleUnique = new JLabel("Article 1");
 		lblArticleUnique.setFont(
 			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
-		lblArticleUnique.setBounds(70, 435, 158, 15);
+		lblArticleUnique.setBounds(70, 478, 158, 15);
 		frame.getContentPane( ).add(lblArticleUnique);
 
-		JLabel label_8 = new JLabel("- Vu la demande de l'interesse(e) ");
-		label_8.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_8.setBounds(70, 343, 525, 36);
-		frame.getContentPane( ).add(label_8);
+		JLabel lblVueLrDahir_1 = new JLabel(
+			"Vue le Dahir N 1.11.10 du 14 Rabiaa I 1432 (18/02/2011)");
+		lblVueLrDahir_1.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblVueLrDahir_1.setBounds(110, 297, 485, 36);
+		frame.getContentPane( ).add(lblVueLrDahir_1);
 
-		JLabel label_9 = new JLabel(
-			"- Vu l'avis favorable du chef du departement concerne: ");
-		label_9.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_9.setBounds(70, 363, 525, 36);
-		frame.getContentPane( ).add(label_9);
+		JLabel lblArticle = new JLabel("Article 2");
+		lblArticle.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+		lblArticle.setBounds(70, 693, 158, 15);
+		frame.getContentPane( ).add(lblArticle);
 
-		JLabel label_10 = new JLabel(
-			"L'interesse(e) est autorise(e) a quitter le territoire national durant");
-		label_10.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_10.setBounds(110, 653, 513, 39);
-		frame.getContentPane( ).add(label_10);
+		JLabel lblUnCongeAdministratif = new JLabel(String.format(
+			"Un conge administratif a partir du %s est accorde ",
+			DateUtils.parseDate(from)));
+		lblUnCongeAdministratif.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblUnCongeAdministratif.setBounds(110, 494, 566, 33);
+		frame.getContentPane( ).add(lblUnCongeAdministratif);
 
-		JLabel label_11 = new JLabel(
-			String.format(" la period susvise pour: %s", raison));
-		label_11.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_11.setBounds(70, 676, 566, 29);
-		frame.getContentPane( ).add(label_11);
-
-		JLabel label_12 = new JLabel(
-			"L'interesse(e) doit, a l'expiration de ce conge aviser le service competent");
-		label_12.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_12.setBounds(70, 704, 566, 33);
-		frame.getContentPane( ).add(label_12);
-
-		JLabel label_13 = new JLabel("de la reprise de ses fonction");
-		label_13.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_13.setBounds(70, 719, 356, 33);
-		frame.getContentPane( ).add(label_13);
-
-		JLabel label_14 = new JLabel("Article 2");
-		label_14.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
-		label_14.setBounds(70, 638, 158, 15);
-		frame.getContentPane( ).add(label_14);
-
-		JLabel label_15 = new JLabel(String.format(
-			"un conge exceptionnel du %s a %s", DateUtils.parseDate(from),
-			DateUtils.parseDate(to)));
-		label_15.setFont(new Font("Dialog", Font.PLAIN, 16));
-		label_15.setBounds(176, 426, 566, 33);
-		frame.getContentPane( ).add(label_15);
+		@SuppressWarnings("deprecation")
+		JLabel lblAuTitreDe = new JLabel(
+			String.format(" au titre de l'annee %s", from.getYear( )));
+		lblAuTitreDe.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblAuTitreDe.setBounds(70, 511, 566, 33);
+		frame.getContentPane( ).add(lblAuTitreDe);
 
 		JMenuBar menuBar = new JMenuBar( );
 		frame.setJMenuBar(menuBar);
