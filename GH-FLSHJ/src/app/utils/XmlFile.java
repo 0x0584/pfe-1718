@@ -8,8 +8,10 @@ package app.utils;
  * */
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,10 +32,10 @@ import app.Cadre;
 import app.EmployeeType;
 import model.Diploma;
 import model.Employee;
+import model.MedicalCertif;
 import model.Uplift;
 
 public class XmlFile {
-	
 
 	private String filepath;
 	private File file;
@@ -180,9 +182,27 @@ public class XmlFile {
 		empl.setCurrentJob(bar.getChildTextTrim("cjob"));
 		empl.setCadre(Cadre.parseCadre(bar.getChildTextTrim("cadre")));
 		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
+		//
 		empl.setUplifts(getUplifts(empl));
 		empl.setDiplomas(getDiplomas(empl));
+		empl.setMedicalCertifs(getMedicalCertifs(empl));
 
+	}
+
+	private static ArrayList<MedicalCertif> getMedicalCertifs(Employee empl) {
+		List<Element> dlist = getEmployee(empl.getReference( ))
+						.getChildren("medicalcertif");
+		ArrayList<MedicalCertif> tmp = new ArrayList<MedicalCertif>( );
+		for (Element e : dlist) {
+			MedicalCertif m = new MedicalCertif( );
+			m.setFrom(DateUtils.parseDate(e.getChildTextTrim("from")));
+			m.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
+			m.setPeriod(e.getChildTextTrim("period"));
+
+			tmp.add(m);
+		}
+
+		return tmp;
 	}
 
 	private static DefaultTableModel getModelColumns( ) {
@@ -227,8 +247,9 @@ public class XmlFile {
 			if (t == EmployeeType.Normal && foo.getAttributeValue("department")
 							.compareTo("nil") != 0) {
 				continue; // this means that this is a professor
-			} else if (t == EmployeeType.Prof && foo.getAttributeValue("department")
-							.compareTo("nil") == 0) {
+			} else if (t == EmployeeType.Prof
+							&& foo.getAttributeValue("department")
+											.compareTo("nil") == 0) {
 				continue; // this means that this is a normal one
 			}
 
@@ -289,4 +310,103 @@ public class XmlFile {
 
 		return model;
 	}
+
+	public static void updateEmployee(String ref, Employee newempl) {
+		Element empl = getEmployee(ref), foo, bar;
+
+		empl.getChild("notes").setText(newempl.getNotes( ));
+		empl.getAttribute("department").setValue(newempl.getDepartment( ));
+		empl.getAttribute("reference").setValue(newempl.getReference( ));
+
+		// personal tag
+		foo = empl.getChild("personal");
+
+		foo.getChild("name").setText(newempl.getName( ));
+		foo.getChild("familyname").setText(newempl.getFamilyname( ));
+		foo.getChild("nationality").getAttribute("ma")
+						.setValue(newempl.isMoroccan( ) ? "t" : "nil");
+		foo.getChild("birth")
+						.setText(DateUtils.parseDate(newempl.getBirthDay( )));
+
+		foo.getChild("brithplace").setText(newempl.getBirthPlace( ));
+		foo.getChild("address").setText(newempl.getAddress( ));
+		foo.getChild("phone").setText(newempl.getPhone( ));
+		foo.getChild("state").getAttribute("married")
+						.setValue(newempl.isMarried( ) ? "t" : "nil");
+
+		try {
+			Element tmp = foo.getChild("partner");
+			foo.getChild("children").getAttribute("number")
+							.setValue("" + newempl.getNumberOfChildren( ));
+
+			tmp.getAttribute("name").setValue(newempl.getPartnerName( ));
+			tmp.getAttribute("job").setValue(newempl.getPartnerJob( ));
+		} catch (Exception ex) {}
+
+		// administrative tag
+		bar = empl.getChild("administrative");
+
+		bar.getChild("cin").setText(newempl.getCIN( ));
+		bar.getChild("mission").setText(newempl.getMission( ));
+		bar.getChild("jday")
+						.setText(DateUtils.parseDate(newempl.getJoinDate( )));
+		bar.getChild("hday")
+						.setText(DateUtils.parseDate(newempl.getHiringDate( )));
+		bar.getChild("reason").setText(newempl.getReason( ));
+		bar.getChild("pjob").setText(newempl.getPreviousJob( ));
+		bar.getChild("cjob").setText(newempl.getCurrentJob( ));
+		bar.getChild("cadre").setText(newempl.getCadre( ).toString( ));
+		bar.getChild("fstatus").setText(newempl.getFinancialStatus( ));
+
+		// empl.setUplifts(getUplifts(empl));
+		// empl.setDiplomas(getDiplomas(empl));
+
+		XMLOutputter xmlOutput = new XMLOutputter( );
+
+		// display nice nice
+		xmlOutput.setFormat(Format.getPrettyFormat( ));
+		try {
+			xmlOutput.output(
+				empl.getDocument( ),
+				new FileWriter(Files.HUMAIN_RESOURCES.getFilePath( )));
+			System.err.println(
+				"success " + Files.HUMAIN_RESOURCES.getFilePath( ));
+		} catch (IOException e) {
+			System.err.println(e.getMessage( ));
+		}
+
+	}
+
+	public static void addMedicalCertif(Employee employee,
+		MedicalCertif certif) {
+		Element empl = getEmployee(employee.getReference( ));
+		Element med = new Element("medicalcertif");
+		Element from = new Element("from");
+		Element ndays = new Element("ndays");
+		Element period = new Element("period");
+
+		from.addContent(DateUtils.parseDate(certif.getFrom( )));
+		ndays.addContent("" + certif.getNumberOfDays( ));
+		period.addContent(certif.getPeriod( ));
+
+		med.addContent(from);
+		med.addContent(ndays);
+		med.addContent(period);
+		empl.addContent(med);
+
+		XMLOutputter xmlOutput = new XMLOutputter( );
+
+		// display nice nice
+		xmlOutput.setFormat(Format.getPrettyFormat( ));
+		try {
+			xmlOutput.output(
+				empl.getDocument( ),
+				new FileWriter(Files.HUMAIN_RESOURCES.getFilePath( )));
+			System.err.println(
+				"success " + Files.HUMAIN_RESOURCES.getFilePath( ));
+		} catch (IOException e) {
+			System.err.println(e.getMessage( ));
+		}
+	}
+
 }

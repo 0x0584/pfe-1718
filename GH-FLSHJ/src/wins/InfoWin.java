@@ -4,12 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -93,7 +100,7 @@ public class InfoWin {
 		WebLookAndFeel.install( );
 
 		frame = new JFrame("البطاقة الشخصية و الوضعية الإدارية");
-		frame.setBounds(100, 100, 597, 557);
+		frame.setBounds(100, 100, 597, 614);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
@@ -216,7 +223,7 @@ public class InfoWin {
 		panel_1.add(panel_5);
 
 		JLabel label_6 = new JLabel("الشهادات");
-		label_6.setBounds(240, 5, 61, 15);
+		label_6.setBounds(90, 5, 61, 15);
 		panel_5.add(label_6);
 
 		JScrollPane scrollPane = new JScrollPane((Component) null);
@@ -292,7 +299,8 @@ public class InfoWin {
 		tf_ref.setBounds(128, 70, 148, 29);
 		panel_2.add(tf_ref);
 
-		tf_date_hiring = new JTextField(DateUtils.parseDate(empl.getHiringDate( )));
+		tf_date_hiring = new JTextField(
+			DateUtils.parseDate(empl.getHiringDate( )));
 		tf_date_hiring.setColumns(10);
 		tf_date_hiring.setBounds(410, 37, 148, 29);
 		panel_2.add(tf_date_hiring);
@@ -328,7 +336,7 @@ public class InfoWin {
 		panel_2.add(panel_6);
 
 		JLabel label_9 = new JLabel("الترقيات");
-		label_9.setBounds(242, 5, 58, 15);
+		label_9.setBounds(95, 5, 58, 15);
 		panel_6.add(label_9);
 
 		JScrollPane scrollPane_1 = new JScrollPane((Component) null);
@@ -387,6 +395,76 @@ public class InfoWin {
 		JLabel lblRef = new JLabel(String.format("ر.ت: %s", empl.getCIN( )));
 		lblRef.setBounds(134, 39, 100, 15);
 		panel_3.add(lblRef);
+
+		JButton btnNewButton = new JButton("Save");
+		btnNewButton.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				Employee nempl = new Employee(empl.getReference( ));
+				nempl.setNotes(tp_notes.getText( ));
+				// empl.setDepartment(tf_d);
+				//
+				// // personal tag
+				// foo = e.getChild("personal");
+				//
+				nempl.setName(tf_name.getText( ));
+				empl.setFamilyname(tf_fname.getText( ));
+				// empl.setIsMoroccan();
+				nempl.setBirthDay(DateUtils.parseDate(tf_bdate.getText( )));
+				//
+				nempl.setBirthPlace(tf_bplace.getText( ));
+				nempl.setAddress(tf_addr.getText( ));
+				nempl.setPhone(tf_phone.getText( ));
+				// empl.setIsMarried(
+				// true);
+				//
+				// try {
+				// Element tmp = foo.getChild("partner");
+				// String str =
+				// foo.getChild("children").getAttributeValue("number");
+				// empl.setNumberOfchildren(Short.parseShort(str));
+				// empl.setPartnerName(tmp.getAttributeValue("name"));
+				// empl.setPartnerJob(tmp.getAttributeValue("job"));
+				// } catch (Exception ex) {
+				// empl.setPartnerName(null);
+				// empl.setPartnerJob(null);
+				// empl.setNumberOfchildren((short) 0);
+				// }
+				//
+				// // administrative tag
+				// bar = e.getChild("administrative");
+				//
+				nempl.setReference(tf_ref.getText( ));
+				nempl.setCIN(tf_cin.getText( ));
+				nempl.setMission(tf_mission.getText( ));
+				nempl.setJoinDate(DateUtils.parseDate(tf_date_join.getText( )));
+				nempl.setHiringDate(
+					DateUtils.parseDate(tf_date_hiring.getText( )));
+				// empl.setReason("");
+				nempl.setPreviousJob(tf_job_prev.getText( ));
+				nempl.setCurrentJob(tf_job_current.getText( ));
+				nempl.setCadre(
+					Cadre.parseCadre(
+						comb_cadre.getSelectedItem( ).toString( )));
+				nempl.setFinancialStatus(tf_finance.getText( ));
+				// empl.setUplifts(getUplifts(empl));
+				// empl.setDiplomas(getDiplomas(empl));
+				XmlFile.updateEmployee(empl.getReference( ), nempl);
+			}
+		});
+		btnNewButton.setBounds(468, 525, 117, 25);
+		frame.getContentPane( ).add(btnNewButton);
+
+		JMenuBar menuBar = new JMenuBar( );
+		frame.setJMenuBar(menuBar);
+
+		JMenuItem mntmNew = new JMenuItem("new");
+		mntmNew.addMouseListener(new MouseAdapter( ) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+			}
+		});
+		menuBar.add(mntmNew);
 
 	}
 }

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import app.Period;
 
@@ -58,9 +59,8 @@ public class DateUtils {
 
 	public static long DateDiff(Period p, Date from, Date to) {
 		if (from != null && to != null) {
-			return (Math.abs(from.getTime( ) - to.getTime( ))
-							/ (1000 * 60 * 60 * 24))
-							- parseDate(LocalDate.MIN.toString( )).getTime( );
+			return TimeUnit.MILLISECONDS
+							.toDays(Math.abs(from.getTime( ) - to.getTime( )));
 		} else return 0;
 	}
 

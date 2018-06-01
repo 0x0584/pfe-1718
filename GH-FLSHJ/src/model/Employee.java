@@ -3,7 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import app.Cadre;
+import app.Period;
+import app.utils.DateUtils;
 import app.utils.XmlFile;
 
 public class Employee extends Person {
@@ -18,6 +23,7 @@ public class Employee extends Person {
 	protected Date hdate, jdate;
 	protected ArrayList<Uplift> uplifts;
 	protected ArrayList<Diploma> diplomas;
+	protected ArrayList<MedicalCertif> certifs;
 
 	public Employee() {
 		this("0112358");
@@ -28,12 +34,42 @@ public class Employee extends Person {
 		XmlFile.setEmployee(this, ref);
 	}
 
+	public TableModel getMedicalModel( ) {
+		DefaultTableModel model = new DefaultTableModel( );
+		for (String col : new String[] {
+						"From", "To", "nDays", "Period"
+		}) {
+			model.addColumn(col);
+		}
+
+		for (MedicalCertif c : certifs) {
+			model.addRow(new String[] {
+							DateUtils.parseDate(c.getFrom( )),
+							DateUtils.parseDate(
+								DateUtils.add(
+									Period.ONE_DAY, c.getFrom( ),
+									c.getNumberOfDays( ))),
+							"" + c.getNumberOfDays( ), c.getPeriod( )
+			});
+		}
+
+		return model;
+	}
+
 	public void setReference(String ref) {
 		this.ref = ref;
 	}
 
 	public String getFinancialStatus( ) {
 		return fstatus;
+	}
+
+	public ArrayList<MedicalCertif> getCertifs( ) {
+		return certifs;
+	}
+
+	public void setMedicalCertifs(ArrayList<MedicalCertif> certifs) {
+		this.certifs = certifs;
 	}
 
 	public void setFinancialStatus(String fstatus) {
