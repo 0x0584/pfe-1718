@@ -224,7 +224,7 @@ public class XmlFile {
 		empl.setUplifts(getUplifts(empl));
 		empl.setDiplomas(getDiplomas(empl));
 		empl.setMedicalCertifs(getMedicalCertifs(empl));
-		
+
 		return empl;
 	}
 
@@ -354,4 +354,37 @@ public class XmlFile {
 		System.err.println(e.toString( ));
 		writeXml(e.getDocument( ));
 	}
+
+	public static int getLastMedicalId(Employee empl) {
+		int lastid = 0, tmp = 0;
+		Element e = getEmployee(empl.getReference( ));
+
+		List<Element> list = e.getChildren("medicalcertif");
+
+		for (Element el : list) {
+			tmp = Integer.parseInt(el.getAttributeValue("id"));
+			if (tmp > lastid) lastid = tmp;
+		}
+
+		return lastid;
+	}
+
+	public static int getMedicalCertifId(Employee empl, int n) {
+		int lastid = 0;
+		Element e = getEmployee(empl.getReference( ));
+
+		List<Element> list = e.getChildren("medicalcertif");
+
+		for (Element el : list) {
+			lastid = Integer.parseInt(el.getAttributeValue("id"));
+			if (n == 0) {
+				break;
+			} else {
+				--n;
+			}
+		}
+
+		return lastid;
+	}
+
 }

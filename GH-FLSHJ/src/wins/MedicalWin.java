@@ -120,10 +120,14 @@ public class MedicalWin {
 		lblPeriod.setBounds(373, 5, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
+		JLabel lbltotal = new JLabel("");
+		lbltotal.setBounds(82, 42, 70, 15);
+		frame.getContentPane( ).add(lbltotal);
+
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				MedicalCertif oldc = getSelectedMedical(table);
+				MedicalCertif oldc = getSelectedMedical(empl, table);
 				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
 					DateUtils.parseDate(tf_from.getText( )),
 					Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
@@ -134,6 +138,7 @@ public class MedicalWin {
 							new Employee( ), empl.getReference( ))));
 				tf_from.setText("");
 				tf_ndays.setText("");
+				lbltotal.setText(getTotal(table));
 			}
 
 		});
@@ -143,7 +148,7 @@ public class MedicalWin {
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				MedicalCertif oldc = getSelectedMedical(table);
+				MedicalCertif oldc = getSelectedMedical(empl, table);
 				XmlFile.deleteMedicalCertif(empl, oldc);
 				table.setModel(
 					Modeling.getMedicalModel(
@@ -151,6 +156,7 @@ public class MedicalWin {
 							new Employee( ), empl.getReference( ))));
 				tf_from.setText("");
 				tf_ndays.setText("");
+				lbltotal.setText(getTotal(table));
 			}
 		});
 		btnDelete.setBounds(302, 32, 70, 25);
@@ -158,9 +164,9 @@ public class MedicalWin {
 
 		JButton btnAdd = new JButton("إضافة");
 		btnAdd.addActionListener(new ActionListener( ) {
-			// TODO: update this to Arabic
 			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand( ).compareTo("add") == 0) {
+				if (e.getActionCommand( ).compareTo(""
+								+ "إضافة") == 0) {
 					XmlFile.addMedicalCertif(
 						empl,
 						new MedicalCertif(empl.getCertifs( ).size( ) + 1,
@@ -172,6 +178,7 @@ public class MedicalWin {
 							XmlFile.initEmployee(
 								new Employee( ), empl.getReference( ))));
 					setupJTable(table);
+					lbltotal.setText(getTotal(table));
 					btnAdd.setText("جديد");
 					btnModify.setEnabled(true);
 					btnDelete.setEnabled(true);
@@ -194,7 +201,7 @@ public class MedicalWin {
 				btnAdd.setText("جديد");
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
-				MedicalCertif m = getSelectedMedical(table);
+				MedicalCertif m = getSelectedMedical(empl, table);
 				tf_from.setText(DateUtils.parseDate(m.getFrom( )));
 				tf_ndays.setText("" + m.getNumberOfDays( ));
 				tf_s.setText(m.getPeriod( ));
@@ -211,9 +218,21 @@ public class MedicalWin {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setupJTable(table);
 		scrollPane.setViewportView(table);
+		lbltotal.setText(getTotal(table));
 	}
 
-	private MedicalCertif getSelectedMedical(JTable table) {
+	private String getTotal(JTable table) {
+		int sum = 0;
+
+		for (int i = 0; i < table.getModel( ).getRowCount( ); ++i) {
+			sum += Integer.parseInt(
+				table.getModel( ).getValueAt(i, 2).toString( ));
+		}
+
+		return "" + sum;
+	}
+
+	private MedicalCertif getSelectedMedical(Employee empl, JTable table) {
 		Date from = DateUtils.parseDate(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
 							.toString( ));
@@ -222,7 +241,9 @@ public class MedicalWin {
 							.toString( ));
 		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 						.toString( );
-		return new MedicalCertif(table.getSelectedRow( ), from, ndays, period);
+		// TODO: getting id has a bug
+		int theID = XmlFile.getMedicalCertifId(empl, table.getSelectedRow( ));
+		return new MedicalCertif(theID, from, ndays, period);
 	}
 
 	private void setupJTable(JTable table) {

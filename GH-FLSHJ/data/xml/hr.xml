@@ -5,7 +5,7 @@
   <employee reference="0112358" department="Informatique">
     <notes>THIS GUY WOULD DO ALL OF THE THINGS THAT HE WANTED ONE DAY! BELIEVE IN HIM!</notes>
     <personal>
-      <name>NADA</name>
+      <name>ANAS</name>
       <familyname>Rchid</familyname>
       <!-- last name -->
       <birth>1994-09-15</birth>
@@ -59,15 +59,15 @@
       <session>2017-2018</session>
       <!-- yyyyYYYY -->
     </diplomas>
-    <medicalcertif id="1">
-      <from>2018-04-10</from>
-      <ndays>15</ndays>
-      <period>Semestre II</period>
-    </medicalcertif>
     <medicalcertif id="3">
       <from>1994-10-02</from>
       <ndays>60</ndays>
       <period>Semestre I</period>
+    </medicalcertif>
+    <medicalcertif id="2">
+      <from>2018-10-10</from>
+      <ndays>20</ndays>
+      <period>dd</period>
     </medicalcertif>
   </employee>
   <employee reference="01123411" department="nil">

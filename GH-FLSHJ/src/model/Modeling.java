@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.swing.table.DefaultTableModel;
@@ -65,13 +66,11 @@ public class Modeling {
 			model.addColumn(col);
 		}
 		for (MedicalCertif c : empl.getCertifs( )) {
+			Date from = c.getFrom( );
+			Date to = DateUtils.add(
+				Period.ONE_DAY, c.getFrom( ), c.getNumberOfDays( ));
 			model.addRow(new String[] {
-							DateUtils.parseDate(c.getFrom( )),
-							DateUtils.parseDate(
-								// TODO: fix parsing error
-								DateUtils.add(
-									Period.ONE_DAY, c.getFrom( ),
-									c.getNumberOfDays( ))),
+							DateUtils.parseDate(from), DateUtils.parseDate(to),
 							"" + c.getNumberOfDays( ), c.getPeriod( )
 			});
 		}
