@@ -57,7 +57,7 @@
   </class>  
   <dependency id="7">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="3"/>  
   </dependency>  
   <dependency id="8">    
     <end type="SOURCE" refId="2"/>    
@@ -65,11 +65,15 @@
   </dependency>  
   <dependency id="9">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="10">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

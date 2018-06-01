@@ -49,7 +49,7 @@ public class MainWin {
 		return frame;
 	}
 
-	private final static int WIDTH = 632, HEIGHT = 430, EXTRA_HEIGHT = 491;
+	private final static int WIDTH = 632, HEIGHT = 395, EXTRA_HEIGHT = 450;
 	private JTable table;
 	private EmployeeType type;
 	private JTextField tf_search;
@@ -93,12 +93,12 @@ public class MainWin {
 		toDate = DateUtils.add(Period.ONE_DAY, new Date( ), 1);
 
 		frame = new JFrame( );
-		frame.setBounds(100, 100, WIDTH, HEIGHT);
+		frame.setBounds(100, 100, 632, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
 		JPanel panel = new JPanel( );
-		panel.setBounds(12, 47, 608, 305);
+		panel.setBounds(12, 47, 608, 240);
 		frame.getContentPane( ).add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
@@ -112,11 +112,11 @@ public class MainWin {
 
 		JCheckBox profchk = new JCheckBox("أساتذة");
 		profchk.setSelected(true);
-		profchk.setBounds(555, 365, 65, 23);
+		profchk.setBounds(475, 332, 65, 23);
 
 		JCheckBox emplchk = new JCheckBox("موظفين");
 		emplchk.setSelected(true);
-		emplchk.setBounds(475, 365, 76, 23);
+		emplchk.setBounds(544, 332, 76, 23);
 
 		emplchk.addChangeListener(new ChangeListener( ) {
 			public void stateChanged(ChangeEvent e) {
@@ -151,15 +151,11 @@ public class MainWin {
 									.toString( ))).getFrame( ).setVisible(true);
 			}
 		});
-		button.setBounds(12, 364, 129, 25);
+		button.setBounds(12, 299, 129, 25);
 		frame.getContentPane( ).add(button);
 
-		JCheckBox chckbx0 = new JCheckBox("التعويضات");
-		chckbx0.setBounds(12, 13, 88, 23);
-		frame.getContentPane( ).add(chckbx0);
-
 		JCheckBox chckbx1 = new JCheckBox("شهادة العمل");
-		chckbx1.setBounds(104, 13, 102, 23);
+		chckbx1.setBounds(12, 12, 102, 23);
 		frame.getContentPane( ).add(chckbx1);
 
 		JCheckBox chckbx2 = new JCheckBox("إجازة");
@@ -169,21 +165,17 @@ public class MainWin {
 					WIDTH, chckbx2.isSelected( ) ? EXTRA_HEIGHT : HEIGHT);
 			}
 		});
-		chckbx2.setBounds(210, 13, 65, 23);
+		chckbx2.setBounds(128, 12, 65, 23);
 		frame.getContentPane( ).add(chckbx2);
 
-		JCheckBox chckbx3 = new JCheckBox("شهادة طبية");
-		chckbx3.setBounds(279, 13, 95, 23);
-		frame.getContentPane( ).add(chckbx3);
-
 		JCheckBox chckbx4 = new JCheckBox("بطاقة التنقيط");
-		chckbx4.setBounds(378, 13, 112, 23);
+		chckbx4.setBounds(197, 12, 112, 23);
 		frame.getContentPane( ).add(chckbx4);
 
 		JComboBox<SearchField> comboFields = new JComboBox<SearchField>( );
 		comboFields.setModel(
 			new DefaultComboBoxModel<SearchField>(SearchField.values( )));
-		comboFields.setBounds(386, 364, 81, 24);
+		comboFields.setBounds(539, 11, 81, 24);
 		frame.getContentPane( ).add(comboFields);
 
 		tf_search = new JTextField( );
@@ -208,7 +200,7 @@ public class MainWin {
 				setupJTable(table);
 			}
 		});
-		tf_search.setBounds(153, 364, 221, 25);
+		tf_search.setBounds(317, 11, 211, 25);
 		frame.getContentPane( ).add(tf_search);
 		tf_search.setColumns(10);
 
@@ -231,7 +223,7 @@ public class MainWin {
 				raison = text;
 			}
 		});
-		tf_raison.setBounds(161, 421, 148, 25);
+		tf_raison.setBounds(161, 389, 148, 25);
 		frame.getContentPane( ).add(tf_raison);
 		tf_raison.setColumns(10);
 		tf_raison.setVisible(false);
@@ -246,7 +238,7 @@ public class MainWin {
 		defaultHolidays.setModel(new DefaultComboBoxModel<String>(new String[] {
 						"Semester I", "Semester II", "Ete"
 		}));
-		defaultHolidays.setBounds(161, 421, 148, 24);
+		defaultHolidays.setBounds(161, 389, 148, 24);
 		frame.getContentPane( ).add(defaultHolidays);
 		defaultHolidays.setVisible(true);
 
@@ -272,11 +264,11 @@ public class MainWin {
 		});
 		holidayTypes.setModel(
 			new DefaultComboBoxModel<Holiday>(Holiday.values( )));
-		holidayTypes.setBounds(12, 421, 141, 24);
+		holidayTypes.setBounds(12, 389, 141, 24);
 		frame.getContentPane( ).add(holidayTypes);
 
 		tf_to = new JTextField(DateUtils.parseDate(toDate));
-		tf_to.setBounds(509, 424, 114, 25);
+		tf_to.setBounds(509, 389, 114, 25);
 		tf_to.addKeyListener(new KeyAdapter( ) {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -298,7 +290,7 @@ public class MainWin {
 		tf_to.setColumns(10);
 
 		tf_from = new JTextField(DateUtils.parseDate(fromDate));
-		tf_from.setBounds(352, 424, 114, 25);
+		tf_from.setBounds(352, 389, 114, 25);
 		tf_from.addKeyListener(new KeyAdapter( ) {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -320,15 +312,15 @@ public class MainWin {
 		tf_from.setColumns(10);
 
 		JLabel lblDe = new JLabel("A");
-		lblDe.setBounds(474, 426, 27, 15);
+		lblDe.setBounds(474, 394, 27, 15);
 		frame.getContentPane( ).add(lblDe);
 
 		JLabel lblDe_1 = new JLabel("De");
-		lblDe_1.setBounds(317, 426, 27, 15);
+		lblDe_1.setBounds(317, 394, 27, 15);
 		frame.getContentPane( ).add(lblDe_1);
 
 		JLabel lblerr = new JLabel("Option de conge");
-		lblerr.setBounds(22, 394, 364, 15);
+		lblerr.setBounds(22, 367, 364, 15);
 		frame.getContentPane( ).add(lblerr);
 
 		JButton btnConfirm = new JButton("إستخراج");
@@ -380,8 +372,22 @@ public class MainWin {
 			}
 
 		});
-		btnConfirm.setBounds(534, 12, 86, 25);
+		btnConfirm.setBounds(534, 299, 86, 25);
 		frame.getContentPane( ).add(btnConfirm);
+
+		JButton button_1 = new JButton("التعويضات");
+		button_1.setBounds(153, 299, 129, 25);
+		frame.getContentPane( ).add(button_1);
+
+		JButton button_2 = new JButton("شواهد طبية");
+		button_2.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				new MedicalWin(getSelectedEmployee(table)).getFrame( )
+								.setVisible(true);
+			}
+		});
+		button_2.setBounds(294, 299, 117, 25);
+		frame.getContentPane( ).add(button_2);
 	}
 
 	private void setupJTable(JTable table) {

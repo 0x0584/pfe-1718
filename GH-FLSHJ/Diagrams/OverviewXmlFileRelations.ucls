@@ -73,85 +73,85 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <association id="9">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="10" name="mention">        
-        <position height="0" width="0" x="77" y="-295"/>      
-      </attribute>      
-      <multiplicity id="11" minimum="0" maximum="1">        
-        <position height="0" width="0" x="77" y="-295"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="12">    
+  <dependency id="9">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <association id="13">    
+  <association id="10">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="14" name="uplifts">        
-        <position height="0" width="0" x="183" y="535"/>      
-      </attribute>      
-      <multiplicity id="15" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="183" y="535"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="16">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="17" name="diplomas">        
+      <attribute id="11" name="diplomas">        
         <position height="0" width="0" x="-138" y="189"/>      
       </attribute>      
-      <multiplicity id="18" minimum="0" maximum="2147483647">        
+      <multiplicity id="12" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="-138" y="189"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="19">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="20">    
+  <association id="13">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="14" name="mention">        
+        <position height="0" width="0" x="77" y="-295"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="77" y="-295"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="16">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="18">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="19" name="uplifts">        
+        <position height="0" width="0" x="183" y="535"/>      
+      </attribute>      
+      <multiplicity id="20" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="183" y="535"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <dependency id="21">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="6"/>  
   </dependency>  
-  <dependency id="22">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
-  <dependency id="23">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <association id="24">    
+  <association id="22">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="25" name="cadre">        
+      <attribute id="23" name="cadre">        
         <position height="0" width="0" x="56" y="-509"/>      
       </attribute>      
-      <multiplicity id="26" minimum="0" maximum="1">        
+      <multiplicity id="24" minimum="0" maximum="1">        
         <position height="0" width="0" x="56" y="-509"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <dependency id="25">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
   <dependency id="27">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="6"/>  
+    <end type="TARGET" refId="8"/>  
   </dependency>  
   <dependency id="28">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="2"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
