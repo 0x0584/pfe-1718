@@ -11,13 +11,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
+import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -25,11 +22,9 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import app.Cadre;
 import app.Files;
 import app.Mention;
-import app.SearchField;
-import app.Cadre;
-import app.EmployeeType;
 import model.Diploma;
 import model.Employee;
 import model.MedicalCertif;
@@ -82,6 +77,33 @@ public class XmlFile {
 		}
 	}
 
+	/**
+	 * writes directly to human resources xml file
+	 * 
+	 * @param doc
+	 *            xml document
+	 * @return true if it succeeded
+	 */
+	public static boolean writeXml(Document doc) {
+		return writeXml(doc, Files.HUMAIN_RESOURCES);
+	}
+
+	public static boolean writeXml(Document doc, Files f) {
+		XMLOutputter xmlOutput = new XMLOutputter( );
+
+		// display nice nice
+		xmlOutput.setFormat(Format.getPrettyFormat( ));
+		try {
+			xmlOutput.output(
+				doc, new FileWriter(Files.HUMAIN_RESOURCES.getFilePath( )));
+			System.err.println("success " + f.getFilePath( ));
+			return true;
+		} catch (IOException e) {
+			System.err.println(e.getMessage( ));
+			return false;
+		}
+	}
+
 	public static ArrayList<Uplift> getUplifts(Employee empl) {
 		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
 		List<Element> dlist = getEmployee(empl.getReference( ))
@@ -118,6 +140,22 @@ public class XmlFile {
 		return tmp;
 	}
 
+	public static ArrayList<MedicalCertif> getMedicalCertifs(Employee empl) {
+		List<Element> dlist = getEmployee(empl.getReference( ))
+						.getChildren("medicalcertif");
+		ArrayList<MedicalCertif> tmp = new ArrayList<MedicalCertif>( );
+		for (Element e : dlist) {
+			MedicalCertif m = new MedicalCertif( );
+			m.setFrom(DateUtils.parseDate(e.getChildTextTrim("from")));
+			m.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
+			m.setPeriod(e.getChildTextTrim("period"));
+
+			tmp.add(m);
+		}
+
+		return tmp;
+	}
+
 	public static Element getEmployee(String ref) {
 		Iterator<Element> i;
 		Element e;
@@ -133,7 +171,7 @@ public class XmlFile {
 		return null;
 	}
 
-	public static void setEmployee(Employee empl, String ref) {
+	public static Employee initEmployee(Employee empl, String ref) {
 		Element e = getEmployee(ref), foo, bar;
 		// List<Element> dips, ups;
 
@@ -186,129 +224,8 @@ public class XmlFile {
 		empl.setUplifts(getUplifts(empl));
 		empl.setDiplomas(getDiplomas(empl));
 		empl.setMedicalCertifs(getMedicalCertifs(empl));
-
-	}
-
-	private static ArrayList<MedicalCertif> getMedicalCertifs(Employee empl) {
-		List<Element> dlist = getEmployee(empl.getReference( ))
-						.getChildren("medicalcertif");
-		ArrayList<MedicalCertif> tmp = new ArrayList<MedicalCertif>( );
-		for (Element e : dlist) {
-			MedicalCertif m = new MedicalCertif( );
-			m.setFrom(DateUtils.parseDate(e.getChildTextTrim("from")));
-			m.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
-			m.setPeriod(e.getChildTextTrim("period"));
-
-			tmp.add(m);
-		}
-
-		return tmp;
-	}
-
-	private static DefaultTableModel getModelColumns( ) {
-		DefaultTableModel model = new DefaultTableModel( );
-
-		model.addColumn("ر.ت.");
-		model.addColumn("ب.ت.و.");
-		model.addColumn("الإسم");
-		model.addColumn("النسب");
-		// model.addColumn("السلم");
-		// model.addColumn("الرتبة");
-		// model.addColumn("عدد الشواهد");
-
-		return model;
-	}
-
-	public static DefaultTableModel getDefaultModel(EmployeeType t) {
-		return (DefaultTableModel) getDefaultModel(null, null, t);
-	}
-
-	public static DefaultTableModel getDefaultModel(String text, SearchField sf,
-		EmployeeType t) {
-		DefaultTableModel model = getModelColumns( );
-		Iterator<Element> ifoo; // temporary iterators
-		Element foo; // temporary elements
-		// String scale = null, echlon = null;
-		boolean filter = !(sf == null || text.compareTo("") == 0);
-
-		// loop over the employee
-		ifoo = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
-		while (ifoo.hasNext( )) {
-			foo = ifoo.next( );
-
-			// skip unwanted elements
-			if (filter && !foo.getChild(sf.getParent( ))
-							.getChildTextTrim(sf.getXmlTag( )).toLowerCase( )
-							.contains(text.toLowerCase( ))) {
-				continue;
-			}
-
-			// skip employee based on filter
-			if (t == EmployeeType.Normal && foo.getAttributeValue("department")
-							.compareTo("nil") != 0) {
-				continue; // this means that this is a professor
-			} else if (t == EmployeeType.Prof
-							&& foo.getAttributeValue("department")
-											.compareTo("nil") == 0) {
-				continue; // this means that this is a normal one
-			}
-
-			// add row to model
-			model.addRow(new String[] {
-							foo.getAttributeValue("reference"),
-							foo.getChild("administrative")
-											.getChildTextTrim("cin"),
-							foo.getChild("personal").getChildTextTrim("name"),
-							foo.getChild("personal")
-											.getChildTextTrim("familyname"),
-							// scale, echlon, String.format(
-							// "%d", foo.getChildren("diplomas").size( ))
-			});
-		}
-
-		return model;
-	}
-
-	public static TableModel getDiplomasModel(Employee empl) {
-		DefaultTableModel model = new DefaultTableModel( );
-
-		for (String str : new String[] {
-						"تاريخ الحصول عليها", "المؤسسة",
-
-						"الميزة", "الشهادات",
-		}) {
-			model.addColumn(str);
-		}
-
-		for (Diploma d : empl.getDiplomas( )) {
-			model.addRow(new String[] {
-							d.getSession( ), d.getInstitue( ),
-							d.getMention( ).toString( ), d.getTitle( )
-			});
-		}
-
-		return model;
-	}
-
-	public static DefaultTableModel getUpliftModel(Employee empl) {
-		DefaultTableModel model = new DefaultTableModel( );
-
-		for (String str : new String[] {
-						"التاريخ", "الرقم الإستدلالي",
-
-						"الرتبة", "السلم",
-		}) {
-			model.addColumn(str);
-		}
-
-		for (Uplift u : empl.getUplifts( )) {
-			model.addRow(new String[] {
-							DateUtils.parseDate(u.getDate( )), u.getIndice( ),
-							"" + u.getRank( ), "" + u.getGrade( )
-			});
-		}
-
-		return model;
+		
+		return empl;
 	}
 
 	public static void updateEmployee(String ref, Employee newempl) {
@@ -377,6 +294,10 @@ public class XmlFile {
 
 	}
 
+	public static void getMedicalCertif(Employee empl, int id) {
+		// TODO: finish this one
+	}
+
 	public static void addMedicalCertif(Employee employee,
 		MedicalCertif certif) {
 		Element empl = getEmployee(employee.getReference( ));
@@ -389,24 +310,48 @@ public class XmlFile {
 		ndays.addContent("" + certif.getNumberOfDays( ));
 		period.addContent(certif.getPeriod( ));
 
+		Attribute id = new Attribute("id",
+			"" + (employee.getCertifs( ).size( ) + 1));
+		med.setAttribute(id);
 		med.addContent(from);
 		med.addContent(ndays);
 		med.addContent(period);
 		empl.addContent(med);
 
-		XMLOutputter xmlOutput = new XMLOutputter( );
-
-		// display nice nice
-		xmlOutput.setFormat(Format.getPrettyFormat( ));
-		try {
-			xmlOutput.output(
-				empl.getDocument( ),
-				new FileWriter(Files.HUMAIN_RESOURCES.getFilePath( )));
-			System.err.println(
-				"success " + Files.HUMAIN_RESOURCES.getFilePath( ));
-		} catch (IOException e) {
-			System.err.println(e.getMessage( ));
-		}
+		System.err.println(empl.toString( ));
+		writeXml(empl.getDocument( ));
 	}
 
+	public static void updateMedicalCertif(Employee empl, MedicalCertif oldc,
+		MedicalCertif newc) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChildren("medicalcertif");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id").compareTo("" + oldc.getId( )) == 0) {
+				el.getChild("from")
+								.setText(DateUtils.parseDate(newc.getFrom( )));
+				el.getChild("ndays").setText("" + newc.getNumberOfDays( ));
+				el.getChild("period").setText(newc.getPeriod( ));
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+	}
+
+	public static void deleteMedicalCertif(Employee empl, MedicalCertif oldc) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChildren("medicalcertif");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id").compareTo("" + oldc.getId( )) == 0) {
+				el.detach( );
+				break;
+			}
+		}
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+	}
 }

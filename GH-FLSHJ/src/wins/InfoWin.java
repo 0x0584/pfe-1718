@@ -35,6 +35,7 @@ import app.Cadre;
 import app.utils.DateUtils;
 import app.utils.XmlFile;
 import model.Employee;
+import model.Modeling;
 
 public class InfoWin {
 
@@ -230,7 +231,7 @@ public class InfoWin {
 		scrollPane.setBounds(0, 24, 542, 129);
 		panel_5.add(scrollPane);
 
-		tbl_diplomas = new JTable(XmlFile.getDiplomasModel(empl));
+		tbl_diplomas = new JTable(Modeling.getDiplomasModel(empl));
 		scrollPane.setViewportView(tbl_diplomas);
 
 		tf_bdate = new JTextField(DateUtils.parseDate(empl.getBirthDay( )));
@@ -343,7 +344,7 @@ public class InfoWin {
 		scrollPane_1.setBounds(0, 27, 542, 126);
 		panel_6.add(scrollPane_1);
 
-		tbl_uplifts = new JTable(XmlFile.getUpliftModel(empl));
+		tbl_uplifts = new JTable(Modeling.getUpliftModel(empl));
 		scrollPane_1.setViewportView(tbl_uplifts);
 
 		tf_cin = new JTextField(empl.getCIN( ));

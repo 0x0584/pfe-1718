@@ -1,261 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- BEGIN DTD -->
-<!DOCTYPE Employee [
-<!ELEMENT Employee (employee)+>
-<!ATTLIST Employee
-  xmlns CDATA #FIXED ''>
-<!ELEMENT notes (#PCDATA)>
-<!ATTLIST notes
-  xmlns CDATA #FIXED ''>
-  
-<!ELEMENT employee (notes,personal,administrative,diplomas+)>
-<!ATTLIST employee
-  xmlns CDATA #FIXED ''
-  department NMTOKEN #REQUIRED
-  reference CDATA #REQUIRED>
-
-<!ELEMENT personal (name,familyname,birth,nationality,brithplace,
-		    address,phone,state,(partner,children)?)>
-<!ATTLIST personal
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT administrative (reference,cadre,fstatus,cin,mission,hday,jday,reason,
-			  pjob,cjob,uplift+)>
-<!ATTLIST administrative
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT diplomas (diploma,institute,session)>
-<!ATTLIST diplomas
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT reference (#PCDATA)>
-<!ATTLIST reference
-  xmlns CDATA #FIXED ''>
-  
-<!ELEMENT name (#PCDATA)>
-<!ATTLIST name
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT familyname (#PCDATA)>
-<!ATTLIST familyname
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT birth (#PCDATA)>
-<!ATTLIST birth
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT nationality EMPTY>
-<!ATTLIST nationality
-  xmlns CDATA #FIXED ''
-  ma NMTOKEN #REQUIRED>
-
-<!ELEMENT brithplace (#PCDATA)>
-<!ATTLIST brithplace
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT address (#PCDATA)>
-<!ATTLIST address
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT phone (#PCDATA)>
-<!ATTLIST phone
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT state EMPTY>
-<!ATTLIST state
-  xmlns CDATA #FIXED ''
-  married NMTOKEN #REQUIRED>
-
-<!ELEMENT partner EMPTY>
-<!ATTLIST partner
-  xmlns CDATA #FIXED ''
-  job NMTOKEN #REQUIRED
-  name NMTOKEN #REQUIRED>
-
-<!ELEMENT children EMPTY>
-<!ATTLIST children
-  xmlns CDATA #FIXED ''
-  number CDATA #REQUIRED>
-
-<!ELEMENT cadre (#PCDATA)>
-<!ATTLIST cadre
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT fstatus (#PCDATA)>
-<!ATTLIST fstatus
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT cin (#PCDATA)>
-<!ATTLIST cin
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT mission (#PCDATA)>
-<!ATTLIST mission
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT hday (#PCDATA)>
-<!ATTLIST hday
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT jday (#PCDATA)>
-<!ATTLIST jday
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT reason (#PCDATA)>
-<!ATTLIST reason
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT pjob (#PCDATA)>
-<!ATTLIST pjob
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT cjob (#PCDATA)>
-<!ATTLIST cjob
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT uplift (scale,echlon,indice,update)>
-<!ATTLIST uplift
-  xmlns CDATA #FIXED ''
-  state NMTOKEN #REQUIRED
-  type NMTOKEN #REQUIRED>
-
-<!ELEMENT diploma (#PCDATA)>
-<!ATTLIST diploma
-  xmlns CDATA #FIXED ''
-  mention NMTOKEN #REQUIRED>
-
-<!ELEMENT institute (#PCDATA)>
-<!ATTLIST institute
-  xmlns CDATA #FIXED ''
-  city NMTOKEN #REQUIRED>
-
-<!ELEMENT session (#PCDATA)>
-<!ATTLIST session
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT scale (#PCDATA)>
-<!ATTLIST scale
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT echlon (#PCDATA)>
-<!ATTLIST echlon
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT indice (#PCDATA)>
-<!ATTLIST indice
-  xmlns CDATA #FIXED ''>
-
-<!ELEMENT update (#PCDATA)>
-<!ATTLIST update
-  xmlns CDATA #FIXED ''>
-
-]>
-
+<!DOCTYPE Employee>
 <Employee>
-
-	<employee reference="0112358" department="Informatique">
-		<notes> THIS GUY WOULD DO ALL OF THE THINGS THAT HE WANTED ONE DAY! BELIEVE IN HIM! </notes>
-		<personal>
-			<name> Anas </name>
-			<familyname> Rchid </familyname> <!-- last name -->
-			<birth> 1994-09-15 </birth>	       <!-- yyyymmdd -->
-			<nationality ma="t" />
-			<brithplace> Rass El Ain </brithplace>
-			<address> 99 Ibn Sina, OD Frej El Jadida </address>
-			<phone> 0642857134 </phone>
-			<state married="t" />
-			<partner name="Fatima" job="nil" />
-			<children number="1" />
-		</personal>
-
-		<administrative>
-			<reference> 0112358 </reference>
-			<cadre> C_1 </cadre>
-			<fstatus> 12452 </fstatus>
-			<cin> M550630 </cin>
-			<mission> programming </mission>
-			<hday> 2018-10-15 </hday>
-			<jday> 2018-11-21 </jday>
-			<reason> exam </reason>
-			<pjob> UCD FS </pjob>
-			<cjob> CapGemini Casablanca </cjob>
-
-			<uplift state="current" type="exam">
-				<scale> 10 </scale>
-				<echlon> 1 </echlon>
-				<indice> 451245 </indice>
-				<update> 2018-06-15 </update>
-			</uplift>
-			<uplift state="old" type="normal">
-				<scale> 9 </scale>
-				<echlon> 6 </echlon>
-				<indice> 451245 </indice>
-				<update> 2018-06-15 </update>
-			</uplift>
-
-		</administrative>
-
-		<diplomas>
-			<diploma mention="Passable"> Science Math A </diploma>
-			<institute city="ODFrej"> 6 Novembre </institute>
-			<session> 2010-2012 </session> <!-- yyyyYYYY -->
-		</diplomas>
-		<diplomas>
-			<diploma mention="Bien"> TSDI </diploma>
-			<institute city="ElJadida"> ISTA </institute>
-			<session> 2015-2017 </session>
-		</diplomas>
-		<diplomas>
-			<diploma mention="Bien"> Licence </diploma>
-			<institute city="ElJadida"> UCD FS </institute>
-			<session> 2017-2018 </session> <!-- yyyyYYYY -->
-		</diplomas>
-
-	</employee>
-
-	<employee reference="01123411" department="nil">
-		<notes> NIKO IS A WHITEHEARTED MAN! BUT, HE MUST DISCOVER HIS MANHOOD </notes>
-		<personal>
-			<name> Aymen </name>
-			<familyname> Rchid </familyname> <!-- last name -->
-			<birth> 1999-10-15 </birth>	       <!-- yyyymmdd -->
-			<nationality ma="t" />
-			<brithplace> Rass El Ain </brithplace>
-			<address> 99 Ibn Sina, OD Frej El Jadida </address>
-			<phone> 0642857134 </phone>
-			<state married="nil" />
-		</personal>
-
-		<administrative>
-			<reference> 01123411 </reference>
-			<cadre> C_1 </cadre>
-			<fstatus> 12452 </fstatus>
-			<cin> M550630 </cin>
-			<mission> programming </mission>
-			<hday> 2018-10-15 </hday>
-			<jday> 2018-11-21 </jday>
-			<reason> exam </reason>
-			<pjob> UCD FS </pjob>
-			<cjob> CapGemini Casablanca </cjob>
-
-			<uplift state="current" type="exam">
-				<scale> 11 </scale>
-				<echlon> 1 </echlon>
-				<indice> 451245 </indice>
-				<update> 2018-06-15 </update>
-			</uplift>
-
-		</administrative>
-
-		<diplomas>
-			<diploma mention="Bien"> Licence </diploma>
-			<institute city="ElJadida"> UCD FS </institute>
-			<session> 2017-2018 </session> <!-- yyyyYYYY -->
-		</diplomas>
-
-	</employee>
-
+  <employee reference="0112358" department="Informatique">
+    <notes>THIS GUY WOULD DO ALL OF THE THINGS THAT HE WANTED ONE DAY! BELIEVE IN HIM!</notes>
+    <personal>
+      <name>NADA</name>
+      <familyname>Rchid</familyname>
+      <!-- last name -->
+      <birth>1994-09-15</birth>
+      <!-- yyyymmdd -->
+      <nationality ma="t" />
+      <brithplace>Rass El Ain</brithplace>
+      <address>99 Ibn Sina, OD Frej El Jadida</address>
+      <phone>0642857134</phone>
+      <state married="t" />
+      <partner name="Fatima" job="بدون" />
+      <children number="1" />
+    </personal>
+    <administrative>
+      <reference>0112358</reference>
+      <cadre>Engenieur 1er Grade</cadre>
+      <fstatus>12452</fstatus>
+      <cin>M550630</cin>
+      <mission>programming</mission>
+      <hday>2018-10-15</hday>
+      <jday>2018-11-21</jday>
+      <reason>exam</reason>
+      <pjob>UCD FS</pjob>
+      <cjob>CapGemini Casablanca</cjob>
+      <uplift state="current" type="exam">
+        <scale>10</scale>
+        <echlon>1</echlon>
+        <indice>451245</indice>
+        <update>2018-06-15</update>
+      </uplift>
+      <uplift state="old" type="normal">
+        <scale>9</scale>
+        <echlon>6</echlon>
+        <indice>451245</indice>
+        <update>2018-06-15</update>
+      </uplift>
+    </administrative>
+    <diplomas>
+      <diploma mention="Passable">Science Math A</diploma>
+      <institute city="ODFrej">6 Novembre</institute>
+      <session>2010-2012</session>
+      <!-- yyyyYYYY -->
+    </diplomas>
+    <diplomas>
+      <diploma mention="Bien">TSDI</diploma>
+      <institute city="ElJadida">ISTA</institute>
+      <session>2015-2017</session>
+    </diplomas>
+    <diplomas>
+      <diploma mention="Bien">Licence</diploma>
+      <institute city="ElJadida">UCD FS</institute>
+      <session>2017-2018</session>
+      <!-- yyyyYYYY -->
+    </diplomas>
+    <medicalcertif id="1">
+      <from>2018-04-10</from>
+      <ndays>15</ndays>
+      <period>Semestre II</period>
+    </medicalcertif>
+    <medicalcertif id="3">
+      <from>1994-10-02</from>
+      <ndays>60</ndays>
+      <period>Semestre I</period>
+    </medicalcertif>
+  </employee>
+  <employee reference="01123411" department="nil">
+    <notes>NIKO IS A WHITEHEARTED MAN! BUT, HE MUST DISCOVER HIS MANHOOD</notes>
+    <personal>
+      <name>Aymen</name>
+      <familyname>Rchid</familyname>
+      <!-- last name -->
+      <birth>1999-10-15</birth>
+      <!-- yyyymmdd -->
+      <nationality ma="t" />
+      <brithplace>Rass El Ain</brithplace>
+      <address>99 Ibn Sina, OD Frej El Jadida</address>
+      <phone>0642857134</phone>
+      <state married="nil" />
+    </personal>
+    <administrative>
+      <reference>01123411</reference>
+      <cadre>C_1</cadre>
+      <fstatus>12452</fstatus>
+      <cin>M550630</cin>
+      <mission>programming</mission>
+      <hday>2018-10-15</hday>
+      <jday>2018-11-21</jday>
+      <reason>exam</reason>
+      <pjob>UCD FS</pjob>
+      <cjob>CapGemini Casablanca</cjob>
+      <uplift state="current" type="exam">
+        <scale>11</scale>
+        <echlon>1</echlon>
+        <indice>451245</indice>
+        <update>2018-06-15</update>
+      </uplift>
+    </administrative>
+    <diplomas>
+      <diploma mention="Bien">Licence</diploma>
+      <institute city="ElJadida">UCD FS</institute>
+      <session>2017-2018</session>
+      <!-- yyyyYYYY -->
+    </diplomas>
+    <medicalcertif id="1">
+      <from>2017-10-15</from>
+      <ndays>10</ndays>
+      <period>Semestre I</period>
+    </medicalcertif>
+  </employee>
 </Employee>
-
 <!-- AUTHOR: Anas Rchid <rchid.anas@gmail.com> -->
