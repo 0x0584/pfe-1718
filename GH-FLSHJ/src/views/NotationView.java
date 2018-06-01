@@ -1,3 +1,10 @@
+/**
+ * 
+ * this still has the two last parts which i have to finish by tomorrow
+ * 
+ *   - [ ] last two parts
+ *   - [ ] font problem
+ * */
 package views;
 
 import java.awt.BorderLayout;
@@ -500,7 +507,7 @@ public class NotationView {
 				return s;
 			}
 
-			private void enableCheckBox(int value) {
+			private void enableCheckBoxes(int value) {
 				int index = 0;
 
 				if (value < 10) {
@@ -529,7 +536,7 @@ public class NotationView {
 				if (tcl.getColumn( ) == 1) {
 					JTable t = tcl.getTable( );
 
-					enableCheckBox(getTotal(t));
+					enableCheckBoxes(getTotal(t));
 					t.setValueAt(getTotal(t), INDEX_TOTAL_ROW, INDEX_NOTE_COL);
 				}
 			}

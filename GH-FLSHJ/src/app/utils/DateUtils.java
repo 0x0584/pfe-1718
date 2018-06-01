@@ -35,6 +35,7 @@ public class DateUtils {
 
 	public static Date add(Period p, Date date, int n) {
 		try {
+			// TODO: use data bitch! not now
 			Date foo = null;
 			if (p.equals(Period.ONE_MONTH)) {
 				foo = new DateUtils( ).fmt.parse(
@@ -45,7 +46,7 @@ public class DateUtils {
 			} else if (p.equals(Period.ONE_YEAR)) {
 				foo = new DateUtils( ).fmt.parse(
 					LocalDate.now( ).plusYears(n).toString( ));
-			} else {
+			} else if (p.equals(Period.ONE_DAY)){
 				foo = new DateUtils( ).fmt.parse(
 					LocalDate.now( ).plusDays(n).toString( ));
 			}

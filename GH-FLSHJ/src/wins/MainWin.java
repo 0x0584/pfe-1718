@@ -25,9 +25,9 @@ import com.alee.laf.WebLookAndFeel;
 
 import app.SearchField;
 import app.utils.DateUtils;
-import app.utils.XmlFile;
 import app.EmployeeType;
 import model.Employee;
+import model.Modeling;
 import views.AttTravailView;
 import views.HolidayAdminiView;
 import views.HolidayExcepView;
@@ -103,7 +103,7 @@ public class MainWin {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		// add all the employee to the table
-		table = new JTable(XmlFile.getDefaultModel(type));
+		table = new JTable(Modeling.getDefaultModel(type));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setupJTable(table);
 
@@ -123,7 +123,7 @@ public class MainWin {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
 				type = EmployeeType.filter(a, b);
-				table.setModel(XmlFile.getDefaultModel(type));
+				table.setModel(Modeling.getDefaultModel(type));
 				setupJTable(table);
 			}
 		});
@@ -133,7 +133,7 @@ public class MainWin {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
 				type = EmployeeType.filter(a, b);
-				table.setModel(XmlFile.getDefaultModel(type));
+				table.setModel(Modeling.getDefaultModel(type));
 				setupJTable(table);
 			}
 		});
@@ -196,7 +196,7 @@ public class MainWin {
 
 				searchfield = (SearchField) comboFields.getSelectedItem( );
 				table.setModel(
-					XmlFile.getDefaultModel(text, searchfield, type));
+					Modeling.getDefaultModel(text, searchfield, type));
 				setupJTable(table);
 			}
 		});
@@ -388,6 +388,16 @@ public class MainWin {
 		});
 		button_2.setBounds(294, 299, 117, 25);
 		frame.getContentPane( ).add(button_2);
+
+		JButton button_3 = new JButton("*");
+		button_3.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				// refresh
+				table.setModel(Modeling.getDefaultModel(type));
+			}
+		});
+		button_3.setBounds(488, 299, 40, 25);
+		frame.getContentPane( ).add(button_3);
 	}
 
 	private void setupJTable(JTable table) {
