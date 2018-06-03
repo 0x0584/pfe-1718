@@ -80,7 +80,7 @@ public class Modeling {
 
 	public static DefaultTableModel getDefaultModel(String text, SearchField sf,
 		EmployeeType t) {
-		DefaultTableModel model = Modeling.getModelColumns( );
+		DefaultTableModel model = Modeling.getDefaulModelColumns( );
 		Iterator<Element> ifoo; // temporary iterators
 		Element foo; // temporary elements
 		// String scale = null, echlon = null;
@@ -128,7 +128,7 @@ public class Modeling {
 		return (DefaultTableModel) getDefaultModel(null, null, t);
 	}
 
-	public static DefaultTableModel getModelColumns( ) {
+	public static DefaultTableModel getDefaulModelColumns( ) {
 		DefaultTableModel model = new DefaultTableModel( );
 
 		model.addColumn("ر.ت.");
@@ -138,6 +138,23 @@ public class Modeling {
 		// model.addColumn("السلم");
 		// model.addColumn("الرتبة");
 		// model.addColumn("عدد الشواهد");
+
+		return model;
+	}
+
+	public static TableModel getRepaymentModel(Employee empl) {
+		DefaultTableModel model = new DefaultTableModel( );
+		for (String col : new String[] {
+						"period", "ndays", "repayed", "rest"
+		}) {
+			model.addColumn(col);
+		}
+		for (Repayment r : empl.getRepayments( )) {
+			model.addRow(new String[] {
+							r.getPeriod( ), "" + r.getNumberOfDays( ),
+							"" + r.getRepayedDays( ), "" + r.getRest( )
+			});
+		}
 
 		return model;
 	}

@@ -208,7 +208,6 @@ public class MainWin {
 		tf_raison.addKeyListener(new KeyAdapter( ) {
 			@Override
 			public void keyReleased(KeyEvent e) {
-
 				String text = tf_raison.getText( ).trim( );
 
 				switch (e.getKeyCode( )) {
@@ -376,6 +375,11 @@ public class MainWin {
 		frame.getContentPane( ).add(btnConfirm);
 
 		JButton button_1 = new JButton("التعويضات");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		button_1.setBounds(153, 299, 129, 25);
 		frame.getContentPane( ).add(button_1);
 
@@ -394,6 +398,7 @@ public class MainWin {
 			public void actionPerformed(ActionEvent e) {
 				// refresh
 				table.setModel(Modeling.getDefaultModel(type));
+				setupJTable(table);
 			}
 		});
 		button_3.setBounds(488, 299, 40, 25);

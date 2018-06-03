@@ -52,8 +52,8 @@ public class DateUtils {
 
 	public static long DateDiff(Period p, Date from, Date to) {
 		if (from != null && to != null) {
-			return TimeUnit.MILLISECONDS
-							.toDays(Math.abs(from.getTime( ) - to.getTime( )));
+			long diff = from.getTime( ) - to.getTime( );
+			return TimeUnit.MILLISECONDS.toDays(Math.abs(diff));
 		} else return 0;
 	}
 

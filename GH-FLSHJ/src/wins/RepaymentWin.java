@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,13 +18,12 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.utils.DateUtils;
 import app.utils.XmlFile;
 import model.Employee;
-import model.MedicalCertif;
 import model.Modeling;
+import model.Repayment;
 
-public class MedicalWin {
+public class RepaymentWin {
 
 	private JFrame frame;
 
@@ -35,8 +33,8 @@ public class MedicalWin {
 
 	private JTable table;
 	private JTextField tf_ndays;
-	private JTextField tf_from;
-	private JTextField tf_s;
+	private JTextField tf_repayed;
+	private JTextField tf_holiday;
 
 	/**
 	 * Launch the application.
@@ -45,7 +43,7 @@ public class MedicalWin {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					MedicalWin window = new MedicalWin(new Employee( ));
+					RepaymentWin window = new RepaymentWin(new Employee( ));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -59,7 +57,7 @@ public class MedicalWin {
 	 * 
 	 * @param employee
 	 */
-	public MedicalWin(Employee empl) {
+	public RepaymentWin(Employee empl) {
 		initialize(empl);
 	}
 
@@ -84,20 +82,20 @@ public class MedicalWin {
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		tf_s = new JTextField( );
-		tf_s.setColumns(10);
-		tf_s.setBounds(427, 2, 114, 24);
-		frame.getContentPane( ).add(tf_s);
+		tf_holiday = new JTextField( );
+		tf_holiday.setColumns(10);
+		tf_holiday.setBounds(427, 2, 114, 24);
+		frame.getContentPane( ).add(tf_holiday);
 
 		tf_ndays = new JTextField( );
 		tf_ndays.setBounds(72, 0, 114, 24);
 		frame.getContentPane( ).add(tf_ndays);
 		tf_ndays.setColumns(10);
 
-		tf_from = new JTextField( );
-		tf_from.setBounds(258, 0, 114, 24);
-		frame.getContentPane( ).add(tf_from);
-		tf_from.setColumns(10);
+		tf_repayed = new JTextField( );
+		tf_repayed.setBounds(258, 0, 114, 24);
+		frame.getContentPane( ).add(tf_repayed);
+		tf_repayed.setColumns(10);
 
 		JLabel lblFrom = new JLabel("تاريخ البدئ");
 		lblFrom.setBounds(187, 5, 70, 15);
@@ -118,16 +116,17 @@ public class MedicalWin {
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				MedicalCertif oldc = getSelectedMedical(empl, table);
-				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
-					DateUtils.parseDate(tf_from.getText( )),
-					Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
-				XmlFile.updateMedicalCertif(empl, oldc, newc);
+				Repayment old_r = getSelectedRepayment(empl, table);
+				Repayment new_r = new Repayment(old_r.getId( ),
+					tf_holiday.getText( ),
+					Integer.parseInt(tf_ndays.getText( )),
+					Integer.parseInt(tf_repayed.getText( )));
+				XmlFile.updateRepayment(empl, old_r, new_r);
 				table.setModel(
-					Modeling.getMedicalModel(
+					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
 							new Employee( ), empl.getReference( ))));
-				tf_from.setText("");
+				tf_repayed.setText("");
 				tf_ndays.setText("");
 				lbltotal.setText(getTotal(table));
 			}
@@ -139,13 +138,13 @@ public class MedicalWin {
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				MedicalCertif oldc = getSelectedMedical(empl, table);
-				XmlFile.deleteMedicalCertif(empl, oldc);
+				Repayment r = getSelectedRepayment(empl, table);
+				XmlFile.deleteRepayment(empl, r);
 				table.setModel(
-					Modeling.getMedicalModel(
+					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
 							new Employee( ), empl.getReference( ))));
-				tf_from.setText("");
+				tf_repayed.setText("");
 				tf_ndays.setText("");
 				lbltotal.setText(getTotal(table));
 			}
@@ -156,16 +155,15 @@ public class MedicalWin {
 		JButton btnAdd = new JButton("إضافة");
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand( ).compareTo(""
-								+ "إضافة") == 0) {
-					XmlFile.addMedicalCertif(
-						empl,
-						new MedicalCertif(XmlFile.getLastMedicalId(empl)+1,
-							DateUtils.parseDate(tf_from.getText( )),
-							Integer.parseInt(tf_ndays.getText( )),
-							tf_s.getText( )));
+				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
+					Repayment new_r = new Repayment(
+						XmlFile.getLastRepaymentId(empl) + 1,
+						tf_holiday.getText( ),
+						Integer.parseInt(tf_repayed.getText( )),
+						Integer.parseInt(tf_ndays.getText( )));
+					XmlFile.addRepayment(empl, new_r);
 					table.setModel(
-						Modeling.getMedicalModel(
+						Modeling.getRepaymentModel(
 							XmlFile.initEmployee(
 								new Employee( ), empl.getReference( ))));
 					setupJTable(table);
@@ -174,7 +172,7 @@ public class MedicalWin {
 					btnModify.setEnabled(true);
 					btnDelete.setEnabled(true);
 				} else {
-					tf_from.setText("");
+					tf_repayed.setText("");
 					tf_ndays.setText("");
 					btnAdd.setText("إضافة");
 					btnModify.setEnabled(!true);
@@ -185,17 +183,18 @@ public class MedicalWin {
 		btnAdd.setBounds(470, 32, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
-		table = new JTable(Modeling.getMedicalModel(empl));
+		table = new JTable(Modeling.getRepaymentModel(empl));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				btnAdd.setText("جديد");
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
-				MedicalCertif m = getSelectedMedical(empl, table);
-				tf_from.setText(DateUtils.parseDate(m.getFrom( )));
-				tf_ndays.setText("" + m.getNumberOfDays( ));
-				tf_s.setText(m.getPeriod( ));
+				Repayment r = getSelectedRepayment(empl, table);
+				// TODO: update text fields
+				tf_repayed.setText("" + r.getRepayedDays( ));
+				tf_ndays.setText("" + r.getNumberOfDays( ));
+				tf_holiday.setText(r.getPeriod( ));
 			}
 		});
 		/*
@@ -223,18 +222,17 @@ public class MedicalWin {
 		return "" + sum;
 	}
 
-	private MedicalCertif getSelectedMedical(Employee empl, JTable table) {
-		Date from = DateUtils.parseDate(
-			table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
-							.toString( ));
+	private Repayment getSelectedRepayment(Employee empl, JTable table) {
+		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
+						.toString( );
 		int ndays = Integer.parseInt(
+			table.getModel( ).getValueAt(table.getSelectedRow( ), 1)
+							.toString( ));
+		int repayed = Integer.parseInt(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
-						.toString( );
-		// TODO: getting id has a bug
-		int theID = XmlFile.getMedicalCertifId(empl, table.getSelectedRow( ));
-		return new MedicalCertif(theID, from, ndays, period);
+		int theID = XmlFile.getRepaymentId(empl, table.getSelectedRow( ));
+		return new Repayment(theID, period, ndays, repayed);
 	}
 
 	private void setupJTable(JTable table) {
