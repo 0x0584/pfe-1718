@@ -19,6 +19,7 @@ public class Employee extends Person {
 	protected ArrayList<Uplift> uplifts;
 	protected ArrayList<Diploma> diplomas;
 	protected ArrayList<MedicalCertif> certifs;
+	protected ArrayList<Repayment> repayments;
 
 	public Employee() {
 		this("0112358");
@@ -39,6 +40,14 @@ public class Employee extends Person {
 
 	public ArrayList<MedicalCertif> getCertifs( ) {
 		return certifs;
+	}
+
+	public ArrayList<Repayment> getRepayments( ) {
+		return repayments;
+	}
+
+	public void setRepayments(ArrayList<Repayment> repayments) {
+		this.repayments = repayments;
 	}
 
 	public void setMedicalCertifs(ArrayList<MedicalCertif> certifs) {

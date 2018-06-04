@@ -3,9 +3,9 @@
 <!DOCTYPE Employee>
 <Employee>
   <employee reference="0112358" department="Informatique">
-    <notes>THIS GUY WOULD DO ALL OF THE THINGS THAT HE WANTED ONE DAY! BELIEVE IN HIM!</notes>
+    <notes />
     <personal>
-      <name>NADA</name>
+      <name>ANAS</name>
       <familyname>Rchid</familyname>
       <!-- last name -->
       <birth>1994-09-15</birth>
@@ -59,19 +59,29 @@
       <session>2017-2018</session>
       <!-- yyyyYYYY -->
     </diplomas>
-    <medicalcertif id="1">
-      <from>2018-04-10</from>
-      <ndays>15</ndays>
-      <period>Semestre II</period>
-    </medicalcertif>
     <medicalcertif id="3">
       <from>1994-10-02</from>
       <ndays>60</ndays>
       <period>Semestre I</period>
     </medicalcertif>
+    <medicalcertif id="2">
+      <from>2018-10-10</from>
+      <ndays>20</ndays>
+      <period>dd</period>
+    </medicalcertif>
+    <repayment id="1">
+      <period>Semestre I</period>
+      <ndays>5</ndays>
+      <repayed>4</repayed>
+    </repayment>
+    <repayment id="2">
+      <period>Semestre II</period>
+      <ndays>60</ndays>
+      <repayed>50</repayed>
+    </repayment>
   </employee>
   <employee reference="01123411" department="nil">
-    <notes>NIKO IS A WHITEHEARTED MAN! BUT, HE MUST DISCOVER HIS MANHOOD</notes>
+    <notes />
     <personal>
       <name>Aymen</name>
       <familyname>Rchid</familyname>

@@ -3,14 +3,10 @@ package model;
 import java.util.Date;
 
 public class MedicalCertif {
-	private int id;
+	private int id, ndays;
 	private Date from;
-	private int ndays;
 	private String period;
 
-	/**
-	 * 
-	 */
 	public MedicalCertif() {
 
 	}

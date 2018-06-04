@@ -2,7 +2,7 @@ package app.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -34,34 +34,26 @@ public class DateUtils {
 	}
 
 	public static Date add(Period p, Date date, int n) {
-		try {
-			// TODO: use data bitch! not now
-			Date foo = null;
-			if (p.equals(Period.ONE_MONTH)) {
-				foo = new DateUtils( ).fmt.parse(
-					LocalDate.now( ).plusMonths(n).toString( ));
-			} else if (p.equals(Period.ONE_WEEK)) {
-				foo = new DateUtils( ).fmt.parse(
-					LocalDate.now( ).plusDays(n * 7).toString( ));
-			} else if (p.equals(Period.ONE_YEAR)) {
-				foo = new DateUtils( ).fmt.parse(
-					LocalDate.now( ).plusYears(n).toString( ));
-			} else if (p.equals(Period.ONE_DAY)){
-				foo = new DateUtils( ).fmt.parse(
-					LocalDate.now( ).plusDays(n).toString( ));
-			}
+		int type = 0;
 
-			return foo;
-		} catch (ParseException e) {
-			System.err.println(e.getMessage( ));
-			return null;
+		if (p.equals(Period.ONE_MONTH)) {
+			type = Calendar.MONTH;
+		} else if (p.equals(Period.ONE_YEAR)) {
+			type = Calendar.YEAR;
+		} else if (p.equals(Period.ONE_DAY)) {
+			type = Calendar.DATE;
 		}
+		Calendar c = Calendar.getInstance( );
+		c.setTime(date);
+		c.add(type, n);
+		return c.getTime( );
+
 	}
 
 	public static long DateDiff(Period p, Date from, Date to) {
 		if (from != null && to != null) {
-			return TimeUnit.MILLISECONDS
-							.toDays(Math.abs(from.getTime( ) - to.getTime( )));
+			long diff = from.getTime( ) - to.getTime( );
+			return TimeUnit.MILLISECONDS.toDays(Math.abs(diff));
 		} else return 0;
 	}
 

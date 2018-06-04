@@ -28,6 +28,7 @@ import app.Mention;
 import model.Diploma;
 import model.Employee;
 import model.MedicalCertif;
+import model.Repayment;
 import model.Uplift;
 
 public class XmlFile {
@@ -35,7 +36,6 @@ public class XmlFile {
 	private String filepath;
 	private File file;
 	private Document doc;
-	private XMLOutputter xmlout;
 	private Element root;
 
 	public XmlFile() {
@@ -44,15 +44,7 @@ public class XmlFile {
 
 	public XmlFile(Files file) {
 		super( );
-		this.xmlout = new XMLOutputter(Format.getPrettyFormat( ));
 		setFilePath(file.getFilePath( ));
-	}
-
-	@Override
-	public String toString( ) {
-		return "XmlFile [filepath=" + filepath + ", file=" + file + ", doc="
-						+ doc + ", xmlout=" + xmlout + ", rootNode=" + root
-						+ "]";
 	}
 
 	public Element getRoot( ) {
@@ -90,12 +82,10 @@ public class XmlFile {
 
 	public static boolean writeXml(Document doc, Files f) {
 		XMLOutputter xmlOutput = new XMLOutputter( );
-
-		// display nice nice
 		xmlOutput.setFormat(Format.getPrettyFormat( ));
 		try {
-			xmlOutput.output(
-				doc, new FileWriter(Files.HUMAIN_RESOURCES.getFilePath( )));
+			String out = Files.HUMAIN_RESOURCES.getFilePath( );
+			xmlOutput.output(doc, new FileWriter(out));
 			System.err.println("success " + f.getFilePath( ));
 			return true;
 		} catch (IOException e) {
@@ -104,10 +94,10 @@ public class XmlFile {
 		}
 	}
 
-	public static ArrayList<Uplift> getUplifts(Employee empl) {
+	public static ArrayList<Uplift> getUplifts(Element empl) {
 		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
-		List<Element> dlist = getEmployee(empl.getReference( ))
-						.getChild("administrative").getChildren("uplift");
+		List<Element> dlist = empl.getChild("administrative")
+						.getChildren("uplift");
 
 		for (Element e : dlist) {
 			Uplift u = new Uplift( );
@@ -121,10 +111,9 @@ public class XmlFile {
 		return tmp;
 	}
 
-	public static ArrayList<Diploma> getDiplomas(Employee empl) {
+	public static ArrayList<Diploma> getDiplomas(Element empl) {
 		ArrayList<Diploma> tmp = new ArrayList<Diploma>( );
-		List<Element> dlist = getEmployee(empl.getReference( ))
-						.getChildren("diplomas");
+		List<Element> dlist = empl.getChildren("diplomas");
 
 		for (Element e : dlist) {
 			Diploma d = new Diploma( );
@@ -140,12 +129,12 @@ public class XmlFile {
 		return tmp;
 	}
 
-	public static ArrayList<MedicalCertif> getMedicalCertifs(Employee empl) {
-		List<Element> dlist = getEmployee(empl.getReference( ))
-						.getChildren("medicalcertif");
+	public static ArrayList<MedicalCertif> getMedicalCertifs(Element empl) {
+		List<Element> dlist = empl.getChildren("medicalcertif");
 		ArrayList<MedicalCertif> tmp = new ArrayList<MedicalCertif>( );
 		for (Element e : dlist) {
 			MedicalCertif m = new MedicalCertif( );
+			m.setId(Integer.parseInt(e.getAttributeValue("id")));
 			m.setFrom(DateUtils.parseDate(e.getChildTextTrim("from")));
 			m.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
 			m.setPeriod(e.getChildTextTrim("period"));
@@ -221,11 +210,27 @@ public class XmlFile {
 		empl.setCadre(Cadre.parseCadre(bar.getChildTextTrim("cadre")));
 		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
 		//
-		empl.setUplifts(getUplifts(empl));
-		empl.setDiplomas(getDiplomas(empl));
-		empl.setMedicalCertifs(getMedicalCertifs(empl));
-		
+		empl.setUplifts(getUplifts(e));
+		empl.setDiplomas(getDiplomas(e));
+		empl.setMedicalCertifs(getMedicalCertifs(e));
+		empl.setRepayments(getRepayments(e));
+
 		return empl;
+	}
+
+	private static ArrayList<Repayment> getRepayments(Element empl) {
+		List<Element> dlist = empl.getChildren("repayment");
+		ArrayList<Repayment> tmp = new ArrayList<Repayment>( );
+		for (Element e : dlist) {
+			Repayment r = new Repayment( );
+			r.setId(Integer.parseInt(e.getAttributeValue("id")));
+			r.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
+			r.setPeriod(e.getChildTextTrim("period"));
+			r.setRepayedDays(Integer.parseInt(e.getChildTextTrim("repayed")));
+			tmp.add(r);
+		}
+
+		return tmp;
 	}
 
 	public static void updateEmployee(String ref, Employee newempl) {
@@ -294,10 +299,6 @@ public class XmlFile {
 
 	}
 
-	public static void getMedicalCertif(Employee empl, int id) {
-		// TODO: finish this one
-	}
-
 	public static void addMedicalCertif(Employee employee,
 		MedicalCertif certif) {
 		Element empl = getEmployee(employee.getReference( ));
@@ -341,17 +342,113 @@ public class XmlFile {
 		writeXml(e.getDocument( ));
 	}
 
-	public static void deleteMedicalCertif(Employee empl, MedicalCertif oldc) {
+	public static void deleteMedicalCertif(Employee empl,
+		MedicalCertif certif) {
 		Element e = getEmployee(empl.getReference( ));
 		List<Element> list = e.getChildren("medicalcertif");
 
 		for (Element el : list) {
-			if (el.getAttributeValue("id").compareTo("" + oldc.getId( )) == 0) {
+			if (el.getAttributeValue("id")
+							.compareTo("" + certif.getId( )) == 0) {
 				el.detach( );
 				break;
 			}
 		}
+		
 		System.err.println(e.toString( ));
 		writeXml(e.getDocument( ));
 	}
+
+	public static int getChildId(String node, Employee empl, int limit) {
+		int lastid = 0;
+		Element e = getEmployee(empl.getReference( ));
+
+		List<Element> list = e.getChildren(node);
+
+		for (Element el : list) {
+			lastid = Integer.parseInt(el.getAttributeValue("id"));
+			if (limit == 0) {
+				break;
+			} else {
+				--limit;
+			}
+		}
+
+		return lastid;
+	}
+
+	public static int getMedicalCertifId(Employee empl, int limit) {
+		return getChildId("medicalcertif", empl, limit);
+	}
+
+	public static int getRepaymentId(Employee empl, int limit) {
+		return getChildId("repayment", empl, limit);
+	}
+
+	public static int getLastMedicalId(Employee empl) {
+		return getChildId("medicalcertif", empl, Integer.MAX_VALUE);
+	}
+
+	public static int getLastRepaymentId(Employee empl) {
+		return getChildId("repayment", empl, Integer.MAX_VALUE);
+	}
+
+	public static void deleteRepayment(Employee empl, Repayment r) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChildren("repayment");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id").compareTo("" + r.getId( )) == 0) {
+				el.detach( );
+				break;
+			}
+		}
+		
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+
+	}
+
+	public static void updateRepayment(Employee empl, Repayment old_r,
+		Repayment new_r) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChildren("repayment");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id")
+							.compareTo("" + old_r.getId( )) == 0) {
+				el.getChild("repayed").setText("" + new_r.getRepayedDays( ));
+				el.getChild("ndays").setText("" + new_r.getNumberOfDays( ));
+				el.getChild("period").setText(new_r.getPeriod( ));
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+
+	}
+
+	public static void addRepayment(Employee e, Repayment r) {
+		Element empl = getEmployee(e.getReference( ));
+		Element xml_repayed = new Element("repayment");
+		Element ndays = new Element("ndays");
+		Element repayed = new Element("repayed");
+		Element period = new Element("period");
+
+		repayed.addContent("" + r.getRepayedDays( ));
+		ndays.addContent("" + r.getNumberOfDays( ));
+		period.addContent(r.getPeriod( ));
+
+		Attribute id = new Attribute("id", "" + (getLastRepaymentId(e) + 1));
+		xml_repayed.setAttribute(id);
+		xml_repayed.addContent(repayed);
+		xml_repayed.addContent(ndays);
+		xml_repayed.addContent(period);
+		empl.addContent(xml_repayed);
+
+		System.err.println(empl.toString( ));
+		writeXml(empl.getDocument( ));
+	}
+
 }
