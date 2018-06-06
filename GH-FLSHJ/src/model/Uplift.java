@@ -18,7 +18,7 @@ public class Uplift {
 	}, GRADE[] = new byte[] {
 					9, 10, 11, 12
 	};
-
+	private int id;
 	private String indice;
 	private Date date;
 	private short grade;
@@ -35,8 +35,9 @@ public class Uplift {
 	 * @param grade
 	 * @param rank
 	 */
-	public Uplift(String indice, Date date, short grade, short rank) {
+	public Uplift(int id, String indice, Date date, short grade, short rank) {
 		super( );
+		this.id = id;
 		this.indice = indice;
 		this.date = date;
 		this.grade = grade;
@@ -47,6 +48,14 @@ public class Uplift {
 	public String toString( ) {
 		return "Uplift [grade=" + grade + ", rank=" + rank + ", indice="
 						+ indice + ", date=" + date + "]";
+	}
+
+	public int getId( ) {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public short getGrade( ) {

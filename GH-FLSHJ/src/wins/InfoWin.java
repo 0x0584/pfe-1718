@@ -486,11 +486,11 @@ public class InfoWin {
 		JMenuBar menuBar = new JMenuBar( );
 		frame.setJMenuBar(menuBar);
 
-		JMenuItem mntmNew = new JMenuItem("new");
+		JMenuItem mntmNew = new JMenuItem("إضافة");
 		mntmNew.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				
 			}
 		});
 		menuBar.add(mntmNew);

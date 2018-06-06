@@ -63,7 +63,7 @@ public class Modeling {
 	public static TableModel getMedicalModel(Employee empl) {
 		DefaultTableModel model = new DefaultTableModel( );
 		for (String col : new String[] {
-						"From", "To", "nDays", "Period"
+						"من", "إلى", "عدد الأيام", "عطلة"
 		}) {
 			model.addColumn(col);
 		}
@@ -148,7 +148,7 @@ public class Modeling {
 	public static TableModel getRepaymentModel(Employee empl) {
 		DefaultTableModel model = new DefaultTableModel( );
 		for (String col : new String[] {
-						"period", "ndays", "repayed", "rest"
+						"عطلة", "عدد الأيام", "المعوضة", "الباقي"
 		}) {
 			model.addColumn(col);
 		}

@@ -517,4 +517,87 @@ public class XmlFile {
 
 	}
 
+	public static int getUpliftId(Employee empl, int limit) {
+		int lastid = 0;
+		Element e = getEmployee(empl.getReference( ));
+
+		List<Element> list = e.getChild("administrative").getChildren("uplift");
+
+		for (Element el : list) {
+			lastid = Integer.parseInt(el.getAttributeValue("id"));
+			if (limit == 0) {
+				break;
+			} else {
+				--limit;
+			}
+		}
+		return lastid;
+	}
+
+	public static void deleteUplift(Employee empl, Uplift r) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChild("administrative").getChildren("uplift");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id").compareTo("" + r.getId( )) == 0) {
+				el.detach( );
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+
+	}
+
+	public static void updateUplift(Employee empl, Uplift old_r, Uplift new_r) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChild("administrative").getChildren("uplift");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id")
+							.compareTo("" + old_r.getId( )) == 0) {
+				el.getChild("echlon").setText("" + new_r.getGrade( ));
+				el.getChild("scale").setText("" + new_r.getRank( ));
+				el.getChild("indice").setText("" + new_r.getIndice( ));
+				el.getChild("update")
+								.setText(DateUtils.parseDate(new_r.getDate( )));
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+
+	}
+
+	public static void addUplift(Employee e, Uplift new_r) {
+		Element empl = getEmployee(e.getReference( ));
+		Element xml_repayed = new Element("uplift");
+		Element scale = new Element("scale");
+		Element echlon = new Element("echlon");
+		Element indice = new Element("indice");
+		Element update = new Element("update");
+
+		scale.addContent("" + new_r.getGrade( ));
+		echlon.addContent("" + new_r.getRank( ));
+		indice.addContent(new_r.getIndice( ));
+		update.addContent(DateUtils.parseDate(new_r.getDate( )));
+		
+		Attribute id = new Attribute("id", "" + (getLastUpliftId(e) + 1));
+		xml_repayed.setAttribute(id);
+		xml_repayed.addContent(scale);
+		xml_repayed.addContent(echlon);
+		xml_repayed.addContent(indice);
+		xml_repayed.addContent(update);
+		empl.getChild("administrative").addContent(xml_repayed);
+
+		System.err.println(empl.toString( ));
+		writeXml(empl.getDocument( ));
+	}
+
+	public static int getLastUpliftId(Employee empl) {
+		return getUpliftId(empl, Integer.MAX_VALUE);
+	}
+
 }
