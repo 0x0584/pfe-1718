@@ -234,6 +234,15 @@ public class InfoWin {
 		tbl_diplomas = new JTable(Modeling.getDiplomasModel(empl));
 		scrollPane.setViewportView(tbl_diplomas);
 
+		JButton btndip = new JButton("تعديل");
+		btndip.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				new DiplomaWin(empl).getFrame( ).setVisible(true);
+			}
+		});
+		btndip.setBounds(425, 0, 117, 25);
+		panel_5.add(btndip);
+
 		tf_bdate = new JTextField(DateUtils.parseDate(empl.getBirthDay( )));
 		tf_bdate.setColumns(10);
 		tf_bdate.setBounds(135, 103, 148, 29);
@@ -347,6 +356,15 @@ public class InfoWin {
 		tbl_uplifts = new JTable(Modeling.getUpliftModel(empl));
 		scrollPane_1.setViewportView(tbl_uplifts);
 
+		JButton btnup = new JButton("تعديل");
+		btnup.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				new UpliftWin(empl).getFrame( ).setVisible(true);
+			}
+		});
+		btnup.setBounds(425, 0, 117, 25);
+		panel_6.add(btnup);
+
 		tf_cin = new JTextField(empl.getCIN( ));
 		tf_cin.setColumns(10);
 		tf_cin.setBounds(128, 3, 148, 29);
@@ -454,6 +472,16 @@ public class InfoWin {
 		});
 		btnNewButton.setBounds(468, 525, 117, 25);
 		frame.getContentPane( ).add(btnNewButton);
+
+		JButton button = new JButton("*");
+		button.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				tbl_diplomas.setModel(Modeling.getDiplomasModel(empl));
+				tbl_uplifts.setModel(Modeling.getUpliftModel(empl));
+			}
+		});
+		button.setBounds(416, 525, 40, 25);
+		frame.getContentPane( ).add(button);
 
 		JMenuBar menuBar = new JMenuBar( );
 		frame.setJMenuBar(menuBar);

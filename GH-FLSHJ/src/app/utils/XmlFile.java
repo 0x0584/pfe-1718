@@ -312,7 +312,7 @@ public class XmlFile {
 		period.addContent(certif.getPeriod( ));
 
 		Attribute id = new Attribute("id",
-			"" + (employee.getCertifs( ).size( ) + 1));
+			"" + (getLastMedicalId(employee) + 1));
 		med.setAttribute(id);
 		med.addContent(from);
 		med.addContent(ndays);
@@ -354,7 +354,7 @@ public class XmlFile {
 				break;
 			}
 		}
-		
+
 		System.err.println(e.toString( ));
 		writeXml(e.getDocument( ));
 	}
@@ -403,7 +403,7 @@ public class XmlFile {
 				break;
 			}
 		}
-		
+
 		System.err.println(e.toString( ));
 		writeXml(e.getDocument( ));
 
@@ -449,6 +449,72 @@ public class XmlFile {
 
 		System.err.println(empl.toString( ));
 		writeXml(empl.getDocument( ));
+	}
+
+	public static int getLastDiplomaId(Employee empl) {
+		return getChildId("diplomas", empl, Integer.MAX_VALUE);
+	}
+
+	public static void addDiploma(Employee e, Diploma new_d) {
+		Element empl = getEmployee(e.getReference( ));
+		Element diploma = new Element("diplomas");
+		Element title = new Element("diploma");
+		Element inst = new Element("institute");
+		Element sess = new Element("session");
+		title.addContent(new_d.getTitle( ));
+		title.setAttribute(
+			new Attribute("mention", new_d.getMention( ).toString( )));
+		inst.addContent(new_d.getInstitue( ));
+		sess.addContent(new_d.getSession( ));
+
+		Attribute id = new Attribute("id", "" + (getLastDiplomaId(e) + 1));
+		diploma.setAttribute(id);
+		diploma.addContent(title);
+		diploma.addContent(inst);
+		diploma.addContent(sess);
+		empl.addContent(diploma);
+
+		System.err.println(empl.toString( ));
+		writeXml(empl.getDocument( ));
+
+	}
+
+	public static void deleteDiploma(Employee empl, Diploma d) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChildren("diplomas");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id").compareTo("" + d.getId( )) == 0) {
+				el.detach( );
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+	}
+
+	public static void updateDiploma(Employee empl, Diploma old_d,
+		Diploma new_d) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChildren("diplomas");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id")
+							.compareTo("" + old_d.getId( )) == 0) {
+				Element diploma = el.getChild("diploma");
+				diploma.getAttribute("mention")
+								.setValue(new_d.getMention( ).toString( ));
+				diploma.setText(new_d.getTitle( ));
+				el.getChild("institute").setText(new_d.getInstitue( ));
+				el.getChild("session").setText(new_d.getSession( ));
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+
 	}
 
 }

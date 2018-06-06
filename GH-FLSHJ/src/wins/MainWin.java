@@ -375,9 +375,10 @@ public class MainWin {
 		frame.getContentPane( ).add(btnConfirm);
 
 		JButton button_1 = new JButton("التعويضات");
-		button_1.addActionListener(new ActionListener() {
+		button_1.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				
+				new RepaymentWin(getSelectedEmployee(table)).getFrame( )
+								.setVisible(true);
 			}
 		});
 		button_1.setBounds(153, 299, 129, 25);

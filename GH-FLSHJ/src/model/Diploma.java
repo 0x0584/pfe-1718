@@ -3,6 +3,7 @@ package model;
 import app.Mention;
 
 public class Diploma {
+	private int id;
 	private String title, institue;
 	private String session; // e.g. 2017-2018
 	private Mention mention;
@@ -12,9 +13,17 @@ public class Diploma {
 
 	}
 
-	public Diploma(	String title, String institue, String session,
+	/**
+	 * @param id
+	 * @param title
+	 * @param institue
+	 * @param session
+	 * @param mention
+	 */
+	public Diploma(int id, 	String title, String institue, String session,
 					Mention mention) {
 		super( );
+		this.setId(id);
 		this.title = title;
 		this.institue = institue;
 		this.session = session;
@@ -25,6 +34,14 @@ public class Diploma {
 	public String toString( ) {
 		return "Diploma [title=" + title + ", institue=" + institue
 						+ ", session=" + session + ", mention=" + mention + "]";
+	}
+
+	public int getId( ) {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle( ) {

@@ -27,7 +27,8 @@ public class Modeling {
 			model.addColumn(str);
 		}
 
-		for (Uplift u : empl.getUplifts( )) {
+		for (Uplift u : XmlFile.getUplifts(
+			XmlFile.getEmployee(empl.getReference( )))) {
 			model.addRow(new String[] {
 							DateUtils.parseDate(u.getDate( )), u.getIndice( ),
 							"" + u.getRank( ), "" + u.getGrade( )
@@ -48,7 +49,8 @@ public class Modeling {
 			model.addColumn(str);
 		}
 
-		for (Diploma d : empl.getDiplomas( )) {
+		for (Diploma d : XmlFile.getDiplomas(
+			XmlFile.getEmployee(empl.getReference( )))) {
 			model.addRow(new String[] {
 							d.getSession( ), d.getInstitue( ),
 							d.getMention( ).toString( ), d.getTitle( )
@@ -65,7 +67,8 @@ public class Modeling {
 		}) {
 			model.addColumn(col);
 		}
-		for (MedicalCertif c : empl.getCertifs( )) {
+		for (MedicalCertif c : XmlFile.getMedicalCertifs(
+			XmlFile.getEmployee(empl.getReference( )))) {
 			Date from = c.getFrom( );
 			Date to = DateUtils.add(
 				Period.ONE_DAY, c.getFrom( ), c.getNumberOfDays( ));
