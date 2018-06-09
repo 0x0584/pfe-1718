@@ -56,6 +56,7 @@ public class XmlFile {
 		writeXml(empl.getDocument( ));
 
 	}
+
 	public static void addEmployee(Employee nempl) {
 		Element e = new Element("employee");
 		e.setAttribute("department", nempl.getDepartment( ));
@@ -67,22 +68,22 @@ public class XmlFile {
 
 		Element personal = new Element("personal");
 		Element name = new Element("name");
-		name.setText(nempl.getName( )+ " ");
+		name.setText(nempl.getName( ) + " ");
 
 		Element fname = new Element("familyname");
-		fname.setText(nempl.getFamilyname( )+ " ");
+		fname.setText(nempl.getFamilyname( ) + " ");
 
-		Element bplace = new Element("birthplace");
-		bplace.setText(nempl.getBirthPlace( )+ " ");
-		
+		Element bplace = new Element("brithplace");
+		bplace.setText(nempl.getBirthPlace( ) + " ");
+
 		Element bday = new Element("birth");
 		bday.setText(DateUtils.parseDate(nempl.getBirthDay( )));
-		
+
 		Element addr = new Element("address");
-		addr.setText(nempl.getAddress( )+ " ");
+		addr.setText(nempl.getAddress( ) + " ");
 
 		Element phone = new Element("phone");
-		phone.setText(nempl.getPhone( )+ " ");
+		phone.setText(nempl.getPhone( ) + " ");
 
 		Element state = new Element("state");
 		state.setAttribute("married", nempl.isMarried( ) ? "t" : "nil");
@@ -113,10 +114,10 @@ public class XmlFile {
 		Element admini = new Element("administrative");
 
 		Element cin = new Element("cin");
-		cin.setText(nempl.getCIN( )+ " ");
+		cin.setText(nempl.getCIN( ) + " ");
 
 		Element mission = new Element("mission");
-		mission.setText(nempl.getMission( )+ " ");
+		mission.setText(nempl.getMission( ) + " ");
 
 		Element jday = new Element("jday");
 		jday.setText(DateUtils.parseDate(nempl.getJoinDate( )));
@@ -125,7 +126,7 @@ public class XmlFile {
 		hday.setText(DateUtils.parseDate(nempl.getHiringDate( )));
 
 		Element reason = new Element("reason");
-		reason.setText(nempl.getReason( )+ " ");
+		reason.setText(nempl.getReason( ) + " ");
 
 		Element pjob = new Element("pjob");
 		pjob.setText(nempl.getPreviousJob( ));
@@ -149,7 +150,7 @@ public class XmlFile {
 		admini.addContent(cadre);
 		admini.addContent(fstate);
 		e.addContent(admini);
-		
+
 		XmlFile xml = new XmlFile( );
 		Document doc = xml.doc;
 		Element root = xml.root;
@@ -159,6 +160,7 @@ public class XmlFile {
 
 		writeXml(doc);
 	}
+
 	public static void addMedicalCertif(Employee employee,
 		MedicalCertif certif) {
 		Element empl = getEmployee(employee.getReference( ));
@@ -182,6 +184,7 @@ public class XmlFile {
 		System.err.println(empl.toString( ));
 		writeXml(empl.getDocument( ));
 	}
+
 	public static void addRepayment(Employee e, Repayment r) {
 		Element empl = getEmployee(e.getReference( ));
 		Element xml_repayed = new Element("repayment");
@@ -528,31 +531,32 @@ public class XmlFile {
 	}
 
 	public static void updateEmployee(String ref, Employee newempl) {
-		Element empl = getEmployee(ref), foo, bar;
+		Element empl = getEmployee(ref), personal, admini;
 
 		empl.getChild("notes").setText(newempl.getNotes( ));
 		empl.getAttribute("department").setValue(newempl.getDepartment( ));
 		empl.getAttribute("reference").setValue(newempl.getReference( ));
 
 		// personal tag
-		foo = empl.getChild("personal");
+		personal = empl.getChild("personal");
 
-		foo.getChild("name").setText(newempl.getName( ));
-		foo.getChild("familyname").setText(newempl.getFamilyname( ));
-		foo.getChild("nationality").getAttribute("ma")
+		updateOrCreate(personal, "name", newempl.getName( ));
+		updateOrCreate(personal, "familyname", newempl.getFamilyname( ));
+
+		personal.getChild("nationality").getAttribute("ma")
 						.setValue(newempl.isMoroccan( ) ? "t" : "nil");
-		foo.getChild("birth")
+		personal.getChild("birth")
 						.setText(DateUtils.parseDate(newempl.getBirthDay( )));
 
-		foo.getChild("address").setText(newempl.getAddress( ));
-		foo.getChild("brithplace").setText(newempl.getBirthPlace( ));
-		foo.getChild("phone").setText(newempl.getPhone( ));
-		foo.getChild("state").getAttribute("married")
+		updateOrCreate(personal, "address", newempl.getAddress( ));
+		updateOrCreate(personal, "birthplace", newempl.getBirthPlace( ));
+		updateOrCreate(personal, "phone", newempl.getPhone( ));
+		personal.getChild("state").getAttribute("married")
 						.setValue(newempl.isMarried( ) ? "t" : "nil");
 
 		try {
-			Element tmp = foo.getChild("partner");
-			foo.getChild("children").getAttribute("number")
+			Element tmp = personal.getChild("partner");
+			personal.getChild("children").getAttribute("number")
 							.setValue("" + newempl.getNumberOfChildren( ));
 
 			tmp.getAttribute("name").setValue(newempl.getPartnerName( ));
@@ -560,37 +564,36 @@ public class XmlFile {
 		} catch (Exception ex) {}
 
 		// administrative tag
-		bar = empl.getChild("administrative");
+		admini = empl.getChild("administrative");
 
-		bar.getChild("cin").setText(newempl.getCIN( ));
-		bar.getChild("mission").setText(newempl.getMission( ));
-		bar.getChild("jday")
+		updateOrCreate(admini, "cin", newempl.getCIN( ));
+		updateOrCreate(admini, "mission", newempl.getMission( ));
+		updateOrCreate(admini, "reason", newempl.getReason( ));
+		updateOrCreate(admini, "pjob", newempl.getPreviousJob( ));
+		updateOrCreate(admini, "cjob", newempl.getCurrentJob( ));
+		updateOrCreate(admini, "fstatus", newempl.getFinancialStatus( ));
+
+		admini.getChild("cin").setText(newempl.getCIN( ));
+		admini.getChild("jday")
 						.setText(DateUtils.parseDate(newempl.getJoinDate( )));
-		bar.getChild("hday")
+		admini.getChild("hday")
 						.setText(DateUtils.parseDate(newempl.getHiringDate( )));
-		bar.getChild("reason").setText(newempl.getReason( ));
-		bar.getChild("pjob").setText(newempl.getPreviousJob( ));
-		bar.getChild("cjob").setText(newempl.getCurrentJob( ));
-		bar.getChild("cadre").setText(newempl.getCadre( ).toString( ));
-		bar.getChild("fstatus").setText(newempl.getFinancialStatus( ));
+		admini.getChild("cadre").setText(newempl.getCadre( ).toString( ));
 
-		// empl.setUplifts(getUplifts(empl));
-		// empl.setDiplomas(getDiplomas(empl));
+		writeXml(empl.getDocument( ));
+	}
 
-		XMLOutputter xmlOutput = new XMLOutputter( );
+	private static void updateOrCreate(Element el, String node, String value) {
+		Element foo = el.getChild(node);
 
-		// display nice nice
-		xmlOutput.setFormat(Format.getPrettyFormat( ));
-		try {
-			xmlOutput.output(
-				empl.getDocument( ),
-				new FileWriter(Files.HUMAIN_RESOURCES.getFilePath( )));
-			System.err.println(
-				"success " + Files.HUMAIN_RESOURCES.getFilePath( ));
-		} catch (IOException e) {
-			System.err.println(e.getMessage( ));
+		if (foo == null) {
+			Element bar = new Element(node);
+			bar.addContent(value);
+			el.addContent(bar);
+			writeXml(el.getDocument( ));
+		} else {
+			foo.setText(value);
 		}
-
 	}
 
 	public static void updateMedicalCertif(Employee empl, MedicalCertif oldc,
