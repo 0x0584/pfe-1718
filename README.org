@@ -23,9 +23,9 @@
 
 
 \begin{abstract}
-  Ce projet et la resulta d'un stage que j'ai passez chez la [[http://www.flshj.ucd.ac.ma/][Faculte Des Lettres et Des Science Humaines, El Jadida]] avec la supervision du [[mailto://madaniabdellah@gmail.com][Mr. A. Madani]].
-  
-  Cette application, =GHumain=, et une application programmez en Java avec la sauvgarde des fichiers en =XML= qui permet pour les les responsables du /Service du resources humaine/ de geree d'une mannier efficace leur donnees. 
+Ce projet et la résulta d'un stage que j'avais passe chez la faculté Des Lettres et Science Humaines, El Jadida avec la supervision du Mr. A. Madani.
+
+Cette application, GHumain, et une application programmez en Java avec la sauvgarde des fichiers en XML qui permet pour les responsables du Service du ressources humaine de gérée d'une manier efficace leur données. 
 \end{abstract}
 
 * Intoduction
@@ -35,6 +35,7 @@
   + [ ] gestion des grades, conge, autorisations, absences
   + [ ] generee des document pour tous ce qui est precedant
 
+    
     
 * Data Structure
   #+BEGIN_QUOTE

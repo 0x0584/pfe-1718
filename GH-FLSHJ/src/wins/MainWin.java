@@ -1,7 +1,6 @@
 package wins;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -63,13 +62,13 @@ public class MainWin {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable( ) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
 					MainWin window = new MainWin( );
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace( );
+					System.err.println(e.getMessage( ));
 				}
 			}
 		});

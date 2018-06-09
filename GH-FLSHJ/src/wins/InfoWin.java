@@ -6,8 +6,7 @@ import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -15,8 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -28,6 +25,7 @@ import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 
 import com.alee.laf.WebLookAndFeel;
 
@@ -63,6 +61,11 @@ public class InfoWin {
 	private JTable tbl_diplomas;
 	private JTextField tf_bdate;
 	private JTextField tf_cin;
+	private JTextField tf_d;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -374,6 +377,80 @@ public class InfoWin {
 		label_11.setBounds(46, 10, 53, 15);
 		panel_2.add(label_11);
 
+		JPanel panel_7 = new JPanel( );
+		tabbedPane.addTab("معلومات إضافية", null, panel_7, null);
+		panel_7.setLayout(null);
+
+		JRadioButton rd_isma_yes = new JRadioButton("نعم");
+		rd_ismarried_yes.addChangeListener(new ChangeListener( ) {
+			public void stateChanged(ChangeEvent e) {
+				tf_partner_job.setEnabled(rd_isma_yes.isSelected( ));
+				tf_partner_name.setEnabled(rd_isma_yes.isSelected( ));
+				spin_nchildren.setEnabled(rd_isma_yes.isSelected( ));
+			}
+		});
+		rd_isma_yes.setSelected(empl.isMoroccan( ));
+		rd_isma_yes.setBounds(431, 17, 61, 19);
+		panel_7.add(rd_isma_yes);
+
+		JRadioButton rd_isma_no = new JRadioButton("لا");
+		rd_isma_no.setSelected(false);
+		rd_isma_no.setBounds(497, 17, 61, 19);
+		panel_7.add(rd_isma_no);
+
+		ButtonGroup bg_ma = new ButtonGroup( );
+		bg_ma.add(rd_isma_yes);
+		bg_ma.add(rd_isma_no);
+
+		JLabel label_12 = new JLabel("مقر العمل السابق ");
+		label_12.setBounds(12, 119, 121, 15);
+		panel_7.add(label_12);
+
+		JLabel label_13 = new JLabel("ر. التأجير");
+		label_13.setBounds(36, 86, 72, 15);
+		panel_7.add(label_13);
+
+		JLabel label_14 = new JLabel("ر. المنصب المالي");
+		label_14.setBounds(15, 53, 114, 15);
+		panel_7.add(label_14);
+
+		JLabel lblIsmoroccan = new JLabel("جنسيّة مغربية");
+		lblIsmoroccan.setBounds(318, 19, 120, 15);
+		panel_7.add(lblIsmoroccan);
+
+		tf_d = new JTextField((String) null);
+		tf_d.setColumns(10);
+		tf_d.setBounds(128, 12, 148, 29);
+		panel_7.add(tf_d);
+
+		textField_1 = new JTextField((String) null);
+		textField_1.setColumns(10);
+		textField_1.setBounds(128, 46, 148, 29);
+		panel_7.add(textField_1);
+
+		textField_2 = new JTextField((String) null);
+		textField_2.setColumns(10);
+		textField_2.setBounds(128, 79, 148, 29);
+		panel_7.add(textField_2);
+
+		textField_3 = new JTextField((String) null);
+		textField_3.setColumns(10);
+		textField_3.setBounds(128, 112, 148, 29);
+		panel_7.add(textField_3);
+
+		textField_4 = new JTextField((String) null);
+		textField_4.setColumns(10);
+		textField_4.setBounds(128, 145, 148, 29);
+		panel_7.add(textField_4);
+
+		JLabel label_16 = new JLabel("مقر العمل الحالي");
+		label_16.setBounds(17, 152, 111, 15);
+		panel_7.add(label_16);
+
+		JLabel lblDepartment = new JLabel("شعبة");
+		lblDepartment.setBounds(12, 19, 44, 15);
+		panel_7.add(lblDepartment);
+
 		JPanel panel_3 = new JPanel( );
 		panel_3.setBounds(12, 12, 571, 127);
 		frame.getContentPane( ).add(panel_3);
@@ -412,66 +489,51 @@ public class InfoWin {
 		panel_3.add(lblM);
 
 		JLabel lblRef = new JLabel(String.format("ر.ت: %s", empl.getCIN( )));
-		lblRef.setBounds(134, 39, 100, 15);
+		lblRef.setBounds(134, 39, 141, 15);
 		panel_3.add(lblRef);
 
-		JButton btnNewButton = new JButton("Save");
-		btnNewButton.addActionListener(new ActionListener( ) {
+		JButton btnsave = new JButton("حفظ");
+		btnsave.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				Employee nempl = new Employee(empl.getReference( ));
 				nempl.setNotes(tp_notes.getText( ));
-				// empl.setDepartment(tf_d);
-				//
-				// // personal tag
-				// foo = e.getChild("personal");
-				//
+				nempl.setDepartment(tf_d.getText( ));
+
 				nempl.setName(tf_name.getText( ));
-				empl.setFamilyname(tf_fname.getText( ));
-				// empl.setIsMoroccan();
+				nempl.setFamilyname(tf_fname.getText( ));
+				nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
 				nempl.setBirthDay(DateUtils.parseDate(tf_bdate.getText( )));
-				//
+
 				nempl.setBirthPlace(tf_bplace.getText( ));
 				nempl.setAddress(tf_addr.getText( ));
 				nempl.setPhone(tf_phone.getText( ));
-				// empl.setIsMarried(
-				// true);
-				//
-				// try {
-				// Element tmp = foo.getChild("partner");
-				// String str =
-				// foo.getChild("children").getAttributeValue("number");
-				// empl.setNumberOfchildren(Short.parseShort(str));
-				// empl.setPartnerName(tmp.getAttributeValue("name"));
-				// empl.setPartnerJob(tmp.getAttributeValue("job"));
-				// } catch (Exception ex) {
-				// empl.setPartnerName(null);
-				// empl.setPartnerJob(null);
-				// empl.setNumberOfchildren((short) 0);
-				// }
-				//
-				// // administrative tag
-				// bar = e.getChild("administrative");
-				//
+				nempl.setIsMarried(rd_ismarried_yes.isSelected( ));
+
+				nempl.setNumberOfchildren(
+					Short.parseShort(spin_nchildren.getValue( ).toString( )));
+
+				nempl.setPartnerName(tf_partner_name.getText( ));
+				nempl.setPartnerJob(tf_partner_job.getText( ));
+
 				nempl.setReference(tf_ref.getText( ));
 				nempl.setCIN(tf_cin.getText( ));
 				nempl.setMission(tf_mission.getText( ));
 				nempl.setJoinDate(DateUtils.parseDate(tf_date_join.getText( )));
 				nempl.setHiringDate(
 					DateUtils.parseDate(tf_date_hiring.getText( )));
-				// empl.setReason("");
+
 				nempl.setPreviousJob(tf_job_prev.getText( ));
 				nempl.setCurrentJob(tf_job_current.getText( ));
 				nempl.setCadre(
 					Cadre.parseCadre(
 						comb_cadre.getSelectedItem( ).toString( )));
 				nempl.setFinancialStatus(tf_finance.getText( ));
-				// empl.setUplifts(getUplifts(empl));
-				// empl.setDiplomas(getDiplomas(empl));
+
 				XmlFile.updateEmployee(empl.getReference( ), nempl);
 			}
 		});
-		btnNewButton.setBounds(468, 525, 117, 25);
-		frame.getContentPane( ).add(btnNewButton);
+		btnsave.setBounds(505, 525, 80, 25);
+		frame.getContentPane( ).add(btnsave);
 
 		JButton button = new JButton("*");
 		button.addActionListener(new ActionListener( ) {
@@ -480,20 +542,90 @@ public class InfoWin {
 				tbl_uplifts.setModel(Modeling.getUpliftModel(empl));
 			}
 		});
-		button.setBounds(416, 525, 40, 25);
+		button.setBounds(361, 525, 40, 25);
 		frame.getContentPane( ).add(button);
 
-		JMenuBar menuBar = new JMenuBar( );
-		frame.setJMenuBar(menuBar);
+		JButton btnnew = new JButton("جديد");
+		btnnew.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				String str = "جديد";
+				if (e.getActionCommand( ).compareTo(str) == 0) {
+					btnnew.setText("حفظ");
+					btnsave.setVisible(false);
 
-		JMenuItem mntmNew = new JMenuItem("إضافة");
-		mntmNew.addMouseListener(new MouseAdapter( ) {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
+					clearFields( );
+				} else {
+					btnnew.setText("جديد");
+					Employee nempl = new Employee( );
+					nempl.setNotes(tp_notes.getText( ));
+					nempl.setDepartment(tf_d.getText( ));
+
+					nempl.setName(tf_name.getText( ));
+					nempl.setFamilyname(tf_fname.getText( ));
+					nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
+					nempl.setBirthDay(DateUtils.parseDate(tf_bdate.getText( )));
+
+					nempl.setBirthPlace(tf_bplace.getText( ));
+					nempl.setAddress(tf_addr.getText( ));
+					nempl.setPhone(tf_phone.getText( ));
+					nempl.setIsMarried(rd_ismarried_yes.isSelected( ));
+
+					nempl.setNumberOfchildren(
+						Short.parseShort(
+							spin_nchildren.getValue( ).toString( )));
+					nempl.setPartnerName(tf_partner_name.getText( ));
+					nempl.setPartnerJob(tf_partner_job.getText( ));
+					String strr = tf_ref.getText( ).compareTo("") == 0 ? ""
+									+ (XmlFile.getlastEmployeeReference( ) + 1)
+									: tf_ref.getText( );
+					nempl.setReference(strr);
+					nempl.setCIN(tf_cin.getText( ));
+					nempl.setMission(tf_mission.getText( ));
+					nempl.setJoinDate(
+						DateUtils.parseDate(tf_date_join.getText( )));
+					nempl.setHiringDate(
+						DateUtils.parseDate(tf_date_hiring.getText( )));
+
+					nempl.setPreviousJob(tf_job_prev.getText( ));
+					nempl.setCurrentJob(tf_job_current.getText( ));
+					nempl.setCadre(
+						Cadre.parseCadre(
+							comb_cadre.getSelectedItem( ).toString( )));
+					nempl.setFinancialStatus(tf_finance.getText( ));
+
+					XmlFile.addEmployee(nempl);
+					frame.dispose( );
+				}
+			}
+
+			private void clearFields( ) {
+				tp_notes.setText("");
+				tf_addr.setText( "");
+				tf_bdate.setText(DateUtils.parseDate(new Date( )));
+				tf_bplace.setText("");
+				tf_cin.setText("");
+				tf_d.setText("");
+				tf_date_hiring.setText(DateUtils.parseDate(new Date( )));
+				tf_date_join.setText(DateUtils.parseDate(new Date( )));
+				tf_finance.setText("");
+				tf_fname.setText("");
+				tf_job_current.setText("");
+				tf_job_prev.setText("");
+				tf_mission.setText("");
+				tf_name.setText("");
+				tf_partner_job.setText("");
+				tf_partner_name.setText("");
+				tf_phone.setText("");
+				tf_ref.setText("");
+				spin_nchildren.setValue(0);
+				tbl_diplomas.setModel(new DefaultTableModel( ));
+				tbl_uplifts.setModel(new DefaultTableModel( ));
+				rd_isma_yes.setSelected(true);
+				rd_ismarried_no.setSelected(true);
 			}
 		});
-		menuBar.add(mntmNew);
+		btnnew.setBounds(413, 525, 80, 25);
+		frame.getContentPane( ).add(btnnew);
 
 	}
 }

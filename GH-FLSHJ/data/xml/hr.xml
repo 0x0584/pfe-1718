@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- BEGIN DTD -->
-<!DOCTYPE Employee>
 <Employee>
   <employee reference="0112358" department="Informatique">
     <notes />
@@ -124,5 +122,30 @@
       <period>Semestre I</period>
     </medicalcertif>
   </employee>
+  <employee department="" reference="1123412">
+    <notes />
+    <personal>
+      <name />
+      <familyname />
+      <birth>2018-06-09</birth>
+      <birthplace />
+      <address />
+      <phone />
+      <state married="nil" />
+      <nationality ma="t" />
+      <partner name="" job="" />
+      <children number="0" />
+    </personal>
+    <administrative>
+      <cin />
+      <mission />
+      <jday>2018-06-09</jday>
+      <hday>2018-06-09</hday>
+      <reason>exam</reason>
+      <pjob />
+      <cjob />
+      <cadre>Engenieur 1er Grade</cadre>
+      <fstatus />
+    </administrative>
+  </employee>
 </Employee>
-<!-- AUTHOR: Anas Rchid <rchid.anas@gmail.com> -->
