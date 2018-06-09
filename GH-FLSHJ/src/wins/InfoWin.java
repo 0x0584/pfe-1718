@@ -626,6 +626,16 @@ public class InfoWin {
 		});
 		btnnew.setBounds(413, 525, 80, 25);
 		frame.getContentPane( ).add(btnnew);
+		
+		JButton btndel = new JButton("حذف");
+		btndel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XmlFile.deleteEmployee(empl);
+				frame.dispose( );
+			}
+		});
+		btndel.setBounds(22, 525, 80, 25);
+		frame.getContentPane().add(btndel);
 
 	}
 }

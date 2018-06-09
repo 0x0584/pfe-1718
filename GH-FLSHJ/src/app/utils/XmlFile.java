@@ -247,6 +247,14 @@ public class XmlFile {
 		writeXml(e.getDocument( ));
 	}
 
+	public static void deleteEmployee(Employee empl) {
+		Element e = getEmployee(empl.getReference( ));
+		Document d = e.getDocument( );
+		e.detach( );
+		System.err.println(e.toString( ));
+		writeXml(d);
+	}
+
 	public static void deleteMedicalCertif(Employee empl,
 		MedicalCertif certif) {
 		Element e = getEmployee(empl.getReference( ));
@@ -583,19 +591,6 @@ public class XmlFile {
 		writeXml(empl.getDocument( ));
 	}
 
-	private static void updateOrCreate(Element el, String node, String value) {
-		Element foo = el.getChild(node);
-
-		if (foo == null) {
-			Element bar = new Element(node);
-			bar.addContent(value);
-			el.addContent(bar);
-			writeXml(el.getDocument( ));
-		} else {
-			foo.setText(value);
-		}
-	}
-
 	public static void updateMedicalCertif(Employee empl, MedicalCertif oldc,
 		MedicalCertif newc) {
 		Element e = getEmployee(empl.getReference( ));
@@ -613,6 +608,19 @@ public class XmlFile {
 
 		System.err.println(e.toString( ));
 		writeXml(e.getDocument( ));
+	}
+
+	private static void updateOrCreate(Element el, String node, String value) {
+		Element foo = el.getChild(node);
+
+		if (foo == null) {
+			Element bar = new Element(node);
+			bar.addContent(value);
+			el.addContent(bar);
+			writeXml(el.getDocument( ));
+		} else {
+			foo.setText(value);
+		}
 	}
 
 	public static void updateRepayment(Employee empl, Repayment old_r,

@@ -122,30 +122,4 @@
       <period>Semestre I</period>
     </medicalcertif>
   </employee>
-  <employee department="" reference="1123412">
-    <notes />
-    <personal>
-      <name />
-      <familyname />
-      <birth>2018-06-09</birth>
-      <brithplace>fgfg</brithplace>
-      <address />
-      <phone />
-      <state married="nil" />
-      <nationality ma="t" />
-      <partner name="" job="" />
-      <children number="0" />
-    </personal>
-    <administrative>
-      <cin />
-      <mission />
-      <jday>2018-06-09</jday>
-      <hday>2018-06-09</hday>
-      <reason>exam</reason>
-      <pjob />
-      <cjob />
-      <cadre>Engenieur 1er Grade</cadre>
-      <fstatus />
-    </administrative>
-  </employee>
 </Employee>
