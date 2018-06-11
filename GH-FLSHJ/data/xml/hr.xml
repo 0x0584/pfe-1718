@@ -29,7 +29,7 @@
       <cjob>CapGemini Casablanca</cjob>
       <uplift id="1" state="current" type="exam">
         <scale>10</scale>
-        <echlon>1</echlon>
+        <echlon>5</echlon>
         <indice>12121</indice>
         <update>2018-06-15</update>
       </uplift>

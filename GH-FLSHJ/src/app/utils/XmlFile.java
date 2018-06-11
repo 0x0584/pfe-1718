@@ -508,11 +508,30 @@ public class XmlFile {
 		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
 		//
 		empl.setUplifts(getUplifts(e));
+		empl.setCurrentUplift(getCurrentUplift(e));
 		empl.setDiplomas(getDiplomas(e));
 		empl.setMedicalCertifs(getMedicalCertifs(e));
 		empl.setRepayments(getRepayments(e));
 
 		return empl;
+	}
+
+	private static Uplift getCurrentUplift(Element empl) {
+		List<Element> dlist = empl.getChild("administrative")
+						.getChildren("uplift");
+		Uplift u = new Uplift( );
+
+		for (Element e : dlist) {
+			if (e.getAttributeValue("state").compareTo("current") == 0) {
+				u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
+				u.setDate(DateUtils.parseDate(e.getChildTextTrim("update")));
+				u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
+				u.setIndice(e.getChildTextTrim("indice"));
+				break;
+			}
+		}
+
+		return u;
 	}
 
 	public static void updateDiploma(Employee empl, Diploma old_d,
@@ -727,6 +746,25 @@ public class XmlFile {
 			System.out.println(e.getMessage( ));
 			// XXX: create a normal file if the original is not found
 		}
+	}
+
+	public static ArrayList<Employee> getAll( ) {
+		Iterator<Element> i;
+		Element e;
+		ArrayList<Employee> list = new ArrayList<Employee>( );
+
+		i = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
+		while (i.hasNext( )) {
+			e = i.next( );
+			list.add(new Employee(e.getAttributeValue("reference")));
+		}
+
+		return list;
+	}
+
+	public static Uplift getCurrentUplift(Employee employee) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
