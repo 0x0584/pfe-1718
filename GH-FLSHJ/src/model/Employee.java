@@ -20,6 +20,7 @@ public class Employee extends Person {
 	protected ArrayList<Diploma> diplomas;
 	protected ArrayList<MedicalCertif> certifs;
 	protected ArrayList<Repayment> repayments;
+	private Uplift current;
 
 	public Employee() {
 		this("0112358");
@@ -165,4 +166,13 @@ public class Employee extends Person {
 	public boolean isProfessor( ) {
 		return dep != null;
 	}
+
+	public Uplift getCurrentUplift( ) {
+		return current;
+	}
+	
+	public void setCurrentUplift(Uplift current) {
+		this.current = current;
+	}
+
 }

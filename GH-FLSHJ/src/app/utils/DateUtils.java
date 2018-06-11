@@ -16,14 +16,31 @@ public class DateUtils {
 		fmt = new SimpleDateFormat("yyyy-MM-dd");
 	}
 
+	/**
+	 * @param date
+	 *            date to parse as string
+	 * @return string of the parsed date
+	 */
 	public static String parseDate(Date date) {
 		return new DateUtils( ).fmt.format(date);
 	}
 
+	/**
+	 * @param from
+	 *            Starting date
+	 * @param to
+	 *            end date
+	 * @return String as from - to
+	 */
 	public static String parseDate(Date from, Date to) {
 		return String.format("%s - %s", parseDate(from), parseDate(to));
 	}
 
+	/**
+	 * @param str
+	 *            formated date as string
+	 * @return new Date based on the parsed string
+	 */
 	public static Date parseDate(String str) {
 		try {
 			return new DateUtils( ).fmt.parse(str);
@@ -33,6 +50,16 @@ public class DateUtils {
 		}
 	}
 
+	/**
+	 * @param p
+	 *            any period beside ONE_MONTH, ONE_YEAR would be considered as
+	 *            ONE_DAY
+	 * @param date
+	 *            to add to
+	 * @param n
+	 *            number of things to add based on the indicated period
+	 * @return new Date
+	 */
 	public static Date add(Period p, Date date, int n) {
 		int type = 0;
 
@@ -40,17 +67,26 @@ public class DateUtils {
 			type = Calendar.MONTH;
 		} else if (p.equals(Period.ONE_YEAR)) {
 			type = Calendar.YEAR;
-		} else if (p.equals(Period.ONE_DAY)) {
+		} else {
 			type = Calendar.DATE;
 		}
+
 		Calendar c = Calendar.getInstance( );
 		c.setTime(date);
 		c.add(type, n);
+
 		return c.getTime( );
 
 	}
 
-	public static long DateDiff(Period p, Date from, Date to) {
+	/**
+	 * @param from
+	 *            date
+	 * @param to
+	 *            date
+	 * @return number of days in difference
+	 */
+	public static long DateDiff(Date from, Date to) {
 		if (from != null && to != null) {
 			long diff = from.getTime( ) - to.getTime( );
 			return TimeUnit.MILLISECONDS.toDays(Math.abs(diff));
