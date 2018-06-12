@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -216,6 +217,7 @@ public class XmlFile {
 		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
 		List<Element> dlist = empl.getChild("administrative")
 						.getChildren("uplift");
+
 		for (Element e : dlist) {
 			Uplift u = new Uplift( );
 			u.setEmployeeRefrence(empl.getAttributeValue("reference"));
@@ -300,6 +302,47 @@ public class XmlFile {
 		} else {
 			foo.setText(value);
 		}
+	}
+
+	public static void updateRepayment(Employee empl, Repayment old_r,
+		Repayment new_r) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChildren("repayment");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id")
+							.compareTo("" + old_r.getId( )) == 0) {
+				el.getChild("repayed").setText("" + new_r.getRepayedDays( ));
+				el.getChild("ndays").setText("" + new_r.getNumberOfDays( ));
+				el.getChild("period").setText(new_r.getPeriod( ));
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+
+	}
+
+	public static void updateUplift(Employee empl, Uplift old_r, Uplift new_r) {
+		Element e = getEmployee(empl.getReference( ));
+		List<Element> list = e.getChild("administrative").getChildren("uplift");
+
+		for (Element el : list) {
+			if (el.getAttributeValue("id")
+							.compareTo("" + old_r.getId( )) == 0) {
+				el.getChild("echlon").setText("" + new_r.getGrade( ));
+				el.getChild("scale").setText("" + new_r.getRank( ));
+				el.getChild("indice").setText("" + new_r.getIndice( ));
+				el.getChild("update")
+								.setText(DateUtils.parseDate(new_r.getDate( )));
+				break;
+			}
+		}
+
+		System.err.println(e.toString( ));
+		writeXml(e.getDocument( ));
+
 	}
 
 	/**
