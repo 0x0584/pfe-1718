@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -415,6 +414,20 @@ public class XmlFile {
 		} catch (JDOMException | IOException e) {
 			System.out.println(e.getMessage( ));
 			// XXX: create a normal file if the original is not found
+		}
+	}
+
+	public static void setOldUplift(Element empl) {
+		List<Element> dlist = empl.getChild("administrative")
+						.getChildren("uplift");
+
+		for (Element e : dlist) {
+			if (e.getAttributeValue("state").compareTo("current") == 0) {
+				e.getAttribute("state").setValue("old");
+				System.err.println(e.toString( ));
+				writeXml(e.getDocument( ));
+				break;
+			}
 		}
 	}
 

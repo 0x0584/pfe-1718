@@ -84,13 +84,26 @@ public class DateUtils {
 	 *            date
 	 * @param to
 	 *            date
-	 * @return number of days in difference
+	 * @return absolute number of days in difference
 	 */
-	public static long DateDiff(Date from, Date to) {
+	public static long diffAbs(Date from, Date to) {
 		if (from != null && to != null) {
-			long diff = from.getTime( ) - to.getTime( );
-			return TimeUnit.MILLISECONDS.toDays(Math.abs(diff));
+			long diff = Math.abs(from.getTime( ) - to.getTime( ));
+			return TimeUnit.MILLISECONDS.toDays(diff);
 		} else return 0;
 	}
 
+	/**
+	 * @param from
+	 *            date
+	 * @param to
+	 *            date
+	 * @return number of days in difference, it could be negative
+	 */
+	public static long diff(Date from, Date to) {
+		if (from != null && to != null) {
+			long diff = to.getTime( ) - from.getTime( );
+			return TimeUnit.MILLISECONDS.toDays(diff);
+		} else return 0;
+	}
 }

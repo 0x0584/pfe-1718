@@ -5,7 +5,7 @@ import java.util.Date;
 import app.utils.DateUtils;
 
 public enum Period {
-	ONE_DAY(1),
+	TODAY(0), ONE_DAY(1),
 
 	ONE_WEEK(7), TWO_WEEKS(14),
 
@@ -15,12 +15,12 @@ public enum Period {
 
 	private int value;
 	private String title;
-	
+
 	Period(int value) {
 		this.value = value;
 		this.title = name( );
 	}
-	
+
 	Period(int value, String title) {
 		this.value = value;
 		this.title = title;
@@ -31,20 +31,18 @@ public enum Period {
 	public static Date getDate(Period p) {
 		return DateUtils.add(ONE_DAY, new Date( ), p.value);
 	}
-	
+
 	@Override
-	public String toString() {
+	public String toString( ) {
 		return title;
 	}
 
 	public static Period parse(String string) {
-		for(Period p : values( )) {
-			if(p.name( ).compareTo(string) == 0) {
-				return p;
-			}
+		for (Period p : values( )) {
+			if (p.name( ).compareTo(string) == 0) return p;
 		}
-		
+
 		return ONE_SEMESTRE;
 	}
-	
+
 }

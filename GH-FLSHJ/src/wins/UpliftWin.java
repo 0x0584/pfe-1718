@@ -33,6 +33,7 @@ public class UpliftWin {
 		return frame;
 	}
 
+	private Uplift current;
 	private JTable table;
 	private JTextField tf_date;
 	private JTextField tf_indice;
@@ -61,6 +62,18 @@ public class UpliftWin {
 	 * @param employee
 	 */
 	public UpliftWin(Employee empl) {
+		this.current = null;
+		initialize(empl);
+	}
+
+	/**
+	 * Create the application.
+	 * 
+	 * @param employee
+	 */
+	public UpliftWin(Uplift current) {
+		this.current = current;
+		Employee empl = new Employee(current.getEmployeeRefrence( ));
 		initialize(empl);
 	}
 
@@ -71,6 +84,14 @@ public class UpliftWin {
 	 */
 	private void initialize(Employee empl) {
 		WebLookAndFeel.install( );
+		String rank, grade, date, indice;
+
+		rank = this.current != null ? "" + current.getRank( ) : "";
+		grade = this.current != null ? "" + current.getGrade( ) : "";
+		date = this.current != null
+						? "" + DateUtils.parseDate(current.getDate( ))
+						: "";
+		indice = this.current != null ? "" + current.getIndice( ) : "";
 
 		frame = new JFrame( );
 		frame.setBounds(100, 100, 662, 507);
@@ -85,20 +106,29 @@ public class UpliftWin {
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		tf_rank = new JTextField( );
+		tf_rank = new JTextField(rank);
 		tf_rank.setColumns(10);
 		tf_rank.setBounds(524, 0, 114, 24);
 		frame.getContentPane( ).add(tf_rank);
 
-		tf_date = new JTextField( );
+		tf_date = new JTextField(date);
 		tf_date.setBounds(72, 0, 114, 24);
 		frame.getContentPane( ).add(tf_date);
 		tf_date.setColumns(10);
 
-		tf_indice = new JTextField( );
+		tf_indice = new JTextField(indice);
 		tf_indice.setBounds(344, 0, 114, 24);
 		frame.getContentPane( ).add(tf_indice);
 		tf_indice.setColumns(10);
+
+		tf_grade = new JTextField(grade);
+		tf_grade.setColumns(10);
+		tf_grade.setBounds(66, 36, 114, 24);
+		frame.getContentPane( ).add(tf_grade);
+
+		JLabel label = new JLabel("السلم");
+		label.setBounds(12, 39, 58, 15);
+		frame.getContentPane( ).add(label);
 
 		JLabel lblFrom = new JLabel("الرقم الإستدلالي");
 		lblFrom.setBounds(236, 5, 107, 15);
@@ -163,6 +193,7 @@ public class UpliftWin {
 						DateUtils.parseDate(tf_date.getText( )),
 						Short.parseShort(tf_grade.getText( )),
 						Short.parseShort(tf_rank.getText( )));
+					new_r.setEmployeeRefrence(empl.getReference( ));
 					new_r.add( );
 					table.setModel(
 						Modeling.getUpliftModel(
@@ -213,14 +244,6 @@ public class UpliftWin {
 		setupJTable(table);
 		scrollPane.setViewportView(table);
 
-		tf_grade = new JTextField( );
-		tf_grade.setColumns(10);
-		tf_grade.setBounds(66, 36, 114, 24);
-		frame.getContentPane( ).add(tf_grade);
-
-		JLabel label = new JLabel("السلم");
-		label.setBounds(12, 39, 58, 15);
-		frame.getContentPane( ).add(label);
 	}
 
 	private Uplift getSelectedUplift(Employee empl, JTable table) {

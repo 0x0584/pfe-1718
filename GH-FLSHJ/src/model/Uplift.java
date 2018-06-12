@@ -94,9 +94,13 @@ public class Uplift extends XmlElement<Uplift> {
 	/**
 	 * this function tracks the uplifts once in a start up checks if some
 	 * employees would get an uplift in the next period
+	 *
+	 * @param period
+	 *            the period to track
+	 * @return a JTable model
 	 */
-	public static TableModel trackUplifts(Period p) {
-		Date todate = Period.getDate(p);
+	public static TableModel getUpcoming(Period period) {
+		Date todate = Period.getDate(period);
 		DefaultTableModel model = new DefaultTableModel( );
 		String[] cols = new String[] {
 						"reference", "cin", "full name",
@@ -110,19 +114,16 @@ public class Uplift extends XmlElement<Uplift> {
 		}
 
 		for (Employee e : XmlFile.getAll( )) {
-			/*
-			 * TODO: to retrieve the Uplift with state="current"
-			 */
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( ), today = new Date( );
+			long diff = DateUtils.diffAbs(today, nextdate);
 
-			if (nextdate.before(todate)) {
+			if (nextdate.before(todate) && diff > 0) {
 				String fullname = e.getName( ) + " "
 								+ e.getFamilyname( ).toUpperCase( );
 				model.addRow(new String[] {
-								e.getCIN( ), e.getReference( ), fullname,
-								"" + DateUtils.DateDiff(today, nextdate),
-								DateUtils.parseDate(nextdate),
+								e.getReference( ), e.getCIN( ), fullname,
+								"" + diff, DateUtils.parseDate(nextdate),
 								"" + next.getGrade( ), "" + next.getRank( )
 				});
 			}
@@ -131,6 +132,11 @@ public class Uplift extends XmlElement<Uplift> {
 		return model;
 	}
 
+	/**
+	 * generate the next Uplift in order
+	 * 
+	 * @return the next uplift
+	 */
 	public Uplift next( ) {
 		Uplift u = new Uplift( );
 		int n_years = 0;
@@ -151,7 +157,9 @@ public class Uplift extends XmlElement<Uplift> {
 
 		Date nextdate = DateUtils.add(Period.ONE_YEAR, date, n_years);
 
-		if (rank < 11) {
+		if (grade == 12) {
+			rank = 1;
+		} else if (rank < 11) {
 			rank++;
 		} else {
 			rank = 1;
@@ -178,20 +186,25 @@ public class Uplift extends XmlElement<Uplift> {
 	public boolean add( ) {
 		try {
 			Element empl = XmlFile.getEmployee(empl_ref);
+			XmlFile.setOldUplift(empl);
+
 			Element xml_repayed = new Element("uplift");
 			Element scale = new Element("scale");
 			Element echlon = new Element("echlon");
 			Element indice = new Element("indice");
 			Element update = new Element("update");
 
-			scale.addContent("" + grade);
-			echlon.addContent("" + rank);
-			indice.addContent(indice);
+			scale.addContent("" + this.grade);
+			echlon.addContent("" + this.rank);
+			indice.addContent(this.indice);
 			update.addContent(DateUtils.parseDate(date));
 
 			Attribute id = new Attribute("id",
 				"" + (XmlFile.getLastUpliftId(empl) + 1));
+			Attribute state = new Attribute("state", "current");
+
 			xml_repayed.setAttribute(id);
+			xml_repayed.setAttribute(state);
 			xml_repayed.addContent(scale);
 			xml_repayed.addContent(echlon);
 			xml_repayed.addContent(indice);
@@ -267,6 +280,41 @@ public class Uplift extends XmlElement<Uplift> {
 	public Element getElement( ) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * List of all the pending uplifts to confirm
+	 * 
+	 * @return a Table model
+	 */
+	public static TableModel getPending( ) {
+		DefaultTableModel model = new DefaultTableModel( );
+		String[] cols = new String[] {
+						"reference", "cin", "full name",
+
+						"grade", "rank"
+
+		};
+
+		for (String col_name : cols) {
+			model.addColumn(col_name);
+		}
+
+		for (Employee e : XmlFile.getAll( )) {
+			Uplift next = e.getCurrentUplift( ).next( );
+			Date nextdate = next.getDate( );
+
+			if (nextdate.before(Period.getDate(Period.TODAY))) {
+				String fullname = e.getName( ) + " "
+								+ e.getFamilyname( ).toUpperCase( );
+				model.addRow(new String[] {
+								e.getReference( ), e.getCIN( ), fullname,
+								"" + next.getGrade( ), "" + next.getRank( )
+				});
+			}
+		}
+
+		return model;
 	}
 
 }

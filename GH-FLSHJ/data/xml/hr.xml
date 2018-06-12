@@ -27,17 +27,23 @@
       <reason>exam</reason>
       <pjob>UCD FS</pjob>
       <cjob>CapGemini Casablanca</cjob>
-      <uplift id="1" state="current" type="exam">
+      <uplift id="2" state="old" type="exam">
         <scale>10</scale>
         <echlon>5</echlon>
         <indice>12121</indice>
-        <update>2018-06-15</update>
+        <update>2016-06-12</update>
       </uplift>
-      <uplift id="2" state="old" type="normal">
+      <uplift id="1" state="old" type="normal">
         <scale>9</scale>
         <echlon>6</echlon>
         <indice>451245</indice>
-        <update>2018-06-15</update>
+        <update>2014-06-15</update>
+      </uplift>
+      <uplift id="3" state="current">
+        <scale>10</scale>
+        <echlon>6</echlon>
+        <indice>4578</indice>
+        <update>2018-06-12</update>
       </uplift>
     </administrative>
     <diplomas id="1">
