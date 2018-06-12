@@ -2,8 +2,8 @@ package wins;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -81,20 +81,16 @@ public class UpliftsWin {
 		frame.getContentPane( ).add(button);
 
 		JComboBox<Period> cmbx = new JComboBox<Period>( );
-		cmbx.setModel(new DefaultComboBoxModel<Period>(Period.values( )));
-		cmbx.setBounds(398, 420, 101, 24);
-		frame.getContentPane( ).add(cmbx);
-
-		JButton btnOk = new JButton("OK");
-		btnOk.addActionListener(new ActionListener( ) {
-			public void actionPerformed(ActionEvent e) {
+		cmbx.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
 				table_1.setModel(
 					Uplift.trackUplifts(
 						Period.parse(cmbx.getSelectedItem( ).toString( ))));
 			}
 		});
-		btnOk.setBounds(332, 420, 54, 25);
-		frame.getContentPane( ).add(btnOk);
+		cmbx.setModel(new DefaultComboBoxModel<Period>(Period.values( )));
+		cmbx.setBounds(398, 420, 101, 24);
+		frame.getContentPane( ).add(cmbx);
 
 	}
 }

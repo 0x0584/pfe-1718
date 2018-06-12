@@ -2,7 +2,9 @@ package model;
 
 import java.util.Date;
 
-public class Person {
+import app.utils.XmlElement;
+
+public abstract class Person extends XmlElement<Employee>{
 	protected String name, fname, addr, phone;
 	protected String bplace;
 	protected Date bday;

@@ -122,7 +122,7 @@ public class MedicalWin {
 				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
 					DateUtils.parseDate(tf_from.getText( )),
 					Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
-				XmlFile.updateMedicalCertif(empl, oldc, newc);
+				newc.update(newc);
 				table.setModel(
 					Modeling.getMedicalModel(
 						XmlFile.initEmployee(
@@ -140,7 +140,7 @@ public class MedicalWin {
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				MedicalCertif oldc = getSelectedMedical(empl, table);
-				XmlFile.deleteMedicalCertif(empl, oldc);
+				oldc.remove( );
 				table.setModel(
 					Modeling.getMedicalModel(
 						XmlFile.initEmployee(
@@ -156,14 +156,12 @@ public class MedicalWin {
 		JButton btnAdd = new JButton("إضافة");
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand( ).compareTo(""
-								+ "إضافة") == 0) {
-					XmlFile.addMedicalCertif(
-						empl,
-						new MedicalCertif(XmlFile.getLastMedicalId(empl)+1,
-							DateUtils.parseDate(tf_from.getText( )),
-							Integer.parseInt(tf_ndays.getText( )),
-							tf_s.getText( )));
+				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
+					MedicalCertif m = new MedicalCertif(
+						XmlFile.getLastMedicalId(empl.getElement( )) + 1,
+						DateUtils.parseDate(tf_from.getText( )),
+						Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
+					m.add( );
 					table.setModel(
 						Modeling.getMedicalModel(
 							XmlFile.initEmployee(
@@ -232,9 +230,12 @@ public class MedicalWin {
 							.toString( ));
 		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 						.toString( );
-		// TODO: getting id has a bug
-		int theID = XmlFile.getMedicalCertifId(empl, table.getSelectedRow( ));
-		return new MedicalCertif(theID, from, ndays, period);
+		int theID = XmlFile.getMedicalCertifId(
+			empl.getElement( ), table.getSelectedRow( ));
+		MedicalCertif m = new MedicalCertif(theID, from, ndays, period);
+		m.setEmployeeRefrence(empl.getReference( ));
+		
+		return m;
 	}
 
 	private void setupJTable(JTable table) {

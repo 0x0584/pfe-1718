@@ -1,26 +1,31 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
 import app.Period;
 import app.utils.DateUtils;
+import app.utils.XmlElement;
 import app.utils.XmlFile;
 
-public class Uplift {
+public class Uplift extends XmlElement<Uplift> {
 	private int id;
 	private String indice;
 	private Date date;
 	private short grade;
 	private short rank;
-	//private boolean byexam;
+	// private boolean byexam;
 
 	public Uplift() {
 		this.grade = 9;
 		this.rank = 1;
-		this.date = new Date();
+		this.date = new Date( );
 		this.indice = "none";
 		this.id = 1;
 	}
@@ -165,6 +170,101 @@ public class Uplift {
 	}
 
 	public Uplift previous( ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean add( ) {
+		try {
+			Element empl = XmlFile.getEmployee(empl_ref);
+			Element xml_repayed = new Element("uplift");
+			Element scale = new Element("scale");
+			Element echlon = new Element("echlon");
+			Element indice = new Element("indice");
+			Element update = new Element("update");
+
+			scale.addContent("" + grade);
+			echlon.addContent("" + rank);
+			indice.addContent(indice);
+			update.addContent(DateUtils.parseDate(date));
+
+			Attribute id = new Attribute("id",
+				"" + (XmlFile.getLastUpliftId(empl) + 1));
+			xml_repayed.setAttribute(id);
+			xml_repayed.addContent(scale);
+			xml_repayed.addContent(echlon);
+			xml_repayed.addContent(indice);
+			xml_repayed.addContent(update);
+			empl.getChild("administrative").addContent(xml_repayed);
+
+			System.err.println(empl.toString( ));
+			XmlFile.writeXml(empl.getDocument( ));
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public boolean update(Uplift updated) {
+		try {
+			Element e = XmlFile.getEmployee(empl_ref);
+			List<Element> list = e.getChild("administrative")
+							.getChildren("uplift");
+
+			for (Element el : list) {
+				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
+					el.getChild("echlon").setText("" + updated.getGrade( ));
+					el.getChild("scale").setText("" + updated.getRank( ));
+					el.getChild("indice").setText("" + updated.getIndice( ));
+					el.getChild("update").setText(
+						DateUtils.parseDate(updated.getDate( )));
+					break;
+				}
+			}
+
+			System.err.println(e.toString( ));
+			XmlFile.writeXml(e.getDocument( ));
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public boolean remove( ) {
+		try {
+			Element e = XmlFile.getEmployee(empl_ref);
+			List<Element> list = e.getChild("administrative")
+							.getChildren("uplift");
+
+			for (Element el : list) {
+				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
+					el.detach( );
+					break;
+				}
+			}
+
+			System.err.println(e.toString( ));
+			XmlFile.writeXml(e.getDocument( ));
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public Element getLast( ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Element getElement( ) {
 		// TODO Auto-generated method stub
 		return null;
 	}

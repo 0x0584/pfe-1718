@@ -403,15 +403,15 @@ public class MainWin {
 		});
 		button_3.setBounds(488, 299, 40, 25);
 		frame.getContentPane( ).add(button_3);
-		
+
 		JButton button_4 = new JButton("تتبع الترقيات");
-		button_4.addActionListener(new ActionListener() {
+		button_4.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				new UpliftsWin().getFrame( ).setVisible(true);
+				new UpliftsWin( ).getFrame( ).setVisible(true);
 			}
 		});
 		button_4.setBounds(153, 331, 129, 25);
-		frame.getContentPane().add(button_4);
+		frame.getContentPane( ).add(button_4);
 	}
 
 	private void setupJTable(JTable table) {

@@ -1,6 +1,14 @@
 package model;
 
-public class Repayment {
+import java.util.List;
+
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
+import app.utils.XmlElement;
+import app.utils.XmlFile;
+
+public class Repayment extends XmlElement<Repayment> {
 	private int id, ndays, repayed_days;
 	private String period;
 
@@ -53,6 +61,94 @@ public class Repayment {
 
 	public void setRepayedDays(int repayed_days) {
 		this.repayed_days = repayed_days;
+	}
+
+	@Override
+	public boolean add( ) {
+		try {
+			Element empl = XmlFile.getEmployee(empl_ref);
+			Element xml_repayed = new Element("repayment");
+			Element ndays = new Element("ndays");
+			Element repayed = new Element("repayed");
+			Element period = new Element("period");
+
+			repayed.addContent("" + repayed_days);
+			ndays.addContent("" + ndays);
+			period.addContent(period);
+
+			Attribute id = new Attribute("id",
+				"" + (XmlFile.getLastRepaymentId(empl) + 1));
+			xml_repayed.setAttribute(id);
+			xml_repayed.addContent(repayed);
+			xml_repayed.addContent(ndays);
+			xml_repayed.addContent(period);
+			empl.addContent(xml_repayed);
+
+			System.err.println(empl.toString( ));
+			XmlFile.writeXml(empl.getDocument( ));
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public boolean update(Repayment updated) {
+		try {
+			Element e = XmlFile.getEmployee(empl_ref);
+			List<Element> list = e.getChildren("repayment");
+
+			for (Element el : list) {
+				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
+					el.getChild("repayed").setText("" + updated.repayed_days);
+					el.getChild("ndays").setText("" + updated.ndays);
+					el.getChild("period").setText(updated.period);
+					break;
+				}
+			}
+
+			System.err.println(e.toString( ));
+			XmlFile.writeXml(e.getDocument( ));
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public boolean remove( ) {
+		try {
+			Element e = XmlFile.getEmployee(empl_ref);
+			List<Element> list = e.getChildren("repayment");
+
+			for (Element el : list) {
+				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
+					el.detach( );
+					break;
+				}
+			}
+
+			System.err.println(e.toString( ));
+			XmlFile.writeXml(e.getDocument( ));
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public Element getLast( ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Element getElement( ) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

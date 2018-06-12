@@ -43,7 +43,7 @@
     <diplomas id="1">
       <diploma mention="Passable">Science Math A</diploma>
       <institute city="ODFrej">6 Novembre</institute>
-      <session>2010-2012</session>
+      <session>2011-2012</session>
       <!-- yyyyYYYY -->
     </diplomas>
     <diplomas id="2">
@@ -51,17 +51,6 @@
       <institute city="ElJadida">COOL</institute>
       <session>2015-2017</session>
     </diplomas>
-    <diplomas id="3">
-      <diploma mention="Bien">Licence</diploma>
-      <institute city="ElJadida">UCD FS</institute>
-      <session>2017-2018</session>
-      <!-- yyyyYYYY -->
-    </diplomas>
-    <medicalcertif id="3">
-      <from>1994-10-02</from>
-      <ndays>60</ndays>
-      <period>Semestre I</period>
-    </medicalcertif>
     <medicalcertif id="2">
       <from>2018-10-10</from>
       <ndays>20</ndays>

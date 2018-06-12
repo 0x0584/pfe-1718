@@ -14,7 +14,7 @@ import app.SearchField;
 import app.utils.DateUtils;
 import app.utils.XmlFile;
 
-public class Modeling {
+public final class Modeling {
 
 	public static DefaultTableModel getUpliftModel(Employee empl) {
 		DefaultTableModel model = new DefaultTableModel( );

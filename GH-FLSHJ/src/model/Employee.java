@@ -2,8 +2,13 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 import app.Cadre;
+import app.utils.DateUtils;
 import app.utils.XmlFile;
 
 public class Employee extends Person {
@@ -170,9 +175,223 @@ public class Employee extends Person {
 	public Uplift getCurrentUplift( ) {
 		return current;
 	}
-	
+
 	public void setCurrentUplift(Uplift current) {
 		this.current = current;
+	}
+
+	@Override
+	public boolean add( ) {
+		try {
+			Employee nempl = this;
+
+			Element e = new Element("employee");
+			e.setAttribute("department", nempl.getDepartment( ));
+			e.setAttribute("reference", nempl.getReference( ));
+
+			Element notes = new Element("notes");
+			notes.setText(nempl.getNotes( ));
+			e.addContent(notes);
+
+			Element personal = new Element("personal");
+			Element name = new Element("name");
+			name.setText(nempl.getName( ) + " ");
+
+			Element fname = new Element("familyname");
+			fname.setText(nempl.getFamilyname( ) + " ");
+
+			Element bplace = new Element("brithplace");
+			bplace.setText(nempl.getBirthPlace( ) + " ");
+
+			Element bday = new Element("birth");
+			bday.setText(DateUtils.parseDate(nempl.getBirthDay( )));
+
+			Element addr = new Element("address");
+			addr.setText(nempl.getAddress( ) + " ");
+
+			Element phone = new Element("phone");
+			phone.setText(nempl.getPhone( ) + " ");
+
+			Element state = new Element("state");
+			state.setAttribute("married", nempl.isMarried( ) ? "t" : "nil");
+
+			Element isma = new Element("nationality");
+			isma.setAttribute("ma", nempl.isMoroccan( ) ? "t" : "nil");
+
+			Element partner = new Element("partner");
+			partner.setAttribute("name", nempl.getPartnerName( ));
+			partner.setAttribute("job", nempl.getPartnerJob( ));
+
+			Element children = new Element("children");
+			children.setAttribute("number", "" + nempl.getNumberOfChildren( ));
+
+			personal.addContent(name);
+			personal.addContent(fname);
+			personal.addContent(bday);
+			personal.addContent(bplace);
+			personal.addContent(addr);
+			personal.addContent(phone);
+			personal.addContent(state);
+			personal.addContent(isma);
+			personal.addContent(partner);
+			personal.addContent(children);
+			e.addContent(personal);
+
+			// administrative tag
+			Element admini = new Element("administrative");
+
+			Element cin = new Element("cin");
+			cin.setText(nempl.getCIN( ) + " ");
+
+			Element mission = new Element("mission");
+			mission.setText(nempl.getMission( ) + " ");
+
+			Element jday = new Element("jday");
+			jday.setText(DateUtils.parseDate(nempl.getJoinDate( )));
+
+			Element hday = new Element("hday");
+			hday.setText(DateUtils.parseDate(nempl.getHiringDate( )));
+
+			Element reason = new Element("reason");
+			reason.setText(nempl.getReason( ) + " ");
+
+			Element pjob = new Element("pjob");
+			pjob.setText(nempl.getPreviousJob( ));
+
+			Element cjob = new Element("cjob");
+			cjob.setText(nempl.getCurrentJob( ));
+
+			Element cadre = new Element("cadre");
+			cadre.setText(nempl.getCadre( ).toString( ));
+
+			Element fstate = new Element("fstatus");
+			fstate.setText(nempl.getFinancialStatus( ));
+
+			admini.addContent(cin);
+			admini.addContent(mission);
+			admini.addContent(jday);
+			admini.addContent(hday);
+			admini.addContent(reason);
+			admini.addContent(pjob);
+			admini.addContent(cjob);
+			admini.addContent(cadre);
+			admini.addContent(fstate);
+			e.addContent(admini);
+
+			XmlFile xml = new XmlFile( );
+			Document doc = xml.getDoc( );
+			Element root = xml.getRoot( );
+
+			root.addContent(e);
+			doc.setContent(root);
+
+			XmlFile.writeXml(doc);
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public boolean update(Employee newempl) {
+		try {
+			Element empl = getElement( ), personal, admini;
+
+			empl.getChild("notes").setText(newempl.getNotes( ));
+			empl.getAttribute("department").setValue(newempl.getDepartment( ));
+			empl.getAttribute("reference").setValue(newempl.getReference( ));
+
+			// personal tag
+			personal = empl.getChild("personal");
+
+			XmlFile.updateOrCreate(personal, "name", newempl.getName( ));
+			XmlFile.updateOrCreate(
+				personal, "familyname", newempl.getFamilyname( ));
+
+			personal.getChild("nationality").getAttribute("ma")
+							.setValue(newempl.isMoroccan( ) ? "t" : "nil");
+			personal.getChild("birth").setText(
+				DateUtils.parseDate(newempl.getBirthDay( )));
+
+			XmlFile.updateOrCreate(personal, "address", newempl.getAddress( ));
+			XmlFile.updateOrCreate(
+				personal, "birthplace", newempl.getBirthPlace( ));
+			XmlFile.updateOrCreate(personal, "phone", newempl.getPhone( ));
+			personal.getChild("state").getAttribute("married")
+							.setValue(newempl.isMarried( ) ? "t" : "nil");
+
+			try {
+				Element tmp = personal.getChild("partner");
+				personal.getChild("children").getAttribute("number")
+								.setValue("" + newempl.getNumberOfChildren( ));
+
+				tmp.getAttribute("name").setValue(newempl.getPartnerName( ));
+				tmp.getAttribute("job").setValue(newempl.getPartnerJob( ));
+			} catch (Exception ex) {}
+
+			// administrative tag
+			admini = empl.getChild("administrative");
+
+			XmlFile.updateOrCreate(admini, "cin", newempl.getCIN( ));
+			XmlFile.updateOrCreate(admini, "mission", newempl.getMission( ));
+			XmlFile.updateOrCreate(admini, "reason", newempl.getReason( ));
+			XmlFile.updateOrCreate(admini, "pjob", newempl.getPreviousJob( ));
+			XmlFile.updateOrCreate(admini, "cjob", newempl.getCurrentJob( ));
+			XmlFile.updateOrCreate(
+				admini, "fstatus", newempl.getFinancialStatus( ));
+
+			admini.getChild("cin").setText(newempl.getCIN( ));
+			admini.getChild("jday").setText(
+				DateUtils.parseDate(newempl.getJoinDate( )));
+			admini.getChild("hday").setText(
+				DateUtils.parseDate(newempl.getHiringDate( )));
+			admini.getChild("cadre").setText(newempl.getCadre( ).toString( ));
+
+			System.err.println(empl);
+			XmlFile.writeXml(empl.getDocument( ));
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public boolean remove( ) {
+		try {
+			Element e = getElement( );
+			Document d = e.getDocument( );
+			e.detach( );
+			System.err.println(e.toString( ));
+			XmlFile.writeXml(d);
+			return true;
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return false;
+		}
+	}
+
+	@Override
+	public Element getLast( ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Element getElement( ) {
+		Iterator<Element> i;
+		Element e;
+
+		i = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
+		while (i.hasNext( )) {
+			e = i.next( );
+			if (e.getAttributeValue("reference").compareTo(ref) != 0) {
+				continue;
+			} else return e;
+		}
+
+		return null;
 	}
 
 }

@@ -529,7 +529,7 @@ public class InfoWin {
 						comb_cadre.getSelectedItem( ).toString( )));
 				nempl.setFinancialStatus(tf_finance.getText( ));
 
-				XmlFile.updateEmployee(empl.getReference( ), nempl);
+				empl.update(nempl);
 			}
 		});
 		btnsave.setBounds(505, 525, 80, 25);
@@ -593,14 +593,14 @@ public class InfoWin {
 							comb_cadre.getSelectedItem( ).toString( )));
 					nempl.setFinancialStatus(tf_finance.getText( ));
 
-					XmlFile.addEmployee(nempl);
+					nempl.add( );
 					frame.dispose( );
 				}
 			}
 
 			private void clearFields( ) {
 				tp_notes.setText("");
-				tf_addr.setText( "");
+				tf_addr.setText("");
 				tf_bdate.setText(DateUtils.parseDate(new Date( )));
 				tf_bplace.setText("");
 				tf_cin.setText("");
@@ -626,16 +626,16 @@ public class InfoWin {
 		});
 		btnnew.setBounds(413, 525, 80, 25);
 		frame.getContentPane( ).add(btnnew);
-		
+
 		JButton btndel = new JButton("حذف");
-		btndel.addActionListener(new ActionListener() {
+		btndel.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				XmlFile.deleteEmployee(empl);
+				empl.remove( );
 				frame.dispose( );
 			}
 		});
 		btndel.setBounds(22, 525, 80, 25);
-		frame.getContentPane().add(btndel);
+		frame.getContentPane( ).add(btndel);
 
 	}
 }

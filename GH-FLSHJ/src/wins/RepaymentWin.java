@@ -121,7 +121,7 @@ public class RepaymentWin {
 					tf_holiday.getText( ),
 					Integer.parseInt(tf_ndays.getText( )),
 					Integer.parseInt(tf_repayed.getText( )));
-				XmlFile.updateRepayment(empl, old_r, new_r);
+				old_r.update(new_r);
 				table.setModel(
 					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
@@ -139,7 +139,7 @@ public class RepaymentWin {
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				Repayment r = getSelectedRepayment(empl, table);
-				XmlFile.deleteRepayment(empl, r);
+				r.remove( );
 				table.setModel(
 					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
@@ -156,12 +156,12 @@ public class RepaymentWin {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					Repayment new_r = new Repayment(
-						XmlFile.getLastRepaymentId(empl) + 1,
+					Repayment r = new Repayment(
+						XmlFile.getLastRepaymentId(empl.getElement( )) + 1,
 						tf_holiday.getText( ),
 						Integer.parseInt(tf_repayed.getText( )),
 						Integer.parseInt(tf_ndays.getText( )));
-					XmlFile.addRepayment(empl, new_r);
+					r.add( );
 					table.setModel(
 						Modeling.getRepaymentModel(
 							XmlFile.initEmployee(
@@ -231,8 +231,11 @@ public class RepaymentWin {
 		int repayed = Integer.parseInt(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		int theID = XmlFile.getRepaymentId(empl, table.getSelectedRow( ));
-		return new Repayment(theID, period, ndays, repayed);
+		int theID = XmlFile.getRepaymentId(
+			empl.getElement( ), table.getSelectedRow( ));
+		Repayment r = new Repayment(theID, period, ndays, repayed);
+		r.setEmployeeRefrence(empl.getReference( ));
+		return r;
 	}
 
 	private void setupJTable(JTable table) {

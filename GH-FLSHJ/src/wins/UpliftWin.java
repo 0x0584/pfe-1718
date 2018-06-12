@@ -120,7 +120,7 @@ public class UpliftWin {
 					DateUtils.parseDate(tf_date.getText( )),
 					Short.parseShort(tf_grade.getText( )),
 					Short.parseShort(tf_rank.getText( )));
-				XmlFile.updateUplift(empl, old_r, new_r);
+				old_r.update(new_r);
 				table.setModel(
 					Modeling.getUpliftModel(
 						XmlFile.initEmployee(
@@ -139,7 +139,7 @@ public class UpliftWin {
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				Uplift r = getSelectedUplift(empl, table);
-				XmlFile.deleteUplift(empl, r);
+				r.remove( );
 				table.setModel(
 					Modeling.getUpliftModel(
 						XmlFile.initEmployee(
@@ -157,12 +157,13 @@ public class UpliftWin {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					Uplift new_r = new Uplift(XmlFile.getLastUpliftId(empl) + 1,
+					Uplift new_r = new Uplift(
+						XmlFile.getLastUpliftId(empl.getElement( )) + 1,
 						tf_indice.getText( ),
 						DateUtils.parseDate(tf_date.getText( )),
 						Short.parseShort(tf_grade.getText( )),
 						Short.parseShort(tf_rank.getText( )));
-					XmlFile.addUplift(empl, new_r);
+					new_r.add( );
 					table.setModel(
 						Modeling.getUpliftModel(
 							XmlFile.initEmployee(
@@ -234,9 +235,12 @@ public class UpliftWin {
 		short rank = Short.parseShort(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 							.toString( ));
-		;
-		int theID = XmlFile.getUpliftId(empl, table.getSelectedRow( ));
-		return new Uplift(theID, indice, date, grade, rank);
+
+		int theID = XmlFile.getUpliftId(
+			empl.getElement( ), table.getSelectedRow( ));
+		Uplift u = new Uplift(theID, indice, date, grade, rank);
+		u.setEmployeeRefrence(empl.getReference( ));
+		return u;
 	}
 
 	private void setupJTable(JTable table) {

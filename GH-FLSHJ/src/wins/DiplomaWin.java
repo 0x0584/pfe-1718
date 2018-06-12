@@ -124,12 +124,12 @@ public class DiplomaWin {
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				Diploma old_r = getSelectedDiploma(empl, table);
-				Diploma new_r = new Diploma(old_r.getId( ), tf_title.getText( ),
+				Diploma old = getSelectedDiploma(empl, table);
+				Diploma d = new Diploma(old.getId( ), tf_title.getText( ),
 					tf_ins.getText( ), tf_session.getText( ),
 					Mention.parseMention(
 						comboMen.getSelectedItem( ).toString( )));
-				XmlFile.updateDiploma(empl, old_r, new_r);
+				old.update(d);
 				table.setModel(
 					Modeling.getDiplomasModel(
 						XmlFile.initEmployee(
@@ -146,7 +146,7 @@ public class DiplomaWin {
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				Diploma d = getSelectedDiploma(empl, table);
-				XmlFile.deleteDiploma(empl, d);
+				d.remove( );
 				table.setModel(
 					Modeling.getDiplomasModel(
 						XmlFile.initEmployee(
@@ -162,12 +162,12 @@ public class DiplomaWin {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					Diploma new_r = new Diploma(
-						XmlFile.getLastDiplomaId(empl) + 1, tf_title.getText( ),
-						tf_ins.getText( ), tf_session.getText( ),
-						Mention.parseMention(
+					Diploma d = new Diploma(
+						XmlFile.getLastDiplomaId(empl.getElement( )) + 1,
+						tf_title.getText( ), tf_ins.getText( ),
+						tf_session.getText( ), Mention.parseMention(
 							comboMen.getSelectedItem( ).toString( )));
-					XmlFile.addDiploma(empl, new_r);
+					d.add( );
 
 					table.setModel(
 						Modeling.getDiplomasModel(
@@ -228,9 +228,11 @@ public class DiplomaWin {
 		Mention mention = Mention.parseMention(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		int theID = XmlFile.getRepaymentId(empl, table.getSelectedRow( ));
-
-		return new Diploma(theID, title, institue, session, mention);
+		int theID = XmlFile.getDiplomaId(
+			empl.getElement( ), table.getSelectedRow( ));
+		Diploma d = new Diploma(theID, title, institue, session, mention);
+		d.setEmployeeRefrence(empl.getReference( ));
+		return d;
 	}
 
 	private void setupJTable(JTable table) {
