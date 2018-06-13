@@ -103,9 +103,9 @@ public class Uplift extends XmlElement<Uplift> {
 		Date todate = Period.getDate(period);
 		DefaultTableModel model = new DefaultTableModel( );
 		String[] cols = new String[] {
-						"reference", "cin", "full name",
+						"ر. التأجير", "ب.ت.و.", "الإسم الكامل",
 
-						"uplift in", "exact date", "grade", "rank"
+						"الأيام المتبقية", "تاريخ الترقية", "السلم", "الرتبة"
 
 		};
 
@@ -116,14 +116,15 @@ public class Uplift extends XmlElement<Uplift> {
 		for (Employee e : XmlFile.getAll( )) {
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( ), today = new Date( );
-			long diff = DateUtils.diffAbs(today, nextdate);
+			if (DateUtils.diff(today, nextdate) < 0) continue;
 
-			if (nextdate.before(todate) && diff > 0) {
+			if (nextdate.before(todate)) {
 				String fullname = e.getName( ) + " "
 								+ e.getFamilyname( ).toUpperCase( );
 				model.addRow(new String[] {
 								e.getReference( ), e.getCIN( ), fullname,
-								"" + diff, DateUtils.parseDate(nextdate),
+								"" + DateUtils.diffDays(today, nextdate),
+								DateUtils.parseDate(nextdate),
 								"" + next.getGrade( ), "" + next.getRank( )
 				});
 			}
@@ -290,9 +291,9 @@ public class Uplift extends XmlElement<Uplift> {
 	public static TableModel getPending( ) {
 		DefaultTableModel model = new DefaultTableModel( );
 		String[] cols = new String[] {
-						"reference", "cin", "full name",
+						"ر. التأجير", "ب.ت.و.", "الإسم الكامل",
 
-						"grade", "rank"
+						"السلم", "الرتبة"
 
 		};
 

@@ -57,121 +57,117 @@
     <position height="-1" width="-1" x="252" y="386"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <dependency id="9">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="3"/>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
-  <association id="10">    
+  <association id="11">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="11" name="current">        
+      <attribute id="12" name="current">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="12" minimum="0" maximum="1">        
+      <multiplicity id="13" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="13">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
   <association id="14">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="15" name="uplifts">        
-        <position height="0" width="0" x="-16" y="-4"/>      
+      <attribute id="15" name="current">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="16" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-16" y="-4"/>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <dependency id="17">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
   </dependency>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
   <dependency id="19">    
     <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="TARGET" refId="8"/>  
   </dependency>  
   <dependency id="20">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="7"/>  
   </dependency>  
   <dependency id="21">    
-    <end type="SOURCE" refId="4"/>    
+    <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="22">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
   </dependency>  
   <dependency id="23">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="24">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="7"/>  
   </dependency>  
-  <dependency id="25">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="26">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
-  <dependency id="27">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <association id="28">    
+  <association id="25">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="29" name="diplomas">        
+      <attribute id="26" name="diplomas">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="30" minimum="0" maximum="2147483647">        
+      <multiplicity id="27" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="31">    
-    <end type="SOURCE" refId="8"/>    
+  <dependency id="28">    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <association id="32">    
+  <association id="29">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="33" name="current">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="30" name="uplifts">        
+        <position height="0" width="0" x="-16" y="-4"/>      
       </attribute>      
-      <multiplicity id="34" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="31" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-16" y="-4"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="35">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="36">    
-    <end type="SOURCE" refId="8"/>    
+  <dependency id="32">    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="37">    
+  <dependency id="33">    
     <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="8"/>  
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="34">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="35">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

@@ -18,9 +18,7 @@
 #+LaTeX_HEADER: }
 
 #+LATEX_COMPILER: pdflatex
-#+OPTIONS: author:nil date:nil
 #+LATEX: \tableofcontents
-
 
 \begin{abstract}
 Ce projet et la résulta d'un stage que j'avais passe chez la faculté Des Lettres et Science Humaines, El Jadida avec la supervision du Mr. A. Madani.
@@ -37,25 +35,30 @@ Cette application, GHumain, et une application programmez en Java avec la sauvga
 
     
     
-* Data Structure
-  #+BEGIN_QUOTE
-   Tout les donnees ce sont sauvgarder sur des fichier =XML=. Ces fichier sont geree par la class Java =HandleXml=
-  #+END_QUOTE
+* Chahier des Charges
 
-* Person
-  Tout les gens sont des persons
+* Analyse et Conception
+** Les taches a realiser
+** Stockage des donnees en XML
+** Diag. UML des Classes
+   #+BEGIN_QUOTE
+    Tout les donnees ce sont sauvgarder sur des fichier =XML=. Ces fichier sont geree par la class Java =HandleXml=
+   #+END_QUOTE
 
-  #+BEGIN_SRC xml
-    <person id="1">
-      <name> Foo </name>
-      <fname> Bar </fname>
-      <sexe ismale="true"/>
-    </person>
-  #+END_SRC
+*** Person
+    Tout les gens sont des persons
 
-* Professeurs
-* Fonctionnaire
+    #+BEGIN_SRC xml
+      <person id="1">
+	<name> Foo </name>
+	<fname> Bar </fname>
+	<sexe ismale="true"/>
+      </person>
+    #+END_SRC
 
+*** Professeurs
+*** Fonctionnaire
+* L'Interface Graphique
 * Dependencies
 # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
  + JDOM :: http://jdom.org/ Java library to to parse XML

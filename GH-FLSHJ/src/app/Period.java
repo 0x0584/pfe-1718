@@ -5,21 +5,18 @@ import java.util.Date;
 import app.utils.DateUtils;
 
 public enum Period {
-	TODAY(0), ONE_DAY(1),
+	TODAY(0, "اليوم"), ONE_DAY(1, "غداً"),
 
-	ONE_WEEK(7), TWO_WEEKS(14),
+	ONE_WEEK(7, "الأسبوع المقبل"), TWO_WEEKS(14, "الأسبوعين"),
 
-	ONE_MONTH(30), THREE_MONTHS(60), ONE_SEMESTRE(30 * 6),
+	ONE_MONTH(30, "شهر"), THREE_MONTHS(60, "شهرين"),
 
-	ONE_YEAR(365), FIVE_YEARS(5 * 365);
+	ONE_SEMESTRE(30 * 6, "أسدس"),
+
+	ONE_YEAR(365, "سنة"), FIVE_YEARS(5 * 365, "خمس سنوات");
 
 	private int value;
 	private String title;
-
-	Period(int value) {
-		this.value = value;
-		this.title = name( );
-	}
 
 	Period(int value, String title) {
 		this.value = value;
@@ -39,7 +36,7 @@ public enum Period {
 
 	public static Period parse(String string) {
 		for (Period p : values( )) {
-			if (p.name( ).compareTo(string) == 0) return p;
+			if (p.toString( ).compareTo(string) == 0) return p;
 		}
 
 		return ONE_SEMESTRE;

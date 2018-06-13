@@ -1,4 +1,4 @@
-package wins;
+package wins.crud;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,13 +18,12 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.utils.DateUtils;
 import app.utils.XmlFile;
 import model.Employee;
-import model.MedicalCertif;
 import model.Modeling;
+import model.Repayment;
 
-public class MedicalWin {
+public class RepaymentCrud {
 
 	private JFrame frame;
 
@@ -35,8 +33,8 @@ public class MedicalWin {
 
 	private JTable table;
 	private JTextField tf_ndays;
-	private JTextField tf_from;
-	private JTextField tf_s;
+	private JTextField tf_repayed;
+	private JTextField tf_holiday;
 
 	/**
 	 * Launch the application.
@@ -45,7 +43,7 @@ public class MedicalWin {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					MedicalWin window = new MedicalWin(new Employee( ));
+					RepaymentCrud window = new RepaymentCrud(new Employee( ));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -59,7 +57,7 @@ public class MedicalWin {
 	 * 
 	 * @param employee
 	 */
-	public MedicalWin(Employee empl) {
+	public RepaymentCrud(Employee empl) {
 		initialize(empl);
 	}
 
@@ -77,27 +75,27 @@ public class MedicalWin {
 		frame.getContentPane( ).setLayout(null);
 
 		JPanel panel = new JPanel( );
-		panel.setBounds(12, 69, 528, 317);
+		panel.setBounds(13, 32, 528, 317);
 		frame.getContentPane( ).add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		tf_s = new JTextField( );
-		tf_s.setColumns(10);
-		tf_s.setBounds(427, 2, 114, 24);
-		frame.getContentPane( ).add(tf_s);
+		tf_holiday = new JTextField( );
+		tf_holiday.setColumns(10);
+		tf_holiday.setBounds(427, 2, 114, 24);
+		frame.getContentPane( ).add(tf_holiday);
 
 		tf_ndays = new JTextField( );
 		tf_ndays.setBounds(72, 0, 114, 24);
 		frame.getContentPane( ).add(tf_ndays);
 		tf_ndays.setColumns(10);
 
-		tf_from = new JTextField( );
-		tf_from.setBounds(258, 0, 114, 24);
-		frame.getContentPane( ).add(tf_from);
-		tf_from.setColumns(10);
+		tf_repayed = new JTextField( );
+		tf_repayed.setBounds(258, 0, 114, 24);
+		frame.getContentPane( ).add(tf_repayed);
+		tf_repayed.setColumns(10);
 
 		JLabel lblFrom = new JLabel("تاريخ البدئ");
 		lblFrom.setBounds(187, 5, 70, 15);
@@ -112,58 +110,60 @@ public class MedicalWin {
 		frame.getContentPane( ).add(lblPeriod);
 
 		JLabel lbltotal = new JLabel("");
-		lbltotal.setBounds(38, 42, 114, 15);
+		lbltotal.setBounds(23, 361, 85, 15);
 		frame.getContentPane( ).add(lbltotal);
 
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				MedicalCertif oldc = getSelectedMedical(empl, table);
-				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
-					DateUtils.parseDate(tf_from.getText( )),
-					Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
-				newc.update(newc);
+				Repayment old_r = getSelectedRepayment(empl, table);
+				Repayment new_r = new Repayment(old_r.getId( ),
+					tf_holiday.getText( ),
+					Integer.parseInt(tf_ndays.getText( )),
+					Integer.parseInt(tf_repayed.getText( )));
+				old_r.update(new_r);
 				table.setModel(
-					Modeling.getMedicalModel(
+					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
 							new Employee( ), empl.getReference( ))));
-				tf_from.setText("");
+				tf_repayed.setText("");
 				tf_ndays.setText("");
 				lbltotal.setText(getTotal(table));
 			}
 
 		});
-		btnModify.setBounds(388, 32, 70, 25);
+		btnModify.setBounds(389, 358, 70, 25);
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				MedicalCertif oldc = getSelectedMedical(empl, table);
-				oldc.remove( );
+				Repayment r = getSelectedRepayment(empl, table);
+				r.remove( );
 				table.setModel(
-					Modeling.getMedicalModel(
+					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
 							new Employee( ), empl.getReference( ))));
-				tf_from.setText("");
+				tf_repayed.setText("");
 				tf_ndays.setText("");
 				lbltotal.setText(getTotal(table));
 			}
 		});
-		btnDelete.setBounds(302, 32, 70, 25);
+		btnDelete.setBounds(303, 358, 70, 25);
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					MedicalCertif m = new MedicalCertif(
-						XmlFile.getLastMedicalId(empl.getElement( )) + 1,
-						DateUtils.parseDate(tf_from.getText( )),
-						Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
-					m.add( );
+					Repayment r = new Repayment(
+						XmlFile.getLastRepaymentId(empl.getElement( )) + 1,
+						tf_holiday.getText( ),
+						Integer.parseInt(tf_repayed.getText( )),
+						Integer.parseInt(tf_ndays.getText( )));
+					r.add( );
 					table.setModel(
-						Modeling.getMedicalModel(
+						Modeling.getRepaymentModel(
 							XmlFile.initEmployee(
 								new Employee( ), empl.getReference( ))));
 					setupJTable(table);
@@ -172,7 +172,7 @@ public class MedicalWin {
 					btnModify.setEnabled(true);
 					btnDelete.setEnabled(true);
 				} else {
-					tf_from.setText("");
+					tf_repayed.setText("");
 					tf_ndays.setText("");
 					btnAdd.setText("إضافة");
 					btnModify.setEnabled(!true);
@@ -180,20 +180,21 @@ public class MedicalWin {
 				}
 			}
 		});
-		btnAdd.setBounds(470, 32, 70, 25);
+		btnAdd.setBounds(471, 358, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
-		table = new JTable(Modeling.getMedicalModel(empl));
+		table = new JTable(Modeling.getRepaymentModel(empl));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				btnAdd.setText("جديد");
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
-				MedicalCertif m = getSelectedMedical(empl, table);
-				tf_from.setText(DateUtils.parseDate(m.getFrom( )));
-				tf_ndays.setText("" + m.getNumberOfDays( ));
-				tf_s.setText(m.getPeriod( ));
+				Repayment r = getSelectedRepayment(empl, table);
+				// TODO: update text fields
+				tf_repayed.setText("" + r.getRepayedDays( ));
+				tf_ndays.setText("" + r.getNumberOfDays( ));
+				tf_holiday.setText(r.getPeriod( ));
 			}
 		});
 		/*
@@ -208,6 +209,10 @@ public class MedicalWin {
 		setupJTable(table);
 		scrollPane.setViewportView(table);
 		lbltotal.setText(getTotal(table));
+		
+		JLabel label = new JLabel("مجموع الأيام المعوضة");
+		label.setBounds(120, 361, 142, 15);
+		frame.getContentPane().add(label);
 	}
 
 	private String getTotal(JTable table) {
@@ -221,21 +226,20 @@ public class MedicalWin {
 		return "" + sum;
 	}
 
-	private MedicalCertif getSelectedMedical(Employee empl, JTable table) {
-		Date from = DateUtils.parseDate(
-			table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
-							.toString( ));
+	private Repayment getSelectedRepayment(Employee empl, JTable table) {
+		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
+						.toString( );
 		int ndays = Integer.parseInt(
+			table.getModel( ).getValueAt(table.getSelectedRow( ), 1)
+							.toString( ));
+		int repayed = Integer.parseInt(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
-						.toString( );
-		int theID = XmlFile.getMedicalCertifId(
+		int theID = XmlFile.getRepaymentId(
 			empl.getElement( ), table.getSelectedRow( ));
-		MedicalCertif m = new MedicalCertif(theID, from, ndays, period);
-		m.setEmployeeRefrence(empl.getReference( ));
-		
-		return m;
+		Repayment r = new Repayment(theID, period, ndays, repayed);
+		r.setEmployeeRefrence(empl.getReference( ));
+		return r;
 	}
 
 	private void setupJTable(JTable table) {

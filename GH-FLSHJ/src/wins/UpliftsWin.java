@@ -23,6 +23,7 @@ import app.Period;
 import app.utils.XmlFile;
 import model.Employee;
 import model.Uplift;
+import wins.crud.UpliftCrud;
 
 public class UpliftsWin {
 
@@ -80,10 +81,21 @@ public class UpliftsWin {
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		table_1 = new JTable(Uplift.getUpcoming(Period.ONE_SEMESTRE));
+		table_1 = new JTable(Uplift.getUpcoming(Period.TODAY));
 		scrollPane.setViewportView(table_1);
 
 		JButton button = new JButton("السجل الكامل");
+		button.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new InfoWin(new Employee(table_1.getModel( )
+									.getValueAt(table_1.getSelectedRow( ), 0)
+									.toString( ))).getFrame( ).setVisible(true);
+				} catch (Exception x) {
+					System.err.println(x.getMessage( ));
+				}
+			}
+		});
 		button.setBounds(509, 12, 129, 25);
 		frame.getContentPane( ).add(button);
 
@@ -114,7 +126,7 @@ public class UpliftsWin {
 		btnConfirm.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				Uplift u = getSelectedUplift(tbl_pending);
-				new UpliftWin(u).getFrame( ).setVisible(true);
+				new UpliftCrud(u).getFrame( ).setVisible(true);
 			}
 		});
 		btnConfirm.setBounds(553, 477, 86, 25);
@@ -144,6 +156,22 @@ public class UpliftsWin {
 		});
 		button_1.setBounds(12, 472, 47, 25);
 		frame.getContentPane( ).add(button_1);
+
+		JButton button_2 = new JButton("السجل الكامل");
+		button_2.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new InfoWin(new Employee(
+						getSelectedUplift(tbl_pending).getEmployeeRefrence( )))
+										.getFrame( ).setVisible(true);
+				} catch (Exception x) {
+					System.err.println(x.getMessage( ));
+
+				}
+			}
+		});
+		button_2.setBounds(509, 242, 129, 25);
+		frame.getContentPane( ).add(button_2);
 
 	}
 

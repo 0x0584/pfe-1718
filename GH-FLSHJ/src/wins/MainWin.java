@@ -32,6 +32,8 @@ import views.HolidayAdminiView;
 import views.HolidayExcepView;
 import views.HolidayToQuitView;
 import views.NotationView;
+import wins.crud.MedicalCrud;
+import wins.crud.RepaymentCrud;
 import app.Holiday;
 import app.Period;
 
@@ -376,7 +378,7 @@ public class MainWin {
 		JButton button_1 = new JButton("التعويضات");
 		button_1.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				new RepaymentWin(getSelectedEmployee(table)).getFrame( )
+				new RepaymentCrud(getSelectedEmployee(table)).getFrame( )
 								.setVisible(true);
 			}
 		});
@@ -386,7 +388,7 @@ public class MainWin {
 		JButton button_2 = new JButton("شواهد طبية");
 		button_2.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				new MedicalWin(getSelectedEmployee(table)).getFrame( )
+				new MedicalCrud(getSelectedEmployee(table)).getFrame( )
 								.setVisible(true);
 			}
 		});

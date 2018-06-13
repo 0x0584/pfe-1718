@@ -22,7 +22,12 @@ public class DateUtils {
 	 * @return string of the parsed date
 	 */
 	public static String parseDate(Date date) {
-		return new DateUtils( ).fmt.format(date);
+		try {
+			return new DateUtils( ).fmt.format(date);
+		} catch (Exception x) {
+			System.err.println(x.getMessage( ));
+			return new DateUtils( ).fmt.format(new Date( ));
+		}
 	}
 
 	/**
@@ -42,12 +47,22 @@ public class DateUtils {
 	 * @return new Date based on the parsed string
 	 */
 	public static Date parseDate(String str) {
+		Date d;
 		try {
-			return new DateUtils( ).fmt.parse(str);
+			d = new DateUtils( ).fmt.parse(str);
+			return d;
+		} catch (Exception e) {
+			System.err.println(e.getMessage( ));
+		}
+
+		try {
+			d = new DateUtils( ).fmt.parse(str);
 		} catch (ParseException e) {
 			System.err.println(e.getMessage( ));
-			return null;
+			d = new Date( );
 		}
+
+		return d;
 	}
 
 	/**
@@ -86,11 +101,8 @@ public class DateUtils {
 	 *            date
 	 * @return absolute number of days in difference
 	 */
-	public static long diffAbs(Date from, Date to) {
-		if (from != null && to != null) {
-			long diff = Math.abs(from.getTime( ) - to.getTime( ));
-			return TimeUnit.MILLISECONDS.toDays(diff);
-		} else return 0;
+	public static long diffDays(Date from, Date to) {
+		return TimeUnit.MILLISECONDS.toDays(diff(from, to));
 	}
 
 	/**
@@ -102,8 +114,7 @@ public class DateUtils {
 	 */
 	public static long diff(Date from, Date to) {
 		if (from != null && to != null) {
-			long diff = to.getTime( ) - from.getTime( );
-			return TimeUnit.MILLISECONDS.toDays(diff);
+			return to.getTime( ) - from.getTime( );
 		} else return 0;
 	}
 }

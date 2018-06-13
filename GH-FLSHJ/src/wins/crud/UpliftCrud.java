@@ -1,4 +1,4 @@
-package wins;
+package wins.crud;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -25,7 +25,7 @@ import model.Employee;
 import model.Modeling;
 import model.Uplift;
 
-public class UpliftWin {
+public class UpliftCrud {
 
 	private JFrame frame;
 
@@ -47,7 +47,7 @@ public class UpliftWin {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					UpliftWin window = new UpliftWin(new Employee( ));
+					UpliftCrud window = new UpliftCrud(new Employee( ));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -61,7 +61,7 @@ public class UpliftWin {
 	 * 
 	 * @param employee
 	 */
-	public UpliftWin(Employee empl) {
+	public UpliftCrud(Employee empl) {
 		this.current = null;
 		initialize(empl);
 	}
@@ -71,7 +71,7 @@ public class UpliftWin {
 	 * 
 	 * @param employee
 	 */
-	public UpliftWin(Uplift current) {
+	public UpliftCrud(Uplift current) {
 		this.current = current;
 		Employee empl = new Employee(current.getEmployeeRefrence( ));
 		initialize(empl);
@@ -94,12 +94,12 @@ public class UpliftWin {
 		indice = this.current != null ? "" + current.getIndice( ) : "";
 
 		frame = new JFrame( );
-		frame.setBounds(100, 100, 662, 507);
+		frame.setBounds(100, 100, 662, 542);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
 		JPanel panel = new JPanel( );
-		panel.setBounds(12, 69, 638, 396);
+		panel.setBounds(12, 66, 638, 396);
 		frame.getContentPane( ).add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
@@ -108,38 +108,38 @@ public class UpliftWin {
 
 		tf_rank = new JTextField(rank);
 		tf_rank.setColumns(10);
-		tf_rank.setBounds(524, 0, 114, 24);
+		tf_rank.setBounds(495, 30, 114, 24);
 		frame.getContentPane( ).add(tf_rank);
 
 		tf_date = new JTextField(date);
-		tf_date.setBounds(72, 0, 114, 24);
+		tf_date.setBounds(172, 0, 114, 24);
 		frame.getContentPane( ).add(tf_date);
 		tf_date.setColumns(10);
 
 		tf_indice = new JTextField(indice);
-		tf_indice.setBounds(344, 0, 114, 24);
+		tf_indice.setBounds(495, 0, 114, 24);
 		frame.getContentPane( ).add(tf_indice);
 		tf_indice.setColumns(10);
 
 		tf_grade = new JTextField(grade);
 		tf_grade.setColumns(10);
-		tf_grade.setBounds(66, 36, 114, 24);
+		tf_grade.setBounds(172, 30, 114, 24);
 		frame.getContentPane( ).add(tf_grade);
 
 		JLabel label = new JLabel("السلم");
-		label.setBounds(12, 39, 58, 15);
+		label.setBounds(63, 35, 58, 15);
 		frame.getContentPane( ).add(label);
 
 		JLabel lblFrom = new JLabel("الرقم الإستدلالي");
-		lblFrom.setBounds(236, 5, 107, 15);
+		lblFrom.setBounds(337, 5, 107, 15);
 		frame.getContentPane( ).add(lblFrom);
 
 		JLabel lbldate = new JLabel("التاريخ");
-		lbldate.setBounds(1, 5, 70, 15);
+		lbldate.setBounds(57, 5, 70, 15);
 		frame.getContentPane( ).add(lbldate);
 
 		JLabel lblPeriod = new JLabel("الرتبة");
-		lblPeriod.setBounds(470, 3, 58, 15);
+		lblPeriod.setBounds(361, 35, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JButton btnModify = new JButton("تعديل");
@@ -162,7 +162,7 @@ public class UpliftWin {
 			}
 
 		});
-		btnModify.setBounds(388, 32, 70, 25);
+		btnModify.setBounds(498, 475, 70, 25);
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
@@ -180,7 +180,7 @@ public class UpliftWin {
 				tf_grade.setText("");
 			}
 		});
-		btnDelete.setBounds(302, 32, 70, 25);
+		btnDelete.setBounds(412, 475, 70, 25);
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
@@ -214,7 +214,7 @@ public class UpliftWin {
 				}
 			}
 		});
-		btnAdd.setBounds(470, 32, 70, 25);
+		btnAdd.setBounds(580, 475, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
 		table = new JTable(Modeling.getUpliftModel(empl));

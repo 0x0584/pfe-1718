@@ -34,6 +34,8 @@ import app.utils.DateUtils;
 import app.utils.XmlFile;
 import model.Employee;
 import model.Modeling;
+import wins.crud.DiplomaCrud;
+import wins.crud.UpliftCrud;
 
 public class InfoWin {
 
@@ -240,7 +242,7 @@ public class InfoWin {
 		JButton btndip = new JButton("تعديل");
 		btndip.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				new DiplomaWin(empl).getFrame( ).setVisible(true);
+				new DiplomaCrud(empl).getFrame( ).setVisible(true);
 			}
 		});
 		btndip.setBounds(425, 0, 117, 25);
@@ -362,7 +364,7 @@ public class InfoWin {
 		JButton btnup = new JButton("تعديل");
 		btnup.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				new UpliftWin(empl).getFrame( ).setVisible(true);
+				new UpliftCrud(empl).getFrame( ).setVisible(true);
 			}
 		});
 		btnup.setBounds(425, 0, 117, 25);

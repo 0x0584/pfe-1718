@@ -1,4 +1,4 @@
-package wins;
+package wins.crud;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,10 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,13 +19,13 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.Mention;
+import app.utils.DateUtils;
 import app.utils.XmlFile;
-import model.Diploma;
 import model.Employee;
+import model.MedicalCertif;
 import model.Modeling;
 
-public class DiplomaWin {
+public class MedicalCrud {
 
 	private JFrame frame;
 
@@ -35,9 +34,9 @@ public class DiplomaWin {
 	}
 
 	private JTable table;
-	private JTextField tf_ins;
-	private JTextField tf_session;
-	private JTextField tf_title;
+	private JTextField tf_ndays;
+	private JTextField tf_from;
+	private JTextField tf_s;
 
 	/**
 	 * Launch the application.
@@ -46,7 +45,7 @@ public class DiplomaWin {
 		EventQueue.invokeLater(new Runnable( ) {
 			public void run( ) {
 				try {
-					DiplomaWin window = new DiplomaWin(new Employee( ));
+					MedicalCrud window = new MedicalCrud(new Employee( ));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -60,7 +59,7 @@ public class DiplomaWin {
 	 * 
 	 * @param employee
 	 */
-	public DiplomaWin(Employee empl) {
+	public MedicalCrud(Employee empl) {
 		initialize(empl);
 	}
 
@@ -73,104 +72,92 @@ public class DiplomaWin {
 		WebLookAndFeel.install( );
 
 		frame = new JFrame( );
-		frame.setBounds(100, 100, 625, 489);
+		frame.setBounds(100, 100, 553, 431);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
 		JPanel panel = new JPanel( );
-		panel.setBounds(12, 69, 601, 378);
+		panel.setBounds(13, 38, 528, 317);
 		frame.getContentPane( ).add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		tf_ins = new JTextField( );
-		tf_ins.setBounds(72, 0, 114, 24);
-		frame.getContentPane( ).add(tf_ins);
-		tf_ins.setColumns(10);
+		tf_s = new JTextField( );
+		tf_s.setColumns(10);
+		tf_s.setBounds(427, 2, 114, 24);
+		frame.getContentPane( ).add(tf_s);
 
-		tf_session = new JTextField( );
-		tf_session.setBounds(258, 0, 114, 24);
-		frame.getContentPane( ).add(tf_session);
-		tf_session.setColumns(10);
+		tf_ndays = new JTextField( );
+		tf_ndays.setBounds(72, 0, 114, 24);
+		frame.getContentPane( ).add(tf_ndays);
+		tf_ndays.setColumns(10);
 
-		tf_title = new JTextField( );
-		tf_title.setColumns(10);
-		tf_title.setBounds(216, 33, 114, 24);
-		frame.getContentPane( ).add(tf_title);
+		tf_from = new JTextField( );
+		tf_from.setBounds(258, 0, 114, 24);
+		frame.getContentPane( ).add(tf_from);
+		tf_from.setColumns(10);
 
-		JLabel label = new JLabel("الشهادات");
-		label.setBounds(145, 38, 70, 15);
-		frame.getContentPane( ).add(label);
-
-		JComboBox<Mention> comboMen = new JComboBox<Mention>( );
-		comboMen.setModel(new DefaultComboBoxModel<Mention>(Mention.values( )));
-		comboMen.setBounds(449, -1, 114, 24);
-		frame.getContentPane( ).add(comboMen);
-
-		JLabel lblFrom = new JLabel("تاريخ");
+		JLabel lblFrom = new JLabel("تاريخ البدئ");
 		lblFrom.setBounds(187, 5, 70, 15);
 		frame.getContentPane( ).add(lblFrom);
 
-		JLabel lblNdays = new JLabel("المؤسسة");
+		JLabel lblNdays = new JLabel("عدد الأيام");
 		lblNdays.setBounds(1, 5, 70, 15);
 		frame.getContentPane( ).add(lblNdays);
 
-		JLabel lblPeriod = new JLabel("الميزة");
+		JLabel lblPeriod = new JLabel("الأسدس");
 		lblPeriod.setBounds(373, 5, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				Diploma old = getSelectedDiploma(empl, table);
-				Diploma d = new Diploma(old.getId( ), tf_title.getText( ),
-					tf_ins.getText( ), tf_session.getText( ),
-					Mention.parseMention(
-						comboMen.getSelectedItem( ).toString( )));
-				old.update(d);
+				MedicalCertif oldc = getSelectedMedical(empl, table);
+				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
+					DateUtils.parseDate(tf_from.getText( )),
+					Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
+				newc.update(newc);
 				table.setModel(
-					Modeling.getDiplomasModel(
+					Modeling.getMedicalModel(
 						XmlFile.initEmployee(
 							new Employee( ), empl.getReference( ))));
-				tf_session.setText("");
-				tf_ins.setText("");
+				tf_from.setText("");
+				tf_ndays.setText("");
 			}
 
 		});
-		btnModify.setBounds(459, 36, 70, 25);
+		btnModify.setBounds(389, 365, 70, 25);
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				Diploma d = getSelectedDiploma(empl, table);
-				d.remove( );
+				MedicalCertif oldc = getSelectedMedical(empl, table);
+				oldc.remove( );
 				table.setModel(
-					Modeling.getDiplomasModel(
+					Modeling.getMedicalModel(
 						XmlFile.initEmployee(
 							new Employee( ), empl.getReference( ))));
-				tf_session.setText("");
-				tf_ins.setText("");
+				tf_from.setText("");
+				tf_ndays.setText("");
 			}
 		});
-		btnDelete.setBounds(373, 36, 70, 25);
+		btnDelete.setBounds(303, 365, 70, 25);
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					Diploma d = new Diploma(
-						XmlFile.getLastDiplomaId(empl.getElement( )) + 1,
-						tf_title.getText( ), tf_ins.getText( ),
-						tf_session.getText( ), Mention.parseMention(
-							comboMen.getSelectedItem( ).toString( )));
-					d.add( );
-
+					MedicalCertif m = new MedicalCertif(
+						XmlFile.getLastMedicalId(empl.getElement( )) + 1,
+						DateUtils.parseDate(tf_from.getText( )),
+						Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
+					m.add( );
 					table.setModel(
-						Modeling.getDiplomasModel(
+						Modeling.getMedicalModel(
 							XmlFile.initEmployee(
 								new Employee( ), empl.getReference( ))));
 					setupJTable(table);
@@ -178,30 +165,28 @@ public class DiplomaWin {
 					btnModify.setEnabled(true);
 					btnDelete.setEnabled(true);
 				} else {
-					tf_session.setText("");
-					tf_ins.setText("");
+					tf_from.setText("");
+					tf_ndays.setText("");
 					btnAdd.setText("إضافة");
 					btnModify.setEnabled(!true);
 					btnDelete.setEnabled(!true);
 				}
 			}
 		});
-		btnAdd.setBounds(541, 36, 70, 25);
+		btnAdd.setBounds(471, 365, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
-		table = new JTable(Modeling.getDiplomasModel(empl));
+		table = new JTable(Modeling.getMedicalModel(empl));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				btnAdd.setText("جديد");
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
-				Diploma r = getSelectedDiploma(empl, table);
-				// TODO: update text fields
-				tf_session.setText(r.getSession( ));
-				tf_ins.setText(r.getInstitue( ));
-				tf_title.setText(r.getTitle( ));
-				comboMen.setSelectedIndex(r.getMention( ).ordinal( ));
+				MedicalCertif m = getSelectedMedical(empl, table);
+				tf_from.setText(DateUtils.parseDate(m.getFrom( )));
+				tf_ndays.setText("" + m.getNumberOfDays( ));
+				tf_s.setText(m.getPeriod( ));
 			}
 		});
 		/*
@@ -215,24 +200,23 @@ public class DiplomaWin {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setupJTable(table);
 		scrollPane.setViewportView(table);
-
 	}
 
-	private Diploma getSelectedDiploma(Employee empl, JTable table) {
-		String title = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
-						.toString( );
-		String institue = table.getModel( )
-						.getValueAt(table.getSelectedRow( ), 1).toString( );
-		String session = table.getModel( )
-						.getValueAt(table.getSelectedRow( ), 0).toString( );
-		Mention mention = Mention.parseMention(
+	private MedicalCertif getSelectedMedical(Employee empl, JTable table) {
+		Date from = DateUtils.parseDate(
+			table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
+							.toString( ));
+		int ndays = Integer.parseInt(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		int theID = XmlFile.getDiplomaId(
+		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
+						.toString( );
+		int theID = XmlFile.getMedicalCertifId(
 			empl.getElement( ), table.getSelectedRow( ));
-		Diploma d = new Diploma(theID, title, institue, session, mention);
-		d.setEmployeeRefrence(empl.getReference( ));
-		return d;
+		MedicalCertif m = new MedicalCertif(theID, from, ndays, period);
+		m.setEmployeeRefrence(empl.getReference( ));
+		
+		return m;
 	}
 
 	private void setupJTable(JTable table) {

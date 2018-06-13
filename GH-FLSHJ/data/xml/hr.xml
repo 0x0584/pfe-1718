@@ -27,23 +27,17 @@
       <reason>exam</reason>
       <pjob>UCD FS</pjob>
       <cjob>CapGemini Casablanca</cjob>
-      <uplift id="2" state="old" type="exam">
-        <scale>10</scale>
-        <echlon>5</echlon>
+      <uplift id="2" state="current" type="exam">
+        <scale>9</scale>
+        <echlon>2</echlon>
         <indice>12121</indice>
-        <update>2016-06-12</update>
+        <update>2017-06-12</update>
       </uplift>
       <uplift id="1" state="old" type="normal">
         <scale>9</scale>
-        <echlon>6</echlon>
+        <echlon>1</echlon>
         <indice>451245</indice>
-        <update>2014-06-15</update>
-      </uplift>
-      <uplift id="3" state="current">
-        <scale>10</scale>
-        <echlon>6</echlon>
-        <indice>4578</indice>
-        <update>2018-06-12</update>
+        <update>2017-06-15</update>
       </uplift>
     </administrative>
     <diplomas id="1">
@@ -102,7 +96,7 @@
         <scale>11</scale>
         <echlon>1</echlon>
         <indice>451245</indice>
-        <update>2018-06-15</update>
+        <update>2017-07-15</update>
       </uplift>
     </administrative>
     <diplomas id="1">
@@ -116,5 +110,37 @@
       <ndays>10</ndays>
       <period>Semestre I</period>
     </medicalcertif>
+  </employee>
+  <employee department="Informatique" reference="78451215">
+    <notes />
+    <personal>
+      <name>Hamza</name>
+      <familyname>Hamdaoui</familyname>
+      <birth>1996-06-13</birth>
+      <brithplace>Yousoufia</brithplace>
+      <address>somewhere</address>
+      <phone>066666666666</phone>
+      <state married="nil" />
+      <nationality ma="t" />
+      <partner name="" job="" />
+      <children number="0" />
+    </personal>
+    <administrative>
+      <cin>M45712</cin>
+      <mission>Teaching</mission>
+      <jday>2018-06-13</jday>
+      <hday>2018-06-13</hday>
+      <reason>exam</reason>
+      <pjob>NONE</pjob>
+      <cjob>UCD FSJ</cjob>
+      <cadre>Engenieur 1er Grade</cadre>
+      <fstatus>12457521</fstatus>
+      <uplift id="1" state="current">
+        <scale>9</scale>
+        <echlon>3</echlon>
+        <indice>7845124</indice>
+        <update>2017-10-15</update>
+      </uplift>
+    </administrative>
   </employee>
 </Employee>
