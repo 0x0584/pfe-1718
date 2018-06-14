@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -116,6 +117,8 @@ public class RepaymentCrud {
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Repayment old_r = getSelectedRepayment(empl, table);
 				Repayment new_r = new Repayment(old_r.getId( ),
 					tf_holiday.getText( ),
@@ -138,6 +141,8 @@ public class RepaymentCrud {
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Repayment r = getSelectedRepayment(empl, table);
 				r.remove( );
 				table.setModel(
@@ -155,6 +160,8 @@ public class RepaymentCrud {
 		JButton btnAdd = new JButton("إضافة");
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
 					Repayment r = new Repayment(
 						XmlFile.getLastRepaymentId(empl.getElement( )) + 1,

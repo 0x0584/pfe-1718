@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -145,6 +146,8 @@ public class UpliftCrud {
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Uplift old_r = getSelectedUplift(empl, table);
 				Uplift new_r = new Uplift(old_r.getId( ), tf_indice.getText( ),
 					DateUtils.parseDate(tf_date.getText( )),
@@ -168,6 +171,8 @@ public class UpliftCrud {
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Uplift r = getSelectedUplift(empl, table);
 				r.remove( );
 				table.setModel(
@@ -187,6 +192,8 @@ public class UpliftCrud {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+					if (dialogResult != JOptionPane.YES_OPTION) return;
 					Uplift new_r = new Uplift(
 						XmlFile.getLastUpliftId(empl.getElement( )) + 1,
 						tf_indice.getText( ),

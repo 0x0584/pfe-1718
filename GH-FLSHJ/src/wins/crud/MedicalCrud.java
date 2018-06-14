@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -114,6 +115,8 @@ public class MedicalCrud {
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				MedicalCertif oldc = getSelectedMedical(empl, table);
 				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
 					DateUtils.parseDate(tf_from.getText( )),
@@ -134,6 +137,8 @@ public class MedicalCrud {
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+			int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+			if (dialogResult != JOptionPane.YES_OPTION) return;
 				MedicalCertif oldc = getSelectedMedical(empl, table);
 				oldc.remove( );
 				table.setModel(
@@ -151,6 +156,8 @@ public class MedicalCrud {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+					if (dialogResult != JOptionPane.YES_OPTION) return;
 					MedicalCertif m = new MedicalCertif(
 						XmlFile.getLastMedicalId(empl.getElement( )) + 1,
 						DateUtils.parseDate(tf_from.getText( )),

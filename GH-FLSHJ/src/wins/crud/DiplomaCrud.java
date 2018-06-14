@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -124,6 +125,8 @@ public class DiplomaCrud {
 		JButton btnModify = new JButton("تعديل");
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Diploma old = getSelectedDiploma(empl, table);
 				Diploma d = new Diploma(old.getId( ), tf_title.getText( ),
 					tf_ins.getText( ), tf_session.getText( ),
@@ -145,6 +148,8 @@ public class DiplomaCrud {
 		JButton btnDelete = new JButton("حذف");
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Diploma d = getSelectedDiploma(empl, table);
 				d.remove( );
 				table.setModel(
@@ -162,6 +167,8 @@ public class DiplomaCrud {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+					if (dialogResult != JOptionPane.YES_OPTION) return;
 					Diploma d = new Diploma(
 						XmlFile.getLastDiplomaId(empl.getElement( )) + 1,
 						tf_title.getText( ), tf_ins.getText( ),

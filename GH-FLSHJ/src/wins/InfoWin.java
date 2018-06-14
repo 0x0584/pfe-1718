@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -497,6 +498,8 @@ public class InfoWin {
 		JButton btnsave = new JButton("حفظ");
 		btnsave.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Employee nempl = new Employee(empl.getReference( ));
 				nempl.setNotes(tp_notes.getText( ));
 				nempl.setDepartment(tf_d.getText( ));
@@ -632,8 +635,11 @@ public class InfoWin {
 		JButton btndel = new JButton("حذف");
 		btndel.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				empl.remove( );
 				frame.dispose( );
+
 			}
 		});
 		btndel.setBounds(22, 525, 80, 25);
