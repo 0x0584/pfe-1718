@@ -140,12 +140,6 @@ public class Repayment extends XmlElement<Repayment> {
 	}
 
 	@Override
-	public Element getLast( ) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Element getElement( ) {
 		// TODO Auto-generated method stub
 		return null;

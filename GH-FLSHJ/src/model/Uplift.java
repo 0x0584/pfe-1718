@@ -10,7 +10,7 @@ import org.jdom2.Attribute;
 import org.jdom2.Element;
 
 import app.Period;
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.XmlElement;
 import app.utils.XmlFile;
 
@@ -113,18 +113,19 @@ public class Uplift extends XmlElement<Uplift> {
 			model.addColumn(col_name);
 		}
 
-		for (Employee e : XmlFile.getAll( )) {
+		for (Employee e : XmlFile.getAllEmployees( )) {
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( ), today = new Date( );
-			if (DateUtils.diff(today, nextdate) < 0) continue;
+			if (DateUtil.diff(today, nextdate) < 0) continue;
 
 			if (nextdate.before(todate)) {
 				String fullname = e.getName( ) + " "
 								+ e.getFamilyname( ).toUpperCase( );
 				model.addRow(new String[] {
-								e.getReference( ), e.getCIN( ), fullname,
-								"" + DateUtils.diffDays(today, nextdate),
-								DateUtils.parseDate(nextdate),
+								e.getEmployeeReference( ), e.getCIN( ),
+								fullname,
+								"" + DateUtil.diffDays(today, nextdate),
+								DateUtil.parseDate(nextdate),
 								"" + next.getGrade( ), "" + next.getRank( )
 				});
 			}
@@ -156,7 +157,7 @@ public class Uplift extends XmlElement<Uplift> {
 			n_years = 3;
 		}
 
-		Date nextdate = DateUtils.add(Period.ONE_YEAR, date, n_years);
+		Date nextdate = DateUtil.add(Period.ONE_YEAR, date, n_years);
 
 		if (grade == 12) {
 			rank = 1;
@@ -198,7 +199,7 @@ public class Uplift extends XmlElement<Uplift> {
 			scale.addContent("" + this.grade);
 			echlon.addContent("" + this.rank);
 			indice.addContent(this.indice);
-			update.addContent(DateUtils.parseDate(date));
+			update.addContent(DateUtil.parseDate(date));
 
 			Attribute id = new Attribute("id",
 				"" + (XmlFile.getLastUpliftId(empl) + 1));
@@ -234,7 +235,7 @@ public class Uplift extends XmlElement<Uplift> {
 					el.getChild("scale").setText("" + updated.getRank( ));
 					el.getChild("indice").setText("" + updated.getIndice( ));
 					el.getChild("update").setText(
-						DateUtils.parseDate(updated.getDate( )));
+						DateUtil.parseDate(updated.getDate( )));
 					break;
 				}
 			}
@@ -272,12 +273,6 @@ public class Uplift extends XmlElement<Uplift> {
 	}
 
 	@Override
-	public Element getLast( ) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Element getElement( ) {
 		// TODO Auto-generated method stub
 		return null;
@@ -301,7 +296,7 @@ public class Uplift extends XmlElement<Uplift> {
 			model.addColumn(col_name);
 		}
 
-		for (Employee e : XmlFile.getAll( )) {
+		for (Employee e : XmlFile.getAllEmployees( )) {
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( );
 
@@ -309,8 +304,9 @@ public class Uplift extends XmlElement<Uplift> {
 				String fullname = e.getName( ) + " "
 								+ e.getFamilyname( ).toUpperCase( );
 				model.addRow(new String[] {
-								e.getReference( ), e.getCIN( ), fullname,
-								"" + next.getGrade( ), "" + next.getRank( )
+								e.getEmployeeReference( ), e.getCIN( ),
+								fullname, "" + next.getGrade( ),
+								"" + next.getRank( )
 				});
 			}
 		}

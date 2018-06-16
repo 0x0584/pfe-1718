@@ -20,7 +20,7 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.XmlFile;
 import model.Employee;
 import model.MedicalCertif;
@@ -119,13 +119,13 @@ public class MedicalCrud {
 				if (dialogResult != JOptionPane.YES_OPTION) return;
 				MedicalCertif oldc = getSelectedMedical(empl, table);
 				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
-					DateUtils.parseDate(tf_from.getText( )),
+					DateUtil.parseDate(tf_from.getText( )),
 					Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
 				newc.update(newc);
 				table.setModel(
 					Modeling.getMedicalModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_from.setText("");
 				tf_ndays.setText("");
 			}
@@ -144,7 +144,7 @@ public class MedicalCrud {
 				table.setModel(
 					Modeling.getMedicalModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_from.setText("");
 				tf_ndays.setText("");
 			}
@@ -160,13 +160,13 @@ public class MedicalCrud {
 					if (dialogResult != JOptionPane.YES_OPTION) return;
 					MedicalCertif m = new MedicalCertif(
 						XmlFile.getLastMedicalId(empl.getElement( )) + 1,
-						DateUtils.parseDate(tf_from.getText( )),
+						DateUtil.parseDate(tf_from.getText( )),
 						Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
 					m.add( );
 					table.setModel(
 						Modeling.getMedicalModel(
 							XmlFile.initEmployee(
-								new Employee( ), empl.getReference( ))));
+								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
 					btnModify.setEnabled(true);
@@ -191,7 +191,7 @@ public class MedicalCrud {
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
 				MedicalCertif m = getSelectedMedical(empl, table);
-				tf_from.setText(DateUtils.parseDate(m.getFrom( )));
+				tf_from.setText(DateUtil.parseDate(m.getFrom( )));
 				tf_ndays.setText("" + m.getNumberOfDays( ));
 				tf_s.setText(m.getPeriod( ));
 			}
@@ -210,7 +210,7 @@ public class MedicalCrud {
 	}
 
 	private MedicalCertif getSelectedMedical(Employee empl, JTable table) {
-		Date from = DateUtils.parseDate(
+		Date from = DateUtil.parseDate(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
 							.toString( ));
 		int ndays = Integer.parseInt(
@@ -221,7 +221,7 @@ public class MedicalCrud {
 		int theID = XmlFile.getMedicalCertifId(
 			empl.getElement( ), table.getSelectedRow( ));
 		MedicalCertif m = new MedicalCertif(theID, from, ndays, period);
-		m.setEmployeeRefrence(empl.getReference( ));
+		m.setEmployeeReference(empl.getEmployeeReference( ));
 		
 		return m;
 	}

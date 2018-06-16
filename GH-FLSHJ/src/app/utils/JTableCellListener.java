@@ -12,7 +12,7 @@ import java.beans.*;
  *
  *  The source of the Action is a TableCellListener instance.
  */
-public class TableCellListener implements PropertyChangeListener, Runnable {
+public class JTableCellListener implements PropertyChangeListener, Runnable {
 	private JTable table;
 	private Action action;
 
@@ -29,7 +29,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 	 * @param action
 	 *            the Action to invoke when cell data is changed
 	 */
-	public TableCellListener(JTable table, Action action) {
+	public JTableCellListener(JTable table, Action action) {
 		this.table = table;
 		this.action = action;
 		this.table.addPropertyChangeListener(this);
@@ -48,7 +48,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 	 * @param newValue
 	 *            the new data of the changed cell
 	 */
-	private TableCellListener(	JTable table, int row, int column,
+	private JTableCellListener(	JTable table, int row, int column,
 								Object oldValue, Object newValue) {
 		this.table = table;
 		this.row = row;
@@ -150,7 +150,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 			// Make a copy of the data in case another cell starts editing
 			// while processing this change
 
-			TableCellListener tcl = new TableCellListener(getTable( ),
+			JTableCellListener tcl = new JTableCellListener(getTable( ),
 				getRow( ), getColumn( ), getOldValue( ), getNewValue( ));
 
 			ActionEvent event = new ActionEvent(tcl,

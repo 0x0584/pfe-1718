@@ -32,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.utils.Printer;
-import app.utils.TableCellListener;
+import app.utils.JTableCellListener;
 import model.Employee;
 
 public class NotationView {
@@ -350,7 +350,7 @@ public class NotationView {
 		lbl_bplace.setBounds(12, 68, 216, 15);
 		panel.add(lbl_bplace);
 
-		JLabel lbl_ref = new JLabel(e.getReference( ));
+		JLabel lbl_ref = new JLabel(e.getEmployeeReference( ));
 		lbl_ref.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_ref.setBounds(12, 41, 216, 15);
 		panel.add(lbl_ref);
@@ -488,7 +488,7 @@ public class NotationView {
 		menuBar.add(mntmPrint);
 
 		table = new JTable(dmodel_0);
-		new TableCellListener(table, new AbstractAction( ) {
+		new JTableCellListener(table, new AbstractAction( ) {
 			private static final long serialVersionUID = 1L;
 
 			private int getTotal(JTable table) {
@@ -532,7 +532,7 @@ public class NotationView {
 			}
 
 			public void actionPerformed(ActionEvent e) {
-				TableCellListener tcl = (TableCellListener) e.getSource( );
+				JTableCellListener tcl = (JTableCellListener) e.getSource( );
 				if (tcl.getColumn( ) == 1) {
 					JTable t = tcl.getTable( );
 

@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit;
 
 import app.Period;
 
-public class DateUtils {
+public class DateUtil {
 	private SimpleDateFormat fmt;
 
-	public DateUtils() {
+	public DateUtil() {
 		// TODO: choose a good format
 		fmt = new SimpleDateFormat("yyyy-MM-dd");
 	}
@@ -23,10 +23,10 @@ public class DateUtils {
 	 */
 	public static String parseDate(Date date) {
 		try {
-			return new DateUtils( ).fmt.format(date);
+			return new DateUtil( ).fmt.format(date);
 		} catch (Exception x) {
 			System.err.println(x.getMessage( ));
-			return new DateUtils( ).fmt.format(new Date( ));
+			return new DateUtil( ).fmt.format(new Date( ));
 		}
 	}
 
@@ -49,14 +49,14 @@ public class DateUtils {
 	public static Date parseDate(String str) {
 		Date d;
 		try {
-			d = new DateUtils( ).fmt.parse(str);
+			d = new DateUtil( ).fmt.parse(str);
 			return d;
 		} catch (Exception e) {
 			System.err.println(e.getMessage( ));
 		}
 
 		try {
-			d = new DateUtils( ).fmt.parse(str);
+			d = new DateUtil( ).fmt.parse(str);
 		} catch (ParseException e) {
 			System.err.println(e.getMessage( ));
 			d = new Date( );

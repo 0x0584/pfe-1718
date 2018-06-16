@@ -2,7 +2,7 @@ package app;
 
 import java.util.Date;
 
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 
 public enum Period {
 	TODAY(0, "اليوم"), ONE_DAY(1, "غداً"),
@@ -26,7 +26,7 @@ public enum Period {
 	// this is bad code
 	// TODO: make this shit better
 	public static Date getDate(Period p) {
-		return DateUtils.add(ONE_DAY, new Date( ), p.value);
+		return DateUtil.add(ONE_DAY, new Date( ), p.value);
 	}
 
 	@Override

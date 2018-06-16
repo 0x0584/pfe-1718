@@ -128,7 +128,7 @@ public class RepaymentCrud {
 				table.setModel(
 					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_repayed.setText("");
 				tf_ndays.setText("");
 				lbltotal.setText(getTotal(table));
@@ -148,7 +148,7 @@ public class RepaymentCrud {
 				table.setModel(
 					Modeling.getRepaymentModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_repayed.setText("");
 				tf_ndays.setText("");
 				lbltotal.setText(getTotal(table));
@@ -172,7 +172,7 @@ public class RepaymentCrud {
 					table.setModel(
 						Modeling.getRepaymentModel(
 							XmlFile.initEmployee(
-								new Employee( ), empl.getReference( ))));
+								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					lbltotal.setText(getTotal(table));
 					btnAdd.setText("جديد");
@@ -245,7 +245,7 @@ public class RepaymentCrud {
 		int theID = XmlFile.getRepaymentId(
 			empl.getElement( ), table.getSelectedRow( ));
 		Repayment r = new Repayment(theID, period, ndays, repayed);
-		r.setEmployeeRefrence(empl.getReference( ));
+		r.setEmployeeReference(empl.getEmployeeReference( ));
 		return r;
 	}
 

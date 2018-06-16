@@ -167,7 +167,7 @@ public class AttTravailView {
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
-			String.format("S.O.M.: %s", e.getReference( )));
+			String.format("S.O.M.: %s", e.getEmployeeReference( )));
 		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_7.setBounds(120, 383, 431, 33);
 		frame.getContentPane( ).add(label_7);

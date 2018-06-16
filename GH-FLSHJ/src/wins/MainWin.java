@@ -23,7 +23,7 @@ import javax.swing.event.ChangeListener;
 import com.alee.laf.WebLookAndFeel;
 
 import app.SearchField;
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.EmployeeType;
 import model.Employee;
 import model.Modeling;
@@ -91,7 +91,7 @@ public class MainWin {
 		type = EmployeeType.All;
 		raison = "";
 		fromDate = new Date( );
-		toDate = DateUtils.add(Period.ONE_DAY, new Date( ), 1);
+		toDate = DateUtil.add(Period.ONE_DAY, new Date( ), 1);
 
 		frame = new JFrame( );
 		frame.setBounds(100, 100, 632, HEIGHT);
@@ -267,7 +267,7 @@ public class MainWin {
 		holidayTypes.setBounds(12, 389, 141, 24);
 		frame.getContentPane( ).add(holidayTypes);
 
-		tf_to = new JTextField(DateUtils.parseDate(toDate));
+		tf_to = new JTextField(DateUtil.parseDate(toDate));
 		tf_to.setBounds(509, 389, 114, 25);
 		tf_to.addKeyListener(new KeyAdapter( ) {
 			@Override
@@ -283,13 +283,13 @@ public class MainWin {
 					break;
 				}
 
-				toDate = DateUtils.parseDate(text);
+				toDate = DateUtil.parseDate(text);
 			}
 		});
 		frame.getContentPane( ).add(tf_to);
 		tf_to.setColumns(10);
 
-		tf_from = new JTextField(DateUtils.parseDate(fromDate));
+		tf_from = new JTextField(DateUtil.parseDate(fromDate));
 		tf_from.setBounds(352, 389, 114, 25);
 		tf_from.addKeyListener(new KeyAdapter( ) {
 			@Override
@@ -305,7 +305,7 @@ public class MainWin {
 					break;
 				}
 
-				fromDate = DateUtils.parseDate(text);
+				fromDate = DateUtil.parseDate(text);
 			}
 		});
 		frame.getContentPane( ).add(tf_from);

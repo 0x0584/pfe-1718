@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.Period;
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.Printer;
 import model.Employee;
 
@@ -43,7 +43,7 @@ public class HolidayAdminiView {
 				try {
 					HolidayAdminiView window = new HolidayAdminiView(
 						new Employee( ), null, new Date( ),
-						DateUtils.add(Period.ONE_MONTH, new Date( ), 1));
+						DateUtil.add(Period.ONE_MONTH, new Date( ), 1));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					System.err.println(e.getMessage( ));
@@ -170,7 +170,7 @@ public class HolidayAdminiView {
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
-			String.format("S.O.M.: %s", e.getReference( )));
+			String.format("S.O.M.: %s", e.getEmployeeReference( )));
 		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_7.setBounds(110, 634, 431, 33);
 		frame.getContentPane( ).add(label_7);
@@ -182,7 +182,7 @@ public class HolidayAdminiView {
 		frame.getContentPane( ).add(lblExerceSeFonctions);
 
 		JLabel lblElJadidaLe = new JLabel(String.format(
-			"El Jadida le: %s", DateUtils.parseDate(new Date( ))));
+			"El Jadida le: %s", DateUtil.parseDate(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblElJadidaLe.setBounds(270, 831, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
@@ -253,7 +253,7 @@ public class HolidayAdminiView {
 
 		JLabel lblUnCongeAdministratif = new JLabel(String.format(
 			"Un conge administratif a partir du %s est accorde ",
-			DateUtils.parseDate(from)));
+			DateUtil.parseDate(from)));
 		lblUnCongeAdministratif.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblUnCongeAdministratif.setBounds(110, 494, 566, 33);
 		frame.getContentPane( ).add(lblUnCongeAdministratif);

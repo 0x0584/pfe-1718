@@ -11,7 +11,7 @@ import org.jdom2.Element;
 import app.EmployeeType;
 import app.Period;
 import app.SearchField;
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.XmlFile;
 
 public final class Modeling {
@@ -28,9 +28,9 @@ public final class Modeling {
 		}
 
 		for (Uplift u : XmlFile.getUplifts(
-			XmlFile.getEmployee(empl.getReference( )))) {
+			XmlFile.getEmployee(empl.getEmployeeReference( )))) {
 			model.addRow(new String[] {
-							DateUtils.parseDate(u.getDate( )), u.getIndice( ),
+							DateUtil.parseDate(u.getDate( )), u.getIndice( ),
 							"" + u.getRank( ), "" + u.getGrade( )
 			});
 		}
@@ -50,7 +50,7 @@ public final class Modeling {
 		}
 
 		for (Diploma d : XmlFile.getDiplomas(
-			XmlFile.getEmployee(empl.getReference( )))) {
+			XmlFile.getEmployee(empl.getEmployeeReference( )))) {
 			model.addRow(new String[] {
 							d.getSession( ), d.getInstitue( ),
 							d.getMention( ).toString( ), d.getTitle( )
@@ -68,12 +68,12 @@ public final class Modeling {
 			model.addColumn(col);
 		}
 		for (MedicalCertif c : XmlFile.getMedicalCertifs(
-			XmlFile.getEmployee(empl.getReference( )))) {
+			XmlFile.getEmployee(empl.getEmployeeReference( )))) {
 			Date from = c.getFrom( );
-			Date to = DateUtils.add(
+			Date to = DateUtil.add(
 				Period.ONE_DAY, c.getFrom( ), c.getNumberOfDays( ));
 			model.addRow(new String[] {
-							DateUtils.parseDate(from), DateUtils.parseDate(to),
+							DateUtil.parseDate(from), DateUtil.parseDate(to),
 							"" + c.getNumberOfDays( ), c.getPeriod( )
 			});
 		}

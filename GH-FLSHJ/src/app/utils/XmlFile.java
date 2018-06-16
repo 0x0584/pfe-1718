@@ -32,7 +32,7 @@ import model.Uplift;
 
 public class XmlFile {
 
-	public static ArrayList<Employee> getAll( ) {
+	public static ArrayList<Employee> getAllEmployees( ) {
 		Iterator<Element> i;
 		Element e;
 		ArrayList<Employee> list = new ArrayList<Employee>( );
@@ -70,9 +70,9 @@ public class XmlFile {
 
 		for (Element e : dlist) {
 			if (e.getAttributeValue("state").compareTo("current") == 0) {
-				u.setEmployeeRefrence(empl.getAttributeValue("reference"));
+				u.setEmployeeReference(empl.getAttributeValue("reference"));
 				u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
-				u.setDate(DateUtils.parseDate(e.getChildTextTrim("update")));
+				u.setDate(DateUtil.parseDate(e.getChildTextTrim("update")));
 				u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
 				u.setIndice(e.getChildTextTrim("indice"));
 				break;
@@ -97,7 +97,7 @@ public class XmlFile {
 
 		for (Element e : dlist) {
 			Diploma d = new Diploma( );
-			d.setEmployeeRefrence(empl.getAttributeValue("reference"));
+			d.setEmployeeReference(empl.getAttributeValue("reference"));
 			d.setInstitue(e.getChildTextTrim("institute"));
 			d.setMention(
 				Mention.parseMention(
@@ -163,9 +163,9 @@ public class XmlFile {
 		ArrayList<MedicalCertif> tmp = new ArrayList<MedicalCertif>( );
 		for (Element e : dlist) {
 			MedicalCertif m = new MedicalCertif( );
-			m.setEmployeeRefrence(empl.getAttributeValue("reference"));
+			m.setEmployeeReference(empl.getAttributeValue("reference"));
 			m.setId(Integer.parseInt(e.getAttributeValue("id")));
-			m.setFrom(DateUtils.parseDate(e.getChildTextTrim("from")));
+			m.setFrom(DateUtil.parseDate(e.getChildTextTrim("from")));
 			m.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
 			m.setPeriod(e.getChildTextTrim("period"));
 
@@ -184,7 +184,7 @@ public class XmlFile {
 		ArrayList<Repayment> tmp = new ArrayList<Repayment>( );
 		for (Element e : dlist) {
 			Repayment r = new Repayment( );
-			r.setEmployeeRefrence(empl.getAttributeValue("reference"));
+			r.setEmployeeReference(empl.getAttributeValue("reference"));
 			r.setId(Integer.parseInt(e.getAttributeValue("id")));
 			r.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
 			r.setPeriod(e.getChildTextTrim("period"));
@@ -219,9 +219,9 @@ public class XmlFile {
 
 		for (Element e : dlist) {
 			Uplift u = new Uplift( );
-			u.setEmployeeRefrence(empl.getAttributeValue("reference"));
+			u.setEmployeeReference(empl.getAttributeValue("reference"));
 			u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
-			u.setDate(DateUtils.parseDate(e.getChildTextTrim("update")));
+			u.setDate(DateUtil.parseDate(e.getChildTextTrim("update")));
 			u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
 			u.setIndice(e.getChildTextTrim("indice"));
 			tmp.add(u);
@@ -245,7 +245,7 @@ public class XmlFile {
 		empl.setIsMoroccan(
 			foo.getChild("nationality").getAttributeValue("ma")
 							.compareTo("t") == 0);
-		empl.setBirthDay(DateUtils.parseDate(foo.getChildTextTrim("birth")));
+		empl.setBirthDay(DateUtil.parseDate(foo.getChildTextTrim("birth")));
 
 		empl.setBirthPlace(foo.getChildTextTrim("brithplace"));
 		empl.setAddress(foo.getChildTextTrim("address"));
@@ -269,12 +269,11 @@ public class XmlFile {
 		// administrative tag
 		bar = e.getChild("administrative");
 
-		empl.setReference(ref);
-		empl.setEmployeeRefrence(ref);
+		empl.setEmployeeReference(ref);
 		empl.setCIN(bar.getChildTextTrim("cin"));
 		empl.setMission(bar.getChildTextTrim("mission"));
-		empl.setJoinDate(DateUtils.parseDate(bar.getChildTextTrim("jday")));
-		empl.setHiringDate(DateUtils.parseDate(bar.getChildTextTrim("hday")));
+		empl.setJoinDate(DateUtil.parseDate(bar.getChildTextTrim("jday")));
+		empl.setHiringDate(DateUtil.parseDate(bar.getChildTextTrim("hday")));
 		empl.setReason(bar.getChildTextTrim("reason"));
 		empl.setPreviousJob(bar.getChildTextTrim("pjob"));
 		empl.setCurrentJob(bar.getChildTextTrim("cjob"));
@@ -305,7 +304,7 @@ public class XmlFile {
 
 	public static void updateRepayment(Employee empl, Repayment old_r,
 		Repayment new_r) {
-		Element e = getEmployee(empl.getReference( ));
+		Element e = getEmployee(empl.getEmployeeReference( ));
 		List<Element> list = e.getChildren("repayment");
 
 		for (Element el : list) {
@@ -324,7 +323,7 @@ public class XmlFile {
 	}
 
 	public static void updateUplift(Employee empl, Uplift old_r, Uplift new_r) {
-		Element e = getEmployee(empl.getReference( ));
+		Element e = getEmployee(empl.getEmployeeReference( ));
 		List<Element> list = e.getChild("administrative").getChildren("uplift");
 
 		for (Element el : list) {
@@ -334,7 +333,7 @@ public class XmlFile {
 				el.getChild("scale").setText("" + new_r.getRank( ));
 				el.getChild("indice").setText("" + new_r.getIndice( ));
 				el.getChild("update")
-								.setText(DateUtils.parseDate(new_r.getDate( )));
+								.setText(DateUtil.parseDate(new_r.getDate( )));
 				break;
 			}
 		}

@@ -1,14 +1,19 @@
-#+TITLE: Rapport Du Stage
+# ###########################
+# # Org-mode version 9.1.5 ##
+# # Emacs version 25.2.2   ##
+# ###########################
+
 #+DATE: 05/12/2018
+# #+TITLE: Rapport de stage
 #+AUTHOR: Anas Rchid
 #+EMAIL: rchid.anas@gmail.com
+#+LANGUAGE: fr
 
 #+OPTIONS: toc:nil
-#+LaTeX_CLASS_OPTIONS: [a4paper,twoside]
-#+LaTeX_CLASS_OPTIONS: [captions=tableheading]
 #+LaTex_CLASS: report
-#+LATEX_HEADER: \usepackage[margin=0.80in]{geometry}
-
+#+LaTeX_CLASS_OPTIONS: [12pt,a4paper,twoside]
+#+LATEX_HEADER: \usepackage[AUTO]{babel}
+#+LATEX_HEADER: \usepackage[margin=1.20in]{geometry}
 #+LaTeX_HEADER: \hypersetup {
 #+LaTeX_HEADER:     colorlinks,
 #+LaTeX_HEADER:     citecolor=black,
@@ -16,50 +21,191 @@
 #+LaTeX_HEADER:     linkcolor=blue,
 #+LaTeX_HEADER:     urlcolor=blue
 #+LaTeX_HEADER: }
+#+LaTeX_HEADER: \usemintedstyle{friendly}
+
+[[./front.pdf]]
 
 #+LATEX_COMPILER: pdflatex
 #+LATEX: \tableofcontents
+#+LATEX: \listoffigures
+#+LATEX: \listoflistings
 
+#+BEGIN_EXPORT latex
 \begin{abstract}
-Ce projet et la résulta d'un stage que j'avais passe chez la faculté Des Lettres et Science Humaines, El Jadida avec la supervision du Mr. A. Madani.
-
-Cette application, GHumain, et une application programmez en Java avec la sauvgarde des fichiers en XML qui permet pour les responsables du Service du ressources humaine de gérée d'une manier efficace leur données. 
+Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettres et Science Humaines, El Jadida sous le theme Informatision du service Resourse Humains. Sous l'encadrement  de Mr. A. Madani, et la supervision du chef de service; Mr. Driss Dibaji. 
 \end{abstract}
+#+END_EXPORT
 
 * Intoduction
-  Le but de cette application c'est de:
+  \vspace*{\fill}
+  #+BEGIN_QUOTE  
+  Pour obtenir ce besoin, J'avais la responsabilité de développé un environnement pour gérer les différents taches décris en [[Cahier des Charges][cahier des charges]]\\
+  #+END_QUOTE
 
-  + [ ] gestion des professeurs et des fonctionnaires
-  + [ ] gestion des grades, conge, autorisations, absences
-  + [ ] generee des document pour tous ce qui est precedant
+  #+BEGIN_QUOTE
+  Pour realise , il y a deux parties. Stockage des données et l'application bureau. Pour la première, J'ai choisi /XML/ tout simplement parce qu'il est gratuit, alors c'est un langage markup écrit dans un fichier texte, ainsi que la simplicité d’utilisation et modification. Et pour la deuxième, j'ai développé une application en /Java/, par ce qu'il est un langage Oriente-Objet, donc il facilite le processus de développement.
+  #+END_QUOTE
 
+  \vspace*{\fill}
+  
+* Cahier des Charges
+  
+  \vspace*{\fill}
+  #+BEGIN_QUOTE
+  D'après le nom, /Service des ressources humains/, est le service est responsable de la gestion des employées et fonctionnaires, leur diplômes et grades, ainsi que donner des attestations du travail et des autorisation de congé, suivi d'absence, rémunération du travail les jours fériés finalement une notation annuelle.\\
+  #+END_QUOTE
+
+  Donc, en déduire que le /cahier des charges/ est le suivant :\\
+
+  + implémenter un système de gestion des employées/fonctionnaires
+  + gérée les diplômes et les grades
+  + suivi des grades
+  + suivi d'absence
+  + suivi de rémunération du travail les fériés
+  + générée des attestations de travail
+  + générée des autorisations de congé
+  + générée des notations annuelle pour 
+  \vspace*{\fill}  
+
+* Conception
+** Stockage des données en XML
+   Les données sont stockée dans un fichier =XML=, =data/xml/hr.xml= qui a le markup suivant:
+
+   #+BEGIN_SRC xml -n
+     <Employee>			<!--root-->
+
+       <employee reference="" department="">
+
+	 <notes />			 <!--les note sur l'employé-->
+
+	 <personal>			 <!--les information personnelles-->
+	 </personal>
     
-    
-* Chahier des Charges
+	 <administrative>		<!--les information administrative-->
+      
+	   <uplift id="" state="">	<!--les information d'avancement-->
+	   </uplift>
+	   <uplift id="" state="" />	<!--nous pouvons avoir plus-->
 
-* Analyse et Conception
-** Les taches a realiser
-** Stockage des donnees en XML
+	 </administrative>
+
+	 <diplomas id="">		<!--les infomration du diplôme-->
+	 </diplomas>
+	 <diplomas id="" />		<!--nous pouvons avoir plus-->
+
+	 <medicalcertif id="">	<!--information du certification médical-->
+	 </medicalcertif>
+	 <medicalcertif id="" />	<!--nous pouvons avoir plus-->
+
+	 <repayment id="">		<!--information du rémunération-->
+	 </repayment>
+	 <repayment id="" />
+    
+     </employee>
+   #+END_SRC
+
+   + =<personal>= :: contient des information personnelle comme le /nom/, /prenom/, /date de naissannse/, etc.
+   + =<administrative>= :: contient des information administrative comme le /SOM/, /CIN/, etc.
+   + =<uplift>= :: contient des information d'avancement, /date/, /indice/, /échelon/ et /échelle/
+   + =<diploma>= :: contient des information sur le diplome, /titre/, /mention/, /institue/ et /session/
+   + =<>= :: 
+
 ** Diag. UML des Classes
-   #+BEGIN_QUOTE
-    Tout les donnees ce sont sauvgarder sur des fichier =XML=. Ces fichier sont geree par la class Java =HandleXml=
-   #+END_QUOTE
+   Le code source de l'application est diviser en 4 packages pricipales, [[Package =model=][=model=]], [[Package =app=][=app=]], [[Package =wins=][=wins=]] et [[Package =views=][=views=]].
 
-*** Person
-    Tout les gens sont des persons
+   #+CAPTION: Aperçu de code source du projet
+   #+NAME:   fig:overview 
+   #+ATTR_LATEX: :width 10cm :center t
+   [[./diags/Overview.png]]
+   
+#+LATEX: \clearpage
+*** Package =model=
 
-    #+BEGIN_SRC xml
-      <person id="1">
-	<name> Foo </name>
-	<fname> Bar </fname>
-	<sexe ismale="true"/>
-      </person>
+    Ce package contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockée dans le fichier xml =data/xml/hr.xml= decris [[Stockage des données en XML][ici]].
+
+    #+CAPTION: La relation entre les classes du pkg [[Package =model=][=model=]] et la classe abstrait =XmlElement= du pkg [[Package =app.utils=][=app.utils=]]
+    #+NAME:   fig:models
+    #+ATTR_LATEX: :width 14cm :center t
+    [[./diags/OverviewOnClasses.png]]
+
+    Les classes implémentent les méthodes abstrais =getElement()=, =add()=, =update()= =remove()= dans la classe générique =XmlElement=. Ces méthodes sont responsables de la selection, l'ajout, la mise à jour et la suppression du tag correspondant a l'objet concerné dans le [[Stockage des donn%C3%A9es en XML][fichier xml]]. \\
+
+    Voici la classe mère de toutes les classes, =XmlElement=, qui contient en addition, une chaine de caractères qui représente le référence de l'employée, c.-à-d. L'identifient
+ 
+    #+CAPTION: Extrais du classe générique =XmlElement= du pkg [[Package =app.utils=][=app.utils=]]
+    #+NAME: lis:xml-element
+    #+BEGIN_SRC java -n
+      import org.jdom2.Element;
+
+      public abstract class XmlElement<T> {
+	  public abstract boolean add();
+	  public abstract boolean update(T updated);
+	  public abstract boolean remove();
+	  public abstract Element getElement();
+
+	  /* référence du employée */
+	  protected String empl_ref;
+	  public String getEmployeeReference( ) {
+	      return empl_ref;
+	  }
+
+	  public void setEmployeeReference(String ref) {
+	      this.empl_ref = ref;
+	  }
+      }
     #+END_SRC
 
-*** Professeurs
-*** Fonctionnaire
+    Les méthodes =add()=, =update()= et =remove()= de =XmlElement= retourne une valeur booléen, qui signifie est ce que l'opération a réussi ou non. Tandis que =getElement()= retourne le tag =XML= correspondant a l'objet.\\
+
+    La raison pour laquelle la classe est générique, c'est que =update()= doit l'être. La méthode =update()= prend un variable de type =T=, ce type est décris avec un héritage du classe =XmlElement=. \\
+
+    Par exemple, =update()= dans la classe =Diploma= est la suivant :
+
+    #+CAPTION: Extrais du classe =Diploma= qui montre l'héritage de =XmlElement=
+    #+NAME: lis:diploma
+    #+BEGIN_SRC java  -n
+      public class Diploma exstends XmlElement<Diploma> {
+	  /* les attributs du classe */
+
+	  @Override
+	  public boolean update(Diploma updated) {
+	      /* process la mise à jour */
+	  }
+      }
+    #+END_SRC
+ 
+*** Package =app=
+    le pkg =app= contient que des enumeration, decris dans le figure [[fig:app]]: 
+
+    + =Cadre= ::
+    + =Mention= ::
+    + =Period= ::
+    + =Holiday= ::
+    + =SearchField= ::
+    + =EmployeeType= ::
+    + =Files= :: 
+
+    #+CAPTION: Les enumeration dans pkg =app=
+    #+NAME:   fig:app 
+    #+ATTR_LATEX: :width 10cm :center t
+    [[./diags/OverviewOnApp.png]]
+
+**** Package =app.utils=
+     #+CAPTION: La relation entre =JTable=, =TableListener=, et =Printer= du pkg =app.utils=
+     #+NAME:   fig:apputils0 
+     #+ATTR_LATEX: :width 10cm :center t
+     [[./diags/OverviewAppUtils0.png]]
+
+     #+CAPTION: La relation entre =DateUtils=, =XmlFile= et =XmlElement=
+     #+NAME:   fig:apputils1 
+     #+ATTR_LATEX: :width 10cm :center t
+     [[./diags/OverviewAppUtils1.png]]
+
 * L'Interface Graphique
+** Package =wins=
+** Package =views=
+
 * Dependencies
-# + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
- + JDOM :: http://jdom.org/ Java library to to parse XML
- + WebLaF :: [[http://weblookandfeel.com/]] Java library to enhance the look and feel
+  # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
+  + JDOM :: http://jdom.org/ Java library to to parse XML
+  + WebLaF :: [[http://weblookandfeel.com/]] Java library to enhance the look and feel

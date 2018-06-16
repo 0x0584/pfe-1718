@@ -8,12 +8,12 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 
 import app.Cadre;
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.XmlFile;
 
 public class Employee extends Person {
 	protected Cadre cadre;
-	protected String ref, CIN, dep;
+	protected String CIN, dep;
 	// financial status
 	protected String fstatus;
 	protected String mission, reason, notes;
@@ -34,10 +34,6 @@ public class Employee extends Person {
 	public Employee(String ref) {
 		super( );
 		XmlFile.initEmployee(this, ref);
-	}
-
-	public void setReference(String ref) {
-		this.ref = ref;
 	}
 
 	public String getFinancialStatus( ) {
@@ -116,10 +112,6 @@ public class Employee extends Person {
 		this.diplomas = diplomas;
 	}
 
-	public String getReference( ) {
-		return ref;
-	}
-
 	public String getMission( ) {
 		return mission;
 	}
@@ -187,7 +179,7 @@ public class Employee extends Person {
 
 			Element e = new Element("employee");
 			e.setAttribute("department", nempl.getDepartment( ));
-			e.setAttribute("reference", nempl.getReference( ));
+			e.setAttribute("reference", nempl.getEmployeeReference( ));
 
 			Element notes = new Element("notes");
 			notes.setText(nempl.getNotes( ));
@@ -204,7 +196,7 @@ public class Employee extends Person {
 			bplace.setText(nempl.getBirthPlace( ) + " ");
 
 			Element bday = new Element("birth");
-			bday.setText(DateUtils.parseDate(nempl.getBirthDay( )));
+			bday.setText(DateUtil.parseDate(nempl.getBirthDay( )));
 
 			Element addr = new Element("address");
 			addr.setText(nempl.getAddress( ) + " ");
@@ -247,10 +239,10 @@ public class Employee extends Person {
 			mission.setText(nempl.getMission( ) + " ");
 
 			Element jday = new Element("jday");
-			jday.setText(DateUtils.parseDate(nempl.getJoinDate( )));
+			jday.setText(DateUtil.parseDate(nempl.getJoinDate( )));
 
 			Element hday = new Element("hday");
-			hday.setText(DateUtils.parseDate(nempl.getHiringDate( )));
+			hday.setText(DateUtil.parseDate(nempl.getHiringDate( )));
 
 			Element reason = new Element("reason");
 			reason.setText(nempl.getReason( ) + " ");
@@ -300,7 +292,7 @@ public class Employee extends Person {
 
 			empl.getChild("notes").setText(newempl.getNotes( ));
 			empl.getAttribute("department").setValue(newempl.getDepartment( ));
-			empl.getAttribute("reference").setValue(newempl.getReference( ));
+			empl.getAttribute("reference").setValue(newempl.getEmployeeReference( ));
 
 			// personal tag
 			personal = empl.getChild("personal");
@@ -312,7 +304,7 @@ public class Employee extends Person {
 			personal.getChild("nationality").getAttribute("ma")
 							.setValue(newempl.isMoroccan( ) ? "t" : "nil");
 			personal.getChild("birth").setText(
-				DateUtils.parseDate(newempl.getBirthDay( )));
+				DateUtil.parseDate(newempl.getBirthDay( )));
 
 			XmlFile.updateOrCreate(personal, "address", newempl.getAddress( ));
 			XmlFile.updateOrCreate(
@@ -343,9 +335,9 @@ public class Employee extends Person {
 
 			admini.getChild("cin").setText(newempl.getCIN( ));
 			admini.getChild("jday").setText(
-				DateUtils.parseDate(newempl.getJoinDate( )));
+				DateUtil.parseDate(newempl.getJoinDate( )));
 			admini.getChild("hday").setText(
-				DateUtils.parseDate(newempl.getHiringDate( )));
+				DateUtil.parseDate(newempl.getHiringDate( )));
 			admini.getChild("cadre").setText(newempl.getCadre( ).toString( ));
 
 			System.err.println(empl);
@@ -373,12 +365,6 @@ public class Employee extends Person {
 	}
 
 	@Override
-	public Element getLast( ) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Element getElement( ) {
 		Iterator<Element> i;
 		Element e;
@@ -386,12 +372,13 @@ public class Employee extends Person {
 		i = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
 		while (i.hasNext( )) {
 			e = i.next( );
-			if (e.getAttributeValue("reference").compareTo(ref) != 0) {
+			if (e.getAttributeValue("reference").compareTo(empl_ref) != 0) {
 				continue;
 			} else return e;
 		}
 
 		return null;
 	}
+
 
 }

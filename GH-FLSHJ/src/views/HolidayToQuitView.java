@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.Printer;
 import model.Employee;
 
@@ -168,7 +168,7 @@ public class HolidayToQuitView {
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
-			String.format("S.O.M.: %s", e.getReference( )));
+			String.format("S.O.M.: %s", e.getEmployeeReference( )));
 		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_7.setBounds(110, 515, 431, 33);
 		frame.getContentPane( ).add(label_7);
@@ -180,14 +180,14 @@ public class HolidayToQuitView {
 		frame.getContentPane( ).add(lblExerceSeFonctions);
 
 		JLabel lblElJadidaLe = new JLabel(String.format(
-			"El Jadida le: %s", DateUtils.parseDate(new Date( ))));
+			"El Jadida le: %s", DateUtil.parseDate(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblElJadidaLe.setBounds(270, 816, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		// TODO: verify whether it's hiring date or joining date
 		JLabel lbls = new JLabel(String.format(
-			"du %s du %s", raison, DateUtils.parseDate(from, to)));
+			"du %s du %s", raison, DateUtil.parseDate(from, to)));
 		lbls.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lbls.setBounds(70, 613, 566, 29);
 		frame.getContentPane( ).add(lbls);

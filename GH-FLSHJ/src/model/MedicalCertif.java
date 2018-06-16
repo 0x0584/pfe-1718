@@ -6,7 +6,7 @@ import java.util.List;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.XmlElement;
 import app.utils.XmlFile;
 
@@ -79,7 +79,7 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 			Element ndays = new Element("ndays");
 			Element period = new Element("period");
 
-			from.addContent(DateUtils.parseDate(this.from));
+			from.addContent(DateUtil.parseDate(this.from));
 			ndays.addContent("" + this.ndays);
 			period.addContent(this.period);
 
@@ -109,7 +109,7 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 			for (Element el : list) {
 				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
 					el.getChild("from")
-									.setText(DateUtils.parseDate(updated.from));
+									.setText(DateUtil.parseDate(updated.from));
 					el.getChild("ndays").setText("" + updated.ndays);
 					el.getChild("period").setText(updated.period);
 					break;
@@ -148,15 +148,10 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 	}
 
 	@Override
-	public Element getLast( ) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Element getElement( ) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

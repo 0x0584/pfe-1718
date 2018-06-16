@@ -136,7 +136,7 @@ public class DiplomaCrud {
 				table.setModel(
 					Modeling.getDiplomasModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_session.setText("");
 				tf_ins.setText("");
 			}
@@ -155,7 +155,7 @@ public class DiplomaCrud {
 				table.setModel(
 					Modeling.getDiplomasModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_session.setText("");
 				tf_ins.setText("");
 			}
@@ -179,7 +179,7 @@ public class DiplomaCrud {
 					table.setModel(
 						Modeling.getDiplomasModel(
 							XmlFile.initEmployee(
-								new Employee( ), empl.getReference( ))));
+								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
 					btnModify.setEnabled(true);
@@ -238,7 +238,7 @@ public class DiplomaCrud {
 		int theID = XmlFile.getDiplomaId(
 			empl.getElement( ), table.getSelectedRow( ));
 		Diploma d = new Diploma(theID, title, institue, session, mention);
-		d.setEmployeeRefrence(empl.getReference( ));
+		d.setEmployeeReference(empl.getEmployeeReference( ));
 		return d;
 	}
 

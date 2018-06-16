@@ -20,7 +20,7 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.XmlFile;
 import model.Employee;
 import model.Modeling;
@@ -74,7 +74,7 @@ public class UpliftCrud {
 	 */
 	public UpliftCrud(Uplift current) {
 		this.current = current;
-		Employee empl = new Employee(current.getEmployeeRefrence( ));
+		Employee empl = new Employee(current.getEmployeeReference( ));
 		initialize(empl);
 	}
 
@@ -90,7 +90,7 @@ public class UpliftCrud {
 		rank = this.current != null ? "" + current.getRank( ) : "";
 		grade = this.current != null ? "" + current.getGrade( ) : "";
 		date = this.current != null
-						? "" + DateUtils.parseDate(current.getDate( ))
+						? "" + DateUtil.parseDate(current.getDate( ))
 						: "";
 		indice = this.current != null ? "" + current.getIndice( ) : "";
 
@@ -150,14 +150,14 @@ public class UpliftCrud {
 				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Uplift old_r = getSelectedUplift(empl, table);
 				Uplift new_r = new Uplift(old_r.getId( ), tf_indice.getText( ),
-					DateUtils.parseDate(tf_date.getText( )),
+					DateUtil.parseDate(tf_date.getText( )),
 					Short.parseShort(tf_grade.getText( )),
 					Short.parseShort(tf_rank.getText( )));
 				old_r.update(new_r);
 				table.setModel(
 					Modeling.getUpliftModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_indice.setText("");
 				tf_date.setText("");
 				tf_rank.setText("");
@@ -178,7 +178,7 @@ public class UpliftCrud {
 				table.setModel(
 					Modeling.getUpliftModel(
 						XmlFile.initEmployee(
-							new Employee( ), empl.getReference( ))));
+							new Employee( ), empl.getEmployeeReference( ))));
 				tf_indice.setText("");
 				tf_date.setText("");
 				tf_rank.setText("");
@@ -197,15 +197,15 @@ public class UpliftCrud {
 					Uplift new_r = new Uplift(
 						XmlFile.getLastUpliftId(empl.getElement( )) + 1,
 						tf_indice.getText( ),
-						DateUtils.parseDate(tf_date.getText( )),
+						DateUtil.parseDate(tf_date.getText( )),
 						Short.parseShort(tf_grade.getText( )),
 						Short.parseShort(tf_rank.getText( )));
-					new_r.setEmployeeRefrence(empl.getReference( ));
+					new_r.setEmployeeReference(empl.getEmployeeReference( ));
 					new_r.add( );
 					table.setModel(
 						Modeling.getUpliftModel(
 							XmlFile.initEmployee(
-								new Employee( ), empl.getReference( ))));
+								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
 					btnModify.setEnabled(true);
@@ -234,7 +234,7 @@ public class UpliftCrud {
 				Uplift u = getSelectedUplift(empl, table);
 				// TODO: update text fields
 				tf_indice.setText("" + u.getIndice( ));
-				tf_date.setText(DateUtils.parseDate(u.getDate( )));
+				tf_date.setText(DateUtil.parseDate(u.getDate( )));
 				tf_rank.setText("" + u.getRank( ));
 				tf_grade.setText("" + u.getGrade( ));
 			}
@@ -256,7 +256,7 @@ public class UpliftCrud {
 	private Uplift getSelectedUplift(Employee empl, JTable table) {
 		String indice = table.getModel( ).getValueAt(table.getSelectedRow( ), 1)
 						.toString( );
-		Date date = DateUtils.parseDate(
+		Date date = DateUtil.parseDate(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
 							.toString( ));
 		short grade = Short.parseShort(
@@ -269,7 +269,7 @@ public class UpliftCrud {
 		int theID = XmlFile.getUpliftId(
 			empl.getElement( ), table.getSelectedRow( ));
 		Uplift u = new Uplift(theID, indice, date, grade, rank);
-		u.setEmployeeRefrence(empl.getReference( ));
+		u.setEmployeeReference(empl.getEmployeeReference( ));
 		return u;
 	}
 

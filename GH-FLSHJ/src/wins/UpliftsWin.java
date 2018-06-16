@@ -162,7 +162,7 @@ public class UpliftsWin {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					new InfoWin(new Employee(
-						getSelectedUplift(tbl_pending).getEmployeeRefrence( )))
+						getSelectedUplift(tbl_pending).getEmployeeReference( )))
 										.getFrame( ).setVisible(true);
 				} catch (Exception x) {
 					System.err.println(x.getMessage( ));
@@ -189,7 +189,7 @@ public class UpliftsWin {
 
 		int theID = XmlFile.getLastUpliftId(empl.getElement( )) + 1;
 		Uplift u = new Uplift(theID, indice, date, grade, rank);
-		u.setEmployeeRefrence(empl.getReference( ));
+		u.setEmployeeReference(empl.getEmployeeReference( ));
 
 		return u;
 	}

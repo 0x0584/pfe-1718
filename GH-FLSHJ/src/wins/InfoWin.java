@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.Cadre;
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.XmlFile;
 import model.Employee;
 import model.Modeling;
@@ -249,7 +249,7 @@ public class InfoWin {
 		btndip.setBounds(425, 0, 117, 25);
 		panel_5.add(btndip);
 
-		tf_bdate = new JTextField(DateUtils.parseDate(empl.getBirthDay( )));
+		tf_bdate = new JTextField(DateUtil.parseDate(empl.getBirthDay( )));
 		tf_bdate.setColumns(10);
 		tf_bdate.setBounds(135, 103, 148, 29);
 		panel_1.add(tf_bdate);
@@ -310,13 +310,13 @@ public class InfoWin {
 		lblCurrentJob.setBounds(17, 143, 111, 15);
 		panel_2.add(lblCurrentJob);
 
-		tf_ref = new JTextField(empl.getReference( ));
+		tf_ref = new JTextField(empl.getEmployeeReference( ));
 		tf_ref.setColumns(10);
 		tf_ref.setBounds(128, 70, 148, 29);
 		panel_2.add(tf_ref);
 
 		tf_date_hiring = new JTextField(
-			DateUtils.parseDate(empl.getHiringDate( )));
+			DateUtil.parseDate(empl.getHiringDate( )));
 		tf_date_hiring.setColumns(10);
 		tf_date_hiring.setBounds(410, 37, 148, 29);
 		panel_2.add(tf_date_hiring);
@@ -336,7 +336,7 @@ public class InfoWin {
 		tf_job_current.setBounds(128, 136, 148, 29);
 		panel_2.add(tf_job_current);
 
-		tf_date_join = new JTextField(DateUtils.parseDate(empl.getJoinDate( )));
+		tf_date_join = new JTextField(DateUtil.parseDate(empl.getJoinDate( )));
 		tf_date_join.setColumns(10);
 		tf_date_join.setBounds(410, 70, 148, 29);
 		panel_2.add(tf_date_join);
@@ -487,7 +487,7 @@ public class InfoWin {
 		panel_3.add(tp_notes);
 
 		JLabel lblM = new JLabel(
-			String.format("ب.ت.و.: %s", empl.getReference( )));
+			String.format("ب.ت.و.: %s", empl.getEmployeeReference( )));
 		lblM.setBounds(134, 13, 141, 15);
 		panel_3.add(lblM);
 
@@ -500,14 +500,14 @@ public class InfoWin {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
-				Employee nempl = new Employee(empl.getReference( ));
+				Employee nempl = new Employee(empl.getEmployeeReference( ));
 				nempl.setNotes(tp_notes.getText( ));
 				nempl.setDepartment(tf_d.getText( ));
 
 				nempl.setName(tf_name.getText( ));
 				nempl.setFamilyname(tf_fname.getText( ));
 				nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
-				nempl.setBirthDay(DateUtils.parseDate(tf_bdate.getText( )));
+				nempl.setBirthDay(DateUtil.parseDate(tf_bdate.getText( )));
 
 				nempl.setBirthPlace(tf_bplace.getText( ));
 				nempl.setAddress(tf_addr.getText( ));
@@ -520,12 +520,12 @@ public class InfoWin {
 				nempl.setPartnerName(tf_partner_name.getText( ));
 				nempl.setPartnerJob(tf_partner_job.getText( ));
 
-				nempl.setReference(tf_ref.getText( ));
+				nempl.setEmployeeReference(tf_ref.getText( ));
 				nempl.setCIN(tf_cin.getText( ));
 				nempl.setMission(tf_mission.getText( ));
-				nempl.setJoinDate(DateUtils.parseDate(tf_date_join.getText( )));
+				nempl.setJoinDate(DateUtil.parseDate(tf_date_join.getText( )));
 				nempl.setHiringDate(
-					DateUtils.parseDate(tf_date_hiring.getText( )));
+					DateUtil.parseDate(tf_date_hiring.getText( )));
 
 				nempl.setPreviousJob(tf_job_prev.getText( ));
 				nempl.setCurrentJob(tf_job_current.getText( ));
@@ -568,7 +568,7 @@ public class InfoWin {
 					nempl.setName(tf_name.getText( ));
 					nempl.setFamilyname(tf_fname.getText( ));
 					nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
-					nempl.setBirthDay(DateUtils.parseDate(tf_bdate.getText( )));
+					nempl.setBirthDay(DateUtil.parseDate(tf_bdate.getText( )));
 
 					nempl.setBirthPlace(tf_bplace.getText( ));
 					nempl.setAddress(tf_addr.getText( ));
@@ -583,13 +583,13 @@ public class InfoWin {
 					String strr = tf_ref.getText( ).compareTo("") == 0 ? ""
 									+ (XmlFile.getlastEmployeeReference( ) + 1)
 									: tf_ref.getText( );
-					nempl.setReference(strr);
+					nempl.setEmployeeReference(strr);
 					nempl.setCIN(tf_cin.getText( ));
 					nempl.setMission(tf_mission.getText( ));
 					nempl.setJoinDate(
-						DateUtils.parseDate(tf_date_join.getText( )));
+						DateUtil.parseDate(tf_date_join.getText( )));
 					nempl.setHiringDate(
-						DateUtils.parseDate(tf_date_hiring.getText( )));
+						DateUtil.parseDate(tf_date_hiring.getText( )));
 
 					nempl.setPreviousJob(tf_job_prev.getText( ));
 					nempl.setCurrentJob(tf_job_current.getText( ));
@@ -606,12 +606,12 @@ public class InfoWin {
 			private void clearFields( ) {
 				tp_notes.setText("");
 				tf_addr.setText("");
-				tf_bdate.setText(DateUtils.parseDate(new Date( )));
+				tf_bdate.setText(DateUtil.parseDate(new Date( )));
 				tf_bplace.setText("");
 				tf_cin.setText("");
 				tf_d.setText("");
-				tf_date_hiring.setText(DateUtils.parseDate(new Date( )));
-				tf_date_join.setText(DateUtils.parseDate(new Date( )));
+				tf_date_hiring.setText(DateUtil.parseDate(new Date( )));
+				tf_date_join.setText(DateUtil.parseDate(new Date( )));
 				tf_finance.setText("");
 				tf_fname.setText("");
 				tf_job_current.setText("");

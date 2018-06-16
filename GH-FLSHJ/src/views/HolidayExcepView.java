@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.Period;
-import app.utils.DateUtils;
+import app.utils.DateUtil;
 import app.utils.Printer;
 import model.Employee;
 
@@ -43,7 +43,7 @@ public class HolidayExcepView {
 				try {
 					HolidayExcepView window = new HolidayExcepView(
 						new Employee( ), "Des raisons personnelle", new Date( ),
-						DateUtils.add(Period.ONE_WEEK, new Date( ), 1));
+						DateUtil.add(Period.ONE_WEEK, new Date( ), 1));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -170,13 +170,13 @@ public class HolidayExcepView {
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
-			String.format("S.O.M.: %s", e.getReference( )));
+			String.format("S.O.M.: %s", e.getEmployeeReference( )));
 		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_7.setBounds(110, 559, 431, 33);
 		frame.getContentPane( ).add(label_7);
 
 		JLabel lblElJadidaLe = new JLabel(String.format(
-			"El Jadida le: %s", DateUtils.parseDate(new Date( ))));
+			"El Jadida le: %s", DateUtil.parseDate(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblElJadidaLe.setBounds(270, 816, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
@@ -261,8 +261,8 @@ public class HolidayExcepView {
 		frame.getContentPane( ).add(label_14);
 
 		JLabel label_15 = new JLabel(String.format(
-			"un conge exceptionnel du %s a %s", DateUtils.parseDate(from),
-			DateUtils.parseDate(to)));
+			"un conge exceptionnel du %s a %s", DateUtil.parseDate(from),
+			DateUtil.parseDate(to)));
 		label_15.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_15.setBounds(176, 426, 566, 33);
 		frame.getContentPane( ).add(label_15);

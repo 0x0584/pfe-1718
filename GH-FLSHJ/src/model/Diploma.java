@@ -164,12 +164,6 @@ public class Diploma extends XmlElement<Diploma> {
 	}
 
 	@Override
-	public Element getLast( ) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Element getElement( ) {
 		// TODO Auto-generated method stub
 		return null;
