@@ -1,11 +1,16 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
+import app.Period;
 import app.utils.DateUtil;
 import app.utils.XmlElement;
 import app.utils.XmlFile;
@@ -73,7 +78,7 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 	@Override
 	public boolean add( ) {
 		try {
-			Element empl = XmlFile.getEmployee(empl_ref);
+			Element empl = Employee.getEmployeeElement(empl_ref);
 			Element med = new Element("medicalcertif");
 			Element from = new Element("from");
 			Element ndays = new Element("ndays");
@@ -84,7 +89,7 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 			period.addContent(this.period);
 
 			Attribute id = new Attribute("id",
-				"" + (XmlFile.getLastMedicalId(empl) + 1));
+				"" + (MedicalCertif.getLastMedicalXmlId(empl) + 1));
 			med.setAttribute(id);
 			med.addContent(from);
 			med.addContent(ndays);
@@ -103,7 +108,7 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 	@Override
 	public boolean update(MedicalCertif updated) {
 		try {
-			Element e = XmlFile.getEmployee(empl_ref);
+			Element e = Employee.getEmployeeElement(empl_ref);
 			List<Element> list = e.getChildren("medicalcertif");
 
 			for (Element el : list) {
@@ -128,7 +133,7 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 	@Override
 	public boolean remove( ) {
 		try {
-			Element e = XmlFile.getEmployee(empl_ref);
+			Element e = Employee.getEmployeeElement(empl_ref);
 			List<Element> list = e.getChildren("medicalcertif");
 
 			for (Element el : list) {
@@ -149,9 +154,64 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 
 	@Override
 	public Element getElement( ) {
-		// TODO Auto-generated method stub
+		Element empl = Employee.getEmployeeElement(empl_ref);
+		List<Element> dlist = empl.getChildren("medicalcertif");
+
+		for (Element e : dlist) {
+			if (e.getAttributeValue("id").compareTo("" + id) == 0) { return e; }
+		}
+
 		return null;
 	}
 
+	public static TableModel getMedicalModel(Employee empl) {
+		DefaultTableModel model = new DefaultTableModel( );
+		for (String col : new String[] {
+						"من", "إلى", "عدد الأيام", "عطلة"
+		}) {
+			model.addColumn(col);
+		}
+		for (MedicalCertif c : getMedicalCertifs(
+			Employee.getEmployeeElement(empl.getEmployeeReference( )))) {
+			Date from = c.getFrom( );
+			Date to = DateUtil.add(
+				Period.ONE_DAY, c.getFrom( ), c.getNumberOfDays( ));
+			model.addRow(new String[] {
+							DateUtil.parseDate(from), DateUtil.parseDate(to),
+							"" + c.getNumberOfDays( ), c.getPeriod( )
+			});
+		}
+	
+		return model;
+	}
+
+	public static ArrayList<MedicalCertif> getMedicalCertifs(Employee empl) {
+		return getMedicalCertifs(empl.getElement( ));
+	}
+
+	public static ArrayList<MedicalCertif> getMedicalCertifs(Element empl) {
+		List<Element> dlist = empl.getChildren("medicalcertif");
+		ArrayList<MedicalCertif> tmp = new ArrayList<MedicalCertif>( );
+		for (Element e : dlist) {
+			MedicalCertif m = new MedicalCertif( );
+			m.setEmployeeReference(empl.getAttributeValue("reference"));
+			m.setId(Integer.parseInt(e.getAttributeValue("id")));
+			m.setFrom(DateUtil.parseDate(e.getChildTextTrim("from")));
+			m.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
+			m.setPeriod(e.getChildTextTrim("period"));
+
+			tmp.add(m);
+		}
+
+		return tmp;
+	}
+
+	public static int getMedicalCertifXmlId(Element empl, int limit) {
+		return XmlFile.getChildId("medicalcertif", empl, limit);
+	}
+
+	public static int getLastMedicalXmlId(Element empl) {
+		return XmlFile.getChildId("medicalcertif", empl, Integer.MAX_VALUE);
+	}
 
 }

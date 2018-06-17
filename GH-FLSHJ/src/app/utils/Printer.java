@@ -11,7 +11,7 @@ import java.awt.print.PrinterJob;
 
 public class Printer implements Printable {
 	private final Component comp;
-	public final static int STD_WIDTH = 733, STD_HEIGHT = 2073;
+	public final static int A4_STD_WIDTH = 733, A4_STD_HEIGHT = 2073;
 
 	public Printer(Component comp) {
 		this.comp = comp;

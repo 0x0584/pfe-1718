@@ -71,7 +71,7 @@ public class HolidayAdminiView {
 
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
-		frame.setBounds(100, 100, Printer.STD_WIDTH, Printer.STD_HEIGHT);
+		frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 

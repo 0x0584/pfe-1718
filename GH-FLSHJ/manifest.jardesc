@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="/home/arubu/Untitled.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/GH-FLSHJ/manifest.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="true" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="false" mainClassHandleIdentifier="=GH-FLSHJ/src&lt;wins{MainWin.java[MainWin" manifestLocation="/GH-FLSHJ/MANIFEST.mf" manifestVersion="1.0" reuseManifest="true" saveManifest="true" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <file path="/GH-FLSHJ/.classpath"/>
+        <file path="/GH-FLSHJ/.project"/>
+        <folder path="/GH-FLSHJ/data"/>
+        <folder path="/GH-FLSHJ/jars"/>
+        <javaElement handleIdentifier="=GH-FLSHJ/src"/>
+    </selectedElements>
+</jardesc>

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,19 +20,23 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
+
+import org.jdom2.Element;
 
 import com.alee.laf.WebLookAndFeel;
 
 import app.SearchField;
 import app.utils.DateUtil;
+import app.utils.XmlFile;
 import app.EmployeeType;
 import model.Employee;
-import model.Modeling;
 import views.AttTravailView;
 import views.HolidayAdminiView;
 import views.HolidayExcepView;
 import views.HolidayToQuitView;
 import views.NotationView;
+import wins.crud.InfoCrud;
 import wins.crud.MedicalCrud;
 import wins.crud.RepaymentCrud;
 import app.Holiday;
@@ -104,7 +109,7 @@ public class MainWin {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		// add all the employee to the table
-		table = new JTable(Modeling.getDefaultModel(type));
+		table = new JTable(MainWin.getDefaultModel(type));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setupJTable(table);
 
@@ -124,7 +129,7 @@ public class MainWin {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
 				type = EmployeeType.filter(a, b);
-				table.setModel(Modeling.getDefaultModel(type));
+				table.setModel(MainWin.getDefaultModel(type));
 				setupJTable(table);
 			}
 		});
@@ -134,7 +139,7 @@ public class MainWin {
 				boolean a = profchk.isSelected( );
 				boolean b = emplchk.isSelected( );
 				type = EmployeeType.filter(a, b);
-				table.setModel(Modeling.getDefaultModel(type));
+				table.setModel(MainWin.getDefaultModel(type));
 				setupJTable(table);
 			}
 		});
@@ -147,7 +152,7 @@ public class MainWin {
 			// this would create a new `Employee` based on the selected row and
 			// create a new `InfoWin` to show all of it's info
 			public void actionPerformed(ActionEvent e) {
-				new InfoWin(new Employee(
+				new InfoCrud(new Employee(
 					table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
 									.toString( ))).getFrame( ).setVisible(true);
 			}
@@ -197,7 +202,7 @@ public class MainWin {
 
 				searchfield = (SearchField) comboFields.getSelectedItem( );
 				table.setModel(
-					Modeling.getDefaultModel(text, searchfield, type));
+					MainWin.getDefaultModel(text, searchfield, type));
 				setupJTable(table);
 			}
 		});
@@ -399,7 +404,7 @@ public class MainWin {
 		button_3.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				// refresh
-				table.setModel(Modeling.getDefaultModel(type));
+				table.setModel(MainWin.getDefaultModel(type));
 				setupJTable(table);
 			}
 		});
@@ -429,5 +434,69 @@ public class MainWin {
 		return new Employee(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), REF_INDEX)
 							.toString( ));
+	}
+
+	public static DefaultTableModel getDefaulModelColumns( ) {
+		DefaultTableModel model = new DefaultTableModel( );
+	
+		model.addColumn("ر.ت.");
+		model.addColumn("ب.ت.و.");
+		model.addColumn("الإسم");
+		model.addColumn("النسب");
+		// model.addColumn("السلم");
+		// model.addColumn("الرتبة");
+		// model.addColumn("عدد الشواهد");
+	
+		return model;
+	}
+
+	public static DefaultTableModel getDefaultModel(EmployeeType t) {
+		return (DefaultTableModel) getDefaultModel(null, null, t);
+	}
+
+	public static DefaultTableModel getDefaultModel(String text, SearchField sf,
+		EmployeeType t) {
+		DefaultTableModel model = MainWin.getDefaulModelColumns( );
+		Iterator<Element> ifoo; // temporary iterators
+		Element foo; // temporary elements
+		// String scale = null, echlon = null;
+		boolean filter = !(sf == null || text.compareTo("") == 0);
+	
+		// loop over the employee
+		ifoo = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
+		while (ifoo.hasNext( )) {
+			foo = ifoo.next( );
+	
+			// skip unwanted elements
+			if (filter && !foo.getChild(sf.getParent( ))
+							.getChildTextTrim(sf.getXmlTag( )).toLowerCase( )
+							.contains(text.toLowerCase( ))) {
+				continue;
+			}
+	
+			// skip employee based on filter
+			if (t == EmployeeType.Normal && foo.getAttributeValue("department")
+							.compareTo("nil") != 0) {
+				continue; // this means that this is a professor
+			} else if (t == EmployeeType.Prof
+							&& foo.getAttributeValue("department")
+											.compareTo("nil") == 0) {
+				continue; // this means that this is a normal one
+			}
+	
+			// add row to model
+			model.addRow(new String[] {
+							foo.getAttributeValue("reference"),
+							foo.getChild("administrative")
+											.getChildTextTrim("cin"),
+							foo.getChild("personal").getChildTextTrim("name"),
+							foo.getChild("personal")
+											.getChildTextTrim("familyname"),
+							// scale, echlon, String.format(
+							// "%d", foo.getChildren("diplomas").size( ))
+			});
+		}
+	
+		return model;
 	}
 }

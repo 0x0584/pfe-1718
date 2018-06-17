@@ -1,4 +1,4 @@
-package wins;
+package wins.crud;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -32,13 +32,13 @@ import com.alee.laf.WebLookAndFeel;
 
 import app.Cadre;
 import app.utils.DateUtil;
-import app.utils.XmlFile;
+import model.Diploma;
 import model.Employee;
-import model.Modeling;
+import model.Uplift;
 import wins.crud.DiplomaCrud;
 import wins.crud.UpliftCrud;
 
-public class InfoWin {
+public class InfoCrud {
 
 	private JFrame frame;
 
@@ -80,7 +80,7 @@ public class InfoWin {
 			public void run( ) {
 				try {
 
-					InfoWin window = new InfoWin(new Employee( ));
+					InfoCrud window = new InfoCrud(new Employee( ));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace( );
@@ -94,7 +94,7 @@ public class InfoWin {
 	 * 
 	 * @param employee
 	 */
-	public InfoWin(Employee e) {
+	public InfoCrud(Employee e) {
 		initialize(e);
 	}
 
@@ -237,7 +237,7 @@ public class InfoWin {
 		scrollPane.setBounds(0, 24, 542, 129);
 		panel_5.add(scrollPane);
 
-		tbl_diplomas = new JTable(Modeling.getDiplomasModel(empl));
+		tbl_diplomas = new JTable(Diploma.getDiplomasModel(empl));
 		scrollPane.setViewportView(tbl_diplomas);
 
 		JButton btndip = new JButton("تعديل");
@@ -359,7 +359,7 @@ public class InfoWin {
 		scrollPane_1.setBounds(0, 27, 542, 126);
 		panel_6.add(scrollPane_1);
 
-		tbl_uplifts = new JTable(Modeling.getUpliftModel(empl));
+		tbl_uplifts = new JTable(Uplift.getUpliftModel(empl));
 		scrollPane_1.setViewportView(tbl_uplifts);
 
 		JButton btnup = new JButton("تعديل");
@@ -543,8 +543,8 @@ public class InfoWin {
 		JButton button = new JButton("*");
 		button.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				tbl_diplomas.setModel(Modeling.getDiplomasModel(empl));
-				tbl_uplifts.setModel(Modeling.getUpliftModel(empl));
+				tbl_diplomas.setModel(Diploma.getDiplomasModel(empl));
+				tbl_uplifts.setModel(Uplift.getUpliftModel(empl));
 			}
 		});
 		button.setBounds(361, 525, 40, 25);
@@ -581,7 +581,7 @@ public class InfoWin {
 					nempl.setPartnerName(tf_partner_name.getText( ));
 					nempl.setPartnerJob(tf_partner_job.getText( ));
 					String strr = tf_ref.getText( ).compareTo("") == 0 ? ""
-									+ (XmlFile.getlastEmployeeReference( ) + 1)
+									+ (Employee.getLastEmployeeXmlReference( ) + 1)
 									: tf_ref.getText( );
 					nempl.setEmployeeReference(strr);
 					nempl.setCIN(tf_cin.getText( ));

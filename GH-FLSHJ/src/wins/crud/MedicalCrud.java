@@ -21,10 +21,8 @@ import javax.swing.ListSelectionModel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.utils.DateUtil;
-import app.utils.XmlFile;
 import model.Employee;
 import model.MedicalCertif;
-import model.Modeling;
 
 public class MedicalCrud {
 
@@ -117,14 +115,16 @@ public class MedicalCrud {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
+				
 				MedicalCertif oldc = getSelectedMedical(empl, table);
 				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
 					DateUtil.parseDate(tf_from.getText( )),
 					Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
+				newc.setEmployeeReference(empl.getEmployeeReference( ));
 				newc.update(newc);
 				table.setModel(
-					Modeling.getMedicalModel(
-						XmlFile.initEmployee(
+					MedicalCertif.getMedicalModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_from.setText("");
 				tf_ndays.setText("");
@@ -142,8 +142,8 @@ public class MedicalCrud {
 				MedicalCertif oldc = getSelectedMedical(empl, table);
 				oldc.remove( );
 				table.setModel(
-					Modeling.getMedicalModel(
-						XmlFile.initEmployee(
+					MedicalCertif.getMedicalModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_from.setText("");
 				tf_ndays.setText("");
@@ -159,13 +159,13 @@ public class MedicalCrud {
 					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 					if (dialogResult != JOptionPane.YES_OPTION) return;
 					MedicalCertif m = new MedicalCertif(
-						XmlFile.getLastMedicalId(empl.getElement( )) + 1,
+						MedicalCertif.getLastMedicalXmlId(empl.getElement( )) + 1,
 						DateUtil.parseDate(tf_from.getText( )),
 						Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
 					m.add( );
 					table.setModel(
-						Modeling.getMedicalModel(
-							XmlFile.initEmployee(
+						MedicalCertif.getMedicalModel(
+							Employee.initEmployee(
 								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
@@ -183,7 +183,7 @@ public class MedicalCrud {
 		btnAdd.setBounds(471, 365, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
-		table = new JTable(Modeling.getMedicalModel(empl));
+		table = new JTable(MedicalCertif.getMedicalModel(empl));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -218,7 +218,7 @@ public class MedicalCrud {
 							.toString( ));
 		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 						.toString( );
-		int theID = XmlFile.getMedicalCertifId(
+		int theID = MedicalCertif.getMedicalCertifXmlId(
 			empl.getElement( ), table.getSelectedRow( ));
 		MedicalCertif m = new MedicalCertif(theID, from, ndays, period);
 		m.setEmployeeReference(empl.getEmployeeReference( ));

@@ -21,9 +21,7 @@ import javax.swing.ListSelectionModel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.utils.DateUtil;
-import app.utils.XmlFile;
 import model.Employee;
-import model.Modeling;
 import model.Uplift;
 
 public class UpliftCrud {
@@ -153,10 +151,11 @@ public class UpliftCrud {
 					DateUtil.parseDate(tf_date.getText( )),
 					Short.parseShort(tf_grade.getText( )),
 					Short.parseShort(tf_rank.getText( )));
+				old_r.setEmployeeReference(empl.getEmployeeReference( ));
 				old_r.update(new_r);
 				table.setModel(
-					Modeling.getUpliftModel(
-						XmlFile.initEmployee(
+					Uplift.getUpliftModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_indice.setText("");
 				tf_date.setText("");
@@ -176,8 +175,8 @@ public class UpliftCrud {
 				Uplift r = getSelectedUplift(empl, table);
 				r.remove( );
 				table.setModel(
-					Modeling.getUpliftModel(
-						XmlFile.initEmployee(
+					Uplift.getUpliftModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_indice.setText("");
 				tf_date.setText("");
@@ -195,7 +194,7 @@ public class UpliftCrud {
 					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 					if (dialogResult != JOptionPane.YES_OPTION) return;
 					Uplift new_r = new Uplift(
-						XmlFile.getLastUpliftId(empl.getElement( )) + 1,
+						Uplift.getLastUpliftXmlId(empl.getElement( )) + 1,
 						tf_indice.getText( ),
 						DateUtil.parseDate(tf_date.getText( )),
 						Short.parseShort(tf_grade.getText( )),
@@ -203,8 +202,8 @@ public class UpliftCrud {
 					new_r.setEmployeeReference(empl.getEmployeeReference( ));
 					new_r.add( );
 					table.setModel(
-						Modeling.getUpliftModel(
-							XmlFile.initEmployee(
+						Uplift.getUpliftModel(
+							Employee.initEmployee(
 								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
@@ -224,7 +223,7 @@ public class UpliftCrud {
 		btnAdd.setBounds(580, 475, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
-		table = new JTable(Modeling.getUpliftModel(empl));
+		table = new JTable(Uplift.getUpliftModel(empl));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -266,7 +265,7 @@ public class UpliftCrud {
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 							.toString( ));
 
-		int theID = XmlFile.getUpliftId(
+		int theID = Uplift.getUpliftXmlId(
 			empl.getElement( ), table.getSelectedRow( ));
 		Uplift u = new Uplift(theID, indice, date, grade, rank);
 		u.setEmployeeReference(empl.getEmployeeReference( ));

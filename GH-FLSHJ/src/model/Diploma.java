@@ -1,6 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import org.jdom2.Attribute;
 import org.jdom2.Element;
@@ -86,7 +90,7 @@ public class Diploma extends XmlElement<Diploma> {
 	@Override
 	public boolean add( ) {
 		try {
-			Element empl = XmlFile.getEmployee(empl_ref);
+			Element empl = Employee.getEmployeeElement(empl_ref);
 			Element diploma = new Element("diplomas");
 			Element title = new Element("diploma");
 			Element inst = new Element("institute");
@@ -97,7 +101,7 @@ public class Diploma extends XmlElement<Diploma> {
 			sess.addContent(session);
 
 			Attribute id = new Attribute("id",
-				"" + (XmlFile.getLastDiplomaId(empl) + 1));
+				"" + (Diploma.getLastDiplomaXmlId(empl) + 1));
 			diploma.setAttribute(id);
 			diploma.addContent(title);
 			diploma.addContent(inst);
@@ -117,7 +121,7 @@ public class Diploma extends XmlElement<Diploma> {
 	@Override
 	public boolean update(Diploma updated) {
 		try {
-			Element e = XmlFile.getEmployee(empl_ref);
+			Element e = Employee.getEmployeeElement(empl_ref);
 			List<Element> list = e.getChildren("diplomas");
 
 			for (Element el : list) {
@@ -144,7 +148,7 @@ public class Diploma extends XmlElement<Diploma> {
 	@Override
 	public boolean remove( ) {
 		try {
-			Element e = XmlFile.getEmployee(empl_ref);
+			Element e = Employee.getEmployeeElement(empl_ref);
 			List<Element> list = e.getChildren("diplomas");
 
 			for (Element el : list) {
@@ -165,8 +169,67 @@ public class Diploma extends XmlElement<Diploma> {
 
 	@Override
 	public Element getElement( ) {
-		// TODO Auto-generated method stub
+		Element empl = Employee.getEmployeeElement(empl_ref);
+		List<Element> dlist = empl.getChildren("diplomas");
+
+		for (Element e : dlist) {
+			if (e.getAttributeValue("id").compareTo("" + id) == 0) return e;
+		}
+
 		return null;
+	}
+
+	public static TableModel getDiplomasModel(Employee empl) {
+		DefaultTableModel model = new DefaultTableModel( );
+	
+		for (String str : new String[] {
+						"تاريخ الحصول عليها", "المؤسسة",
+	
+						"الميزة", "الشهادات",
+		}) {
+			model.addColumn(str);
+		}
+	
+		for (Diploma d : getDiplomas(
+			Employee.getEmployeeElement(empl.getEmployeeReference( )))) {
+			model.addRow(new String[] {
+							d.getSession( ), d.getInstitue( ),
+							d.getMention( ).toString( ), d.getTitle( )
+			});
+		}
+	
+		return model;
+	}
+
+	public static int getLastDiplomaXmlId(Element empl) {
+		return XmlFile.getChildId("diplomas", empl, Integer.MAX_VALUE);
+	}
+
+	public static ArrayList<Diploma> getDiplomas(Employee empl) {
+		return getDiplomas(empl.getElement( ));
+	}
+
+	public static ArrayList<Diploma> getDiplomas(Element empl) {
+		ArrayList<Diploma> tmp = new ArrayList<Diploma>( );
+		List<Element> dlist = empl.getChildren("diplomas");
+
+		for (Element e : dlist) {
+			Diploma d = new Diploma( );
+			d.setEmployeeReference(empl.getAttributeValue("reference"));
+			d.setInstitue(e.getChildTextTrim("institute"));
+			d.setMention(
+				Mention.parseMention(
+					e.getChild("diploma").getAttributeValue("mention")));
+			d.setSession(e.getChildTextTrim("session"));
+			d.setTitle(e.getChildTextTrim("diploma"));
+			tmp.add(d);
+		}
+
+		return tmp;
+	}
+
+	public static int getDiplomaXmlId(Element empl, int limit) {
+		return XmlFile.getChildId("diplomas", empl, limit);
 	}
 
 }

@@ -22,10 +22,8 @@ import javax.swing.ListSelectionModel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.Mention;
-import app.utils.XmlFile;
 import model.Diploma;
 import model.Employee;
-import model.Modeling;
 
 public class DiplomaCrud {
 
@@ -132,10 +130,11 @@ public class DiplomaCrud {
 					tf_ins.getText( ), tf_session.getText( ),
 					Mention.parseMention(
 						comboMen.getSelectedItem( ).toString( )));
+				d.setEmployeeReference(empl.getEmployeeReference( ));
 				old.update(d);
 				table.setModel(
-					Modeling.getDiplomasModel(
-						XmlFile.initEmployee(
+					Diploma.getDiplomasModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_session.setText("");
 				tf_ins.setText("");
@@ -153,8 +152,8 @@ public class DiplomaCrud {
 				Diploma d = getSelectedDiploma(empl, table);
 				d.remove( );
 				table.setModel(
-					Modeling.getDiplomasModel(
-						XmlFile.initEmployee(
+					Diploma.getDiplomasModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_session.setText("");
 				tf_ins.setText("");
@@ -170,15 +169,15 @@ public class DiplomaCrud {
 					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 					if (dialogResult != JOptionPane.YES_OPTION) return;
 					Diploma d = new Diploma(
-						XmlFile.getLastDiplomaId(empl.getElement( )) + 1,
+						Diploma.getLastDiplomaXmlId(empl.getElement( )) + 1,
 						tf_title.getText( ), tf_ins.getText( ),
 						tf_session.getText( ), Mention.parseMention(
 							comboMen.getSelectedItem( ).toString( )));
 					d.add( );
 
 					table.setModel(
-						Modeling.getDiplomasModel(
-							XmlFile.initEmployee(
+						Diploma.getDiplomasModel(
+							Employee.initEmployee(
 								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
@@ -196,7 +195,7 @@ public class DiplomaCrud {
 		btnAdd.setBounds(441, 459, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
-		table = new JTable(Modeling.getDiplomasModel(empl));
+		table = new JTable(Diploma.getDiplomasModel(empl));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -235,7 +234,7 @@ public class DiplomaCrud {
 		Mention mention = Mention.parseMention(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		int theID = XmlFile.getDiplomaId(
+		int theID = Diploma.getDiplomaXmlId(
 			empl.getElement( ), table.getSelectedRow( ));
 		Diploma d = new Diploma(theID, title, institue, session, mention);
 		d.setEmployeeReference(empl.getEmployeeReference( ));

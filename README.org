@@ -22,8 +22,12 @@
 #+LaTeX_HEADER:     urlcolor=blue
 #+LaTeX_HEADER: }
 #+LaTeX_HEADER: \usemintedstyle{friendly}
-
-[[./front.pdf]]
+# [[./front.pdf]]
+#+LaTeX_HEADER: \usepackage{fancyhdr}
+#+LaTeX_HEADER: \pagestyle{fancy}
+#+LaTeX_HEADER: \fancyhf{}
+#+LaTeX_HEADER: \fancyhead[L]{\rightmark}
+#+LaTeX_HEADER: \fancyhead[R]{\thepage}
 
 #+LATEX_COMPILER: pdflatex
 #+LATEX: \tableofcontents
@@ -69,24 +73,46 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
 * Conception
 ** Stockage des données en XML
-   Les données sont stockée dans un fichier =XML=, =data/xml/hr.xml= qui a le markup suivant:
+      Les données sont stockées dans un fichier =XML=, =data/xml/hr.xml=. La raison de choisir ce type de stockage c'est que il est lisible soit au niveau du machine soit au niveau d'humain. Au suivant, les regles du gestion est schema general du fichier.
 
+*** Règles de gestion du fichier =XML=
+    Le root-tag est =<Employee>= est qui contient plusieurs tags de type =<employee>= qui représente des employées. Et chaque tag =<employee>= contient un seul tag =<personal>=, un seul tag =<administrative>= qui peut contient =0= ou plusieurs tags =<uplift>=. Le tag =<employee>= peut aussi avoir =0= ou plusieurs tags de type =<diploma>=, =<medicalcertif>= et =<repayment>=.\\
+
+    Voici la signification de chaque tag des tags déclaré ci-dessus:
+
++ =<Employee>= :: le root-tag, qui contient les tags =employee=
++ =<employee>= :: contient tout les information d'un employée particulier est il avais deux attributes:
++ *reference* identifiant du employée
++ *departement* département du employée. Certains employée n'appartient à aucun département. Ce sont des /fonctionnaire/
++ =<personal>= :: contient des informations personnelle comme le /nom/, /prénom/, /date de naissance/, etc.
++ =<administrative>= :: contient des informations administrative comme le /SOM/, /CIN/, etc.
++ =<uplift>= :: contient les informations des avancements dans le grade, /date/, /indice/, /échelon/ et /échelle/. Ce tag avais un seul attribut.
++ *id* identifiant du avancement par rapport au avancement précédant
++ =<diploma>= :: contient les informations sur les diplômes, /titre/, /mention/, /institue/ et /session/. Ce tag a aussi un seul attribue, ainsi que l'enfant =<title>=.
++ *id* identifiant du diplôme
++ *mention* la mention du diplôme (dans le tag =<title>=)
++ =<medicalcertif>= :: contient les informations sur certification médical, /date du certification/, /durée/ et /la période/.
++ *id* identifiant du certification médical.
++ =<repayment>= :: contient les informations sur les remboursements, /la période/, /nombre des jours à rembourser/ et /nombre des jours déjà remboursé/
++ *id* identifiant du remboursement
+
+*** Schéma général du fichier
+   #+CAPTION: Schéma général =XML= du fichier =data/xml/hr.xml=
+   #+NAME: lis:hr-xml
    #+BEGIN_SRC xml -n
      <Employee>			<!--root-->
-
        <employee reference="" department="">
 
 	 <notes />			 <!--les note sur l'employé-->
 
 	 <personal>			 <!--les information personnelles-->
 	 </personal>
-    
+
 	 <administrative>		<!--les information administrative-->
-      
 	   <uplift id="" state="">	<!--les information d'avancement-->
 	   </uplift>
-	   <uplift id="" state="" />	<!--nous pouvons avoir plus-->
 
+	   <uplift id="" state="" />	<!--nous pouvons avoir plus-->
 	 </administrative>
 
 	 <diplomas id="">		<!--les infomration du diplôme-->
@@ -97,18 +123,13 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 	 </medicalcertif>
 	 <medicalcertif id="" />	<!--nous pouvons avoir plus-->
 
-	 <repayment id="">		<!--information du rémunération-->
+	 <repayment id="">		<!--information du remboursement-->
 	 </repayment>
 	 <repayment id="" />
-    
-     </employee>
-   #+END_SRC
 
-   + =<personal>= :: contient des information personnelle comme le /nom/, /prenom/, /date de naissannse/, etc.
-   + =<administrative>= :: contient des information administrative comme le /SOM/, /CIN/, etc.
-   + =<uplift>= :: contient des information d'avancement, /date/, /indice/, /échelon/ et /échelle/
-   + =<diploma>= :: contient des information sur le diplome, /titre/, /mention/, /institue/ et /session/
-   + =<>= :: 
+       </employee>
+     </Employee>
+   #+END_SRC
 
 ** Diag. UML des Classes
    Le code source de l'application est diviser en 4 packages pricipales, [[Package =model=][=model=]], [[Package =app=][=app=]], [[Package =wins=][=wins=]] et [[Package =views=][=views=]].
@@ -118,7 +139,7 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
    #+ATTR_LATEX: :width 10cm :center t
    [[./diags/Overview.png]]
    
-#+LATEX: \clearpage
+   #+LATEX: \clearpage
 *** Package =model=
 
     Ce package contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockée dans le fichier xml =data/xml/hr.xml= decris [[Stockage des données en XML][ici]].
@@ -175,35 +196,84 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
     #+END_SRC
  
 *** Package =app=
-    le pkg =app= contient que des enumeration, decris dans le figure [[fig:app]]: 
+    le package =app= contient que les enumeration, decris dans le figure [[fig:app]].
 
-    + =Cadre= ::
-    + =Mention= ::
-    + =Period= ::
-    + =Holiday= ::
+    + =Cadre= :: represente les candres possible pour un employee/fonctionnaire
+    + =Mention= :: les mentions possible pour un diplome
+    + =Period= :: les different period utilise dans l'application
+    + =Holiday= :: utilise dans 
     + =SearchField= ::
     + =EmployeeType= ::
     + =Files= :: 
 
     #+CAPTION: Les enumeration dans pkg =app=
     #+NAME:   fig:app 
-    #+ATTR_LATEX: :width 10cm :center t
+    #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewOnApp.png]]
 
-**** Package =app.utils=
-     #+CAPTION: La relation entre =JTable=, =TableListener=, et =Printer= du pkg =app.utils=
-     #+NAME:   fig:apputils0 
-     #+ATTR_LATEX: :width 10cm :center t
-     [[./diags/OverviewAppUtils0.png]]
+*** Package =app.utils=
+    #+CAPTION: La relation entre =JTable=, =TableListener=, et =Printer= du pkg =app.utils=
+    #+NAME:   fig:apputils0 
+    #+ATTR_LATEX: :width 14cm :center t
+    [[./diags/OverviewAppUtils0.png]]
 
-     #+CAPTION: La relation entre =DateUtils=, =XmlFile= et =XmlElement=
-     #+NAME:   fig:apputils1 
-     #+ATTR_LATEX: :width 10cm :center t
-     [[./diags/OverviewAppUtils1.png]]
+    #+CAPTION: La relation entre =DateUtils=, =XmlFile= et =XmlElement=
+    #+NAME:   fig:apputils1 
+    #+ATTR_LATEX: :width 14cm :center t
+    [[./diags/OverviewAppUtils1.png]]
 
 * L'Interface Graphique
-** Package =wins=
-** Package =views=
+** La relation entre les différent classe graphique
+
+   \vspace*{\fill}
+   #+CAPTION: Aperçu général sur les interfaces graphiques utilisé dans l'application
+   #+NAME: fig:gui
+   [[./diags/OverviewOnWinsAnd.png]]
+   \vspace*{\fill}
+
+#+LATEX: \clearpage
+
+*** Package =wins=
+**** La fenêtre principale =MainWin.Java=
+
+     #+CAPTION: Aperçu sur le démarrage de l'application
+     #+NAME:   fig:mainwin-main
+     #+ATTR_LATEX: :width 14cm :center t
+     [[./diags/MainWin.png]]
+
+     #+CAPTION: Aperçu sur la génération d'un congé
+     #+NAME:   fig:mainwin-holiday
+     #+ATTR_LATEX: :width 14cm :center t
+     [[./diags/MainWinVac.png]]
+
+**** La fenêtre de suivi des avancements de grade
+
+     #+CAPTION: Aperçu sur le suivi des avancements de grade
+     #+NAME:   fig:uplifts-win
+     #+ATTR_LATEX: :width 14cm :center t
+     [[./diags/UpliftsWin.png]]
+
+
+*** Package =wins.crud=
+
+**** Gestion des Employées
+
+     
+     #+CAPTION: Aperçu sur le suivi des avancements de grade
+     #+NAME:   fig:uplifts-win
+     #+ATTR_LATEX: :width 14cm :center t
+     [[./diags/InfoWin.png]]
+
+
+**** Gestion de Diplômes
+
+**** Gestion des Certifications Médical
+
+**** Gestion des Grades
+
+*** Package =views=
+
+
 
 * Dependencies
   # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]

@@ -68,7 +68,7 @@ public class AttTravailView {
 		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
-		frame.setBounds(100, 100, Printer.STD_WIDTH, Printer.STD_HEIGHT);
+		frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
@@ -212,7 +212,7 @@ public class AttTravailView {
 						: String.format(
 							"au departement %s ", e.getDepartment( )));
 		lblAuDepartements.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblAuDepartements.setBounds(240, 418, 486, 29);
+		lblAuDepartements.setBounds(240, 451, 486, 29);
 		frame.getContentPane( ).add(lblAuDepartements);
 		
 		JMenuBar menuBar = new JMenuBar( );

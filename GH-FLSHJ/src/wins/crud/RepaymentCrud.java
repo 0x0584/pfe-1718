@@ -19,9 +19,7 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.utils.XmlFile;
 import model.Employee;
-import model.Modeling;
 import model.Repayment;
 
 public class RepaymentCrud {
@@ -71,12 +69,12 @@ public class RepaymentCrud {
 		WebLookAndFeel.install( );
 
 		frame = new JFrame( );
-		frame.setBounds(100, 100, 553, 426);
+		frame.setBounds(100, 100, 639, 426);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
 		JPanel panel = new JPanel( );
-		panel.setBounds(13, 32, 528, 317);
+		panel.setBounds(13, 32, 614, 317);
 		frame.getContentPane( ).add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
@@ -85,29 +83,29 @@ public class RepaymentCrud {
 
 		tf_holiday = new JTextField( );
 		tf_holiday.setColumns(10);
-		tf_holiday.setBounds(427, 2, 114, 24);
+		tf_holiday.setBounds(518, 0, 114, 24);
 		frame.getContentPane( ).add(tf_holiday);
 
 		tf_ndays = new JTextField( );
-		tf_ndays.setBounds(72, 0, 114, 24);
+		tf_ndays.setBounds(84, 0, 114, 24);
 		frame.getContentPane( ).add(tf_ndays);
 		tf_ndays.setColumns(10);
 
 		tf_repayed = new JTextField( );
-		tf_repayed.setBounds(258, 0, 114, 24);
+		tf_repayed.setBounds(332, 0, 114, 24);
 		frame.getContentPane( ).add(tf_repayed);
 		tf_repayed.setColumns(10);
 
-		JLabel lblFrom = new JLabel("تاريخ البدئ");
-		lblFrom.setBounds(187, 5, 70, 15);
+		JLabel lblFrom = new JLabel("عدد الأيام المعوضة");
+		lblFrom.setBounds(205, 5, 120, 15);
 		frame.getContentPane( ).add(lblFrom);
 
 		JLabel lblNdays = new JLabel("عدد الأيام");
-		lblNdays.setBounds(1, 5, 70, 15);
+		lblNdays.setBounds(7, 5, 70, 15);
 		frame.getContentPane( ).add(lblNdays);
 
-		JLabel lblPeriod = new JLabel("الأسدس");
-		lblPeriod.setBounds(373, 5, 58, 15);
+		JLabel lblPeriod = new JLabel("السبب");
+		lblPeriod.setBounds(453, 5, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JLabel lbltotal = new JLabel("");
@@ -124,10 +122,11 @@ public class RepaymentCrud {
 					tf_holiday.getText( ),
 					Integer.parseInt(tf_ndays.getText( )),
 					Integer.parseInt(tf_repayed.getText( )));
+				old_r.setEmployeeReference(empl.getEmployeeReference( ));
 				old_r.update(new_r);
 				table.setModel(
-					Modeling.getRepaymentModel(
-						XmlFile.initEmployee(
+					Repayment.getRepaymentModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_repayed.setText("");
 				tf_ndays.setText("");
@@ -135,7 +134,7 @@ public class RepaymentCrud {
 			}
 
 		});
-		btnModify.setBounds(389, 358, 70, 25);
+		btnModify.setBounds(470, 358, 70, 25);
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
@@ -143,18 +142,17 @@ public class RepaymentCrud {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
-				Repayment r = getSelectedRepayment(empl, table);
-				r.remove( );
+				getSelectedRepayment(empl, table).remove( );
 				table.setModel(
-					Modeling.getRepaymentModel(
-						XmlFile.initEmployee(
+					Repayment.getRepaymentModel(
+						Employee.initEmployee(
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_repayed.setText("");
 				tf_ndays.setText("");
 				lbltotal.setText(getTotal(table));
 			}
 		});
-		btnDelete.setBounds(303, 358, 70, 25);
+		btnDelete.setBounds(384, 358, 70, 25);
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
@@ -164,14 +162,15 @@ public class RepaymentCrud {
 				if (dialogResult != JOptionPane.YES_OPTION) return;
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
 					Repayment r = new Repayment(
-						XmlFile.getLastRepaymentId(empl.getElement( )) + 1,
+						Repayment.getLastRepaymentXmlId(empl.getElement( )) + 1,
 						tf_holiday.getText( ),
 						Integer.parseInt(tf_repayed.getText( )),
 						Integer.parseInt(tf_ndays.getText( )));
+					r.setEmployeeReference(empl.getEmployeeReference( ));
 					r.add( );
 					table.setModel(
-						Modeling.getRepaymentModel(
-							XmlFile.initEmployee(
+						Repayment.getRepaymentModel(
+							Employee.initEmployee(
 								new Employee( ), empl.getEmployeeReference( ))));
 					setupJTable(table);
 					lbltotal.setText(getTotal(table));
@@ -187,10 +186,10 @@ public class RepaymentCrud {
 				}
 			}
 		});
-		btnAdd.setBounds(471, 358, 70, 25);
+		btnAdd.setBounds(552, 358, 70, 25);
 		frame.getContentPane( ).add(btnAdd);
 
-		table = new JTable(Modeling.getRepaymentModel(empl));
+		table = new JTable(Repayment.getRepaymentModel(empl));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -242,7 +241,7 @@ public class RepaymentCrud {
 		int repayed = Integer.parseInt(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		int theID = XmlFile.getRepaymentId(
+		int theID = Repayment.getRepaymentXmlId(
 			empl.getElement( ), table.getSelectedRow( ));
 		Repayment r = new Repayment(theID, period, ndays, repayed);
 		r.setEmployeeReference(empl.getEmployeeReference( ));

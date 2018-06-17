@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -99,7 +100,7 @@ public class Uplift extends XmlElement<Uplift> {
 	 *            the period to track
 	 * @return a JTable model
 	 */
-	public static TableModel getUpcoming(Period period) {
+	public static TableModel getUpcomingUplifts(Period period) {
 		Date todate = Period.getDate(period);
 		DefaultTableModel model = new DefaultTableModel( );
 		String[] cols = new String[] {
@@ -113,7 +114,7 @@ public class Uplift extends XmlElement<Uplift> {
 			model.addColumn(col_name);
 		}
 
-		for (Employee e : XmlFile.getAllEmployees( )) {
+		for (Employee e : Employee.getAllEmployees( )) {
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( ), today = new Date( );
 			if (DateUtil.diff(today, nextdate) < 0) continue;
@@ -187,8 +188,8 @@ public class Uplift extends XmlElement<Uplift> {
 	@Override
 	public boolean add( ) {
 		try {
-			Element empl = XmlFile.getEmployee(empl_ref);
-			XmlFile.setOldUplift(empl);
+			Element empl = Employee.getEmployeeElement(empl_ref);
+			Uplift.setOldUplift(empl);
 
 			Element xml_repayed = new Element("uplift");
 			Element scale = new Element("scale");
@@ -202,7 +203,7 @@ public class Uplift extends XmlElement<Uplift> {
 			update.addContent(DateUtil.parseDate(date));
 
 			Attribute id = new Attribute("id",
-				"" + (XmlFile.getLastUpliftId(empl) + 1));
+				"" + (Uplift.getLastUpliftXmlId(empl) + 1));
 			Attribute state = new Attribute("state", "current");
 
 			xml_repayed.setAttribute(id);
@@ -225,7 +226,7 @@ public class Uplift extends XmlElement<Uplift> {
 	@Override
 	public boolean update(Uplift updated) {
 		try {
-			Element e = XmlFile.getEmployee(empl_ref);
+			Element e = Employee.getEmployeeElement(empl_ref);
 			List<Element> list = e.getChild("administrative")
 							.getChildren("uplift");
 
@@ -252,7 +253,7 @@ public class Uplift extends XmlElement<Uplift> {
 	@Override
 	public boolean remove( ) {
 		try {
-			Element e = XmlFile.getEmployee(empl_ref);
+			Element e = Employee.getEmployeeElement(empl_ref);
 			List<Element> list = e.getChild("administrative")
 							.getChildren("uplift");
 
@@ -283,23 +284,23 @@ public class Uplift extends XmlElement<Uplift> {
 	 * 
 	 * @return a Table model
 	 */
-	public static TableModel getPending( ) {
+	public static TableModel getPendingUplifts( ) {
 		DefaultTableModel model = new DefaultTableModel( );
 		String[] cols = new String[] {
 						"ر. التأجير", "ب.ت.و.", "الإسم الكامل",
-
+	
 						"السلم", "الرتبة"
-
+	
 		};
-
+	
 		for (String col_name : cols) {
 			model.addColumn(col_name);
 		}
-
-		for (Employee e : XmlFile.getAllEmployees( )) {
+	
+		for (Employee e : Employee.getAllEmployees( )) {
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( );
-
+	
 			if (nextdate.before(Period.getDate(Period.TODAY))) {
 				String fullname = e.getName( ) + " "
 								+ e.getFamilyname( ).toUpperCase( );
@@ -310,8 +311,110 @@ public class Uplift extends XmlElement<Uplift> {
 				});
 			}
 		}
-
+	
 		return model;
+	}
+
+	public static DefaultTableModel getUpliftModel(Employee empl) {
+		DefaultTableModel model = new DefaultTableModel( );
+	
+		for (String str : new String[] {
+						"التاريخ", "الرقم الإستدلالي",
+	
+						"الرتبة", "السلم",
+		}) {
+			model.addColumn(str);
+		}
+	
+		for (Uplift u : getUplifts(
+			Employee.getEmployeeElement(empl.getEmployeeReference( )))) {
+			model.addRow(new String[] {
+							DateUtil.parseDate(u.getDate( )), u.getIndice( ),
+							"" + u.getRank( ), "" + u.getGrade( )
+			});
+		}
+	
+		return model;
+	}
+
+	public static void setOldUplift(Element empl) {
+		List<Element> dlist = empl.getChild("administrative")
+						.getChildren("uplift");
+
+		for (Element e : dlist) {
+			if (e.getAttributeValue("state").compareTo("current") == 0) {
+				e.getAttribute("state").setValue("old");
+				System.err.println(e.toString( ));
+				XmlFile.writeXml(e.getDocument( ));
+				break;
+			}
+		}
+	}
+
+	public static ArrayList<Uplift> getUplifts(Employee empl) {
+		return getUplifts(empl.getElement( ));
+	}
+
+	public static ArrayList<Uplift> getUplifts(Element empl) {
+		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
+		List<Element> dlist = empl.getChild("administrative")
+						.getChildren("uplift");
+
+		for (Element e : dlist) {
+			Uplift u = new Uplift( );
+			u.setEmployeeReference(empl.getAttributeValue("reference"));
+			u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
+			u.setDate(DateUtil.parseDate(e.getChildTextTrim("update")));
+			u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
+			u.setIndice(e.getChildTextTrim("indice"));
+			tmp.add(u);
+		}
+
+		return tmp;
+	}
+
+	public static int getUpliftXmlId(Element empl, int limit) {
+		int lastid = 0;
+
+		List<Element> list = empl.getChild("administrative")
+						.getChildren("uplift");
+
+		for (Element el : list) {
+			lastid = Integer.parseInt(el.getAttributeValue("id"));
+			if (limit == 0) {
+				break;
+			} else {
+				--limit;
+			}
+		}
+		return lastid;
+	}
+
+	public static int getLastUpliftXmlId(Element empl) {
+		return Uplift.getUpliftXmlId(empl, Integer.MAX_VALUE);
+	}
+
+	public static Uplift getCurrentUplift(Employee empl) {
+		return getCurrentUplift(empl.getElement( ));
+	}
+
+	public static Uplift getCurrentUplift(Element empl) {
+		List<Element> dlist = empl.getChild("administrative")
+						.getChildren("uplift");
+		Uplift u = new Uplift( );
+
+		for (Element e : dlist) {
+			if (e.getAttributeValue("state").compareTo("current") == 0) {
+				u.setEmployeeReference(empl.getAttributeValue("reference"));
+				u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
+				u.setDate(DateUtil.parseDate(e.getChildTextTrim("update")));
+				u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
+				u.setIndice(e.getChildTextTrim("indice"));
+				break;
+			}
+		}
+
+		return u;
 	}
 
 }

@@ -20,9 +20,9 @@ import javax.swing.JTable;
 import com.alee.laf.WebLookAndFeel;
 
 import app.Period;
-import app.utils.XmlFile;
 import model.Employee;
 import model.Uplift;
+import wins.crud.InfoCrud;
 import wins.crud.UpliftCrud;
 
 public class UpliftsWin {
@@ -81,14 +81,14 @@ public class UpliftsWin {
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		table_1 = new JTable(Uplift.getUpcoming(Period.TODAY));
+		table_1 = new JTable(Uplift.getUpcomingUplifts(Period.TODAY));
 		scrollPane.setViewportView(table_1);
 
 		JButton button = new JButton("السجل الكامل");
 		button.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new InfoWin(new Employee(table_1.getModel( )
+					new InfoCrud(new Employee(table_1.getModel( )
 									.getValueAt(table_1.getSelectedRow( ), 0)
 									.toString( ))).getFrame( ).setVisible(true);
 				} catch (Exception x) {
@@ -103,7 +103,7 @@ public class UpliftsWin {
 		cmbx.addItemListener(new ItemListener( ) {
 			public void itemStateChanged(ItemEvent e) {
 				table_1.setModel(
-					Uplift.getUpcoming(
+					Uplift.getUpcomingUplifts(
 						Period.parse(cmbx.getSelectedItem( ).toString( ))));
 			}
 		});
@@ -119,7 +119,7 @@ public class UpliftsWin {
 		JScrollPane scrollPane_1 = new JScrollPane( );
 		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
-		tbl_pending = new JTable(Uplift.getPending( ));
+		tbl_pending = new JTable(Uplift.getPendingUplifts( ));
 		scrollPane_1.setViewportView(tbl_pending);
 
 		JButton btnConfirm = new JButton("مصادقة");
@@ -148,9 +148,9 @@ public class UpliftsWin {
 		button_1.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				table_1.setModel(
-					Uplift.getUpcoming(
+					Uplift.getUpcomingUplifts(
 						Period.parse(cmbx.getSelectedItem( ).toString( ))));
-				tbl_pending.setModel(Uplift.getPending( ));
+				tbl_pending.setModel(Uplift.getPendingUplifts( ));
 
 			}
 		});
@@ -161,7 +161,7 @@ public class UpliftsWin {
 		button_2.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new InfoWin(new Employee(
+					new InfoCrud(new Employee(
 						getSelectedUplift(tbl_pending).getEmployeeReference( )))
 										.getFrame( ).setVisible(true);
 				} catch (Exception x) {
@@ -187,7 +187,7 @@ public class UpliftsWin {
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 4)
 							.toString( ));
 
-		int theID = XmlFile.getLastUpliftId(empl.getElement( )) + 1;
+		int theID = Uplift.getLastUpliftXmlId(empl.getElement( )) + 1;
 		Uplift u = new Uplift(theID, indice, date, grade, rank);
 		u.setEmployeeReference(empl.getEmployeeReference( ));
 
