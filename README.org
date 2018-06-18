@@ -15,11 +15,11 @@
 #+LATEX_HEADER: \usepackage[AUTO]{babel}
 #+LATEX_HEADER: \usepackage[margin=1.20in]{geometry}
 #+LaTeX_HEADER: \hypersetup {
-#+LaTeX_HEADER:     colorlinks,
-#+LaTeX_HEADER:     citecolor=black,
-#+LaTeX_HEADER:     filecolor=black,
-#+LaTeX_HEADER:     linkcolor=blue,
-#+LaTeX_HEADER:     urlcolor=blue
+#+LaTeX_HEADER:	    colorlinks,
+#+LaTeX_HEADER:	    citecolor=black,
+#+LaTeX_HEADER:	    filecolor=black,
+#+LaTeX_HEADER:	    linkcolor=blue,
+#+LaTeX_HEADER:	    urlcolor=blue
 #+LaTeX_HEADER: }
 #+LaTeX_HEADER: \usemintedstyle{friendly}
 # [[./front.pdf]]
@@ -36,13 +36,13 @@
 
 #+BEGIN_EXPORT latex
 \begin{abstract}
-Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettres et Science Humaines, El Jadida sous le theme Informatision du service Resourse Humains. Sous l'encadrement  de Mr. A. Madani, et la supervision du chef de service; Mr. Driss Dibaji. 
+Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettres et Science Humaines, El Jadida sous le theme Informatision du service Resourse Humains. Sous l'encadrement  de Mr. A. Madani, et la supervision du chef de service; Mr. Driss Dibaji.
 \end{abstract}
 #+END_EXPORT
 
 * Intoduction
   \vspace*{\fill}
-  #+BEGIN_QUOTE  
+  #+BEGIN_QUOTE
   Pour obtenir ce besoin, J'avais la responsabilité de développé un environnement pour gérer les différents taches décris en [[Cahier des Charges][cahier des charges]]\\
   #+END_QUOTE
 
@@ -51,9 +51,9 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
   #+END_QUOTE
 
   \vspace*{\fill}
-  
+
 * Cahier des Charges
-  
+
   \vspace*{\fill}
   #+BEGIN_QUOTE
   D'après le nom, /Service des ressources humains/, est le service est responsable de la gestion des employées et fonctionnaires, leur diplômes et grades, ainsi que donner des attestations du travail et des autorisation de congé, suivi d'absence, rémunération du travail les jours fériés finalement une notation annuelle.\\
@@ -68,38 +68,38 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
   + suivi de rémunération du travail les fériés
   + générée des attestations de travail
   + générée des autorisations de congé
-  + générée des notations annuelle pour 
-  \vspace*{\fill}  
+  + générée des notations annuelle pour
+  \vspace*{\fill}
 
 * Conception
 ** Stockage des données en XML
-      Les données sont stockées dans un fichier =XML=, =data/xml/hr.xml=. La raison de choisir ce type de stockage c'est que il est lisible soit au niveau du machine soit au niveau d'humain. Au suivant, les regles du gestion est schema general du fichier.
+   Les données sont stockées dans un fichier =XML=, =data/xml/hr.xml=. La raison de choisir ce type de stockage c'est que il est lisible soit au niveau du machine soit au niveau d'humain. Au suivant, les regles du gestion est schema general du fichier.
 
 *** Règles de gestion du fichier =XML=
     Le root-tag est =<Employee>= est qui contient plusieurs tags de type =<employee>= qui représente des employées. Et chaque tag =<employee>= contient un seul tag =<personal>=, un seul tag =<administrative>= qui peut contient =0= ou plusieurs tags =<uplift>=. Le tag =<employee>= peut aussi avoir =0= ou plusieurs tags de type =<diploma>=, =<medicalcertif>= et =<repayment>=.\\
 
     Voici la signification de chaque tag des tags déclaré ci-dessus:
 
-+ =<Employee>= :: le root-tag, qui contient les tags =employee=
-+ =<employee>= :: contient tout les information d'un employée particulier est il avais deux attributes:
-+ *reference* identifiant du employée
-+ *departement* département du employée. Certains employée n'appartient à aucun département. Ce sont des /fonctionnaire/
-+ =<personal>= :: contient des informations personnelle comme le /nom/, /prénom/, /date de naissance/, etc.
-+ =<administrative>= :: contient des informations administrative comme le /SOM/, /CIN/, etc.
-+ =<uplift>= :: contient les informations des avancements dans le grade, /date/, /indice/, /échelon/ et /échelle/. Ce tag avais un seul attribut.
-+ *id* identifiant du avancement par rapport au avancement précédant
-+ =<diploma>= :: contient les informations sur les diplômes, /titre/, /mention/, /institue/ et /session/. Ce tag a aussi un seul attribue, ainsi que l'enfant =<title>=.
-+ *id* identifiant du diplôme
-+ *mention* la mention du diplôme (dans le tag =<title>=)
-+ =<medicalcertif>= :: contient les informations sur certification médical, /date du certification/, /durée/ et /la période/.
-+ *id* identifiant du certification médical.
-+ =<repayment>= :: contient les informations sur les remboursements, /la période/, /nombre des jours à rembourser/ et /nombre des jours déjà remboursé/
-+ *id* identifiant du remboursement
+    + =<Employee>= :: le root-tag, qui contient les tags =employee=
+    + =<employee>= :: contient tout les information d'un employée particulier est il avais deux attributes:
+    + *reference* identifiant du employée
+    + *departement* département du employée. Certains employée n'appartient à aucun département. Ce sont des /fonctionnaire/
+    + =<personal>= :: contient des informations personnelle comme le /nom/, /prénom/, /date de naissance/, etc.
+    + =<administrative>= :: contient des informations administrative comme le /SOM/, /CIN/, etc.
+    + =<uplift>= :: contient les informations des avancements dans le grade, /date/, /indice/, /échelon/ et /échelle/. Ce tag avais un seul attribut.
+    + *id* identifiant du avancement par rapport au avancement précédant
+    + =<diploma>= :: contient les informations sur les diplômes, /titre/, /mention/, /institue/ et /session/. Ce tag a aussi un seul attribue, ainsi que l'enfant =<title>=.
+    + *id* identifiant du diplôme
+    + *mention* la mention du diplôme (dans le tag =<title>=)
+    + =<medicalcertif>= :: contient les informations sur certification médical, /date du certification/, /durée/ et /la période/.
+    + *id* identifiant du certification médical.
+    + =<repayment>= :: contient les informations sur les remboursements, /la période/, /nombre des jours à rembourser/ et /nombre des jours déjà remboursé/
+    + *id* identifiant du remboursement
 
 *** Schéma général du fichier
-   #+CAPTION: Schéma général =XML= du fichier =data/xml/hr.xml=
-   #+NAME: lis:hr-xml
-   #+BEGIN_SRC xml -n
+    #+CAPTION: Schéma général =XML= du fichier =data/xml/hr.xml=
+    #+NAME: lis:hr-xml
+    #+BEGIN_SRC xml -n
      <Employee>			<!--root-->
        <employee reference="" department="">
 
@@ -129,22 +129,30 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
        </employee>
      </Employee>
-   #+END_SRC
+    #+END_SRC
 
-** Diag. UML des Classes
-   Le code source de l'application est diviser en 4 packages pricipales, [[Package =model=][=model=]], [[Package =app=][=app=]], [[Package =wins=][=wins=]] et [[Package =views=][=views=]].
+** Les Paquets system et leur Classes
+   Le code source de l'application est divisé en 4 paquets pricipales:
 
+   + [[Paquet =model=][=model=]] :: contient les différent classe pour mobilisé les donnée en objet
+   + [[Paquet =app=][=app=]] :: contient les différent énumération utilisé dans l'application. Ce paquet contient aussi [[Paquet =app.utils=][=app.utils=]], qui contient des utilitaires utiles pour le développement, notamment la gestion du [[Stockage des donn%C3%A9es en XML][fichier XML]].
+   + [[Paquet =wins=][=wins=]] :: contient des interfaces graphiques, y compris celles qui sont responsables des opérations CRUD normales qui existe dans [[Paquet =wins.crud=][=wins.crud=]]
+   + [[Paquet =views=][=views=]] :: contient des pages générées pour l'impression
+
+   \vspace*{\fill}
    #+CAPTION: Aperçu de code source du projet
-   #+NAME:   fig:overview 
-   #+ATTR_LATEX: :width 10cm :center t
+   #+NAME:	  fig:overview
+   #+ATTR_LATEX: :width 9cm :center t
    [[./diags/Overview.png]]
-   
+
+   \vspace*{\fill}
    #+LATEX: \clearpage
-*** Package =model=
 
-    Ce package contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockée dans le fichier xml =data/xml/hr.xml= decris [[Stockage des données en XML][ici]].
+*** Paquet =model=
 
-    #+CAPTION: La relation entre les classes du pkg [[Package =model=][=model=]] et la classe abstrait =XmlElement= du pkg [[Package =app.utils=][=app.utils=]]
+    Ce paquet contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockée dans le fichier xml =data/xml/hr.xml= decris [[Stockage des données en XML][ici]].
+
+    #+CAPTION: La relation entre les classes du paquet [[Paquet =model=][=model=]] et la classe abstrait =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME:   fig:models
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewOnClasses.png]]
@@ -152,8 +160,8 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
     Les classes implémentent les méthodes abstrais =getElement()=, =add()=, =update()= =remove()= dans la classe générique =XmlElement=. Ces méthodes sont responsables de la selection, l'ajout, la mise à jour et la suppression du tag correspondant a l'objet concerné dans le [[Stockage des donn%C3%A9es en XML][fichier xml]]. \\
 
     Voici la classe mère de toutes les classes, =XmlElement=, qui contient en addition, une chaine de caractères qui représente le référence de l'employée, c.-à-d. L'identifient
- 
-    #+CAPTION: Extrais du classe générique =XmlElement= du pkg [[Package =app.utils=][=app.utils=]]
+
+    #+CAPTION: Extrais du classe générique =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME: lis:xml-element
     #+BEGIN_SRC java -n
       import org.jdom2.Element;
@@ -194,36 +202,236 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 	  }
       }
     #+END_SRC
- 
-*** Package =app=
-    le package =app= contient que les enumeration, decris dans le figure [[fig:app]].
 
-    + =Cadre= :: represente les candres possible pour un employee/fonctionnaire
-    + =Mention= :: les mentions possible pour un diplome
-    + =Period= :: les different period utilise dans l'application
-    + =Holiday= :: utilise dans 
-    + =SearchField= ::
-    + =EmployeeType= ::
-    + =Files= :: 
+*** Paquet =app=
 
-    #+CAPTION: Les enumeration dans pkg =app=
-    #+NAME:   fig:app 
+    Le paquet =app= contient que les énumération, décris dans le figure [[fig:app]].
+
+    #+CAPTION: Les enumeration dans paquet =app=
+    #+NAME:	  fig:app
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewOnApp.png]]
 
-*** Package =app.utils=
-    #+CAPTION: La relation entre =JTable=, =TableListener=, et =Printer= du pkg =app.utils=
-    #+NAME:   fig:apputils0 
+
+    + =Cadre= :: représente les cadres possible pour un employée/fonctionnaire
+    + =Mention= :: les mentions possibles pour un diplôme, utilisé dans [[Gestion de Dipl%C3%B4mes][=DilpomaCrud.java=]]
+    + =Period= :: les différents périodes utilisé dans l'application
+    + =Holiday= :: utilisé pour la génération du congé dans un /comboBox/, utilisé dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
+    + =SearchField= :: utilisé pour la recherche dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
+    + =EmployeeType= :: utilisé pour filtrer les employée et fonctionnaire dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
+    + =Files= :: contient des énumérations qui concerne les différents fichiers XML utilisé.
+
+    #+LATEX: \clearpage
+
+*** Paquet =app.utils=
+
+    Alors, ce paquet contient des classes important pour l'application, le diagramme des classes dans la figure [[fig:apputils0]] explique les différents relations entre ces classes et les classes de système de la d'interface graphique du =Java=.\\
+
+    La classe =Printer= est responsable a l'impression d'un =Component=, la classe des composants graphiques, avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
+
+    #+CAPTION: La relation entre =JTable=, =JTableListener=, et =Printer= du paquet =app.utils=
+    #+NAME:   fig:apputils0
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewAppUtils0.png]]
 
+    Aussi, =Printer= a une implémentation de la méthode abstrait [[lis:print][=print()=]] de l'interface =Printable=, =doPrint()= faire un appel à cette méthode avec l'aide des autres classes du paquet =java.awt.print= comme =PrinterJob= et =PageFormat=. \\
+
+    #+BEGIN_QUOTE
+    /Note:/ Principalement, L'appelle de la méthode [[lis:print][=print()=]] se fait par la classe =PrinterJob()= du paquet =java.awt.print.PrinterJob=. La méthode utilise dans l'application c'est =static doPrint()=.
+    #+END_QUOTE
+
+    Au suivant, un extrait du classe =Printer= qui montre l'implémentation de la méthode [[lis:print][=print()=]].
+
+    #+CAPTION: Extrais du classe =Printer= qui montre l'implémentation de la méthode abstrait =print()= de l'interface =java.awt.Printable=
+    #+NAME: lis:print
+    #+BEGIN_SRC java -n
+      import java.awt.Component;
+      import java.awt.Dimension;
+      import java.awt.Graphics;
+      import java.awt.Graphics2D;
+      import java.awt.print.PageFormat;
+      import java.awt.print.Printable;
+
+      public class Printer implements Printable {
+	  /**
+	   ,* méthode abstrait dans l'interface java.awt.Printable, l'appelle
+	   ,* se fait par la classe java.awt.PrinterJob
+	   ,*
+	   ,* @param g une graphique du classe java.awt.Graphics
+	   ,* @param format formatage de la page à imprimer
+	   ,* @param page_index l'index de la page
+	   ,*
+	   ,* @return intègre qui représente l'état de l'impression */	@Override
+
+	   public int print(Graphics g, PageFormat format, int page_index) {
+	       /* vérification du page, c'est un protocole de l'interface */
+	       if (page_index > 0) return Printable.NO_SUCH_PAGE;
+
+	       /* prend les dimensions du composant */
+	       Dimension dim = comp.getSize( );
+	       double cHeight = dim.getHeight( ), cWidth = dim.getWidth( );
+
+	       /* initialization de demention du la zone d'impression */
+	       double pHeight = format.getImageableHeight( );
+	       double pWidth = format.getImageableWidth( );
+	       double pXStart = format.getImageableX( );
+	       double pYStart = format.getImageableY( );
+
+	       /* la difference entre la taille du composant et la taille du
+		,* page pour mettre le composant à l'échelle du page */
+	       double xRatio = (pWidth / cWidth), yRatio = (pHeight / cHeight);
+
+	       /* mettre le composant à jour avec la page à imprimer en utilisent
+	       ,* la methode java.awt.Component.paint() */
+	       Graphics2D g2 = (Graphics2D) g;
+	       g2.translate(pXStart, pYStart);
+	       g2.scale(xRatio, yRatio);
+	       comp.paint(g2);
+	       return Printable.PAGE_EXISTS;
+	   }
+      }
+    #+END_SRC
+    #+LATEX: \clearpage
+
+    On revient à la figure [[fig:apputils0]], la classe [[lis:jtablelistener][=JTableCellListener=]] est responsable à réagir avec une modification qui passe au niveau des cellules d'un =JTable=. Cette classe est à l'écoute des modifications apportées aux données de la table via =TableCellEditor= du paquet =javax.swing.table= avec l'aide du interface =PropertyChangeListener= du paquet =java.beans=. Donc, doit implémenter la méthode [[lis:propchange][=propertyChange()=]] de l'interface mentionnée.\\
+
+
+    #+CAPTION: Extrait du classe =JTableListener=
+    #+NAME: lis:jtablelistener
+    #+BEGIN_SRC java -n
+      import java.awt.event.ActionEvent;
+
+      import java.beans.PropertyChangeEvent;
+      import java.beans.PropertyChangeListener;
+
+      import javax.swing.Action;
+      import javax.swing.JTable;
+      import javax.swing.SwingUtilities;
+
+      public class JTableCellListener implements PropertyChangeListener, Runnable {
+	  private JTable table;
+	  private Action action;
+	  private int row;
+	  private int column;
+	  private Object oldValue;
+	  private Object newValue;
+
+
+	 /**
+	  ,* @param table la table concerne
+	  ,* @param action l'action a invoquée
+	  ,*/
+	  public JTableCellListener(JTable table, Action action) {
+	      this.table = table;
+	      this.action = action;
+
+	      /* ajouter cette classe à la table pour l'invoquée */
+	      this.table.addPropertyChangeListener(this);
+	  }
+      }
+    #+END_SRC
+
+    Lorsque l'édition est démarrée, la valeur de la cellule est enregistrée. Lorsque l'édition est arrêtée, la nouvelle valeur est enregistrée en tant que =Object=. Lorsque l'ancienne et la nouvelle valeur sont différentes, l'action fournie est invoquée. La classe doit appelle des classe selon l'état de l'édition, donc on doit aussi implémenter la méthode [[lis:run][=run()=]] dans l'interface =Runnable=. Au suivant un extrait du classe [[lis:jtablelistener][=JTableCellListener=]]. Au suivant, des extraits du classe et ses méthodes. \\
+
+    La classe possède un constricteur privé, qui prend en paramètre, la table, numéro du ligne et colonne, et les deux valeurs, l'ancien et nouvelle. Ce constricteur est utilisé dans la méthode [[lis:propstart][=processEditingStopped()=]] pour créer une sauvegarde de la cellule concernée.
+
+    #+CAPTION: L'implémentation du =propertyChange()= du classe [[lis:jtablelistener][=JTableListener=]]
+    #+NAME: lis:propchange
+    #+BEGIN_SRC java -n 29
+      /**
+       ,* Créé une copie du JTableCellListener avec une sauvegarde des
+       ,* ancienne/nouvelle données ainsi que la ligne et la colonne
+       ,*
+       ,* @param row la ligne de la cellule modifiée
+       ,* @param column la colonne de la cellule modifiée
+       ,* @param oldValue l'ancienne valeur de la cellule modifiée
+       ,* @param newValue nouvelle valeur de la cellule modifiée
+       ,*/
+      private JTableCellListener(JTable table, int row, int column,
+				 Object oldValue, Object newValue) {
+	  this.table = table;
+	  this.row = row;
+	  this.column = column;
+	  this.oldValue = oldValue;
+	  this.newValue = newValue;
+      }
+
+      /**
+       ,* Implémentation de l'interface PropertyChangeListener
+       ,*
+       ,* @param e l'événement génère par le système
+       ,*/
+      @Override
+      public void propertyChange(PropertyChangeEvent e) {
+	  /* tester si l'évent vient d'après la classe TableCellEditor */
+	  if ("tableCellEditor".equals(e.getPropertyName( ))) {
+	      /* si la table est en coure de la modification */
+	      if (table.isEditing( )) processEditingStarted( );
+	      /* si l’edition est terminée */
+	      else processEditingStopped( );
+	  }
+      }
+    #+END_SRC
+
+    La méthode [[lis:propchange][=JTable.isEditing()=]] indique l'état booléen du table, la valeur =true= indique que la table est en une modification actif, alors on fait un appel à [[lis:propstart][=processEditingStarted()=]]. Lorsque la méthode retourne la valeur =false=, on fait un appel au [[lis:propstart][=processEditingStopped()=]], qui est responsable de la vérification est ce que la valeur de la cellule a été modifie ou non par la comparaison entre =oldValue= et =newValue= dans la classe [[lis:jtablelistener][=JTableCellListener=]]. Si les valeurs sont différentes, on fait un appel à l'action du classe.
+
+    #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisée dans la méthode [[lis:propchange][=propertyChange()=]]
+    #+NAME: lis:propstart
+    #+BEGIN_SRC java -n 62
+       /**
+       ,* annoncée le démarrage du processus d'édition de cellule
+       ,*/
+      private void processEditingStarted( ) {
+	  SwingUtilities.invokeLater(this);
+      }
+
+      /**
+       ,* vérifier la cellule concernée
+       ,*/
+      private void processEditingStopped( ) {
+	  /* sauvegardée la nouvelle valeur */
+	  newValue = table.getModel( ).getValueAt(row, column);
+
+	  /* si la nouvelle valeur est différente a l'ancienne valeur, alors */
+	  if (!newValue.equals(oldValue)) {
+	      JTableCellListener tcl;
+	      ActionEvent event;
+
+	      tcl = new JTableCellListener(getTable( ), getRow( ), getColumn( ),
+					   getOldValue( ), getNewValue( ));
+	      event = new ActionEvent(tcl, ActionEvent.ACTION_PERFORMED, "");
+
+	      action.actionPerformed(event); /* exécuter l'action */
+	  }
+      }
+    #+END_SRC
+
+    #+CAPTION: L'implémentation du =run()= du classe [[lis:jtablelistener][=JTableListener=]]
+    #+NAME: lis:run
+    #+BEGIN_SRC java -n 88
+      @Override
+      public void run( ) {
+	  row = table.convertRowIndexToModel(table.getEditingRow( ));
+	  column = table.convertColumnIndexToModel(table.getEditingColumn( ));
+	  oldValue = table.getModel( ).getValueAt(row, column);
+	  newValue = null;
+      }
+    #+END_SRC
+
+Et finalement, il reste que l'implémentation de la méthode [[lis:run][=run()=]], qui est été appelée avec le protocole =SwingUtilities.invokeLater()= dans [[lis:propstart][=processEditingStarted()=]]. Le rôle de cet appel est de récupérer la valeur actuelle de la cellule. \\
+
+    \vspace*{\fill}
+    #+BEGIN_QUOTE
+    /Le but du création de cette classe/ [[lis:jtablelistener][=JTableCellListener=]] /c'est que dans/ =Java= /il n'y a pas un listener native, ou par défaut qui suit l'état des cellules d'un/ =JTable=.
+    #+END_QUOTE
+    \vspace*{\fill}
     #+CAPTION: La relation entre =DateUtils=, =XmlFile= et =XmlElement=
-    #+NAME:   fig:apputils1 
+    #+NAME:   fig:apputils1
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewAppUtils1.png]]
 
 * L'Interface Graphique
-** La relation entre les différent classe graphique
+** La relation entre les différent Paquet graphique
 
    \vspace*{\fill}
    #+CAPTION: Aperçu général sur les interfaces graphiques utilisé dans l'application
@@ -231,10 +439,10 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
    [[./diags/OverviewOnWinsAnd.png]]
    \vspace*{\fill}
 
-#+LATEX: \clearpage
+   #+LATEX: \clearpage
 
-*** Package =wins=
-**** La fenêtre principale =MainWin.Java=
+*** Paquet =wins=
+**** La fenêtre principale =MainWin=
 
      #+CAPTION: Aperçu sur le démarrage de l'application
      #+NAME:   fig:mainwin-main
@@ -254,11 +462,11 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
      [[./diags/UpliftsWin.png]]
 
 
-*** Package =wins.crud=
+*** Paquet =wins.crud=
 
-**** Gestion des Employées
+**** Gestion des Employées =InfoCrud=
 
-     
+
      #+CAPTION: Aperçu sur le suivi des avancements de grade
      #+NAME:   fig:uplifts-win
      #+ATTR_LATEX: :width 14cm :center t
@@ -271,9 +479,9 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
 **** Gestion des Grades
 
-*** Package =views=
+*** Paquet =views=
 
-
+**** Page de conge
 
 * Dependencies
   # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
