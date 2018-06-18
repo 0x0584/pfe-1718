@@ -150,16 +150,16 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
 *** Paquet =model=
 
-    Ce paquet contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockée dans le fichier xml =data/xml/hr.xml= decris [[Stockage des données en XML][ici]].
+    Ce paquet contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockée dans le fichier XML [[Stockage des donn%C3%A9es en XML][=data/xml/hr.xml=]].
 
     #+CAPTION: La relation entre les classes du paquet [[Paquet =model=][=model=]] et la classe abstrait =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME:   fig:models
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewOnClasses.png]]
 
-    Les classes implémentent les méthodes abstrais =getElement()=, =add()=, =update()= =remove()= dans la classe générique =XmlElement=. Ces méthodes sont responsables de la selection, l'ajout, la mise à jour et la suppression du tag correspondant a l'objet concerné dans le [[Stockage des donn%C3%A9es en XML][fichier xml]]. \\
+    Les classes implémentent les méthodes abstrais [[lis:xml-element][=getElement()=]], [[lis:xml-element][=add()=]], [[lis:xml-element][=update()=]] et [[lis:xml-element][=remove()=]] dans la classe générique [[lis:xml-element][=XmlElement=]]. Ces méthodes sont responsables de la selection, l'ajout, la mise à jour et la suppression du tag correspondant a l'objet concerné dans le [[Stockage des donn%C3%A9es en XML][fichier xml]]. \\
 
-    Voici la classe mère de toutes les classes, =XmlElement=, qui contient en addition, une chaine de caractères qui représente le référence de l'employée, c.-à-d. L'identifient
+    Voici la classe mère de toutes les classes, [[lis:xml-element][=XmlElement=]], qui contient en addition, une chaine de caractères qui représente le référence de l'employée, c.-à-d. L'identifient
 
     #+CAPTION: Extrais du classe générique =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME: lis:xml-element
@@ -184,13 +184,13 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
       }
     #+END_SRC
 
-    Les méthodes =add()=, =update()= et =remove()= de =XmlElement= retourne une valeur booléen, qui signifie est ce que l'opération a réussi ou non. Tandis que =getElement()= retourne le tag =XML= correspondant a l'objet.\\
+    Les méthodes [[lis:xml-element][=add()=]], [[lis:xml-element][=update()=]] et [[lis:xml-element][=remove()=]] de [[lis:xml-element][=XmlElement=]] retourne une valeur booléen, qui signifie est ce que l'opération a réussi ou non. Tandis que [[lis:xml-element][=getElement()=]] retourne le tag [[lis:hr-xml][=XML=]] correspondant a l'objet.\\
 
-    La raison pour laquelle la classe est générique, c'est que =update()= doit l'être. La méthode =update()= prend un variable de type =T=, ce type est décris avec un héritage du classe =XmlElement=. \\
+    La raison pour laquelle la classe est générique, c'est que [[lis:xml-element][=update()=]] doit l'être. La méthode [[lis:xml-element][=update()=]] prend un variable de type =T=, ce type est décris avec un héritage du classe [[lis:xml-element][=XmlElement=]]. \\
 
-    Par exemple, =update()= dans la classe =Diploma= est la suivant :
+    Par exemple, [[lis:xml-element][=update()=]] dans la classe [[fig:models][=Diploma=]] est la suivant :
 
-    #+CAPTION: Extrais du classe =Diploma= qui montre l'héritage de =XmlElement=
+    #+CAPTION: Extrais du classe [[fig:models][=Diploma=]] qui montre l'héritage de [[lis:xml-element][=XmlElement=]]
     #+NAME: lis:diploma
     #+BEGIN_SRC java  -n
       public class Diploma exstends XmlElement<Diploma> {
@@ -216,10 +216,10 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
     + =Cadre= :: représente les cadres possible pour un employée/fonctionnaire
     + =Mention= :: les mentions possibles pour un diplôme, utilisé dans [[Gestion de Dipl%C3%B4mes][=DilpomaCrud.java=]]
     + =Period= :: les différents périodes utilisé dans l'application
-    + =Holiday= :: utilisé pour la génération du congé dans un /comboBox/, utilisé dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
+    + =Holiday= :: utilisé dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]] pour la génération du congé
     + =SearchField= :: utilisé pour la recherche dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
     + =EmployeeType= :: utilisé pour filtrer les employée et fonctionnaire dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
-    + =Files= :: contient des énumérations qui concerne les différents fichiers XML utilisé.
+    + =Files= :: contient des énumérations qui concerne les différents fichiers =XML= utilisé.
 
     #+LATEX: \clearpage
 
@@ -227,22 +227,22 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
     Alors, ce paquet contient des classes important pour l'application, le diagramme des classes dans la figure [[fig:apputils0]] explique les différents relations entre ces classes et les classes de système de la d'interface graphique du =Java=.\\
 
-    La classe =Printer= est responsable a l'impression d'un =Component=, la classe des composants graphiques, avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
+    La classe [[lis:print][=Printer=]] est responsable a l'impression d'un =Component=, la classe des composants graphiques, avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
 
     #+CAPTION: La relation entre =JTable=, =JTableListener=, et =Printer= du paquet =app.utils=
     #+NAME:   fig:apputils0
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewAppUtils0.png]]
 
-    Aussi, =Printer= a une implémentation de la méthode abstrait [[lis:print][=print()=]] de l'interface =Printable=, =doPrint()= faire un appel à cette méthode avec l'aide des autres classes du paquet =java.awt.print= comme =PrinterJob= et =PageFormat=. \\
+    Aussi, [[lis:print][=Printer=]] a une implémentation de la méthode abstrait [[lis:print][=print()=]] de l'interface =Printable=, =doPrint()= faire un appel à cette méthode avec l'aide des autres classes du paquet =java.awt.print= comme =PrinterJob= et =PageFormat=. \\
 
     #+BEGIN_QUOTE
-    /Note:/ Principalement, L'appelle de la méthode [[lis:print][=print()=]] se fait par la classe =PrinterJob()= du paquet =java.awt.print.PrinterJob=. La méthode utilise dans l'application c'est =static doPrint()=.
+    /Note:/ Principalement, L'appelle de la méthode [[lis:print][=print()=]] se fait par la classe =PrinterJob()= du paquet =java.awt.print.PrinterJob=. La méthode utilise dans l'application c'est =static doPrint()=.\\
     #+END_QUOTE
 
-    Au suivant, un extrait du classe =Printer= qui montre l'implémentation de la méthode [[lis:print][=print()=]].
+    Au suivant, un extrait du classe [[lis:print][=Printer=]] qui montre l'implémentation de la méthode [[lis:print][=print()=]].
 
-    #+CAPTION: Extrais du classe =Printer= qui montre l'implémentation de la méthode abstrait =print()= de l'interface =java.awt.Printable=
+    #+CAPTION: Extrais de la classe =Printer= qui montre l'implémentation de la méthode abstrait =print()= de l'interface =java.awt.Printable=
     #+NAME: lis:print
     #+BEGIN_SRC java -n
       import java.awt.Component;
@@ -316,7 +316,6 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 	  private Object oldValue;
 	  private Object newValue;
 
-
 	 /**
 	  ,* @param table la table concerne
 	  ,* @param action l'action a invoquée
@@ -335,9 +334,9 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
     La classe possède un constricteur privé, qui prend en paramètre, la table, numéro du ligne et colonne, et les deux valeurs, l'ancien et nouvelle. Ce constricteur est utilisé dans la méthode [[lis:propstart][=processEditingStopped()=]] pour créer une sauvegarde de la cellule concernée.
 
-    #+CAPTION: L'implémentation du =propertyChange()= du classe [[lis:jtablelistener][=JTableListener=]]
+    #+CAPTION: L'implémentation du =propertyChange()= de l'interface =Printable= dans la classe [[lis:jtablelistener][=JTableListener=]]
     #+NAME: lis:propchange
-    #+BEGIN_SRC java -n 29
+    #+BEGIN_SRC java -n 30
       /**
        ,* Créé une copie du JTableCellListener avec une sauvegarde des
        ,* ancienne/nouvelle données ainsi que la ligne et la colonne
@@ -373,11 +372,11 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
       }
     #+END_SRC
 
-    La méthode [[lis:propchange][=JTable.isEditing()=]] indique l'état booléen du table, la valeur =true= indique que la table est en une modification actif, alors on fait un appel à [[lis:propstart][=processEditingStarted()=]]. Lorsque la méthode retourne la valeur =false=, on fait un appel au [[lis:propstart][=processEditingStopped()=]], qui est responsable de la vérification est ce que la valeur de la cellule a été modifie ou non par la comparaison entre =oldValue= et =newValue= dans la classe [[lis:jtablelistener][=JTableCellListener=]]. Si les valeurs sont différentes, on fait un appel à l'action du classe.
+    La méthode [[lis:propchange][=JTable.isEditing()=]] indique l'état booléen du table, la valeur =true= indique que la table est en une modification actif, alors on fait un appel à [[lis:propstart][=processEditingStarted()=]]. Lorsque la méthode retourne la valeur =false=, on fait un appel au [[lis:propstart][=processEditingStopped()=]], qui est responsable de la vérification est ce que la valeur de la cellule a été modifie ou non par la comparaison entre [[lis:jtablelistener][=oldValue=]] et [[lis:jtablelistener][=newValue=]] dans la classe [[lis:jtablelistener][=JTableCellListener=]]. Si les valeurs sont différentes, on fait un appel à l'action du classe.
 
-    #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisée dans la méthode [[lis:propchange][=propertyChange()=]]
+    #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisée dans la méthode [[lis:propchange][=propertyChange()=]] de la classe [[lis:jtablelistener][=JTableListener=]]
     #+NAME: lis:propstart
-    #+BEGIN_SRC java -n 62
+    #+BEGIN_SRC java -n 63
        /**
        ,* annoncée le démarrage du processus d'édition de cellule
        ,*/
@@ -408,7 +407,7 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
     #+CAPTION: L'implémentation du =run()= du classe [[lis:jtablelistener][=JTableListener=]]
     #+NAME: lis:run
-    #+BEGIN_SRC java -n 88
+    #+BEGIN_SRC java -n 89
       @Override
       public void run( ) {
 	  row = table.convertRowIndexToModel(table.getEditingRow( ));
@@ -418,17 +417,20 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
       }
     #+END_SRC
 
-Et finalement, il reste que l'implémentation de la méthode [[lis:run][=run()=]], qui est été appelée avec le protocole =SwingUtilities.invokeLater()= dans [[lis:propstart][=processEditingStarted()=]]. Le rôle de cet appel est de récupérer la valeur actuelle de la cellule. \\
+    Et finalement, il reste que l'implémentation de la méthode [[lis:run][=run()=]], qui est été appelée avec le protocole [[lis:propstart][=SwingUtilities.invokeLater()=]] dans [[lis:propstart][=processEditingStarted()=]]. Le rôle de cet appel est de récupérer la valeur actuelle de la cellule. \\
 
     \vspace*{\fill}
     #+BEGIN_QUOTE
-    /Le but du création de cette classe/ [[lis:jtablelistener][=JTableCellListener=]] /c'est que dans/ =Java= /il n'y a pas un listener native, ou par défaut qui suit l'état des cellules d'un/ =JTable=.
+    /Note: Le but du création de cette classe/ [[lis:jtablelistener][=JTableCellListener=]] /c'est que dans/ =Java= /il n'y a pas d'un listener native, ou par défaut qui suit l'état des cellules d'un/ =JTable=. \\
     #+END_QUOTE
     \vspace*{\fill}
+
     #+CAPTION: La relation entre =DateUtils=, =XmlFile= et =XmlElement=
     #+NAME:   fig:apputils1
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewAppUtils1.png]]
+
+#+LATEX: \clearpage
 
 * L'Interface Graphique
 ** La relation entre les différent Paquet graphique
