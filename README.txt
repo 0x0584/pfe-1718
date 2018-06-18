@@ -13,13 +13,13 @@ Anas Rchid						      05/12/2018
 	taches décrites en [cahier des charges].
 
 	Pour realiser cela, il y a deux parties. Stockage des données
-	et l'application bureau. Pour la première, j'avais choisi
-	/XML/; un langage markup écrit dans un fichier texte. Tout 
-	simplement parce qu'il est gratuit, ainsi que
-	la simplicité d’utilisation et modification. 
-	Et pour la deuxième, j'ai développé une application en /Java/, parce
-	qu'il est un langage Oriente-Objet qui facilite le
-	processus de développement.
+	et l'application bureau. 
+	Pour la première, j'ai choisi /XML/; un langage markup écrit 
+	dans un fichier texte. Tout simplement parce qu'il est gratuit 
+	et simple à utiliser et/ou modifier.
+	Et pour la deuxième, j'ai développé une application en /Java/,
+	car il est un langage Oriente-Objet qui facilite le processus 
+	de développement.
 
   \vspace*{\fill}
 
@@ -31,23 +31,23 @@ Anas Rchid						      05/12/2018
 ====================
 
   \vspace*{\fill}
-	D'après le nom, /Service des ressources humaines/, est le
-	service est responsable de la gestion des employées et
-	fonctionnaires, leur diplômes et grades, ainsi que donner
-	des attestations du travail et des autorisation de congé,
+	D'après son nom, /Service des ressources humaines/ est un
+	service qui est responsable de la gestion des employées
+	et fonctionnaires, leurs diplômes et grades, ainsi que donner
+	des attestations du travail et des autorisations de congé,
 	suivi d'absence, rémunération du travail les jours fériés
-	finalement une notation annuelle.
+	et finalement une notation annuelle.
 
-  Donc, en déduire que le /cahier des charges/ est le suivant :
+  Donc, on en déduit que le /cahier des charges/ est le suivant :
 
-  + implémenter un système de gestion des employées/fonctionnaires
-  + gérée les diplômes et les grades
-  + suivi des grades
-  + suivi d'absence
-  + suivi de rémunération du travail les fériés
-  + générée des attestations de travail
-  + générée des autorisations de congé
-  + générée des notations annuelle pour
+  + Implémenter un système de gestion des employées/fonctionnaires
+  + Gérer les diplômes et les grades
+  + Suivi des grades
+  + Suivi d'absence
+  + Suivi de rémunération du travail les fériés
+  + Générer des attestations de travail
+  + Générer des autorisations de congé
+  + Générer des notations annuelle pour
   \vspace*{\fill}
 
 
@@ -57,19 +57,17 @@ Anas Rchid						      05/12/2018
 3.1 Stockage des données en XML
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Les données sont stockées dans un fichier `XML', `data/xml/hr.xml'. La
-  raison de choisir ce type de stockage c'est que il est lisible soit au
-  niveau du machine soit au niveau d'humain. Au suivant, les regles du
-  gestion est schema general du fichier.
-
+  Les données sont stockées dans un fichier `XML', `data/xml/hr.xml'
+  puisqu'il est lisible à la fois par la machine et l'humain. Au suivant, 
+  les règles du gestion est schéma général du fichier.
 
 3.1.1 Règles de gestion du fichier `XML'
 ----------------------------------------
 
-  Le root-tag est `<Employee>' est qui contient plusieurs tags de type
-  `<employee>' qui représente des employées. Et chaque tag `<employee>'
-  contient un seul tag `<personal>', un seul tag `<administrative>' qui
-  peut contient `0' ou plusieurs tags `<uplift>'. Le tag `<employee>'
+  Le root-tag est `<Employee>' et qui contient plusieurs tags de type
+  `<employee>' qui représente des employées. Chaque tag `<employee>'
+  contient un seul tag `<personal>' et un seul tag `<administrative>' 
+  qui peut contient `0' ou plusieurs tags `<uplift>'. Le tag `<employee>'
   peut aussi avoir `0' ou plusieurs tags de type `<diploma>',
   `<medicalcertif>' et `<repayment>'.
 
@@ -79,11 +77,11 @@ Anas Rchid						      05/12/2018
 	le root-tag, qui contient les tags `employee'
   `<employee>'
 	contient tout les information d'un employée particulier est il
-	avais deux attributes:
+	avait deux attributes:
 
 	*reference* identifiant du employée
 
-	*departement* département du employée. Certains employée
+	*departement* département du employée. Certains employées
 	 n'appartient à aucun département. Ce sont des /fonctionnaire/
   `<personal>'
 	contient des informations personnelle comme le /nom/, /prénom/,
@@ -125,23 +123,23 @@ Anas Rchid						      05/12/2018
   |  1	<Employee>			<!--root-->
   |  2	  <employee reference="" department="">
   |  3
-  |  4	    <notes />			 <!--les note sur l'employé-->
+  |  4	    <notes />			 <!--les notes sur l'employé-->
   |  5
-  |  6	    <personal>			 <!--les information personnelles-->
+  |  6	    <personal>			 <!--les informations personnelles-->
   |  7	    </personal>
   |  8
-  |  9	    <administrative>		<!--les information administrative-->
-  | 10	      <uplift id="" state="">	<!--les information d'avancement-->
+  |  9	    <administrative>		<!--les informations administratives-->
+  | 10	      <uplift id="" state="">	<!--les informations d'avancement-->
   | 11	      </uplift>
   | 12
   | 13	      <uplift id="" state="" />	<!--nous pouvons avoir plus-->
   | 14	    </administrative>
   | 15
-  | 16	    <diplomas id="">		<!--les infomration du diplôme-->
+  | 16	    <diplomas id="">		<!--les infomrations du diplôme-->
   | 17	    </diplomas>
   | 18	    <diplomas id="" />		<!--nous pouvons avoir plus-->
   | 19
-  | 20	    <medicalcertif id="">	<!--information du certification médical-->
+  | 20	    <medicalcertif id="">	<!--information du certificat médical-->
   | 21	    </medicalcertif>
   | 22	    <medicalcertif id="" />	<!--nous pouvons avoir plus-->
   | 23
@@ -152,10 +150,10 @@ Anas Rchid						      05/12/2018
   | 28	  </employee>
   | 29	</Employee>
   `----
-  Programme 1 : Schéma général `XML' du fichier `data/xml/hr.xml'
+  Programme 1 : Schéma général `XML' du fichier `data/xml/hr.xml'.
 
 
-3.2 Les Paquets system et leur Classes
+3.2 Les Paquets system et leurs Classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Le code source de l'application est divisé en 4 paquets pricipales:
@@ -163,16 +161,16 @@ Anas Rchid						      05/12/2018
   [`model']
 	contient les différent classe pour mobilisé les donnée en objet
   [`app']
-	contient les différent énumération utilisé dans
+	contient les différentes énumération utilisées dans
 	l'application. Ce paquet contient aussi [`app.utils'], qui
 	contient des utilitaires utiles pour le développement, notamment
 	la gestion du [fichier XML].
   [`wins']
 	contient des interfaces graphiques, y compris celles qui sont
-	responsables des opérations CRUD normales qui existe dans
+	responsables des opérations CRUD normales qui existent dans
 	[`wins.crud']
   [`views']
-	contient des pages générées pour l'impression
+	contient des pages générées pour l'impression.
 
   \vspace*{\fill}
   [./diags/Overview.png]
@@ -198,7 +196,7 @@ Anas Rchid						      05/12/2018
 --------------------
 
   Ce paquet contient les modèles de l'application, ce sont des classes
-  `Java' pour modéliser les informations stockée dans le fichier XML
+  `Java' pour modéliser les informations stockées dans le fichier XML
   [`data/xml/hr.xml'].
 
   [./diags/OverviewOnClasses.png]
@@ -206,12 +204,12 @@ Anas Rchid						      05/12/2018
   Les classes implémentent les méthodes abstrais [`getElement()'],
   [`add()'], [`update()'] et [`remove()'] dans la classe générique
   [`XmlElement']. Ces méthodes sont responsables de la selection,
-  l'ajout, la mise à jour et la suppression du tag correspondant a
+  l'ajout, la mise à jour et la suppression du tag correspondant à
   l'objet concerné dans le [fichier xml].
 
   Voici la classe mère de toutes les classes, [`XmlElement'], qui
   contient en addition, une chaine de caractères qui représente le
-  référence de l'employée, c.-à-d. L'identifient
+  référence de l'employé, c.-à-d. L'identifient
 
   ,----
   |  1	import org.jdom2.Element;
@@ -237,13 +235,13 @@ Anas Rchid						      05/12/2018
   [`app.utils']
 
   Les méthodes [`add()'], [`update()'] et [`remove()'] de [`XmlElement']
-  retourne une valeur booléen, qui signifie est ce que l'opération a
-  réussi ou non. Tandis que [`getElement()'] retourne le tag [`XML']
+  retournent une valeur booléen qui signifie est ce que l'opération a
+  réussie ou non. Tandis que [`getElement()'] retourne le tag [`XML']
   correspondant a l'objet.
 
   La raison pour laquelle la classe est générique, c'est que
   [`update()'] doit l'être. La méthode [`update()'] prend un variable de
-  type `T', ce type est décris avec un héritage du classe
+  type `T', ce type est décrit avec un héritage du classe
   [`XmlElement'].
 
   Par exemple, [`update()'] dans la classe [`Diploma'] est la suivant :
@@ -286,18 +284,18 @@ Anas Rchid						      05/12/2018
 3.2.2 Paquet `app'
 ------------------
 
-  Le paquet `app' contient que les énumération, décris dans le figure 3.
+  Le paquet `app' contient que les énumérations, décrites dans le figure 3.
 
   [./diags/OverviewOnApp.png]
 
 
   `Cadre'
-	représente les cadres possible pour un employée/fonctionnaire
+	représente les cadres possibles pour un employé/fonctionnaire
   `Mention'
-	les mentions possibles pour un diplôme, utilisé dans
+	les mentions possibles pour un diplôme, utilisés dans
 	[`DilpomaCrud.java']
   `Period'
-	les différents périodes utilisé dans l'application
+	les différents périodes utilisées dans l'application
   `Holiday'
 	utilisé dans [`MainWin.java'] pour la génération du congé
   `SearchField'
@@ -306,7 +304,7 @@ Anas Rchid						      05/12/2018
 	utilisé pour filtrer les employée et fonctionnaire dans
 	[`MainWin.java']
   `Files'
-	contient des énumérations qui concerne les différents fichiers
+	contient des énumérations qui concernent les différents fichiers
 	`XML' utilisé.
 
 
@@ -318,12 +316,12 @@ Anas Rchid						      05/12/2018
 3.2.3 Paquet `app.utils'
 ------------------------
 
-  Alors, ce paquet contient des classes important pour l'application, le
+  Alors, ce paquet contient des classes important pour l'application. Le
   diagramme des classes dans la figure 4 explique les différents
   relations entre ces classes et les classes de système de la
   d'interface graphique du `Java'.
 
-  La classe [`Printer'] est responsable a l'impression d'un `Component',
+  La classe [`Printer'] est responsable de l'impression d'un `Component',
   la classe des composants graphiques, avec l'aide de la méthode `static
   doPrint()' qui prend un `Component' comme paramètre.
 
@@ -389,7 +387,7 @@ Anas Rchid						      05/12/2018
   | 44	    }
   | 45	}
   `----
-  Programme 4 : Extrais de la classe `Printer' qui montre
+  Programme 4 : `Printer' qui montre
   l'implémentation de la méthode abstrait `print()' de l'interface
   `java.awt.Printable'
   On revient à la figure 4, la classe [`JTableCellListener'] est
@@ -438,12 +436,12 @@ Anas Rchid						      05/12/2018
   enregistrée. Lorsque l'édition est arrêtée, la nouvelle valeur est
   enregistrée en tant que `Object'. Lorsque l'ancienne et la nouvelle
   valeur sont différentes, l'action fournie est invoquée. La classe doit
-  appelle des classe selon l'état de l'édition, donc on doit aussi
+  appeller des classes selon l'état de l'édition, alors on doit aussi
   implémenter la méthode [`run()'] dans l'interface `Runnable'. Au
-  suivant un extrait du classe [`JTableCellListener']. Au suivant, des
+  suivant un extrait du classe [`JTableCellListener']. Par la suite, des
   extraits du classe et ses méthodes.
 
-  La classe possède un constricteur privé, qui prend en paramètre, la
+  La classe possède un constricteur privé qui prend en paramètre la
   table, numéro du ligne et colonne, et les deux valeurs, l'ancien et
   nouvelle. Ce constricteur est utilisé dans la méthode
   [`processEditingStopped()'] pour créer une sauvegarde de la cellule
@@ -452,7 +450,7 @@ Anas Rchid						      05/12/2018
   ,----
   | 30	/**
   | 31	 * Créé une copie du JTableCellListener avec une sauvegarde des
-  | 32	 * ancienne/nouvelle données ainsi que la ligne et la colonne
+  | 32	 * anciennes/nouvelles données ainsi que la ligne et la colonne
   | 33	 *
   | 34	 * @param row la ligne de la cellule modifiée
   | 35	 * @param column la colonne de la cellule modifiée
@@ -499,7 +497,7 @@ Anas Rchid						      05/12/2018
 
   ,----
   | 63	/**
-  | 64	 * annoncée le démarrage du processus d'édition de cellule
+  | 64	 * annoncer le démarrage du processus d'édition de cellule
   | 65	 */
   | 66	private void processEditingStarted( ) {
   | 67	    SwingUtilities.invokeLater(this);
@@ -526,7 +524,7 @@ Anas Rchid						      05/12/2018
   | 88	}
   `----
   Programme 7 : Les fonctions `processEditingStarted()' et
-  `processEditingStopped()' utilisée dans la méthode
+  `processEditingStopped()' utilisés dans la méthode
   [`propertyChange()'] de la classe [`JTableListener']
 
   ,----
