@@ -21,7 +21,11 @@
 #+LaTeX_HEADER:	    linkcolor=blue,
 #+LaTeX_HEADER:	    urlcolor=blue
 #+LaTeX_HEADER: }
-#+LaTeX_HEADER: \usemintedstyle{friendly}
+# pastie is a good one
+# xcode is good
+# trac
+#
+#+LaTeX_HEADER: \usemintedstyle{paraiso_light}
 # [[./front.pdf]]
 #+LaTeX_HEADER: \usepackage{fancyhdr}
 #+LaTeX_HEADER: \pagestyle{fancy}
@@ -132,6 +136,7 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
     #+END_SRC
 
 ** Les Paquets system et leur Classes
+
    Le code source de l'application est divisé en 4 paquets pricipales:
 
    + [[Paquet =model=][=model=]] :: contient les différent classe pour mobilisé les donnée en objet
@@ -261,34 +266,34 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 	   ,* @param format formatage de la page à imprimer
 	   ,* @param page_index l'index de la page
 	   ,*
-	   ,* @return intègre qui représente l'état de l'impression */	@Override
+	   ,* @return intègre qui représente l'état de l'impression */
+	  @Override
+	  public int print(Graphics g, PageFormat format, int page_index) {
+	      /* vérification du page, c'est un protocole de l'interface */
+	      if (page_index > 0) return Printable.NO_SUCH_PAGE;
 
-	   public int print(Graphics g, PageFormat format, int page_index) {
-	       /* vérification du page, c'est un protocole de l'interface */
-	       if (page_index > 0) return Printable.NO_SUCH_PAGE;
+	      /* prend les dimensions du composant */
+	      Dimension dim = comp.getSize( );
+	      double cHeight = dim.getHeight( ), cWidth = dim.getWidth( );
 
-	       /* prend les dimensions du composant */
-	       Dimension dim = comp.getSize( );
-	       double cHeight = dim.getHeight( ), cWidth = dim.getWidth( );
+	      /* initialization de demention du la zone d'impression */
+	      double pHeight = format.getImageableHeight( );
+	      double pWidth = format.getImageableWidth( );
+	      double pXStart = format.getImageableX( );
+	      double pYStart = format.getImageableY( );
 
-	       /* initialization de demention du la zone d'impression */
-	       double pHeight = format.getImageableHeight( );
-	       double pWidth = format.getImageableWidth( );
-	       double pXStart = format.getImageableX( );
-	       double pYStart = format.getImageableY( );
+	      /* la difference entre la taille du composant et la taille du
+	       ,* page pour mettre le composant à l'échelle du page */
+	      double xRatio = (pWidth / cWidth), yRatio = (pHeight / cHeight);
 
-	       /* la difference entre la taille du composant et la taille du
-		,* page pour mettre le composant à l'échelle du page */
-	       double xRatio = (pWidth / cWidth), yRatio = (pHeight / cHeight);
-
-	       /* mettre le composant à jour avec la page à imprimer en utilisent
+	      /* mettre le composant à jour avec la page à imprimer en utilisent
 	       ,* la methode java.awt.Component.paint() */
-	       Graphics2D g2 = (Graphics2D) g;
-	       g2.translate(pXStart, pYStart);
-	       g2.scale(xRatio, yRatio);
-	       comp.paint(g2);
-	       return Printable.PAGE_EXISTS;
-	   }
+	      Graphics2D g2 = (Graphics2D) g;
+	      g2.translate(pXStart, pYStart);
+	      g2.scale(xRatio, yRatio);
+	      comp.paint(g2);
+	      return Printable.PAGE_EXISTS;
+	  }
       }
     #+END_SRC
     #+LATEX: \clearpage
@@ -377,7 +382,7 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
     #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisée dans la méthode [[lis:propchange][=propertyChange()=]] de la classe [[lis:jtablelistener][=JTableListener=]]
     #+NAME: lis:propstart
     #+BEGIN_SRC java -n 63
-       /**
+      /**
        ,* annoncée le démarrage du processus d'édition de cellule
        ,*/
       private void processEditingStarted( ) {
