@@ -40,18 +40,27 @@
 
 #+BEGIN_EXPORT latex
 \begin{abstract}
-Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettres et Science Humaines, El Jadida sous le theme Informatision du service Resourse Humains. Sous l'encadrement  de Mr. A. Madani, et la supervision du chef de service; Mr. Driss Dibaji.
+
+Ce projet et le résultat d'un stage que j'avais passe chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le theme {\it informatiser le service Ressources Humaines}. Sous l'encadrement de Mr. A. Madani, et la supervision du chef de service; Mr. Driss Dibaji.\\
+
+Je tiens à remercier toutes les personnes qui ont contribué au succès de mon stage et qui m'ont aidé lors de la rédaction de ce rapport.\\
+
+Tout d'abord, j'adresse mes remerciements au mes professeurs, Mr. A. Madani, Mr. S. Riffi, Mr. A. Silkan et finalemment Mme S. Belqziz, qui m'a beaucoup aidé pendant cette formation, ca serait un grand plaisire.\\
+
+Je tiens à remercier vivement mon maitre de stage, Mr D. Dibaji, chef du service Ressources Humaines au sein de l'Faculté des Lettres et Science Humaines, El Jadida, pour son accueil, le temps passé ensemble et le partage de son expertise au quotidien. Grâce aussi à sa confiance j'ai pu m'accomplir totalement dans mes missions. Il fut d'une aide précieuse dans les moments les plus délicats.\\
+
+Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu lors de la rédaction de ce rapport de stage : ma famille, mon ami H. Hamza et B. Aya\\
 \end{abstract}
 #+END_EXPORT
 
 * Intoduction
   \vspace*{\fill}
   #+BEGIN_QUOTE
-  Pour obtenir ce besoin, J'avais la responsabilité de développé un environnement pour gérer les différents taches décris en [[Cahier des Charges][cahier des charges]]\\
+  Pour obtenir ce besoin, j'avais la responsabilité de développer un environnement pour gérer les différents taches décrites en [[Cahier des Charges][cahier des charges]]\\
   #+END_QUOTE
 
   #+BEGIN_QUOTE
-  Pour realise , il y a deux parties. Stockage des données et l'application bureau. Pour la première, J'ai choisi /XML/ tout simplement parce qu'il est gratuit, alors c'est un langage markup écrit dans un fichier texte, ainsi que la simplicité d’utilisation et modification. Et pour la deuxième, j'ai développé une application en /Java/, par ce qu'il est un langage Oriente-Objet, donc il facilite le processus de développement.
+  Pour realiser cela, il y a deux parties. Stockage des données et l'application bureau. Pour la première, j'ai choisi /XML/; un langage markup écrit dans un fichier texte. Tout simplement parce qu'il est simple à utiliser et/ou modifier ainsi qu'il gratuit. Et pour la deuxième, j'ai développé une application en /Java/, car il est un langage Oriente-Objet qui facilite le processus de développement.
   #+END_QUOTE
 
   \vspace*{\fill}
@@ -60,34 +69,34 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
   \vspace*{\fill}
   #+BEGIN_QUOTE
-  D'après le nom, /Service des ressources humains/, est le service est responsable de la gestion des employées et fonctionnaires, leur diplômes et grades, ainsi que donner des attestations du travail et des autorisation de congé, suivi d'absence, rémunération du travail les jours fériés finalement une notation annuelle.\\
+  D'après son nom, /Service des ressources humaines/ est un service qui est responsable de la gestion des employées et fonctionnaires, leurs diplômes et grades, ainsi que donner des attestations du travail et des autorisations de congé, suivi d'absence, rémunération du travail les jours fériés et finalement une notation annuelle.\\
   #+END_QUOTE
 
-  Donc, en déduire que le /cahier des charges/ est le suivant :\\
+  Donc, on en déduit que le /cahier des charges/ est le suivant :\\
 
-  + implémenter un système de gestion des employées/fonctionnaires
-  + gérée les diplômes et les grades
-  + suivi des grades
-  + suivi d'absence
-  + suivi de rémunération du travail les fériés
-  + générée des attestations de travail
-  + générée des autorisations de congé
-  + générée des notations annuelle pour
+  + Implémenter un système de gestion des employées/fonctionnaires
+  + Gérer les diplômes et les grades
+  + Suivi des grades
+  + Suivi d'absence
+  + Suivi de rémunération du travail les fériés
+  + Générer des attestations de travail
+  + Générer des autorisations de congé
+  + Générer des notations annuelle pour
   \vspace*{\fill}
 
 * Conception
 ** Stockage des données en XML
-   Les données sont stockées dans un fichier =XML=, =data/xml/hr.xml=. La raison de choisir ce type de stockage c'est que il est lisible soit au niveau du machine soit au niveau d'humain. Au suivant, les regles du gestion est schema general du fichier.
+   Les données sont stockées dans un fichier =XML=, =data/xml/hr.xml=  puisqu'il est lisible à la fois par la machine et l'humain. Au suivant, les règles du gestion est schéma général du fichier.
 
 *** Règles de gestion du fichier =XML=
-    Le root-tag est =<Employee>= est qui contient plusieurs tags de type =<employee>= qui représente des employées. Et chaque tag =<employee>= contient un seul tag =<personal>=, un seul tag =<administrative>= qui peut contient =0= ou plusieurs tags =<uplift>=. Le tag =<employee>= peut aussi avoir =0= ou plusieurs tags de type =<diploma>=, =<medicalcertif>= et =<repayment>=.\\
+    Le root-tag est =<Employee>= et qui contient plusieurs tags de type =<employee>= qui représente des employées. Chaque tag =<employee>= contient un seul tag =<personal>= et un seul tag =<administrative>= qui peut contient =0= ou plusieurs tags =<uplift>=. Le tag =<employee>= peut aussi avoir =0= ou plusieurs tags de type =<diploma>=, =<medicalcertif>= et =<repayment>=.\\
 
     Voici la signification de chaque tag des tags déclaré ci-dessus:
 
     + =<Employee>= :: le root-tag, qui contient les tags =employee=
-    + =<employee>= :: contient tout les information d'un employée particulier est il avais deux attributes:
+    + =<employee>= :: contient tout les information d'un employée particulier est il avait deux attributes:
     + *reference* identifiant du employée
-    + *departement* département du employée. Certains employée n'appartient à aucun département. Ce sont des /fonctionnaire/
+    + *departement* département du employée. Certains employées n'appartient à aucun département. Ce sont des /fonctionnaire/
     + =<personal>= :: contient des informations personnelle comme le /nom/, /prénom/, /date de naissance/, etc.
     + =<administrative>= :: contient des informations administrative comme le /SOM/, /CIN/, etc.
     + =<uplift>= :: contient les informations des avancements dans le grade, /date/, /indice/, /échelon/ et /échelle/. Ce tag avais un seul attribut.
@@ -107,13 +116,13 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
      <Employee>			<!--root-->
        <employee reference="" department="">
 
-	 <notes />			 <!--les note sur l'employé-->
+	 <notes />			 <!--les notes sur l'employé-->
 
-	 <personal>			 <!--les information personnelles-->
+	 <personal>			 <!--les informations personnelles-->
 	 </personal>
 
-	 <administrative>		<!--les information administrative-->
-	   <uplift id="" state="">	<!--les information d'avancement-->
+	 <administrative>		<!--les informations administrative-->
+	   <uplift id="" state="">	<!--les informations d'avancement-->
 	   </uplift>
 
 	   <uplift id="" state="" />	<!--nous pouvons avoir plus-->
@@ -123,26 +132,26 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 	 </diplomas>
 	 <diplomas id="" />		<!--nous pouvons avoir plus-->
 
-	 <medicalcertif id="">	<!--information du certification médical-->
+	 <medicalcertif id="">	<!--information du certificat médical-->
 	 </medicalcertif>
 	 <medicalcertif id="" />	<!--nous pouvons avoir plus-->
 
 	 <repayment id="">		<!--information du remboursement-->
 	 </repayment>
-	 <repayment id="" />
+	 <repayment id="" />		<!--nous pouvons avoir plus-->
 
        </employee>
      </Employee>
     #+END_SRC
 
-** Les Paquets system et leur Classes
+** Les Paquets system et leurs Classes
 
    Le code source de l'application est divisé en 4 paquets pricipales:
 
-   + [[Paquet =model=][=model=]] :: contient les différent classe pour mobilisé les donnée en objet
-   + [[Paquet =app=][=app=]] :: contient les différent énumération utilisé dans l'application. Ce paquet contient aussi [[Paquet =app.utils=][=app.utils=]], qui contient des utilitaires utiles pour le développement, notamment la gestion du [[Stockage des donn%C3%A9es en XML][fichier XML]].
-   + [[Paquet =wins=][=wins=]] :: contient des interfaces graphiques, y compris celles qui sont responsables des opérations CRUD normales qui existe dans [[Paquet =wins.crud=][=wins.crud=]]
-   + [[Paquet =views=][=views=]] :: contient des pages générées pour l'impression
+   + [[Paquet =model=][=model=]] :: contient les différentes classe pour mobilisé les donnée en objet
+   + [[Paquet =app=][=app=]] :: contient les différentes énumération utilisées dans l'application. Ce paquet contient aussi [[Paquet =app.utils=][=app.utils=]], qui contient des utilitaires utiles pour le développement, notamment la gestion du [[Stockage des donn%C3%A9es en XML][fichier XML]].
+   + [[Paquet =wins=][=wins=]] :: contient des interfaces graphiques, y compris celles qui sont responsables des opérations CRUD normales qui existent dans [[Paquet =wins.crud=][=wins.crud=]]
+   + [[Paquet =views=][=views=]] :: contient des pages générées pour l'impression.
 
    \vspace*{\fill}
    #+CAPTION: Aperçu de code source du projet
@@ -155,16 +164,16 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
 *** Paquet =model=
 
-    Ce paquet contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockée dans le fichier XML [[Stockage des donn%C3%A9es en XML][=data/xml/hr.xml=]].
+    Ce paquet contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockées dans le fichier XML [[Stockage des donn%C3%A9es en XML][=data/xml/hr.xml=]].
 
     #+CAPTION: La relation entre les classes du paquet [[Paquet =model=][=model=]] et la classe abstrait =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME:   fig:models
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewOnClasses.png]]
 
-    Les classes implémentent les méthodes abstrais [[lis:xml-element][=getElement()=]], [[lis:xml-element][=add()=]], [[lis:xml-element][=update()=]] et [[lis:xml-element][=remove()=]] dans la classe générique [[lis:xml-element][=XmlElement=]]. Ces méthodes sont responsables de la selection, l'ajout, la mise à jour et la suppression du tag correspondant a l'objet concerné dans le [[Stockage des donn%C3%A9es en XML][fichier xml]]. \\
+    Les classes implémentent les méthodes abstrais [[lis:xml-element][=getElement()=]], [[lis:xml-element][=add()=]], [[lis:xml-element][=update()=]] et [[lis:xml-element][=remove()=]] dans la classe générique [[lis:xml-element][=XmlElement=]]. Ces méthodes sont responsables de la selection, l'ajout, la mise à jour et la suppression du tag correspondant à l'objet concerné dans le [[Stockage des donn%C3%A9es en XML][fichier xml]]. \\
 
-    Voici la classe mère de toutes les classes, [[lis:xml-element][=XmlElement=]], qui contient en addition, une chaine de caractères qui représente le référence de l'employée, c.-à-d. L'identifient
+    Voici la classe mère de toutes les classes, [[lis:xml-element][=XmlElement=]], qui contient en addition, une chaine de caractères qui représente le référence de l'employé, c.-à-d. L'identifient
 
     #+CAPTION: Extrais du classe générique =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME: lis:xml-element
@@ -189,9 +198,9 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
       }
     #+END_SRC
 
-    Les méthodes [[lis:xml-element][=add()=]], [[lis:xml-element][=update()=]] et [[lis:xml-element][=remove()=]] de [[lis:xml-element][=XmlElement=]] retourne une valeur booléen, qui signifie est ce que l'opération a réussi ou non. Tandis que [[lis:xml-element][=getElement()=]] retourne le tag [[lis:hr-xml][=XML=]] correspondant a l'objet.\\
+    Les méthodes [[lis:xml-element][=add()=]], [[lis:xml-element][=update()=]] et [[lis:xml-element][=remove()=]] de [[lis:xml-element][=XmlElement=]] retournent une valeur booléen, qui signifie est ce que l'opération a réussie ou non. Tandis que [[lis:xml-element][=getElement()=]] retourne le tag [[lis:hr-xml][=XML=]] correspondant a l'objet.\\
 
-    La raison pour laquelle la classe est générique, c'est que [[lis:xml-element][=update()=]] doit l'être. La méthode [[lis:xml-element][=update()=]] prend un variable de type =T=, ce type est décris avec un héritage du classe [[lis:xml-element][=XmlElement=]]. \\
+    La raison pour laquelle la classe est générique, c'est que [[lis:xml-element][=update()=]] doit l'être. La méthode [[lis:xml-element][=update()=]] prend un variable de type =T=, ce type est décrit avec un héritage du classe [[lis:xml-element][=XmlElement=]]. \\
 
     Par exemple, [[lis:xml-element][=update()=]] dans la classe [[fig:models][=Diploma=]] est la suivant :
 
@@ -210,7 +219,7 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
 *** Paquet =app=
 
-    Le paquet =app= contient que les énumération, décris dans le figure [[fig:app]].
+    Le paquet =app= contient que les énumérations, décrites dans le figure [[fig:app]].
 
     #+CAPTION: Les enumeration dans paquet =app=
     #+NAME:	  fig:app
@@ -218,21 +227,21 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
     [[./diags/OverviewOnApp.png]]
 
 
-    + =Cadre= :: représente les cadres possible pour un employée/fonctionnaire
-    + =Mention= :: les mentions possibles pour un diplôme, utilisé dans [[Gestion de Dipl%C3%B4mes][=DilpomaCrud.java=]]
-    + =Period= :: les différents périodes utilisé dans l'application
+    + =Cadre= :: représente les cadres possibles pour un employée/fonctionnaire
+    + =Mention= :: les mentions possibles pour un diplôme, utilisés dans [[Gestion de Dipl%C3%B4mes][=DilpomaCrud.java=]]
+    + =Period= :: les différentes périodes utilisées dans l'application
     + =Holiday= :: utilisé dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]] pour la génération du congé
     + =SearchField= :: utilisé pour la recherche dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
     + =EmployeeType= :: utilisé pour filtrer les employée et fonctionnaire dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
-    + =Files= :: contient des énumérations qui concerne les différents fichiers =XML= utilisé.
+    + =Files= :: contient des énumérations qui concernent les différents fichiers =XML= utilisé.
 
     #+LATEX: \clearpage
 
 *** Paquet =app.utils=
 
-    Alors, ce paquet contient des classes important pour l'application, le diagramme des classes dans la figure [[fig:apputils0]] explique les différents relations entre ces classes et les classes de système de la d'interface graphique du =Java=.\\
+    Alors, ce paquet contient des classes important pour l'application. Le diagramme des classes dans la figure [[fig:apputils0]] explique les différents relations entre ces classes et les classes de système de la d'interface graphique du =Java=.\\
 
-    La classe [[lis:print][=Printer=]] est responsable a l'impression d'un =Component=, la classe des composants graphiques, avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
+    La classe [[lis:print][=Printer=]] est responsable de l'impression d'un =Component=, la classe des composants graphiques, avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
 
     #+CAPTION: La relation entre =JTable=, =JTableListener=, et =Printer= du paquet =app.utils=
     #+NAME:   fig:apputils0
@@ -335,16 +344,16 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
       }
     #+END_SRC
 
-    Lorsque l'édition est démarrée, la valeur de la cellule est enregistrée. Lorsque l'édition est arrêtée, la nouvelle valeur est enregistrée en tant que =Object=. Lorsque l'ancienne et la nouvelle valeur sont différentes, l'action fournie est invoquée. La classe doit appelle des classe selon l'état de l'édition, donc on doit aussi implémenter la méthode [[lis:run][=run()=]] dans l'interface =Runnable=. Au suivant un extrait du classe [[lis:jtablelistener][=JTableCellListener=]]. Au suivant, des extraits du classe et ses méthodes. \\
+    Lorsque l'édition est démarrée, la valeur de la cellule est enregistrée. Lorsque l'édition est arrêtée, la nouvelle valeur est enregistrée en tant que =Object=. Lorsque l'ancienne et la nouvelle valeur sont différentes, l'action fournie est invoquée. La classe doit appeller des classes selon l'état de l'édition, alors on doit aussi implémenter la méthode [[lis:run][=run()=]] dans l'interface =Runnable=. Au suivant un extrait du classe [[lis:jtablelistener][=JTableCellListener=]]. Par la suit, des extraits du classe et ses méthodes. \\
 
-    La classe possède un constricteur privé, qui prend en paramètre, la table, numéro du ligne et colonne, et les deux valeurs, l'ancien et nouvelle. Ce constricteur est utilisé dans la méthode [[lis:propstart][=processEditingStopped()=]] pour créer une sauvegarde de la cellule concernée.
+    La classe possède un constricteur privé qui prend en paramètre la table, numéro du ligne et colonne, et les deux valeurs, l'ancien et nouvelle. Ce constricteur est utilisé dans la méthode [[lis:propstart][=processEditingStopped()=]] pour créer une sauvegarde de la cellule concernée.
 
     #+CAPTION: L'implémentation du =propertyChange()= de l'interface =Printable= dans la classe [[lis:jtablelistener][=JTableListener=]]
     #+NAME: lis:propchange
     #+BEGIN_SRC java -n 30
       /**
        ,* Créé une copie du JTableCellListener avec une sauvegarde des
-       ,* ancienne/nouvelle données ainsi que la ligne et la colonne
+       ,* anciennes/nouvelles données ainsi que la ligne et la colonne
        ,*
        ,* @param row la ligne de la cellule modifiée
        ,* @param column la colonne de la cellule modifiée
@@ -379,11 +388,11 @@ Ce projet et la résulta d'un stage que j'avais passe chez la Faculté des Lettr
 
     La méthode [[lis:propchange][=JTable.isEditing()=]] indique l'état booléen du table, la valeur =true= indique que la table est en une modification actif, alors on fait un appel à [[lis:propstart][=processEditingStarted()=]]. Lorsque la méthode retourne la valeur =false=, on fait un appel au [[lis:propstart][=processEditingStopped()=]], qui est responsable de la vérification est ce que la valeur de la cellule a été modifie ou non par la comparaison entre [[lis:jtablelistener][=oldValue=]] et [[lis:jtablelistener][=newValue=]] dans la classe [[lis:jtablelistener][=JTableCellListener=]]. Si les valeurs sont différentes, on fait un appel à l'action du classe.
 
-    #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisée dans la méthode [[lis:propchange][=propertyChange()=]] de la classe [[lis:jtablelistener][=JTableListener=]]
+    #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisées dans la méthode [[lis:propchange][=propertyChange()=]] de la classe [[lis:jtablelistener][=JTableListener=]]
     #+NAME: lis:propstart
     #+BEGIN_SRC java -n 63
       /**
-       ,* annoncée le démarrage du processus d'édition de cellule
+       ,* annoncer le démarrage du processus d'édition de cellule
        ,*/
       private void processEditingStarted( ) {
 	  SwingUtilities.invokeLater(this);
