@@ -8,17 +8,17 @@ Anas Rchid						      05/12/2018
 =============
 
   \vspace*{\fill}
-	Pour obtenir ce besoin, J'avais la responsabilité de
-	développé un environnement pour gérer les différents
-	taches décris en [cahier des charges]
+	Pour obtenir ce besoin, j'avais la responsabilité de
+	développer un environnement pour gérer les différents
+	taches décrites en [cahier des charges].
 
-	Pour realise , il y a deux parties. Stockage des données
-	et l'application bureau. Pour la première, J'ai choisi
-	/XML/ tout simplement parce qu'il est gratuit, alors c'est
-	un langage markup écrit dans un fichier texte, ainsi que
-	la simplicité d’utilisation et modification. Et pour la
-	deuxième, j'ai développé une application en /Java/, par ce
-	qu'il est un langage Oriente-Objet, donc il facilite le
+	Pour realiser cela, il y a deux parties. Stockage des données
+	et l'application bureau. Pour la première, j'avais choisi
+	/XML/; un langage markup écrit dans un fichier texte. Tout 
+	simplement parce qu'il est gratuit, ainsi que
+	la simplicité d’utilisation et modification. 
+	Et pour la deuxième, j'ai développé une application en /Java/, parce
+	qu'il est un langage Oriente-Objet qui facilite le
 	processus de développement.
 
   \vspace*{\fill}
@@ -31,7 +31,7 @@ Anas Rchid						      05/12/2018
 ====================
 
   \vspace*{\fill}
-	D'après le nom, /Service des ressources humains/, est le
+	D'après le nom, /Service des ressources humaines/, est le
 	service est responsable de la gestion des employées et
 	fonctionnaires, leur diplômes et grades, ainsi que donner
 	des attestations du travail et des autorisation de congé,
