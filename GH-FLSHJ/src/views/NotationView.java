@@ -1,10 +1,3 @@
-/**
- * 
- * this still has the two last parts which i have to finish by tomorrow
- * 
- *   - [ ] last two parts
- *   - [ ] font problem
- * */
 package views;
 
 import java.awt.BorderLayout;
@@ -32,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import com.alee.laf.WebLookAndFeel;
 
 import app.utils.Printer;
+import app.utils.DateUtil;
 import app.utils.JTableCellListener;
 import model.Employee;
 
@@ -126,22 +120,22 @@ public class NotationView {
 		frame.getContentPane( ).setLayout(null);
 
 		JLabel lblRoyaumeDuMaroc = new JLabel("Royaume du Maroc");
-		lblRoyaumeDuMaroc.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblRoyaumeDuMaroc.setFont(new Font("Arial", Font.BOLD, 14));
 		lblRoyaumeDuMaroc.setBounds(12, 12, 154, 15);
 		frame.getContentPane( ).add(lblRoyaumeDuMaroc);
 
 		JLabel lblNewLabel = new JLabel("Faculté des Lettres et des Sciences");
-		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel.setBounds(12, 66, 263, 15);
 		frame.getContentPane( ).add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Université Chouaib Doukkali");
-		lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(12, 39, 202, 15);
 		frame.getContentPane( ).add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Humaines - El Jadida");
-		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(12, 97, 152, 15);
 		frame.getContentPane( ).add(lblNewLabel_2);
 
@@ -254,17 +248,18 @@ public class NotationView {
 		panel.add(lbl_grade);
 		lbl_grade.setFont(new Font("Arial", Font.BOLD, 16));
 
-		JLabel lbl_since = new JLabel("24/05/2017");
+		JLabel lbl_since = new JLabel(DateUtil.parseDate(e.getJoinDate( )));
 		lbl_since.setBounds(12, 206, 216, 15);
 		panel.add(lbl_since);
 		lbl_since.setFont(new Font("Arial", Font.BOLD, 16));
 
-		JLabel lbl_current_job = new JLabel(e.getCurrentJob( ));
+		JLabel lbl_current_job = new JLabel(e.getMission( ));
 		lbl_current_job.setBounds(12, 176, 216, 18);
 		panel.add(lbl_current_job);
 		lbl_current_job.setFont(new Font("Arial", Font.BOLD, 16));
 
-		JLabel lbl_uplift_date = new JLabel("15/11/2016");
+		JLabel lbl_uplift_date = new JLabel(
+			DateUtil.parseDate(e.getCurrentUplift( ).getDate( )));
 		lbl_uplift_date.setBounds(12, 149, 216, 15);
 		panel.add(lbl_uplift_date);
 		lbl_uplift_date.setFont(new Font("Arial", Font.BOLD, 16));
@@ -279,9 +274,8 @@ public class NotationView {
 		panel.add(label_19);
 		label_19.setFont(new Font("Arial", Font.BOLD, 16));
 
-		JLabel label_20 = new JLabel(
-			"الإطار وَ مقر التعيين: بكلية الأدب، الجديدة");
-		label_20.setBounds(455, 141, 225, 18);
+		JLabel label_20 = new JLabel("الإطار:");
+		label_20.setBounds(635, 141, 45, 18);
 		panel.add(label_20);
 		label_20.setFont(new Font("Arial", Font.BOLD, 16));
 
@@ -290,12 +284,12 @@ public class NotationView {
 		panel.add(label_21);
 		label_21.setFont(new Font("Arial", Font.BOLD, 16));
 
-		JLabel lbl_name = new JLabel(e.getName( ));
+		JLabel lbl_name = new JLabel(e.getNameArabic( ));
 		lbl_name.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_name.setBounds(370, 14, 145, 19);
 		panel.add(lbl_name);
 
-		JLabel lbl_fname = new JLabel(e.getFamilyname( ));
+		JLabel lbl_fname = new JLabel(e.getFamilyNameArabic( ));
 		lbl_fname.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_fname.setBounds(370, 47, 145, 19);
 		panel.add(lbl_fname);
@@ -345,7 +339,7 @@ public class NotationView {
 		lbl_nchildren.setBounds(12, 95, 216, 15);
 		panel.add(lbl_nchildren);
 
-		JLabel lbl_bplace = new JLabel(e.getBirthPlace( ));
+		JLabel lbl_bplace = new JLabel(e.getBirthPlaceArabic( ));
 		lbl_bplace.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_bplace.setBounds(12, 68, 216, 15);
 		panel.add(lbl_bplace);
@@ -359,6 +353,11 @@ public class NotationView {
 		lbl_cin.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_cin.setBounds(12, 14, 216, 15);
 		panel.add(lbl_cin);
+
+		JLabel label_28 = new JLabel(e.getCadre( ).toString( ));
+		label_28.setFont(new Font("Arial", Font.BOLD, 16));
+		label_28.setBounds(370, 141, 253, 18);
+		panel.add(label_28);
 
 		JPanel panel_2 = new JPanel( );
 		panel_2.setLayout(null);

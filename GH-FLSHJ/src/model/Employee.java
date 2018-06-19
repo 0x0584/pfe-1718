@@ -190,7 +190,7 @@ public class Employee extends Person {
 			name.setText(nempl.getName( ) + " ");
 
 			Element fname = new Element("familyname");
-			fname.setText(nempl.getFamilyname( ) + " ");
+			fname.setText(nempl.getFamilyName( ) + " ");
 
 			Element bplace = new Element("brithplace");
 			bplace.setText(nempl.getBirthPlace( ) + " ");
@@ -299,8 +299,18 @@ public class Employee extends Person {
 			personal = empl.getChild("personal");
 
 			XmlFile.updateOrCreate(personal, "name", newempl.getName( ));
+
 			XmlFile.updateOrCreate(
-				personal, "familyname", newempl.getFamilyname( ));
+				personal, "name_ar", newempl.getNameArabic( ));
+			XmlFile.updateOrCreate(
+				personal, "familyname_ar", newempl.getFamilyNameArabic( ));
+			XmlFile.updateOrCreate(
+				personal, "address_ar", newempl.getAddressArabic( ));
+			XmlFile.updateOrCreate(
+				personal, "birthplace_ar", newempl.getBirthPlaceArabic( ));
+
+			XmlFile.updateOrCreate(
+				personal, "familyname", newempl.getFamilyName( ));
 
 			personal.getChild("nationality").getAttribute("ma")
 							.setValue(newempl.isMoroccan( ) ? "t" : "nil");
@@ -406,8 +416,17 @@ public class Employee extends Person {
 		// personal tag
 		foo = e.getChild("personal");
 
+		empl.setNameArabic((String) foo.getChildTextTrim("name_ar"));
+		empl.setFamilyNameArabic(
+			(String) foo.getChildTextTrim("familyname_ar"));
+		empl.setBirthPlaceArabic(
+			(String) foo.getChildTextTrim("brithplace_ar"));
+		empl.setAddressArabic((String) foo.getChildTextTrim("address_ar"));
+
 		empl.setName(foo.getChildTextTrim("name"));
-		empl.setFamilyname(foo.getChildTextTrim("familyname"));
+		empl.setFamilyName(foo.getChildTextTrim("familyname"));
+		empl.setName(foo.getChildTextTrim("name"));
+		empl.setFamilyName(foo.getChildTextTrim("familyname"));
 		empl.setIsMoroccan(
 			foo.getChild("nationality").getAttributeValue("ma")
 							.compareTo("t") == 0);
@@ -415,6 +434,7 @@ public class Employee extends Person {
 
 		empl.setBirthPlace(foo.getChildTextTrim("brithplace"));
 		empl.setAddress(foo.getChildTextTrim("address"));
+
 		empl.setPhone(foo.getChildTextTrim("phone"));
 		empl.setIsMarried(
 			foo.getChild("state").getAttributeValue("married")

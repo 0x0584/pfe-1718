@@ -4,8 +4,9 @@ import java.util.Date;
 
 import app.utils.XmlElement;
 
-public abstract class Person extends XmlElement<Employee>{
+public abstract class Person extends XmlElement<Employee> {
 	protected String name, fname, addr, phone;
+	protected String name_ar, fname_ar, addr_ar, bplace_ar;
 	protected String bplace;
 	protected Date bday;
 	protected boolean ismoroccan, ismarried;
@@ -52,6 +53,38 @@ public abstract class Person extends XmlElement<Employee>{
 						+ "]";
 	}
 
+	public String getNameArabic( ) {
+		return name_ar;
+	}
+
+	public String getFamilyNameArabic( ) {
+		return fname_ar;
+	}
+
+	public String getAddressArabic( ) {
+		return addr_ar;
+	}
+
+	public String getBirthPlaceArabic( ) {
+		return bplace_ar;
+	}
+
+	public void setNameArabic(String name_ar) {
+		this.name_ar = name_ar;
+	}
+
+	public void setFamilyNameArabic(String fname_ar) {
+		this.fname_ar = fname_ar;
+	}
+
+	public void setAddressArabic(String addr_ar) {
+		this.addr_ar = addr_ar;
+	}
+
+	public void setBirthPlaceArabic(String bplace_ar) {
+		this.bplace_ar = bplace_ar;
+	}
+
 	public String getName( ) {
 		return name;
 	}
@@ -60,11 +93,11 @@ public abstract class Person extends XmlElement<Employee>{
 		this.name = name;
 	}
 
-	public String getFamilyname( ) {
+	public String getFamilyName( ) {
 		return fname;
 	}
 
-	public void setFamilyname(String fname) {
+	public void setFamilyName(String fname) {
 		this.fname = fname;
 	}
 

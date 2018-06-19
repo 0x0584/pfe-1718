@@ -121,7 +121,7 @@ public class Uplift extends XmlElement<Uplift> {
 
 			if (nextdate.before(todate)) {
 				String fullname = e.getName( ) + " "
-								+ e.getFamilyname( ).toUpperCase( );
+								+ e.getFamilyName( ).toUpperCase( );
 				model.addRow(new String[] {
 								e.getEmployeeReference( ), e.getCIN( ),
 								fullname,
@@ -303,7 +303,7 @@ public class Uplift extends XmlElement<Uplift> {
 	
 			if (nextdate.before(Period.getDate(Period.TODAY))) {
 				String fullname = e.getName( ) + " "
-								+ e.getFamilyname( ).toUpperCase( );
+								+ e.getFamilyName( ).toUpperCase( );
 				model.addRow(new String[] {
 								e.getEmployeeReference( ), e.getCIN( ),
 								fullname, "" + next.getGrade( ),

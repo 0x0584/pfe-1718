@@ -24,8 +24,8 @@
 # pastie is a good one
 # xcode is good
 # trac
-#
-#+LaTeX_HEADER: \usemintedstyle{paraiso_light}
+# paraiso_light
+#+LaTeX_HEADER: \usemintedstyle{default}
 # [[./front.pdf]]
 #+LaTeX_HEADER: \usepackage{fancyhdr}
 #+LaTeX_HEADER: \pagestyle{fancy}

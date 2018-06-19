@@ -65,10 +65,10 @@ public class InfoCrud {
 	private JTextField tf_bdate;
 	private JTextField tf_cin;
 	private JTextField tf_d;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tf_name_ar;
+	private JTextField tf_fname_ar;
+	private JTextField tf_addr_ar;
+	private JTextField tf_bplace_ar;
 
 	/**
 	 * Launch the application.
@@ -172,7 +172,7 @@ public class InfoCrud {
 		spin_nchildren.setBounds(403, 136, 148, 29);
 		panel_1.add(spin_nchildren);
 
-		tf_fname = new JTextField(empl.getFamilyname( ));
+		tf_fname = new JTextField(empl.getFamilyName( ));
 		tf_fname.setColumns(10);
 		tf_fname.setBounds(135, 37, 148, 29);
 		panel_1.add(tf_fname);
@@ -405,49 +405,49 @@ public class InfoCrud {
 		bg_ma.add(rd_isma_yes);
 		bg_ma.add(rd_isma_no);
 
-		JLabel label_12 = new JLabel("مقر العمل السابق ");
-		label_12.setBounds(12, 119, 121, 15);
+		JLabel label_12 = new JLabel("العنوان بالعربية");
+		label_12.setBounds(104, 119, 105, 15);
 		panel_7.add(label_12);
 
-		JLabel label_13 = new JLabel("ر. التأجير");
-		label_13.setBounds(36, 86, 72, 15);
+		JLabel label_13 = new JLabel("النسب بالعربية");
+		label_13.setBounds(107, 86, 96, 15);
 		panel_7.add(label_13);
 
-		JLabel label_14 = new JLabel("ر. المنصب المالي");
-		label_14.setBounds(15, 53, 114, 15);
+		JLabel label_14 = new JLabel("الإسم بالعربية");
+		label_14.setBounds(108, 53, 93, 15);
 		panel_7.add(label_14);
 
 		JLabel lblIsmoroccan = new JLabel("جنسيّة مغربية");
 		lblIsmoroccan.setBounds(318, 19, 120, 15);
 		panel_7.add(lblIsmoroccan);
 
-		tf_d = new JTextField((String) null);
+		tf_d = new JTextField(empl.getDepartment( ));
 		tf_d.setColumns(10);
 		tf_d.setBounds(128, 12, 148, 29);
 		panel_7.add(tf_d);
 
-		textField_1 = new JTextField((String) null);
-		textField_1.setColumns(10);
-		textField_1.setBounds(128, 46, 148, 29);
-		panel_7.add(textField_1);
+		tf_name_ar = new JTextField(empl.getNameArabic( ));
+		tf_name_ar.setColumns(10);
+		tf_name_ar.setBounds(309, 46, 148, 29);
+		panel_7.add(tf_name_ar);
 
-		textField_2 = new JTextField((String) null);
-		textField_2.setColumns(10);
-		textField_2.setBounds(128, 79, 148, 29);
-		panel_7.add(textField_2);
+		tf_fname_ar = new JTextField(empl.getFamilyNameArabic( ));
+		tf_fname_ar.setColumns(10);
+		tf_fname_ar.setBounds(310, 79, 148, 29);
+		panel_7.add(tf_fname_ar);
 
-		textField_3 = new JTextField((String) null);
-		textField_3.setColumns(10);
-		textField_3.setBounds(128, 112, 148, 29);
-		panel_7.add(textField_3);
+		tf_addr_ar = new JTextField(empl.getAddressArabic( ));
+		tf_addr_ar.setColumns(10);
+		tf_addr_ar.setBounds(313, 112, 148, 29);
+		panel_7.add(tf_addr_ar);
 
-		textField_4 = new JTextField((String) null);
-		textField_4.setColumns(10);
-		textField_4.setBounds(128, 145, 148, 29);
-		panel_7.add(textField_4);
+		tf_bplace_ar = new JTextField(empl.getBirthPlaceArabic( ));
+		tf_bplace_ar.setColumns(10);
+		tf_bplace_ar.setBounds(322, 145, 148, 29);
+		panel_7.add(tf_bplace_ar);
 
-		JLabel label_16 = new JLabel("مقر العمل الحالي");
-		label_16.setBounds(17, 152, 111, 15);
+		JLabel label_16 = new JLabel("مكان الإزدياد بالعربية");
+		label_16.setBounds(94, 152, 134, 15);
 		panel_7.add(label_16);
 
 		JLabel lblDepartment = new JLabel("شعبة");
@@ -460,7 +460,7 @@ public class InfoCrud {
 		panel_3.setLayout(null);
 
 		JLabel lblMrRchidAnas = new JLabel(String.format(
-			"السيد %s, %s", empl.getName( ), empl.getFamilyname( )));
+			"السيد %s, %s", empl.getName( ), empl.getFamilyName( )));
 		lblMrRchidAnas.setBounds(308, 13, 251, 15);
 		panel_3.add(lblMrRchidAnas);
 
@@ -503,9 +503,14 @@ public class InfoCrud {
 				Employee nempl = new Employee(empl.getEmployeeReference( ));
 				nempl.setNotes(tp_notes.getText( ));
 				nempl.setDepartment(tf_d.getText( ));
-
+				
+				nempl.setNameArabic(tf_name_ar.getText( ));
+				nempl.setFamilyNameArabic(tf_fname_ar.getText( ));
+				nempl.setAddressArabic(tf_addr_ar.getText( ));
+				nempl.setBirthPlaceArabic(tf_bplace_ar.getText( ));
+				
 				nempl.setName(tf_name.getText( ));
-				nempl.setFamilyname(tf_fname.getText( ));
+				nempl.setFamilyName(tf_fname.getText( ));
 				nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
 				nempl.setBirthDay(DateUtil.parseDate(tf_bdate.getText( )));
 
@@ -566,10 +571,15 @@ public class InfoCrud {
 					nempl.setDepartment(tf_d.getText( ));
 
 					nempl.setName(tf_name.getText( ));
-					nempl.setFamilyname(tf_fname.getText( ));
+					nempl.setFamilyName(tf_fname.getText( ));
 					nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
 					nempl.setBirthDay(DateUtil.parseDate(tf_bdate.getText( )));
 
+					nempl.setNameArabic(tf_name_ar.getText( ));
+					nempl.setFamilyNameArabic(tf_fname_ar.getText( ));
+					nempl.setAddressArabic(tf_addr_ar.getText( ));
+					nempl.setBirthPlaceArabic(tf_bplace_ar.getText( ));
+					
 					nempl.setBirthPlace(tf_bplace.getText( ));
 					nempl.setAddress(tf_addr.getText( ));
 					nempl.setPhone(tf_phone.getText( ));
@@ -581,7 +591,8 @@ public class InfoCrud {
 					nempl.setPartnerName(tf_partner_name.getText( ));
 					nempl.setPartnerJob(tf_partner_job.getText( ));
 					String strr = tf_ref.getText( ).compareTo("") == 0 ? ""
-									+ (Employee.getLastEmployeeXmlReference( ) + 1)
+									+ (Employee.getLastEmployeeXmlReference( )
+													+ 1)
 									: tf_ref.getText( );
 					nempl.setEmployeeReference(strr);
 					nempl.setCIN(tf_cin.getText( ));

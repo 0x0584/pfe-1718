@@ -151,7 +151,7 @@ public class HolidayExcepView {
 		frame.getContentPane( ).add(lblAttesteQueMr);
 
 		JLabel lblNomCompletes = new JLabel(String.format(
-			"Nom complete: %s %s", e.getFamilyname( ), e.getName( )));
+			"Nom complete: %s %s", e.getFamilyName( ), e.getName( )));
 		lblNomCompletes.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblNomCompletes.setBounds(110, 482, 431, 29);
 		frame.getContentPane( ).add(lblNomCompletes);
