@@ -1,148 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Employee>
-	<employee reference="0112358" department="Informatique">
-		<notes />
-		<personal>
-			<name_ar>ANAS</name_ar>
-			<familyname_ar>Rchid</familyname_ar>
-			<brithplace_ar>Rass El Ain</brithplace_ar>
-			<address_ar>99 Ibn Sina, OD Frej El Jadida</address_ar>
-			<name>ANAS</name>
-			<familyname>Rchid</familyname>
-			<birth>1994-09-15</birth>
-			<nationality ma="t" />
-			<brithplace>Rass El Ain</brithplace>
-			<address>99 Ibn Sina, OD Frej El Jadida</address>
-			<phone>0642857134</phone>
-			<state married="t" />
-			<partner name="Fatima" job="بدون" />
-			<children number="1" />
-		</personal>
-		<administrative>
-			<reference>0112358</reference>
-			<cadre>Engenieur 1er Grade</cadre>
-			<fstatus>12452</fstatus>
-			<cin>M550630</cin>
-			<mission>programming</mission>
-			<hday>2018-10-15</hday>
-			<jday>2018-11-21</jday>
-			<reason>exam</reason>
-			<pjob>UCD FS</pjob>
-			<cjob>CapGemini Casablanca</cjob>
-			<uplift id="2" state="current" type="exam">
-				<scale>9</scale>
-				<echlon>2</echlon>
-				<indice>12121</indice>
-				<update>2017-06-12</update>
-			</uplift>
-			<uplift id="1" state="old" type="normal">
-				<scale>9</scale>
-				<echlon>1</echlon>
-				<indice>451245</indice>
-				<update>2017-06-15</update>
-			</uplift>
-		</administrative>
-		<diplomas id="1">
-			<diploma mention="Passable">Science Math A</diploma>
-			<institute city="ODFrej">6 Novembre</institute>
-			<session>2011-2012</session>
-			<!-- yyyyYYYY -->
-		</diplomas>
-		<diplomas id="2">
-			<diploma mention="Bien">TSDI</diploma>
-			<institute city="ElJadida">COOL</institute>
-			<session>2015-2017</session>
-		</diplomas>
-		<medicalcertif id="2">
-			<from>2018-10-10</from>
-			<ndays>20</ndays>
-			<period>dd</period>
-		</medicalcertif>
-		<repayment id="1">
-			<period>Semestre I</period>
-			<ndays>5</ndays>
-			<repayed>4</repayed>
-		</repayment>
-		<repayment id="2">
-			<period>Semestre II</period>
-			<ndays>60</ndays>
-			<repayed>50</repayed>
-		</repayment>
-	</employee>
-	<employee reference="01123411" department="nil">
-		<notes />
-		<personal>
-			<name>Aymen</name>
-			<familyname>Rchid</familyname>
-			<!-- last name -->
-			<birth>1999-10-15</birth>
-			<!-- yyyymmdd -->
-			<nationality ma="t" />
-			<brithplace>Rass El Ain</brithplace>
-			<address>99 Ibn Sina, OD Frej El Jadida</address>
-			<phone>0642857134</phone>
-			<state married="nil" />
-		</personal>
-		<administrative>
-			<reference>01123411</reference>
-			<cadre>C_1</cadre>
-			<fstatus>12452</fstatus>
-			<cin>M550630</cin>
-			<mission>programming</mission>
-			<hday>2018-10-15</hday>
-			<jday>2018-11-21</jday>
-			<reason>exam</reason>
-			<pjob>UCD FS</pjob>
-			<cjob>CapGemini Casablanca</cjob>
-			<uplift id="1" state="current" type="exam">
-				<scale>11</scale>
-				<echlon>1</echlon>
-				<indice>451245</indice>
-				<update>2017-07-15</update>
-			</uplift>
-		</administrative>
-		<diplomas id="1">
-			<diploma mention="Bien">Licence</diploma>
-			<institute city="ElJadida">UCD FSJ</institute>
-			<session>2017-2018</session>
-			<!-- yyyyYYYY -->
-		</diplomas>
-		<medicalcertif id="1">
-			<from>2017-10-15</from>
-			<ndays>10</ndays>
-			<period>Semestre I</period>
-		</medicalcertif>
-	</employee>
-	<employee department="Informatique" reference="78451215">
-		<notes />
-		<personal>
-			<name>Hamza</name>
-			<familyname>Hamdaoui</familyname>
-			<birth>1996-06-13</birth>
-			<brithplace>Yousoufia</brithplace>
-			<address>somewhere</address>
-			<phone>0698744691</phone>
-			<state married="nil" />
-			<nationality ma="t" />
-			<partner name="" job="" />
-			<children number="0" />
-		</personal>
-		<administrative>
-			<cin>M582927</cin>
-			<mission>Teaching</mission>
-			<jday>2018-06-13</jday>
-			<hday>2018-06-13</hday>
-			<reason>exam</reason>
-			<pjob>NONE</pjob>
-			<cjob>UCD FSJ</cjob>
-			<cadre>Engenieur 1er Grade</cadre>
-			<fstatus>12457521</fstatus>
-			<uplift id="1" state="current">
-				<scale>9</scale>
-				<echlon>3</echlon>
-				<indice>7845124</indice>
-				<update>2017-10-15</update>
-			</uplift>
-		</administrative>
-	</employee>
+  <employee reference="0112358" department="Informatique">
+    <notes />
+    <personal>
+      <name_ar>ANAS</name_ar>
+      <familyname_ar>Rchid</familyname_ar>
+      <brithplace_ar>Rass El Ain</brithplace_ar>
+      <address_ar>99 Ibn Sina, OD Frej El Jadida</address_ar>
+      <name>ANAS</name>
+      <familyname>Rchid</familyname>
+      <birth>1994-09-15</birth>
+      <nationality ma="t" />
+      <brithplace>Rass El Ain</brithplace>
+      <address>99 Ibn Sina, OD Frej El Jadida</address>
+      <phone>0642857134</phone>
+      <state married="t" />
+      <partner name="Fatima" job="بدون" />
+      <children number="1" />
+    </personal>
+    <administrative>
+      <reference>0112358</reference>
+      <cadre>Engenieur 1er Grade</cadre>
+      <fstatus>12452</fstatus>
+      <cin>M550630</cin>
+      <mission>programming</mission>
+      <hday>2018-10-15</hday>
+      <jday>2018-11-21</jday>
+      <reason>exam</reason>
+      <pjob>UCD FS</pjob>
+      <cjob>CapGemini Casablanca</cjob>
+      <uplift id="2" state="current" type="exam">
+        <scale>9</scale>
+        <echlon>2</echlon>
+        <indice>12121</indice>
+        <update>2017-06-12</update>
+      </uplift>
+      <uplift id="1" state="old" type="normal">
+        <scale>9</scale>
+        <echlon>1</echlon>
+        <indice>451245</indice>
+        <update>2017-06-15</update>
+      </uplift>
+    </administrative>
+    <diplomas id="1">
+      <diploma mention="Passable">Science Math A</diploma>
+      <institute city="ODFrej">6 Novembre</institute>
+      <session>2011-2012</session>
+      <!-- yyyyYYYY -->
+    </diplomas>
+    <diplomas id="2">
+      <diploma mention="Bien">TSDI</diploma>
+      <institute city="ElJadida">COOL</institute>
+      <session>2015-2017</session>
+    </diplomas>
+    <medicalcertif id="2">
+      <from>2018-10-10</from>
+      <ndays>20</ndays>
+      <period>Semester I</period>
+    </medicalcertif>
+    <repayment id="1">
+      <period>Semestre I</period>
+      <ndays>5</ndays>
+      <repayed>4</repayed>
+    </repayment>
+    <repayment id="2">
+      <period>Semestre II</period>
+      <ndays>60</ndays>
+      <repayed>50</repayed>
+    </repayment>
+  </employee>
+  <employee reference="01123411" department="nil">
+    <notes />
+    <personal>
+      <name>Aymen</name>
+      <familyname>Rchid</familyname>
+      <!-- last name -->
+      <birth>1999-10-15</birth>
+      <!-- yyyymmdd -->
+      <nationality ma="t" />
+      <brithplace>Rass El Ain</brithplace>
+      <address>99 Ibn Sina, OD Frej El Jadida</address>
+      <phone>0642857134</phone>
+      <state married="nil" />
+    </personal>
+    <administrative>
+      <reference>01123411</reference>
+      <cadre>C_1</cadre>
+      <fstatus>12452</fstatus>
+      <cin>M550630</cin>
+      <mission>programming</mission>
+      <hday>2018-10-15</hday>
+      <jday>2018-11-21</jday>
+      <reason>exam</reason>
+      <pjob>UCD FS</pjob>
+      <cjob>CapGemini Casablanca</cjob>
+      <uplift id="1" state="current" type="exam">
+        <scale>11</scale>
+        <echlon>1</echlon>
+        <indice>451245</indice>
+        <update>2017-07-15</update>
+      </uplift>
+    </administrative>
+    <diplomas id="1">
+      <diploma mention="Bien">Licence</diploma>
+      <institute city="ElJadida">UCD FSJ</institute>
+      <session>2017-2018</session>
+      <!-- yyyyYYYY -->
+    </diplomas>
+    <medicalcertif id="1">
+      <from>2017-10-15</from>
+      <ndays>10</ndays>
+      <period>Semestre I</period>
+    </medicalcertif>
+  </employee>
+  <employee department="Informatique" reference="78451215">
+    <notes />
+    <personal>
+      <name>Hamza</name>
+      <familyname>Hamdaoui</familyname>
+      <birth>1996-06-13</birth>
+      <brithplace>Yousoufia</brithplace>
+      <address>somewhere</address>
+      <phone>0698744691</phone>
+      <state married="nil" />
+      <nationality ma="t" />
+      <partner name="" job="" />
+      <children number="0" />
+    </personal>
+    <administrative>
+      <cin>M582927</cin>
+      <mission>Teaching</mission>
+      <jday>2018-06-13</jday>
+      <hday>2018-06-13</hday>
+      <reason>exam</reason>
+      <pjob>NONE</pjob>
+      <cjob>UCD FSJ</cjob>
+      <cadre>Engenieur 1er Grade</cadre>
+      <fstatus>12457521</fstatus>
+      <uplift id="1" state="current">
+        <scale>9</scale>
+        <echlon>3</echlon>
+        <indice>7845124</indice>
+        <update>2017-10-15</update>
+      </uplift>
+    </administrative>
+  </employee>
 </Employee>

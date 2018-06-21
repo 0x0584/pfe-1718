@@ -41,15 +41,15 @@
 #+BEGIN_EXPORT latex
 \begin{abstract}
 
-Ce projet et le résultat d'un stage que j'avais passe chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le theme {\it informatiser le service Ressources Humaines}. Sous l'encadrement de Mr. A. Madani, et la supervision du chef de service; Mr. Driss Dibaji.\\
+Ce projet et le résultat d'un stage que j'avais passe chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le theme {\it informatiser le service Ressources Humaines}. Sous l'encadrement de {\bf Mr. A. Madani}, et la supervision du chef de service; {\bf Mr. Driss Dibaji}.\\
 
 Je tiens à remercier toutes les personnes qui ont contribué au succès de mon stage et qui m'ont aidé lors de la rédaction de ce rapport.\\
 
-Tout d'abord, j'adresse mes remerciements au mes professeurs, Mr. A. Madani, Mr. S. Riffi, Mr. A. Silkan et finalemment Mme S. Belqziz, qui m'a beaucoup aidé pendant cette formation, ca serait un grand plaisire.\\
+Tout d'abord, j'adresse mes remerciements au mes professeurs, {\bf Mr. A. Madani}, {\bf Mr. S. Riffi}, {\bf Mr. A. Silkan} et finalemment {\bf Mme S. Belqziz}, qui m'a beaucoup aidé pendant cette formation, ca serait un grand plaisire.\\
 
-Je tiens à remercier vivement mon maitre de stage, Mr D. Dibaji, chef du service Ressources Humaines au sein de l'Faculté des Lettres et Science Humaines, El Jadida, pour son accueil, le temps passé ensemble et le partage de son expertise au quotidien. Grâce aussi à sa confiance j'ai pu m'accomplir totalement dans mes missions. Il fut d'une aide précieuse dans les moments les plus délicats.\\
+Je tiens à remercier vivement mon maitre de stage, {\bf Mr D. Dibaji}, chef du service Ressources Humaines au sein de la {\it Faculté des Lettres et Science Humaines}, El Jadida, pour son accueil, le temps passé ensemble et le partage de son expertise au quotidien. Grâce aussi à sa confiance j'ai pu m'accomplir totalement dans mes missions. Il fut d'une aide précieuse dans les moments les plus délicats.\\
 
-Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu lors de la rédaction de ce rapport de stage : ma famille, mon ami H. Hamza et B. Aya\\
+Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu lors de la rédaction de ce rapport de stage : ma famille, mon ami {\bf H. Hamza} et {\bf B. Aya}.\\
 \end{abstract}
 #+END_EXPORT
 
@@ -228,7 +228,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
 
     + =Cadre= :: représente les cadres possibles pour un employée/fonctionnaire
-    + =Mention= :: les mentions possibles pour un diplôme, utilisés dans [[Gestion de Dipl%C3%B4mes][=DilpomaCrud.java=]]
+    + =Mention= :: les mentions possibles pour un diplôme, utilisés dans [[Gestion des Dipl%C3%B4mes][=DilpomaCrud.java=]]
     + =Period= :: les différentes périodes utilisées dans l'application
     + =Holiday= :: utilisé dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]] pour la génération du congé
     + =SearchField= :: utilisé pour la recherche dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
@@ -275,7 +275,8 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 	   ,* @param format formatage de la page à imprimer
 	   ,* @param page_index l'index de la page
 	   ,*
-	   ,* @return intègre qui représente l'état de l'impression */
+	   ,* @return intègre qui représente l'état de l'impression
+	   ,*/
 	  @Override
 	  public int print(Graphics g, PageFormat format, int page_index) {
 	      /* vérification du page, c'est un protocole de l'interface */
@@ -388,7 +389,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     La méthode [[lis:propchange][=JTable.isEditing()=]] indique l'état booléen du table, la valeur =true= indique que la table est en une modification actif, alors on fait un appel à [[lis:propstart][=processEditingStarted()=]]. Lorsque la méthode retourne la valeur =false=, on fait un appel au [[lis:propstart][=processEditingStopped()=]], qui est responsable de la vérification est ce que la valeur de la cellule a été modifie ou non par la comparaison entre [[lis:jtablelistener][=oldValue=]] et [[lis:jtablelistener][=newValue=]] dans la classe [[lis:jtablelistener][=JTableCellListener=]]. Si les valeurs sont différentes, on fait un appel à l'action du classe.
 
-    #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisées dans la méthode [[lis:propchange][=propertyChange()=]] de la classe [[lis:jtablelistener][=JTableListener=]]
+    #+CAPTION: Les fonctions =processEditingStarted()= et =processEditingStopped()= utilisées dans la méthode [[lis:propchange][=propertyChange()=]]
     #+NAME: lis:propstart
     #+BEGIN_SRC java -n 63
       /**
@@ -443,8 +444,187 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     #+NAME:   fig:apputils1
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewAppUtils1.png]]
+    #+LATEX: \clearpage
 
-#+LATEX: \clearpage
+    La classe [[lis:dateu][=DateUtil=]] dans la figure [[fig:apputils1]] est utilisé pour la manipulation des dates, et la conversion des dates de/vers =String= avec l'aide du classe system [[lis:dateu][=SimpleDateFormat=]]. Pour les dates, j'ai choisi un format standard, =YYYY-MM-DD=, pour touts les dates dans le projet. \\
+
+    #+CAPTION: Extrais de la classe =DateUtil=
+    #+NAME: lis:dateu
+    #+BEGIN_SRC java -n
+      import java.text.ParseException;
+      import java.text.SimpleDateFormat;
+      import java.util.Date;
+
+      public class DateUtil {
+	  private SimpleDateFormat fmt;
+
+	  public DateUtil() {
+	      fmt = new SimpleDateFormat("yyyy-MM-dd");
+	  }
+      }
+    #+END_SRC
+
+    La classe [[lis:dateu][=DateUtil=]] contient une définition d'une méthode, [[lis:dateparse][=static parseDate()=]], qui a [[lis:dateparses][une surcharge]] pour la conversion de =Date= vers =String= et vice versa
+
+    #+CAPTION: La méthode =parseDate()= de la classe [[lis:dateu][=DateUtil=]]
+    #+NAME: lis:dateparse
+    #+BEGIN_SRC java -n 12
+      /**
+       ,* Convertir une date vers une chaine des caractères
+       ,*/
+      public static String parseDate(Date date) {
+	  try {
+	      return new DateUtil( ).fmt.format(date);
+	  } catch (ParseException e) {
+	      System.err.println(e.getMessage( ));
+	      return new DateUtil( ).fmt.format(new Date( ));
+	  }
+      }
+    #+END_SRC
+
+    La classe aussi contient la méthode [[lis:datediff][=static diffDays()=]] pour calculer le nombre des jours entre deux dates, avec une aide de la méthode [[lis:datedif][=static diff()=]]
+
+    #+CAPTION: La définition de la méthode =diffDays()= de la classe [[lis:dateu][=DateUtil=]]
+    #+NAME: lis:datediff
+    #+BEGIN_SRC java -n
+      /* voir la méthode diff() */
+      public static long diffDays(Date from, Date to) {
+	  return TimeUnit.MILLISECONDS.toDays(diff(from, to));
+      }
+    #+END_SRC
+    #+LATEX: \clearpage
+
+    #+CAPTION: La surcharge de la méthode =parseDate()= de la classe [[lis:dateu][=DateUtil=]]
+    #+NAME: lis:dateparses
+    #+BEGIN_SRC java -n
+      /**
+       ,* Convertir une chaine des caractères vers une Date
+       ,*/
+      public static Date parseDate(String str) {
+	  Date d;
+
+	  try {
+	      d = new DateUtil( ).fmt.parse(str);
+	  } catch (ParseException e) {
+	      System.err.println(e.getMessage( ));
+	      d = new Date( );
+	  }
+
+	  return d;
+      }
+    #+END_SRC
+
+    #+CAPTION: La définition de la méthode =diff()= du classe [[lis:dateu][=DateUtil=]]
+    #+NAME: lis:datedif
+    #+BEGIN_SRC java -n
+      /**
+       ,* Calculé la différence de nombre des seconds
+       ,* entre les deux dates
+       ,*/
+      public static long diff(Date from, Date to) {
+	  if (from != null && to != null) {
+	      return to.getTime( ) - from.getTime( );
+	  } else return 0;
+      }
+    #+END_SRC
+
+    Dans la figure [[fig:apputils1]] aussi, il y a la classe [[lis:xml][=XmlFile=]], la couche /DAO/ de l'application. Elle est responsable a tout interaction avec le [[Stockage des donn%C3%A9es en XML][fichier =XML=]].\\
+
+    Avec l'aide de =static updateOrCreate()= on peut faire une mise a jour a une valeur d'un tag dans le fichier =XML=.
+
+    #+BEGIN_SRC java -n
+      public static void updateOrCreate(Element el, String node, String value) {
+	  Element foo = el.getChild(node);
+
+	  if (foo == null) {
+	      el.addContent(new Element(node).addContent(value));
+	      writeXml(el.getDocument( ));
+	  } else {
+	      foo.setText(value);
+	  }
+      }
+    #+END_SRC
+
+    #+CAPTION: Extrais de la classe =XmlFile= du paquet =app.utils=
+    #+NAME: lis:xml
+    #+BEGIN_SRC java -n
+      import java.io.File;
+      import java.io.IOException;
+
+      import org.jdom2.Document;
+      import org.jdom2.Element;
+      import org.jdom2.JDOMException;
+      import org.jdom2.input.SAXBuilder;
+
+      import app.Files;
+
+      public class XmlFile {
+	  private String filepath;
+	  private File file;
+	  private Document doc;
+	  private Element root;
+
+	  public XmlFile(Files file) {
+	      setFilePath(file.getFilePath( ));
+	  }
+
+	  /**
+	   ,* A chaque fois on change l'emplacement du fichier, on doit
+	   ,* initialisé le Document XML ainsi que la racine du document
+	   ,*
+	   ,* @param filepath l'emplacement du fichier
+	   ,*/
+	  public void setFilePath(String filepath) {
+	      try {
+		  this.file = new File(this.filepath = filepath);
+		  if (file.exists( )) {
+		      this.doc = new SAXBuilder( ).build(this.file);
+		      this.root = doc.getRootElement( );
+		  } else {
+		      this.doc = new Document( );
+		      this.root = new Element("Employee");
+		  }
+	      } catch (JDOMException | IOException e) {
+		  System.out.println(e.getMessage( ));
+	      }
+	  }
+
+      }
+    #+END_SRC
+    #+LATEX: \clearpage
+
+    Et en peut aussi sauvegarder les changements dans le fichier avec la méthode =static write Xml()=.
+
+    #+CAPTION: Définition de la méthode =writeXml= de la classe [[lis:xml][=XmlFile=]]
+    #+BEGIN_SRC java -n
+      /**
+       ,* Écrire une insatance de la classe Document dans un fichier XML
+       ,*
+       ,* @param doc le Document XML
+       ,* @param f les fichiers systèmes de l'application
+       ,*
+       ,* @return true si l'écriture est successive
+       ,*/
+      public static boolean writeXml(Document doc, Files f) {
+	  try {
+	      XMLOutputter xmlout = new XMLOutputter( );
+	      xmlout.setFormat(Format.getPrettyFormat( ));
+	      xmlout.output(doc, new FileWriter(f.getFilePath( )));
+	      System.err.println("success " + f.getFilePath( ));
+	      return true;
+	  } catch (IOException e) {
+	      System.err.println(e.getMessage( ));
+	      return false;
+	  }
+      }
+    #+END_SRC
+
+    La classe [[lis:xml][=XmlFile=]] est basée su un paquet =Java= appelée [[http://jdom.org/][=JDOM=]], ce dernier contient des classes important comme :\\
+
+    + =Element= :: la représentation des tags XML en objet
+    + =Document= :: la représentation du document XMl en objet
+    + =SAXBuilder= :: pour initialiser les instances =Document=
+    + =XMLOutputter= :: pour l'écriture de =Document= et fichier réal
 
 * L'Interface Graphique
 ** La relation entre les différent Paquet graphique
@@ -460,46 +640,72 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 *** Paquet =wins=
 **** La fenêtre principale =MainWin=
 
+     Dans la partie supérieure de la fenêtre, on voit des cases à cocher pour générer l'élément spécifie (voir la section de [[Paquet =views=][=views=]]), une zone de texte avec la sélection d'un attribue pour la recherche, c'est un [[Paquet =app=][=SearchField=]]. Au centre, il y a une table qui montre les informations des employés/fonctionnaires déjà existe.\\
+
+     En bas il y a des boutons pour afficher le [[Gestion des Employ%C3%A9es =InfoCrud=][dossier do chaque personne]], afficher la fenêtre de [[Gestion des Remboursements][suivi des remboursements]], afficher suivi les [[Gestion des Certificats M%C3%A9dicaux][certificats médicaux]], et [[La fen%C3%AAtre de suivi des avancements de grade =UpliftsWin=][suivi des avancements de grade]]. En bas à droite, il y a deux boutons, une pour actualiser et une pour générer [[Paquet =views=][la page correspondant]] aux cases cocher en haut, ainsi que deux autres cases à cocher pour la sélection de type de la personne affichée dans la table.\\
+
      #+CAPTION: Aperçu sur le démarrage de l'application
      #+NAME:   fig:mainwin-main
      #+ATTR_LATEX: :width 14cm :center t
      [[./diags/MainWin.png]]
 
-     #+CAPTION: Aperçu sur la génération d'un congé
-     #+NAME:   fig:mainwin-holiday
-     #+ATTR_LATEX: :width 14cm :center t
-     [[./diags/MainWinVac.png]]
+**** La fenêtre de suivi des avancements de grade =UpliftsWin=
 
-**** La fenêtre de suivi des avancements de grade
+     Dans la figure [[fig:uplifts-win]], on voit que la fenêtre contient deux parties : \\
 
-     #+CAPTION: Aperçu sur le suivi des avancements de grade
-     #+NAME:   fig:uplifts-win
-     #+ATTR_LATEX: :width 14cm :center t
-     [[./diags/UpliftsWin.png]]
+     + En haut :: Les avancements à venir dans la durée sélectionnée avec l'aide de la boîte combo. On peut aussi affiché les informations de la personne avec le bouton à droite.\\
+     + En bas :: Les avancements que leur temps est venu et en attente d'une confirmation. On peut confirme par le bouton à droite.
 
+      #+LATEX: \clearpage
+      #+CAPTION: Aperçu sur le suivi des avancements de grade
+      #+NAME:	fig:uplifts-win
+      #+ATTR_LATEX: :width 14cm :center t
+      [[./diags/UpliftsWin.png]]
 
+      Apres la comfirmation d'un avancement, une [[Gestion des Grades][fenetre]] s'ouvert pour ajouter les informations du avancement.
+
+      #+LATEX: \clearpage
 *** Paquet =wins.crud=
+    #+BEGIN_QUOTE
+    /Tout les forms suivants avait le meme principe, des donnees de texte (ou combos) qui permet de la modification de employee deja existe, l'ajout d'un nouveau our la suppression d'un ancien./ \\
+    #+END_QUOTE
 
 **** Gestion des Employées =InfoCrud=
 
+     C'est la fenêtre qui permet de changer les informations de chaque employé ou fonctionnaire. En haut, on voit la place de l'image, au centre on voit les zones de textes pour la modification des informations divisé en trois sections, les informations personnelles, administrative et autres (qui contient des informations additionnelle comme le nom et prénom en arabe).
 
-     #+CAPTION: Aperçu sur le suivi des avancements de grade
+     Pour l'image, le programme lire une image qui doit existe dans le répertoire =data/imgs= et contient le même CIN de l'employé concerné.
+
+     #+CAPTION: Aperçu sur la ficher des informations personnelle et administrative
      #+NAME:   fig:uplifts-win
      #+ATTR_LATEX: :width 14cm :center t
      [[./diags/InfoWin.png]]
+     #+LATEX: \clearpage
+**** Gestion des Remboursements
+     #+ATTR_LATEX: :width 10cm :center t
+     [[./diags/repay.png]]
+**** Gestion des Diplômes
 
+     #+NAME: fig:dips
+     #+ATTR_LATEX: :width 10cm :center t
+     [[./diags/dips.png]]
 
-**** Gestion de Diplômes
-
-**** Gestion des Certifications Médical
+**** Gestion des Certificats Médicaux
+     #+ATTR_LATEX: :width 11cm :center t
+     [[./diags/certifs.png]]
 
 **** Gestion des Grades
 
+     #+ATTR_LATEX: :width 11cm :center t
+     [[./diags/upliftsmod.png]]
+     #+LATEX: \clearpage
+
 *** Paquet =views=
+    Ce paquet est intialiser par les information du employé, voici un example:
 
-**** Page de conge
+[[./diags/att.png]]
 
-* Dependencies
+* Dépendances
   # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
-  + JDOM :: http://jdom.org/ Java library to to parse XML
-  + WebLaF :: [[http://weblookandfeel.com/]] Java library to enhance the look and feel
+  + JDOM :: http://jdom.org/ Bibliothèque =Java= pour analyser XML
+  + WebLaF :: [[http://weblookandfeel.com/]] Bibliothèque =Java= pour améliorer l'apparence

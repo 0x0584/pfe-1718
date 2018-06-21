@@ -3,13 +3,19 @@ package wins.crud;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -37,6 +43,7 @@ import model.Employee;
 import model.Uplift;
 import wins.crud.DiplomaCrud;
 import wins.crud.UpliftCrud;
+import java.awt.Color;
 
 public class InfoCrud {
 
@@ -469,17 +476,29 @@ public class InfoCrud {
 		panel_3.add(lblDiplomas);
 
 		JPanel panel_4 = new JPanel( );
-		panel_4.setBackground(SystemColor.activeCaption);
+		panel_4.setBackground(Color.WHITE);
 		panel_4.setBounds(12, 12, 104, 103);
 		panel_3.add(panel_4);
-		panel_4.setLayout(null);
+		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JLabel lblNewLabel = new JLabel("(Image)");
-		lblNewLabel.setForeground(SystemColor.text);
-		lblNewLabel.setBackground(SystemColor.controlLtHighlight);
-		lblNewLabel.setBounds(17, 12, 70, 15);
-		panel_4.add(lblNewLabel);
-
+		try {
+			JLabel lbl_img = new JLabel(new ImageIcon(ImageIO.read(
+				new File("data/imgs/" + empl.getCIN( ).toLowerCase( ) + ".png"))
+							.getScaledInstance(
+								(panel_4.getWidth( ) - 5),
+								(panel_4.getHeight( ) - 5), Image.SCALE_SMOOTH)));
+			lbl_img.setBounds(0, 0, 95, 95);
+			lbl_img.setVisible(true);
+			panel_4.add(lbl_img);
+		} catch (IOException ex) {
+			System.err.println(ex.getMessage( ));
+			JLabel lblNewLabel = new JLabel("(Image)");
+			lblNewLabel.setForeground(SystemColor.text);
+			lblNewLabel.setBackground(SystemColor.controlLtHighlight);
+			lblNewLabel.setBounds(17, 12, 70, 15);
+			panel_4.add(lblNewLabel);
+		}
+		
 		JTextPane tp_notes = new JTextPane( );
 		tp_notes.setEditable(false);
 		tp_notes.setText(empl.getNotes( ));
@@ -503,12 +522,12 @@ public class InfoCrud {
 				Employee nempl = new Employee(empl.getEmployeeReference( ));
 				nempl.setNotes(tp_notes.getText( ));
 				nempl.setDepartment(tf_d.getText( ));
-				
+
 				nempl.setNameArabic(tf_name_ar.getText( ));
 				nempl.setFamilyNameArabic(tf_fname_ar.getText( ));
 				nempl.setAddressArabic(tf_addr_ar.getText( ));
 				nempl.setBirthPlaceArabic(tf_bplace_ar.getText( ));
-				
+
 				nempl.setName(tf_name.getText( ));
 				nempl.setFamilyName(tf_fname.getText( ));
 				nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
@@ -579,7 +598,7 @@ public class InfoCrud {
 					nempl.setFamilyNameArabic(tf_fname_ar.getText( ));
 					nempl.setAddressArabic(tf_addr_ar.getText( ));
 					nempl.setBirthPlaceArabic(tf_bplace_ar.getText( ));
-					
+
 					nempl.setBirthPlace(tf_bplace.getText( ));
 					nempl.setAddress(tf_addr.getText( ));
 					nempl.setPhone(tf_phone.getText( ));

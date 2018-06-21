@@ -90,7 +90,6 @@ public class XmlFile {
 	}
 
 	public XmlFile(Files file) {
-		super( );
 		setFilePath(file.getFilePath( ));
 	}
 

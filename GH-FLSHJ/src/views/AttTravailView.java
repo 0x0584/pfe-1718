@@ -113,12 +113,12 @@ public class AttTravailView {
 		frame.getContentPane( ).add(label_3);
 
 		JPanel panel = new JPanel( );
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(316, 12, 100, 100);
 		frame.getContentPane( ).add(panel);
 
 		try {
-			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			JLabel label_11 = new JLabel(new ImageIcon(
 				ImageIO.read(new File("data/imgs/logo.png")).getScaledInstance(
 					(panel.getWidth( ) - 5), (panel.getHeight( ) - 5),
