@@ -167,26 +167,26 @@ public class NotationView {
 
 		JLabel lblElJadidaLe = new JLabel(
 			String.format("حرّر بالجديدة في:%s", fmt.format(new Date( ))));
-		lblElJadidaLe.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblElJadidaLe.setBounds(539, 936, 172, 22);
+		lblElJadidaLe.setFont(new Font("Arial", Font.BOLD, 16));
+		lblElJadidaLe.setBounds(539, 918, 172, 22);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		JLabel lblAttestationDeTravail = new JLabel(String.format(
 			"بطاقة التنقيط الفرديّة برسم سنة: %s",
 			new SimpleDateFormat("yyyy").format(new Date( ))));
 		lblAttestationDeTravail.setFont(new Font("Arial", Font.BOLD, 20));
-		lblAttestationDeTravail.setBounds(235, 142, 263, 29);
+		lblAttestationDeTravail.setBounds(235, 119, 263, 29);
 		frame.getContentPane( ).add(lblAttestationDeTravail);
 
 		JLabel label_5 = new JLabel("توقيع رئيس الإدارة أو السّلطة المفوض لها");
-		label_5.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_5.setBounds(53, 940, 263, 15);
+		label_5.setFont(new Font("Arial", Font.BOLD, 16));
+		label_5.setBounds(53, 922, 263, 15);
 		frame.getContentPane( ).add(label_5);
 
 		JPanel panel_1 = new JPanel( );
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panel_1.setBounds(21, 171, 690, 270);
+		panel_1.setBounds(15, 148, 690, 270);
 		frame.getContentPane( ).add(panel_1);
 		panel_1.setLayout(null);
 
@@ -362,7 +362,7 @@ public class NotationView {
 		JPanel panel_2 = new JPanel( );
 		panel_2.setLayout(null);
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(21, 440, 690, 161);
+		panel_2.setBounds(15, 417, 690, 161);
 		frame.getContentPane( ).add(panel_2);
 
 		JPanel panel_3 = new JPanel( );
@@ -390,7 +390,7 @@ public class NotationView {
 		JPanel panel_6 = new JPanel( );
 		panel_6.setLayout(null);
 		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(21, 594, 690, 92);
+		panel_6.setBounds(15, 571, 690, 92);
 		frame.getContentPane( ).add(panel_6);
 
 		JPanel panel_7 = new JPanel( );
@@ -466,7 +466,7 @@ public class NotationView {
 		label_26.setBounds(178, 39, 93, 15);
 		panel_8.add(label_26);
 
-		JLabel label_27 = new JLabel("< 10");
+		JLabel label_27 = new JLabel("(< 10)");
 		label_27.setFont(new Font("Arial", Font.PLAIN, 14));
 		label_27.setBackground(Color.WHITE);
 		label_27.setBounds(74, 39, 93, 15);
@@ -485,6 +485,37 @@ public class NotationView {
 			}
 		});
 		menuBar.add(mntmPrint);
+
+		JPanel panel_12 = new JPanel( );
+		panel_12.setLayout(null);
+		panel_12.setBackground(Color.WHITE);
+		panel_12.setBounds(15, 813, 690, 92);
+		frame.getContentPane( ).add(panel_12);
+
+		JPanel panel_14 = new JPanel( );
+		panel_14.setLayout(null);
+		panel_14.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_14.setBackground(Color.WHITE);
+		panel_14.setBounds(0, 36, 690, 56);
+		panel_12.add(panel_14);
+
+		JCheckBox checkfast = new JCheckBox("سريع");
+		checkfast.setFont(new Font("Arial", Font.BOLD, 16));
+		checkfast.setBackground(Color.WHITE);
+		checkfast.setBounds(502, 8, 63, 23);
+		panel_14.add(checkfast);
+
+		JCheckBox checkmid = new JCheckBox("متوسط");
+		checkmid.setFont(new Font("Arial", Font.BOLD, 16));
+		checkmid.setBackground(Color.WHITE);
+		checkmid.setBounds(309, 8, 70, 23);
+		panel_14.add(checkmid);
+
+		JCheckBox checkslow = new JCheckBox("بطيء");
+		checkslow.setFont(new Font("Arial", Font.BOLD, 16));
+		checkslow.setBackground(Color.WHITE);
+		checkslow.setBounds(123, 8, 63, 23);
+		panel_14.add(checkslow);
 
 		table = new JTable(dmodel_0);
 		new JTableCellListener(table, new AbstractAction( ) {
@@ -507,27 +538,38 @@ public class NotationView {
 			}
 
 			private void enableCheckBoxes(int value) {
-				int index = 0;
+				int index_0 = 0, index_1 = 0;
 
 				if (value < 10) {
-					index = 0;
+					index_0 = index_1 = 0;
 				} else if (value >= 10 && value < 14) {
-					index = 1;
+					index_0 = index_1 = 1;
 				} else if (value >= 14 && value < 16) {
-					index = 2;
+					index_0 = 2;
+					index_1 = 1;
 				} else if (value >= 16 && value < 18) {
-					index = 3;
+					index_0 = 3;
+					index_1 = 2;
 				} else {
-					index = 4;
+					index_0 = 4;
+					index_1 = 2;
 				}
 
-				JCheckBox chks[] = new JCheckBox[] {
+				JCheckBox chks_0[] = new JCheckBox[] {
 								chck0, chck1, chck2, chck3, chckbx4
 				};
+				JCheckBox chks_1[] = new JCheckBox[] {
+								checkslow, checkmid, checkfast
+				};
 
-				for (int i = 0; i < chks.length; i++) {
-					chks[i].setSelected(i == index);
+				for (int i = 0; i < chks_0.length; i++) {
+					chks_0[i].setSelected(i == index_0);
 				}
+
+				for (int i = 0; i < chks_1.length; i++) {
+					chks_1[i].setSelected(i == index_1);
+				}
+
 			}
 
 			public void actionPerformed(ActionEvent e) {
@@ -543,6 +585,92 @@ public class NotationView {
 		table.setRowSelectionAllowed(false);
 		table.setFont(new Font("Arial", Font.BOLD, 16));
 		scrollPane.setViewportView(table);
+
+		JPanel panel_9 = new JPanel( );
+		panel_9.setLayout(null);
+		panel_9.setBackground(Color.WHITE);
+		panel_9.setBounds(15, 663, 690, 161);
+		frame.getContentPane( ).add(panel_9);
+
+		JPanel panel_10 = new JPanel( );
+		panel_10.setLayout(null);
+		panel_10.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_10.setBackground(Color.GRAY);
+		panel_10.setBounds(0, 0, 690, 27);
+		panel_9.add(panel_10);
+
+		JLabel label_29 = new JLabel("النقطة الممنوحة");
+		label_29.setFont(new Font("Arial", Font.BOLD, 18));
+		label_29.setBounds(564, 1, 97, 25);
+		panel_10.add(label_29);
+
+		JPanel panel_11 = new JPanel( );
+		panel_11.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_11.setBackground(Color.WHITE);
+		panel_11.setBounds(0, 25, 690, 136);
+		panel_9.add(panel_11);
+		panel_11.setLayout(null);
+
+		JLabel lblNewLabel_4 = new JLabel(
+			"تذكير بمعدل النقط المحصل عليها خلال السنوات المطلوبة للترقية في الرتبة");
+		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel_4.setBounds(284, 12, 394, 15);
+		panel_11.add(lblNewLabel_4);
+
+		JLabel label_30 = new JLabel("نقطة السنة الأولى:");
+		label_30.setFont(new Font("Arial", Font.BOLD, 16));
+		label_30.setBounds(567, 39, 111, 15);
+		panel_11.add(label_30);
+
+		JLabel label_31 = new JLabel("نقطة السنة الثانية:");
+		label_31.setFont(new Font("Arial", Font.BOLD, 16));
+		label_31.setBounds(567, 66, 111, 15);
+		panel_11.add(label_31);
+
+		JLabel label_32 = new JLabel("نقطة لسنة:");
+		label_32.setFont(new Font("Arial", Font.BOLD, 16));
+		label_32.setBounds(216, 39, 69, 15);
+		panel_11.add(label_32);
+
+		JLabel label_33 = new JLabel("نقطة لسنة:");
+		label_33.setFont(new Font("Arial", Font.BOLD, 16));
+		label_33.setBounds(216, 67, 69, 15);
+		panel_11.add(label_33);
+
+		JLabel label_34 = new JLabel("معدل النقط المحصل عليها:      20/");
+		label_34.setFont(new Font("Arial", Font.BOLD, 16));
+		label_34.setBounds(484, 100, 194, 15);
+		panel_11.add(label_34);
+
+		JPanel panel_13 = new JPanel( );
+		panel_13.setLayout(null);
+		panel_13.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_13.setBackground(Color.GRAY);
+		panel_13.setBounds(0, 0, 690, 36);
+		panel_12.add(panel_13);
+
+		JLabel label_35 = new JLabel("الميزة الممنوحة");
+		label_35.setFont(new Font("Arial", Font.BOLD, 18));
+		label_35.setBounds(571, 8, 90, 19);
+		panel_13.add(label_35);
+
+		JLabel label_36 = new JLabel("(> 16)");
+		label_36.setFont(new Font("Arial", Font.PLAIN, 14));
+		label_36.setBackground(Color.WHITE);
+		label_36.setBounds(512, 39, 43, 15);
+		panel_14.add(label_36);
+
+		JLabel label_37 = new JLabel("(من 16 إلى 10)");
+		label_37.setFont(new Font("Arial", Font.PLAIN, 14));
+		label_37.setBackground(Color.WHITE);
+		label_37.setBounds(297, 39, 93, 15);
+		panel_14.add(label_37);
+
+		JLabel label_40 = new JLabel("(< 10)");
+		label_40.setFont(new Font("Arial", Font.PLAIN, 14));
+		label_40.setBackground(Color.WHITE);
+		label_40.setBounds(133, 39, 43, 15);
+		panel_14.add(label_40);
 
 	}
 }
