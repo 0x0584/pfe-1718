@@ -684,7 +684,7 @@ Anas Rchid						      05/12/2018
   │ 20
   │ 21	    /**
   │ 22	     * A chaque fois on change l'emplacement du fichier, on doit
-  │ 23	     * initialisé le Document XML ainsi que la racine du document
+  │ 23	     * initialiser le Document XML ainsi que la racine du document
   │ 24	     *
   │ 25	     * @param filepath l'emplacement du fichier
   │ 26	     */
@@ -705,13 +705,13 @@ Anas Rchid						      05/12/2018
   │ 41
   │ 42	}
   └────
-  Programme 14 : Extrais de la classe `XmlFile' du paquet `app.utils'
-  Et en peut aussi sauvegarder les changements dans le fichier avec la
+  Programme 14 : Extrait de la classe `XmlFile' du paquet `app.utils'
+  Et on peut aussi sauvegarder les changements dans le fichier avec la
   méthode `static write Xml()'.
 
   ┌────
   │  1	/**
-  │  2	 * Écrire une insatance de la classe Document dans un fichier XML
+  │  2	 * Écrire une instance de la classe Document dans un fichier XML
   │  3	 *
   │  4	 * @param doc le Document XML
   │  5	 * @param f les fichiers systèmes de l'application
@@ -734,7 +734,7 @@ Anas Rchid						      05/12/2018
   Programme 15 : Définition de la méthode `writeXml' de la classe
   [`XmlFile']
 
-  La classe [`XmlFile'] est basée su un paquet `Java' appelée [`JDOM'],
+  La classe [`XmlFile'] est basée sur un paquet `Java' appelée [`JDOM'],
   ce dernier contient des classes important comme :
 
   `Element'
@@ -793,8 +793,8 @@ Anas Rchid						      05/12/2018
 4 L'Interface Graphique
 ═══════════════════════
 
-4.1 La relation entre les différent Paquet graphique
-────────────────────────────────────────────────────
+4.1 La relation entre les différents Paquets graphiques
+───────────────────────────────────────────────────────
 
   \vspace*{\fill}
   [./diags/OverviewOnWinsAnd.png] \vspace*{\fill}
@@ -806,12 +806,12 @@ Anas Rchid						      05/12/2018
 ◊ 4.1.1.1 La fenêtre principale `MainWin'
 
   Dans la partie supérieure de la fenêtre, on voit des cases à cocher
-  pour générer l'élément spécifie (voir la section de [`views']), une
-  zone de texte avec la sélection d'un attribue pour la recherche, c'est
+  pour générer l'élément spécifié (voir la section de [`views']), une
+  zone du texte avec la sélection d'un attribue pour la recherche, c'est
   un [`SearchField']. Au centre, il y a une table qui montre les
-  informations des employés/fonctionnaires déjà existe.
+  informations des employés/fonctionnaires déjà éxistants.
 
-  En bas il y a des boutons pour afficher le [dossier do chaque
+  En bas, il y a des boutons pour afficher le [dossier do chaque
   personne], afficher la fenêtre de [suivi des remboursements], afficher
   suivi les [certificats médicaux], et [suivi des avancements de
   grade]. En bas à droite, il y a deux boutons, une pour actualiser et
@@ -843,15 +843,15 @@ Anas Rchid						      05/12/2018
 
   En haut
 	Les avancements à venir dans la durée sélectionnée avec l'aide
-	de la boîte combo. On peut aussi affiché les informations de la
+	de la boîte combo. On peut aussi afficher les informations de la
 	personne avec le bouton à droite.
   En bas
 	Les avancements que leur temps est venu et en attente d'une
-	confirmation. On peut confirme par le bouton à droite.
+	confirmation. On peut confirmer par le bouton à droite.
 
 	[./diags/UpliftsWin.png]
 
-	Apres la comfirmation d'un avancement, une [fenetre] s'ouvert
+	Après la comfirmation d'un avancement, une [fenetre] s'ouvert
 	pour ajouter les informations du avancement.
 
 
@@ -861,22 +861,22 @@ Anas Rchid						      05/12/2018
 4.1.2 Paquet `wins.crud'
 ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
 
-	/Tout les forms suivants avait le meme principe, des
-	donnees de texte (ou combos) qui permet de la modification
-	de employee deja existe, l'ajout d'un nouveau our la
+	/Toutes les formes suivantes avaient le même princip des
+	données du texte (ou combos) qui permet de la modification
+	de employé éxistant déjà, l'ajout d'un nouveau pour la
 	suppression d'un ancien./
 
 
-◊ 4.1.2.1 Gestion des Employées `InfoCrud'
+◊ 4.1.2.1 Gestion des Employés `InfoCrud'
 
   C'est la fenêtre qui permet de changer les informations de chaque
-  employé ou fonctionnaire. En haut, on voit la place de l'image, au
-  centre on voit les zones de textes pour la modification des
-  informations divisé en trois sections, les informations personnelles,
+  employé ou fonctionnaire. En haut, on voit la place de l'image. Au
+  centre, on voit les zones de textes pour la modification des
+  informations divisées en trois sections: les informations personnelles,
   administrative et autres (qui contient des informations additionnelle
   comme le nom et prénom en arabe).
 
-  Pour l'image, le programme lire une image qui doit existe dans le
+  Pour l'image, le programme lit une image qui doit exister dans le
   répertoire `data/imgs' et contient le même CIN de l'employé concerné.
 
   [./diags/InfoWin.png]
@@ -905,7 +905,7 @@ Anas Rchid						      05/12/2018
 4.1.3 Paquet `views'
 ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
 
-  Ce paquet est intialiser par les information du employé, voici un
+  Ce paquet est intialisé par les informations du employé, voici un
   example:
 
   [./diags/att.png]
