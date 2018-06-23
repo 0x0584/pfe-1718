@@ -486,7 +486,8 @@ public class InfoCrud {
 				new File("data/imgs/" + empl.getCIN( ).toLowerCase( ) + ".png"))
 							.getScaledInstance(
 								(panel_4.getWidth( ) - 5),
-								(panel_4.getHeight( ) - 5), Image.SCALE_SMOOTH)));
+								(panel_4.getHeight( ) - 5),
+								Image.SCALE_SMOOTH)));
 			lbl_img.setBounds(0, 0, 95, 95);
 			lbl_img.setVisible(true);
 			panel_4.add(lbl_img);
@@ -498,7 +499,7 @@ public class InfoCrud {
 			lblNewLabel.setBounds(17, 12, 70, 15);
 			panel_4.add(lblNewLabel);
 		}
-		
+
 		JTextPane tp_notes = new JTextPane( );
 		tp_notes.setEditable(false);
 		tp_notes.setText(empl.getNotes( ));
@@ -629,7 +630,19 @@ public class InfoCrud {
 					nempl.setFinancialStatus(tf_finance.getText( ));
 
 					nempl.add( );
-					frame.dispose( );
+
+					Uplift u = new Uplift( );
+					u.setEmployeeReference(nempl.getEmployeeReference( ));
+					u.setId(1);
+					u.setGrade((short) 9);
+					u.setRank((short) 1);
+					u.setIndice("127");
+					u.setDate(DateUtil.parseDate(new Date( ).toString( )));
+					u.add( );
+					
+					new UpliftCrud(nempl).getFrame( ).setVisible(true);
+
+					// frame.dispose( );
 				}
 			}
 

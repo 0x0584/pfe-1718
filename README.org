@@ -41,7 +41,7 @@
 #+BEGIN_EXPORT latex
 \begin{abstract}
 
-Ce projet et le résultat d'un stage que j'avais passe chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le theme {\it informatiser le service Ressources Humaines}. Sous l'encadrement de {\bf Mr. A. Madani}, et la supervision du chef de service; {\bf Mr. Driss Dibaji}.\\
+Ce projet est le résultat d'un stage que j'avais passé chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le thème {\it informatiser le service Ressources Humaines}. Sous l'encadrement de {\bf Mr. A. Madani}, et la supervision du chef de service; {\bf Mr. Driss Dibaji}.\\
 
 Je tiens à remercier toutes les personnes qui ont contribué au succès de mon stage et qui m'ont aidé lors de la rédaction de ce rapport.\\
 
@@ -69,19 +69,19 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
   \vspace*{\fill}
   #+BEGIN_QUOTE
-  D'après son nom, /Service des ressources humaines/ est un service qui est responsable de la gestion des employées et fonctionnaires, leurs diplômes et grades, ainsi que donner des attestations du travail et des autorisations de congé, suivi d'absence, rémunération du travail les jours fériés et finalement une notation annuelle.\\
+  D'après son nom, /Service des ressources humaines/ est un service qui est responsable de la gestion des employés et fonctionnaires, leurs diplômes et grades, ainsi que donner des attestations du travail et des autorisations de congé, suivi d'absence, rémunération du travail les jours fériés et finalement une notation annuelle.\\
   #+END_QUOTE
 
   Donc, on en déduit que le /cahier des charges/ est le suivant :\\
 
-  + Implémenter un système de gestion des employées/fonctionnaires
+  + Implémenter un système de gestion des employés/fonctionnaires
   + Gérer les diplômes et les grades
   + Suivi des grades
   + Suivi d'absence
   + Suivi de rémunération du travail les fériés
   + Générer des attestations de travail
   + Générer des autorisations de congé
-  + Générer des notations annuelle pour
+  + Générer des fiches de notation annuelle
   \vspace*{\fill}
 
 * Conception
@@ -94,9 +94,9 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     Voici la signification de chaque tag des tags déclaré ci-dessus:
 
     + =<Employee>= :: le root-tag, qui contient les tags =employee=
-    + =<employee>= :: contient tout les information d'un employée particulier est il avait deux attributes:
-    + *reference* identifiant du employée
-    + *departement* département du employée. Certains employées n'appartient à aucun département. Ce sont des /fonctionnaire/
+    + =<employee>= :: contient tout les information d'un employé particulier est il avait deux attributes:
+    + *reference* identifiant du employé
+    + *departement* département du employé. Certains employés n'appartient à aucun département. Ce sont des /fonctionnaire/
     + =<personal>= :: contient des informations personnelle comme le /nom/, /prénom/, /date de naissance/, etc.
     + =<administrative>= :: contient des informations administrative comme le /SOM/, /CIN/, etc.
     + =<uplift>= :: contient les informations des avancements dans le grade, /date/, /indice/, /échelon/ et /échelle/. Ce tag avais un seul attribut.
@@ -144,7 +144,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
      </Employee>
     #+END_SRC
 
-** Les Paquets system et leurs Classes
+** Les Paquets et leurs Classes
 
    Le code source de l'application est divisé en 4 paquets pricipales:
 
@@ -175,7 +175,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Voici la classe mère de toutes les classes, [[lis:xml-element][=XmlElement=]], qui contient en addition, une chaine de caractères qui représente le référence de l'employé, c.-à-d. L'identifient
 
-    #+CAPTION: Extrais du classe générique =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
+    #+CAPTION: Extrait du classe générique =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME: lis:xml-element
     #+BEGIN_SRC java -n
       import org.jdom2.Element;
@@ -186,7 +186,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 	  public abstract boolean remove();
 	  public abstract Element getElement();
 
-	  /* référence du employée */
+	  /* référence du employé */
 	  protected String empl_ref;
 	  public String getEmployeeReference( ) {
 	      return empl_ref;
@@ -204,10 +204,10 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Par exemple, [[lis:xml-element][=update()=]] dans la classe [[fig:models][=Diploma=]] est la suivant :
 
-    #+CAPTION: Extrais du classe [[fig:models][=Diploma=]] qui montre l'héritage de [[lis:xml-element][=XmlElement=]]
+    #+CAPTION: Extrait du classe [[fig:models][=Diploma=]] qui montre l'héritage de [[lis:xml-element][=XmlElement=]]
     #+NAME: lis:diploma
     #+BEGIN_SRC java  -n
-      public class Diploma exstends XmlElement<Diploma> {
+      public class Diploma extends XmlElement<Diploma> {
 	  /* les attributs du classe */
 
 	  @Override
@@ -227,12 +227,12 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     [[./diags/OverviewOnApp.png]]
 
 
-    + =Cadre= :: représente les cadres possibles pour un employée/fonctionnaire
+    + =Cadre= :: représente les cadres possibles pour un employé/fonctionnaire
     + =Mention= :: les mentions possibles pour un diplôme, utilisés dans [[Gestion des Dipl%C3%B4mes][=DilpomaCrud.java=]]
     + =Period= :: les différentes périodes utilisées dans l'application
     + =Holiday= :: utilisé dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]] pour la génération du congé
     + =SearchField= :: utilisé pour la recherche dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
-    + =EmployeeType= :: utilisé pour filtrer les employée et fonctionnaire dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
+    + =EmployeeType= :: utilisé pour filtrer les employé et fonctionnaire dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
     + =Files= :: contient des énumérations qui concernent les différents fichiers =XML= utilisé.
 
     #+LATEX: \clearpage
@@ -256,7 +256,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Au suivant, un extrait du classe [[lis:print][=Printer=]] qui montre l'implémentation de la méthode [[lis:print][=print()=]].
 
-    #+CAPTION: Extrais de la classe =Printer= qui montre l'implémentation de la méthode abstrait =print()= de l'interface =java.awt.Printable=
+    #+CAPTION: Extrait de la classe =Printer= qui montre l'implémentation de la méthode abstrait =print()= de l'interface =java.awt.Printable=
     #+NAME: lis:print
     #+BEGIN_SRC java -n
       import java.awt.Component;
@@ -448,7 +448,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     La classe [[lis:dateu][=DateUtil=]] dans la figure [[fig:apputils1]] est utilisé pour la manipulation des dates, et la conversion des dates de/vers =String= avec l'aide du classe system [[lis:dateu][=SimpleDateFormat=]]. Pour les dates, j'ai choisi un format standard, =YYYY-MM-DD=, pour touts les dates dans le projet. \\
 
-    #+CAPTION: Extrais de la classe =DateUtil=
+    #+CAPTION: Extrait de la classe =DateUtil=
     #+NAME: lis:dateu
     #+BEGIN_SRC java -n
       import java.text.ParseException;
@@ -545,7 +545,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
       }
     #+END_SRC
 
-    #+CAPTION: Extrais de la classe =XmlFile= du paquet =app.utils=
+    #+CAPTION: Extrait de la classe =XmlFile= du paquet =app.utils=
     #+NAME: lis:xml
     #+BEGIN_SRC java -n
       import java.io.File;
@@ -570,7 +570,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
 	  /**
 	   ,* A chaque fois on change l'emplacement du fichier, on doit
-	   ,* initialisé le Document XML ainsi que la racine du document
+	   ,* initialiser le Document XML ainsi que la racine du document
 	   ,*
 	   ,* @param filepath l'emplacement du fichier
 	   ,*/
@@ -598,7 +598,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     #+CAPTION: Définition de la méthode =writeXml= de la classe [[lis:xml][=XmlFile=]]
     #+BEGIN_SRC java -n
       /**
-       ,* Écrire une insatance de la classe Document dans un fichier XML
+       ,* Écrire une instance de la classe Document dans un fichier XML
        ,*
        ,* @param doc le Document XML
        ,* @param f les fichiers systèmes de l'application
@@ -619,7 +619,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
       }
     #+END_SRC
 
-    La classe [[lis:xml][=XmlFile=]] est basée su un paquet =Java= appelée [[http://jdom.org/][=JDOM=]], ce dernier contient des classes important comme :\\
+    La classe [[lis:xml][=XmlFile=]] est basée sur un paquet =Java= appelée [[http://jdom.org/][=JDOM=]], ce dernier contient des classes important comme :\\
 
     + =Element= :: la représentation des tags XML en objet
     + =Document= :: la représentation du document XMl en objet
@@ -627,7 +627,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     + =XMLOutputter= :: pour l'écriture de =Document= et fichier réal
 
 * L'Interface Graphique
-** La relation entre les différent Paquet graphique
+** La relation entre les différents Paquets graphiques
 
    \vspace*{\fill}
    #+CAPTION: Aperçu général sur les interfaces graphiques utilisé dans l'application
@@ -640,9 +640,9 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 *** Paquet =wins=
 **** La fenêtre principale =MainWin=
 
-     Dans la partie supérieure de la fenêtre, on voit des cases à cocher pour générer l'élément spécifie (voir la section de [[Paquet =views=][=views=]]), une zone de texte avec la sélection d'un attribue pour la recherche, c'est un [[Paquet =app=][=SearchField=]]. Au centre, il y a une table qui montre les informations des employés/fonctionnaires déjà existe.\\
+     Dans la partie supérieure de la fenêtre, on voit des cases à cocher pour générer l'élément spécifie (voir la section de [[Paquet =views=][=views=]]), une zone du texte avec la sélection d'un attribue pour la recherche, c'est un [[Paquet =app=][=SearchField=]]. Au centre, il y a une table qui montre les informations des employés/fonctionnaires déjà existants.\\
 
-     En bas il y a des boutons pour afficher le [[Gestion des Employ%C3%A9es =InfoCrud=][dossier do chaque personne]], afficher la fenêtre de [[Gestion des Remboursements][suivi des remboursements]], afficher suivi les [[Gestion des Certificats M%C3%A9dicaux][certificats médicaux]], et [[La fen%C3%AAtre de suivi des avancements de grade =UpliftsWin=][suivi des avancements de grade]]. En bas à droite, il y a deux boutons, une pour actualiser et une pour générer [[Paquet =views=][la page correspondant]] aux cases cocher en haut, ainsi que deux autres cases à cocher pour la sélection de type de la personne affichée dans la table.\\
+     En bas, il y a des boutons pour afficher le [[Gestion des Employ%C3%A9s =InfoCrud=][dossier do chaque personne]], afficher la fenêtre de [[Gestion des Remboursements][suivi des remboursements]], afficher suivi les [[Gestion des Certificats M%C3%A9dicaux][certificats médicaux]], et [[La fen%C3%AAtre de suivi des avancements de grade =UpliftsWin=][suivi des avancements de grade]]. En bas à droite, il y a deux boutons, une pour actualiser et une pour générer [[Paquet =views=][la page correspondant]] aux cases cocher en haut, ainsi que deux autres cases à cocher pour la sélection de type de la personne affichée dans la table.\\
 
      #+CAPTION: Aperçu sur le démarrage de l'application
      #+NAME:   fig:mainwin-main
@@ -653,8 +653,8 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
      Dans la figure [[fig:uplifts-win]], on voit que la fenêtre contient deux parties : \\
 
-     + En haut :: Les avancements à venir dans la durée sélectionnée avec l'aide de la boîte combo. On peut aussi affiché les informations de la personne avec le bouton à droite.\\
-     + En bas :: Les avancements que leur temps est venu et en attente d'une confirmation. On peut confirme par le bouton à droite.
+     + En haut :: Les avancements à venir dans la durée sélectionnée avec l'aide de la boîte combo. On peut aussi afficher les informations de la personne avec le bouton à droite.\\
+     + En bas :: Les avancements que leur temps est venu et en attente d'une confirmation. On peut confirmer par le bouton à droite.
 
       #+LATEX: \clearpage
       #+CAPTION: Aperçu sur le suivi des avancements de grade
@@ -662,19 +662,19 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
       #+ATTR_LATEX: :width 14cm :center t
       [[./diags/UpliftsWin.png]]
 
-      Apres la comfirmation d'un avancement, une [[Gestion des Grades][fenetre]] s'ouvert pour ajouter les informations du avancement.
+      Après la comfirmation d'un avancement, une [[Gestion des Grades][fenetre]] s'ouvert pour ajouter les informations du avancement.
 
       #+LATEX: \clearpage
 *** Paquet =wins.crud=
     #+BEGIN_QUOTE
-    /Tout les forms suivants avait le meme principe, des donnees de texte (ou combos) qui permet de la modification de employee deja existe, l'ajout d'un nouveau our la suppression d'un ancien./ \\
+    /Toutes les formes suivantes avaient le même princip des données du texte (ou combos) qui permet de la modification de employé éxistant déjà, l'ajout d'un nouveau pour la suppression d'un ancien./ \\
     #+END_QUOTE
 
-**** Gestion des Employées =InfoCrud=
+**** Gestion des Employés =InfoCrud=
 
-     C'est la fenêtre qui permet de changer les informations de chaque employé ou fonctionnaire. En haut, on voit la place de l'image, au centre on voit les zones de textes pour la modification des informations divisé en trois sections, les informations personnelles, administrative et autres (qui contient des informations additionnelle comme le nom et prénom en arabe).
+     C'est la fenêtre qui permet de changer les informations de chaque employé ou fonctionnaire. En haut, on voit la place de l'image, au centre on voit les zones de textes pour la modification des informations divisées en trois sections, les informations personnelles, administrative et autres (qui contient des informations additionnelle comme le nom et prénom en arabe).
 
-     Pour l'image, le programme lire une image qui doit existe dans le répertoire =data/imgs= et contient le même CIN de l'employé concerné.
+     Pour l'image, le programme lit une image qui doit existe dans le répertoire =data/imgs= et contient le même CIN de l'employé concerné.
 
      #+CAPTION: Aperçu sur la ficher des informations personnelle et administrative
      #+NAME:   fig:uplifts-win
@@ -701,7 +701,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
      #+LATEX: \clearpage
 
 *** Paquet =views=
-    Ce paquet est intialiser par les information du employé, voici un example:
+    Ce paquet est intialisé par les information du employé, voici un example:
 
 [[./diags/att.png]]
 

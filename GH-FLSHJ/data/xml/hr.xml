@@ -3,11 +3,11 @@
   <employee reference="0112358" department="Informatique">
     <notes />
     <personal>
-      <name_ar>ANAS</name_ar>
-      <familyname_ar>Rchid</familyname_ar>
-      <brithplace_ar>Rass El Ain</brithplace_ar>
-      <address_ar>99 Ibn Sina, OD Frej El Jadida</address_ar>
-      <name>ANAS</name>
+      <name_ar>أنس</name_ar>
+      <familyname_ar>ارشيد</familyname_ar>
+      <brithplace_ar>رأس العين</brithplace_ar>
+      <address_ar>99 إبن سينا، أولاد فرج، الجديدة</address_ar>
+      <name>A</name>
       <familyname>Rchid</familyname>
       <birth>1994-09-15</birth>
       <nationality ma="t" />
@@ -16,7 +16,9 @@
       <phone>0642857134</phone>
       <state married="t" />
       <partner name="Fatima" job="بدون" />
-      <children number="1" />
+      <children number="0" />
+      <birthplace_ar>رأس العين</birthplace_ar>
+      <birthplace>Rass El Ain</birthplace>
     </personal>
     <administrative>
       <reference>0112358</reference>
@@ -29,7 +31,7 @@
       <reason>exam</reason>
       <pjob>UCD FS</pjob>
       <cjob>CapGemini Casablanca</cjob>
-      <uplift id="2" state="current" type="exam">
+      <uplift id="2" state="old" type="exam">
         <scale>9</scale>
         <echlon>2</echlon>
         <indice>12121</indice>
@@ -41,13 +43,13 @@
         <indice>451245</indice>
         <update>2017-06-15</update>
       </uplift>
+      <uplift id="2" state="current">
+        <scale>9</scale>
+        <echlon>3</echlon>
+        <indice>6876876</indice>
+        <update>2018-06-21</update>
+      </uplift>
     </administrative>
-    <diplomas id="1">
-      <diploma mention="Passable">Science Math A</diploma>
-      <institute city="ODFrej">6 Novembre</institute>
-      <session>2011-2012</session>
-      <!-- yyyyYYYY -->
-    </diplomas>
     <diplomas id="2">
       <diploma mention="Bien">TSDI</diploma>
       <institute city="ElJadida">COOL</institute>
@@ -143,6 +145,32 @@
         <indice>7845124</indice>
         <update>2017-10-15</update>
       </uplift>
+    </administrative>
+  </employee>
+  <employee department="" reference="8789">
+    <notes />
+    <personal>
+      <name>uiui</name>
+      <familyname>hjkjh</familyname>
+      <birth>2018-06-21</birth>
+      <brithplace>kjkk</brithplace>
+      <address />
+      <phone>89898989</phone>
+      <state married="nil" />
+      <nationality ma="t" />
+      <partner name="" job="" />
+      <children number="0" />
+    </personal>
+    <administrative>
+      <cin>h87989</cin>
+      <mission>uiuiu</mission>
+      <jday>2018-06-21</jday>
+      <hday>2018-06-21</hday>
+      <reason>exam</reason>
+      <pjob>oop</pjob>
+      <cjob>0909</cjob>
+      <cadre>Engenieur 1er Grade</cadre>
+      <fstatus>75757</fstatus>
     </administrative>
   </employee>
 </Employee>

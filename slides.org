@@ -1,0 +1,142 @@
+#+TITLE: Informatiser le service Ressources Humaines
+#+AUTHOR: Rchid Anas
+
+#+STARTUP: beamer
+#+LaTeX_CLASS_OPTIONS: [a4paper,twoside]
+#+LaTeX_CLASS_OPTIONS: [captions=tableheading]
+
+#+LATEX_HEADER: \usepackage[margin=0.85in]{geometry}
+#+LaTeX_CLASS: beamer
+# #+MACRO: BEAMERMODE presentation
+# #+MACRO: BEAMERTHEME Antibes
+# #+MACRO: BEAMERCOLORTHEME lily
+# #+MACRO: BEAMERSUBJECT RMRF
+# #+MACRO: BEAMERINSTITUTE Miskatonic University, Astrology Dept.
+# #+BEAMER_HEADER: \title[short title]{long title}
+#+LaTeX_HEADER: \hypersetup {
+#+LaTeX_HEADER:     colorlinks,
+#+LaTeX_HEADER:     citecolor=black,
+#+LaTeX_HEADER:     filecolor=black,
+#+LaTeX_HEADER:     linkcolor=blue,
+#+LaTeX_HEADER:     urlcolor=blue
+#+LaTeX_HEADER: }
+
+#+LATEX_COMPILER: pdflatex
+
+#+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+BEAMER_FRAME_LEVEL: 2
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+LaTeX_HEADER: \usemintedstyle{default}
+#+OPTIONS: toc:nil
+#+OPTIONS: author:t date:nil
+#+LATEX: \tableofcontents
+#+LATEX: \clearpage
+
+* Introduction
+** Introduction
+
+   #+BEGIN_QUOTE
+   Ce projet est le résultat d'un stage que j'avais passé chez la /Faculté des Lettres et Science Humaines/, El Jadida sous le thème /Informatiser le service Ressources Humaines/. Sous l'encadrement de Mr. A. Madani, et la supervision du chef de service; Mr. Driss Dibaji.\\
+   #+END_QUOTE
+
+* Cahier des Charges
+** Cahier des Charges
+   Un service qui est responsable de la gestion des employés et fonctionnaires, leurs diplômes et grades...\\
+
+#+BEGIN_QUOTE
+  + Implémenter un système de gestion des employés/fonctionnaires
+  + Gérer les diplômes et les grades
+  + Suivi des grades
+  + Suivi d'absence
+  + Suivi de rémunération du travail les fériés
+  + Générer des attestations de travail
+  + Générer des autorisations de congé
+  + Générer des fiches de notation annuelle
+#+END_QUOTE
+
+* Conception
+** Conception
+*** Stockage des données en XML
+   
+    Les données sont stockées dans un fichier =XML=; *puisqu'il est lisible à la fois par la machine et l'humain*.\\
+
+    #+BEGIN_QUOTE
+    + Le root-tag est =<Employee>= et qui contient *=0= ou plusieurs* tags de type =<employee>= qui représente des employées. \\
+
+    + Chaque tag =<employee>= contient *un seul* tag =<personal>= et *un seul* tag =<administrative>= qui peut contient *=0= ou plusieurs* tags =<uplift>=. \\
+
+    + Le tag =<employee>= peut aussi avoir *=0= ou plusieurs* tags de type =<diploma>=, =<medicalcertif>= et =<repayment>=.\\
+    #+END_QUOTE
+
+
+** Les Paquets et leurs Classes
+#+LATEX: \clearpage
+
+   Le code source de l'application est divisé en 4 paquets pricipales:
+
+   + =model= :: contient les différentes classe pour mobilisé les donnée en objet
+   + =app= :: contient les différentes énumération utilisées dans l'application. Ce paquet contient aussi =app.utils=, qui contient des utilitaires utiles pour le développement, notamment la gestion du *fichier XML*
+   + =wins= :: contient des interfaces graphiques, y compris celles qui sont responsables des opérations CRUD normales qui existent dans =wins.crud=
+   + =views= :: contient des pages générées pour l'impression.
+
+** Model
+    #+ATTR_LATEX: :width 7cm :center t
+    [[./diags/OverviewOnClasses.png]]
+
+** La classe =XmlElement=
+
+    #+NAME: lis:xml-element
+    #+ATTR_LATEX: :width 7cm :center t
+    #+BEGIN_SRC java -n
+      public abstract class XmlElement<T> {
+	  public abstract boolean add();
+	  public abstract boolean update(T updated);
+	  public abstract boolean remove();
+	  public abstract Element getElement();
+
+	  /* référence du employé */
+	  protected String empl_ref;
+	  public String getEmployeeReference( ) {
+	      return empl_ref;
+	  }
+
+	  public void setEmployeeReference(String ref) {
+	      this.empl_ref = ref;
+	  }
+      }
+    #+END_SRC
+
+** Hirite de la classe =XmlElement=
+   
+   #+BEGIN_QUOTE   
+   La méthode =update()= prend un variable de type =T=, ce type est décrit avec un héritage de la classe =XmlElement=
+   #+END_QUOTE
+
+    #+NAME: lis:diploma
+    #+BEGIN_SRC java  -n
+      public class Diploma extends XmlElement<Diploma> {
+	  /* les attributs du classe */
+
+	  @Override
+	  public boolean update(Diploma updated) {
+	      try {
+		  /* process la mise à jour */
+		  return true;
+	      } catch (Exception e) {
+		  System.err.println(e.getMessage());
+		  return false;
+	      }
+	  }
+      }
+    #+END_SRC
+* L’Interface Graphique
+** L’Interface Graphique
+*** La relation entre les différents Paquets graphiques
+* Dépendances
+

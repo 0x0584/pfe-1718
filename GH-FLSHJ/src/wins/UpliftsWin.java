@@ -22,13 +22,15 @@ import com.alee.laf.WebLookAndFeel;
 import app.Period;
 import model.Employee;
 import model.Uplift;
+import views.UpcomingUpliftsView;
 import wins.crud.InfoCrud;
 import wins.crud.UpliftCrud;
+import app.InNext;
 
 public class UpliftsWin {
 
 	private JFrame frame;
-	private JTable table_1;
+	private JTable tbl_upcoming;
 	private JTable tbl_pending;
 
 	public JFrame getFrame( ) {
@@ -81,34 +83,34 @@ public class UpliftsWin {
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		table_1 = new JTable(Uplift.getUpcomingUplifts(Period.TODAY));
-		scrollPane.setViewportView(table_1);
+		tbl_upcoming = new JTable(Uplift.getUpcomingUplifts(Period.TODAY));
+		scrollPane.setViewportView(tbl_upcoming);
 
 		JButton button = new JButton("السجل الكامل");
 		button.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new InfoCrud(new Employee(table_1.getModel( )
-									.getValueAt(table_1.getSelectedRow( ), 0)
+					new InfoCrud(new Employee(tbl_upcoming.getModel( )
+									.getValueAt(tbl_upcoming.getSelectedRow( ), 0)
 									.toString( ))).getFrame( ).setVisible(true);
 				} catch (Exception x) {
 					System.err.println(x.getMessage( ));
 				}
 			}
 		});
-		button.setBounds(509, 12, 129, 25);
+		button.setBounds(517, 12, 129, 25);
 		frame.getContentPane( ).add(button);
 
 		JComboBox<Period> cmbx = new JComboBox<Period>( );
 		cmbx.addItemListener(new ItemListener( ) {
 			public void itemStateChanged(ItemEvent e) {
-				table_1.setModel(
+				tbl_upcoming.setModel(
 					Uplift.getUpcomingUplifts(
 						Period.parse(cmbx.getSelectedItem( ).toString( ))));
 			}
 		});
 		cmbx.setModel(new DefaultComboBoxModel<Period>(Period.values( )));
-		cmbx.setBounds(301, 12, 101, 24);
+		cmbx.setBounds(322, 12, 101, 24);
 		frame.getContentPane( ).add(cmbx);
 
 		JPanel panel_1 = new JPanel( );
@@ -133,7 +135,7 @@ public class UpliftsWin {
 		frame.getContentPane( ).add(btnConfirm);
 
 		JLabel lblUpcoming = new JLabel("الترقيات المقبلة");
-		lblUpcoming.setBounds(127, 17, 108, 15);
+		lblUpcoming.setBounds(202, 17, 108, 15);
 		frame.getContentPane( ).add(lblUpcoming);
 
 		JLabel lblWaitingForComfirmation = new JLabel("ترقيات تنتضر المصادقة");
@@ -141,13 +143,13 @@ public class UpliftsWin {
 		frame.getContentPane( ).add(lblWaitingForComfirmation);
 
 		JLabel label = new JLabel("تحديد الأجل");
-		label.setBounds(421, 17, 70, 15);
+		label.setBounds(435, 17, 70, 15);
 		frame.getContentPane( ).add(label);
 
 		JButton button_1 = new JButton("*");
 		button_1.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				table_1.setModel(
+				tbl_upcoming.setModel(
 					Uplift.getUpcomingUplifts(
 						Period.parse(cmbx.getSelectedItem( ).toString( ))));
 				tbl_pending.setModel(Uplift.getPendingUplifts( ));
@@ -172,6 +174,23 @@ public class UpliftsWin {
 		});
 		button_2.setBounds(509, 242, 129, 25);
 		frame.getContentPane( ).add(button_2);
+		
+		JComboBox<InNext> combx = new JComboBox<InNext>();
+		combx.setModel(new DefaultComboBoxModel<InNext>(InNext.values()));
+		combx.setBounds(110, 12, 80, 24);
+		frame.getContentPane().add(combx);
+		
+		JButton button_3 = new JButton("إستخراج");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = Integer.parseInt(combx.getSelectedItem( ).toString( ));
+				i -= 1900; // date shit!
+				new UpcomingUpliftsView(Uplift.getInNextModel(i)).getFrame( ).setVisible(true);
+			}
+		});
+		button_3.setBounds(12, 12, 86, 25);
+		frame.getContentPane().add(button_3);
+
 
 	}
 

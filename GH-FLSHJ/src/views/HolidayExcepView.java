@@ -162,9 +162,9 @@ public class HolidayExcepView {
 		label_5.setBounds(110, 505, 431, 33);
 		frame.getContentPane( ).add(label_5);
 
-		JLabel label_6 = new JLabel(String.format(
-			"Grade: %s",
-			e.getUplifts( ).get(e.getUplifts( ).size( ) - 1).getGrade( )));
+		JLabel label_6 = new JLabel(
+			String.format("Grade: %s", e.getCurrentUplift( ).getGrade( )));
+		///
 		label_6.setFont(new Font("Dialog", Font.PLAIN, 16));
 		label_6.setBounds(110, 532, 159, 33);
 		frame.getContentPane( ).add(label_6);
@@ -175,8 +175,8 @@ public class HolidayExcepView {
 		label_7.setBounds(110, 559, 431, 33);
 		frame.getContentPane( ).add(label_7);
 
-		JLabel lblElJadidaLe = new JLabel(String.format(
-			"El Jadida le: %s", DateUtil.parseDate(new Date( ))));
+		JLabel lblElJadidaLe = new JLabel(
+			String.format("El Jadida le: %s", DateUtil.parseDate(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblElJadidaLe.setBounds(270, 816, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);

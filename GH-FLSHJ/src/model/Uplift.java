@@ -10,6 +10,7 @@ import javax.swing.table.TableModel;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
+import app.InNext;
 import app.Period;
 import app.utils.DateUtil;
 import app.utils.XmlElement;
@@ -136,7 +137,7 @@ public class Uplift extends XmlElement<Uplift> {
 	}
 
 	/**
-	 * generate the next Uplift in order
+	 * TODO: fix this shit generate the next Uplift in order
 	 * 
 	 * @return the next uplift
 	 */
@@ -146,9 +147,9 @@ public class Uplift extends XmlElement<Uplift> {
 		short grade = this.grade, rank = this.rank;
 
 		/* determine the # of years to add based on the rank */
-		if (rank >= 1 && rank <= 4) {
+		if (rank == 1 || rank == 2 || rank == 3) {
 			n_years = 1;
-		} else if (rank == 5 || rank == 6) {
+		} else if (rank == 4 || rank == 5 || rank == 6) {
 			n_years = 2;
 		} else if (rank == 7 || rank == 8 || rank == 9) {
 			n_years = 3;
@@ -288,19 +289,19 @@ public class Uplift extends XmlElement<Uplift> {
 		DefaultTableModel model = new DefaultTableModel( );
 		String[] cols = new String[] {
 						"ر. التأجير", "ب.ت.و.", "الإسم الكامل",
-	
+
 						"السلم", "الرتبة"
-	
+
 		};
-	
+
 		for (String col_name : cols) {
 			model.addColumn(col_name);
 		}
-	
+
 		for (Employee e : Employee.getAllEmployees( )) {
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( );
-	
+
 			if (nextdate.before(Period.getDate(Period.TODAY))) {
 				String fullname = e.getName( ) + " "
 								+ e.getFamilyName( ).toUpperCase( );
@@ -311,21 +312,21 @@ public class Uplift extends XmlElement<Uplift> {
 				});
 			}
 		}
-	
+
 		return model;
 	}
 
 	public static DefaultTableModel getUpliftModel(Employee empl) {
 		DefaultTableModel model = new DefaultTableModel( );
-	
+
 		for (String str : new String[] {
 						"التاريخ", "الرقم الإستدلالي",
-	
+
 						"الرتبة", "السلم",
 		}) {
 			model.addColumn(str);
 		}
-	
+
 		for (Uplift u : getUplifts(
 			Employee.getEmployeeElement(empl.getEmployeeReference( )))) {
 			model.addRow(new String[] {
@@ -333,7 +334,7 @@ public class Uplift extends XmlElement<Uplift> {
 							"" + u.getRank( ), "" + u.getGrade( )
 			});
 		}
-	
+
 		return model;
 	}
 
@@ -415,6 +416,39 @@ public class Uplift extends XmlElement<Uplift> {
 		}
 
 		return u;
+	}
+
+	@SuppressWarnings("deprecation")
+	public static TableModel getInNextModel(int i) {
+		Date todate = InNext.parse(i);
+		DefaultTableModel model = new DefaultTableModel( );
+		String[] cols = new String[] {
+						"ر. التأجير", "ب.ت.و.", "الإسم الكامل",
+
+						"تاريخ الترقية", "السلم", "الرتبة"
+
+		};
+
+		for (String col_name : cols) {
+			model.addColumn(col_name);
+		}
+
+		for (Employee e : Employee.getAllEmployees( )) {
+			Uplift next = e.getCurrentUplift( ).next( );
+			Date nextdate = next.getDate( );
+
+			if (nextdate.getYear( ) == todate.getYear( )) {
+				String fullname = e.getName( ) + " "
+								+ e.getFamilyName( ).toUpperCase( );
+				model.addRow(new String[] {
+								e.getEmployeeReference( ), e.getCIN( ),
+								fullname, DateUtil.parseDate(nextdate),
+								"" + next.getGrade( ), "" + next.getRank( )
+				});
+			}
+		}
+
+		return model;
 	}
 
 }

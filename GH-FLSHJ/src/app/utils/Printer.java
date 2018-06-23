@@ -44,6 +44,8 @@ public class Printer implements Printable {
 		PrinterJob pjob = PrinterJob.getPrinterJob( );
 		PageFormat preformat = pjob.defaultPage( );
 		preformat.setOrientation(PageFormat.PORTRAIT);
+		preformat.getPaper( ).setSize(A4_STD_WIDTH, A4_STD_HEIGHT);
+		
 		PageFormat postformat = pjob.pageDialog(preformat);
 
 		// if user does not hit cancel then print.

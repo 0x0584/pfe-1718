@@ -126,17 +126,17 @@ public class NotationView {
 
 		JLabel lblNewLabel = new JLabel("Faculté des Lettres et des Sciences");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel.setBounds(12, 66, 263, 15);
+		lblNewLabel.setBounds(12, 44, 263, 15);
 		frame.getContentPane( ).add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Université Chouaib Doukkali");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(12, 39, 202, 15);
+		lblNewLabel_1.setBounds(12, 28, 202, 15);
 		frame.getContentPane( ).add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Humaines - El Jadida");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(12, 97, 152, 15);
+		lblNewLabel_2.setBounds(12, 60, 152, 15);
 		frame.getContentPane( ).add(lblNewLabel_2);
 
 		JLabel label = new JLabel("المملكة المغربية");
@@ -146,47 +146,47 @@ public class NotationView {
 
 		JLabel label_1 = new JLabel("جامعة شعيب دكالي");
 		label_1.setFont(new Font("Arial", Font.BOLD, 16));
-		label_1.setBounds(603, 39, 102, 15);
+		label_1.setBounds(603, 28, 102, 15);
 		frame.getContentPane( ).add(label_1);
 
 		JLabel label_2 = new JLabel("كلية الآدب والعلوم الإنسانية");
 		label_2.setFont(new Font("Arial", Font.BOLD, 16));
-		label_2.setBounds(561, 70, 144, 15);
+		label_2.setBounds(561, 44, 144, 15);
 		frame.getContentPane( ).add(label_2);
 
 		JLabel label_3 = new JLabel("الجديدة");
 		label_3.setFont(new Font("Arial", Font.BOLD, 16));
-		label_3.setBounds(668, 97, 37, 15);
+		label_3.setBounds(668, 60, 37, 15);
 		frame.getContentPane( ).add(label_3);
 
 		JLabel label_4 = new JLabel(
 			"_____________________________________________________________________");
 		label_4.setFont(new Font("Dialog", Font.BOLD, 17));
-		label_4.setBounds(53, 93, 626, 33);
+		label_4.setBounds(53, 62, 626, 33);
 		frame.getContentPane( ).add(label_4);
 
 		JLabel lblElJadidaLe = new JLabel(
 			String.format("حرّر بالجديدة في:%s", fmt.format(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Arial", Font.BOLD, 16));
-		lblElJadidaLe.setBounds(539, 918, 172, 22);
+		lblElJadidaLe.setBounds(539, 889, 172, 22);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		JLabel lblAttestationDeTravail = new JLabel(String.format(
 			"بطاقة التنقيط الفرديّة برسم سنة: %s",
 			new SimpleDateFormat("yyyy").format(new Date( ))));
 		lblAttestationDeTravail.setFont(new Font("Arial", Font.BOLD, 20));
-		lblAttestationDeTravail.setBounds(235, 119, 263, 29);
+		lblAttestationDeTravail.setBounds(235, 91, 263, 29);
 		frame.getContentPane( ).add(lblAttestationDeTravail);
 
 		JLabel label_5 = new JLabel("توقيع رئيس الإدارة أو السّلطة المفوض لها");
 		label_5.setFont(new Font("Arial", Font.BOLD, 16));
-		label_5.setBounds(53, 922, 263, 15);
+		label_5.setBounds(53, 891, 263, 15);
 		frame.getContentPane( ).add(label_5);
 
 		JPanel panel_1 = new JPanel( );
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panel_1.setBounds(15, 148, 690, 270);
+		panel_1.setBounds(15, 123, 690, 270);
 		frame.getContentPane( ).add(panel_1);
 		panel_1.setLayout(null);
 
@@ -362,7 +362,7 @@ public class NotationView {
 		JPanel panel_2 = new JPanel( );
 		panel_2.setLayout(null);
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(15, 417, 690, 161);
+		panel_2.setBounds(15, 392, 690, 161);
 		frame.getContentPane( ).add(panel_2);
 
 		JPanel panel_3 = new JPanel( );
@@ -390,7 +390,7 @@ public class NotationView {
 		JPanel panel_6 = new JPanel( );
 		panel_6.setLayout(null);
 		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(15, 571, 690, 92);
+		panel_6.setBounds(15, 546, 690, 92);
 		frame.getContentPane( ).add(panel_6);
 
 		JPanel panel_7 = new JPanel( );
@@ -489,7 +489,7 @@ public class NotationView {
 		JPanel panel_12 = new JPanel( );
 		panel_12.setLayout(null);
 		panel_12.setBackground(Color.WHITE);
-		panel_12.setBounds(15, 813, 690, 92);
+		panel_12.setBounds(15, 788, 690, 92);
 		frame.getContentPane( ).add(panel_12);
 
 		JPanel panel_14 = new JPanel( );
@@ -589,7 +589,7 @@ public class NotationView {
 		JPanel panel_9 = new JPanel( );
 		panel_9.setLayout(null);
 		panel_9.setBackground(Color.WHITE);
-		panel_9.setBounds(15, 663, 690, 161);
+		panel_9.setBounds(15, 638, 690, 161);
 		frame.getContentPane( ).add(panel_9);
 
 		JPanel panel_10 = new JPanel( );
