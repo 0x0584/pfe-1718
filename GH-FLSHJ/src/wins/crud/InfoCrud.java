@@ -79,8 +79,6 @@ public class InfoCrud {
 
 	/**
 	 * Launch the application.
-	 * 
-	 * TODO: get info
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable( ) {
@@ -207,7 +205,6 @@ public class InfoCrud {
 		tf_partner_job = new JTextField(empl.getPartnerJob( ));
 		tf_partner_job.setColumns(10);
 		tf_partner_job.setBounds(403, 103, 148, 29);
-		// TODO: disable this
 		panel_1.add(tf_partner_job);
 
 		JRadioButton rd_ismarried_yes = new JRadioButton("نعم");

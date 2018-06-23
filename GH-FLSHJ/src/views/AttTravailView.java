@@ -183,8 +183,6 @@ public class AttTravailView {
 		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblElJadidaLe.setBounds(276, 654, 181, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
-
-		// TODO: verify whether it's hiring date or joining date
 		JLabel label_10 = new JLabel(
 			String.format("depuis le %s", fmt.format(e.getHiringDate( ))));
 		label_10.setFont(new Font("Dialog", Font.PLAIN, 16));

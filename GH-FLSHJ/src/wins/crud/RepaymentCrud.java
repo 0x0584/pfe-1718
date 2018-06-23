@@ -197,7 +197,6 @@ public class RepaymentCrud {
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
 				Repayment r = getSelectedRepayment(empl, table);
-				// TODO: update text fields
 				tf_repayed.setText("" + r.getRepayedDays( ));
 				tf_ndays.setText("" + r.getNumberOfDays( ));
 				tf_holiday.setText(r.getPeriod( ));

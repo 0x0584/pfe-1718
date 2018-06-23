@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="model.Employee" project="GH-FLSHJ" file="/GH-FLSHJ/src/model/Employee.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="472" y="183"/>    
+    <position height="-1" width="-1" x="829" y="303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="model.Repayment" project="GH-FLSHJ" file="/GH-FLSHJ/src/model/Repayment.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="380" y="342"/>    
+    <position height="-1" width="-1" x="507" y="228"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="model.Diploma" project="GH-FLSHJ" file="/GH-FLSHJ/src/model/Diploma.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="242" y="342"/>    
+    <position height="-1" width="-1" x="507" y="147"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="model.MedicalCertif" project="GH-FLSHJ" 
     file="/GH-FLSHJ/src/model/MedicalCertif.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="556" y="342"/>    
+    <position height="-1" width="-1" x="507" y="371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="model.Uplift" project="GH-FLSHJ" file="/GH-FLSHJ/src/model/Uplift.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="698" y="342"/>    
+    <position height="-1" width="-1" x="507" y="580"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <enumeration id="6" language="java" name="app.Cadre" project="GH-FLSHJ" file="/GH-FLSHJ/src/app/Cadre.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="473" y="78"/>    
+    <position height="-1" width="-1" x="830" y="486"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -57,7 +57,7 @@
   </enumeration>  
   <enumeration id="7" language="java" name="app.Mention" project="GH-FLSHJ" file="/GH-FLSHJ/src/app/Mention.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="242" y="77"/>    
+    <position height="-1" width="-1" x="830" y="146"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -66,7 +66,7 @@
   </enumeration>  
   <enumeration id="8" language="java" name="app.Period" project="GH-FLSHJ" file="/GH-FLSHJ/src/app/Period.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="698" y="78"/>    
+    <position height="-1" width="-1" x="507" y="458"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -75,7 +75,7 @@
   </enumeration>  
   <class id="9" language="java" name="app.utils.XmlElement" project="GH-FLSHJ" 
     file="/GH-FLSHJ/src/app/utils/XmlElement.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="473" y="622"/>    
+    <position height="-1" width="-1" x="200" y="303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="true" private="false" static="true"/>      
@@ -84,72 +84,71 @@
   </class>  
   <class id="10" language="java" name="model.Person" project="GH-FLSHJ" file="/GH-FLSHJ/src/model/Person.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="472" y="427"/>    
+    <position height="-1" width="-1" x="507" y="303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <association id="11">    
-    <bendpoint x="616" y="229"/>    
+  <dependency id="11">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="13">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="12" name="uplifts">        
-        <position height="17" width="37" x="606" y="302"/>      
+      <attribute id="14" name="cadre">        
+        <position height="0" width="0" x="361" y="408"/>      
       </attribute>      
-      <multiplicity id="13" minimum="0" maximum="2147483647">        
-        <position height="15" width="21" x="631" y="318"/>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="361" y="408"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="14">    
+  <association id="16">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="15" name="certifs">        
-        <position height="0" width="0" x="145" y="0"/>      
+      <attribute id="17" name="repayments">        
+        <position height="0" width="0" x="-20" y="-115"/>      
       </attribute>      
-      <multiplicity id="16" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="145" y="0"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-20" y="-115"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <generalization id="20">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="21">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="22" name="certifs">        
+        <position height="0" width="0" x="107" y="29"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="107" y="29"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="17">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
-  <dependency id="18">    
+  <dependency id="24">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <association id="19">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="20" name="mention">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="21" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <dependency id="23">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="24">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
   <dependency id="25">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
   <generalization id="26">    
@@ -157,78 +156,78 @@
     <end type="TARGET" refId="9"/>  
   </generalization>  
   <generalization id="27">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
-  <association id="28">    
+  <generalization id="28">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="29">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="29" name="current">        
-        <position height="17" width="42" x="659" y="266"/>      
+      <attribute id="30" name="current">        
+        <position height="17" width="42" x="469" y="504"/>      
       </attribute>      
-      <multiplicity id="30" minimum="0" maximum="1">        
-        <position height="15" width="23" x="673" y="281"/>      
+      <multiplicity id="31" minimum="0" maximum="1">        
+        <position height="15" width="23" x="483" y="519"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="31">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="32" name="cadre">        
-        <position height="0" width="0" x="0" y="0"/>      
+  <generalization id="32">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="33">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="34" name="mention">        
+        <position height="0" width="0" x="604" y="69"/>      
       </attribute>      
-      <multiplicity id="33" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="35" minimum="0" maximum="1">        
+        <position height="0" width="0" x="604" y="69"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="34">    
-    <bendpoint x="336" y="233"/>    
+  <association id="36">    
+    <bendpoint x="717" y="235"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="35" name="diplomas">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="37" name="diplomas">        
+        <position height="0" width="0" x="277" y="-195"/>      
       </attribute>      
-      <multiplicity id="36" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="38" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="277" y="-195"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="37">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="38" name="repayments">        
-        <position height="0" width="0" x="-165" y="-1"/>      
-      </attribute>      
-      <multiplicity id="39" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-165" y="-1"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="40">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <generalization id="41">    
+  <generalization id="39">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <dependency id="42">    
-    <end type="SOURCE" refId="2"/>    
+  <dependency id="40">    
+    <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <generalization id="43">    
+  <dependency id="41">    
     <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <dependency id="44">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="8"/>  
+    <end type="TARGET" refId="1"/>  
   </dependency>  
+  <association id="42">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="43" name="uplifts">        
+        <position height="17" width="37" x="416" y="540"/>      
+      </attribute>      
+      <multiplicity id="44" minimum="0" maximum="2147483647">        
+        <position height="15" width="21" x="441" y="556"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="false" package="false" protected="false" private="false" static="true"/>    

@@ -331,8 +331,6 @@ public class MainWin {
 		JButton btnConfirm = new JButton("إستخراج");
 		btnConfirm.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: handle all of this
-
 				if (chckbx1.isSelected( )) {
 					AttTravailView window = new AttTravailView(
 						getSelectedEmployee(table));

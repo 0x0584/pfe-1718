@@ -203,7 +203,6 @@ public class DiplomaCrud {
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
 				Diploma r = getSelectedDiploma(empl, table);
-				// TODO: update text fields
 				tf_session.setText(r.getSession( ));
 				tf_ins.setText(r.getInstitue( ));
 				tf_title.setText(r.getTitle( ));

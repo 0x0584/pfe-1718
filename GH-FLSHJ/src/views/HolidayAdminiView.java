@@ -187,7 +187,6 @@ public class HolidayAdminiView {
 		lblElJadidaLe.setBounds(270, 831, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
-		// TODO: verify whether it's hiring date or joining date
 		JLabel lbls = new JLabel(" la period sus-indique");
 		lbls.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lbls.setBounds(70, 731, 566, 29);

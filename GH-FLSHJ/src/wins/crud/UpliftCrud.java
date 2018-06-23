@@ -231,7 +231,6 @@ public class UpliftCrud {
 				btnModify.setEnabled(true);
 				btnDelete.setEnabled(true);
 				Uplift u = getSelectedUplift(empl, table);
-				// TODO: update text fields
 				tf_indice.setText("" + u.getIndice( ));
 				tf_date.setText(DateUtil.parseDate(u.getDate( )));
 				tf_rank.setText("" + u.getRank( ));

@@ -41,7 +41,6 @@ public abstract class Person extends XmlElement<Employee> {
 		this.ismoroccan = ismoroccan;
 		this.ismarried = ismarried;
 		this.nchildren = nchildren;
-		// TODO: partner setup
 	}
 
 	@Override

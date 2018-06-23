@@ -12,7 +12,6 @@ public class DateUtil {
 	private SimpleDateFormat fmt;
 
 	public DateUtil() {
-		// TODO: choose a good format
 		fmt = new SimpleDateFormat("yyyy-MM-dd");
 	}
 

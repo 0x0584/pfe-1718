@@ -1,10 +1,17 @@
 #+TITLE: Informatiser le service Ressources Humaines
 #+AUTHOR: Rchid Anas
 
+# Antibes Boadilla Frankfurt Juanlespins
+# Montpellier Singapore Bergen Copenhagen
+# Goettingen Madrid Malmoe Rochester
+# Pittsburgh Berlin Dresden Ilmenau Marburg
+# Paloalto Warsaw Berkeley Darmstadt Hannover
+
 #+STARTUP: beamer
 #+LaTeX_CLASS_OPTIONS: [a4paper,twoside]
 #+LaTeX_CLASS_OPTIONS: [captions=tableheading]
-
+#+LATEX_HEADER: \usetheme{Frankfurt}
+#+LATEX_HEADER: \usecolortheme{whale}
 #+LATEX_HEADER: \usepackage[margin=0.85in]{geometry}
 #+LaTeX_CLASS: beamer
 # #+MACRO: BEAMERMODE presentation
@@ -13,14 +20,13 @@
 # #+MACRO: BEAMERSUBJECT RMRF
 # #+MACRO: BEAMERINSTITUTE Miskatonic University, Astrology Dept.
 # #+BEAMER_HEADER: \title[short title]{long title}
-#+LaTeX_HEADER: \hypersetup {
-#+LaTeX_HEADER:     colorlinks,
-#+LaTeX_HEADER:     citecolor=black,
-#+LaTeX_HEADER:     filecolor=black,
-#+LaTeX_HEADER:     linkcolor=blue,
-#+LaTeX_HEADER:     urlcolor=blue
-#+LaTeX_HEADER: }
-
+# #+LaTeX_HEADER: \hypersetup {
+# #+LaTeX_HEADER:	    colorlinks,
+# #+LaTeX_HEADER:	    citecolor=black,
+# #+LaTeX_HEADER:	    filecolor=black,
+# #+LaTeX_HEADER:	    linkcolor=gray,
+# #+LaTeX_HEADER:	    urlcolor=gray
+# #+LaTeX_HEADER: }
 #+LATEX_COMPILER: pdflatex
 
 #+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
@@ -30,7 +36,7 @@
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
+#+LINK_UP:
 #+LINK_HOME:
 #+LaTeX_HEADER: \usemintedstyle{default}
 #+OPTIONS: toc:nil
@@ -48,52 +54,100 @@
 * Cahier des Charges
 ** Cahier des Charges
    Un service qui est responsable de la gestion des employés et fonctionnaires, leurs diplômes et grades...\\
+   \pause
 
-#+BEGIN_QUOTE
-  + Implémenter un système de gestion des employés/fonctionnaires
-  + Gérer les diplômes et les grades
-  + Suivi des grades
-  + Suivi d'absence
-  + Suivi de rémunération du travail les fériés
-  + Générer des attestations de travail
-  + Générer des autorisations de congé
-  + Générer des fiches de notation annuelle
-#+END_QUOTE
+   #+BEGIN_QUOTE
+   + Implémenter un système de gestion des employés/fonctionnaires \pause
+   + Gérer les diplômes et les grades \pause
+   + Suivi des grades \pause
+   + Suivi d'absence \pause
+   + Suivi de rémunération du travail les fériés \pause
+   + Générer des attestations de travail \pause
+   + Générer des autorisations de congé \pause
+   + Générer des fiches de notation annuelle
+   #+END_QUOTE
 
 * Conception
 ** Conception
 *** Stockage des données en XML
-   
-    Les données sont stockées dans un fichier =XML=; *puisqu'il est lisible à la fois par la machine et l'humain*.\\
+
+    \pause
+    Les données sont stockées dans un fichier =XML=; \pause *puisqu'il est lisible à la fois par la machine et l'humain*.\\
+
+    \pause\\
 
     #+BEGIN_QUOTE
     + Le root-tag est =<Employee>= et qui contient *=0= ou plusieurs* tags de type =<employee>= qui représente des employées. \\
-
+    \pause
     + Chaque tag =<employee>= contient *un seul* tag =<personal>= et *un seul* tag =<administrative>= qui peut contient *=0= ou plusieurs* tags =<uplift>=. \\
-
+    \pause
     + Le tag =<employee>= peut aussi avoir *=0= ou plusieurs* tags de type =<diploma>=, =<medicalcertif>= et =<repayment>=.\\
     #+END_QUOTE
 
-
 ** Les Paquets et leurs Classes
-#+LATEX: \clearpage
+   #+LATEX: \clearpage
 
-   Le code source de l'application est divisé en 4 paquets pricipales:
+   Le code source de l'application est divisé en 4 paquets pricipales: \pause
 
-   + =model= :: contient les différentes classe pour mobilisé les donnée en objet
-   + =app= :: contient les différentes énumération utilisées dans l'application. Ce paquet contient aussi =app.utils=, qui contient des utilitaires utiles pour le développement, notamment la gestion du *fichier XML*
-   + =wins= :: contient des interfaces graphiques, y compris celles qui sont responsables des opérations CRUD normales qui existent dans =wins.crud=
+   + =model= :: contient les différentes classe pour mobilisé les donnée en objet \pause
+   + =app= :: contient les différentes énumération utilisées dans l'application. \pause Ce paquet contient aussi  =app.utils=, qui contient des utilitaires utiles pour le développement, notamment la gestion du *fichier XML* \pause
+   + =wins= :: contient des interfaces graphiques, y compris celles qui sont responsables des opérations CRUD normales qui existent dans =wins.crud= \pause
    + =views= :: contient des pages générées pour l'impression.
 
-** Model
+** Paquet =app=
+    Ce paquet contient que les énumérations \pause
     #+ATTR_LATEX: :width 7cm :center t
-    [[./diags/OverviewOnClasses.png]]
+    [[./diags/OverviewOnApp.png]]
+** Paquet =app.utils=
+   Ce paquet contient des classes important pour l'application. \pause
+    #+ATTR_LATEX: :width 9cm :center t
+    [[./diags/OverviewAppUtils0.png]]
+** La classe =Printer=
+   #+BEGIN_QUOTE
+   La classe =Printer= est responsable de l'impression d'un =Component= (la classe des composants graphiques) avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
+   #+END_QUOTE
+   \pause
+
+*** Example de l'appel
+   #+BEGIN_SRC java
+     import app.utils.Printer;
+
+     Printer.doPrint(/* le composant graphique */);
+   #+END_SRC
+   \pause
+*** Implementation de l'interface =java.awt.Printable=
+
+#+BEGIN_QUOTE
+   Aussi, =Printer= a une implémentation de la méthode abstrait =print()= de l'interface =Printable=
+#+END_QUOTE
+
+** Exsrais de la classe
+*** L'implementation du =print()=
+
+#+BEGIN_SRC java -n
+  public class Printer implements Printable {
+      private final Component comp;
+      public Printer(Component comp) {
+	  this.comp = comp;
+      }
+      @Override
+      public int print(Graphics g, PageFormat format,
+		       int page_index) {
+	  if (page_index > 0)
+	      return Printable.NO_SUCH_PAGE;
+	  /* ... */
+	  return Printable.PAGE_EXISTS;
+      }
+  }
+#+END_SRC
+** Paquet =model=
+
+   #+ATTR_LATEX: :width 11cm :center t
+   [[./diags/classes.png]]
 
 ** La classe =XmlElement=
-
-    #+NAME: lis:xml-element
-    #+ATTR_LATEX: :width 7cm :center t
-    #+BEGIN_SRC java -n
+   #+ATTR_LATEX: :width 5cm :center t
+   #+BEGIN_SRC java -n
       public abstract class XmlElement<T> {
 	  public abstract boolean add();
 	  public abstract boolean update(T updated);
@@ -110,19 +164,18 @@
 	      this.empl_ref = ref;
 	  }
       }
-    #+END_SRC
+   #+END_SRC
 
-** Hirite de la classe =XmlElement=
-   
-   #+BEGIN_QUOTE   
-   La méthode =update()= prend un variable de type =T=, ce type est décrit avec un héritage de la classe =XmlElement=
+** Héritage de la classe =XmlElement=
+
+   #+BEGIN_QUOTE
+   La méthode =update()= prend un variable de type =T=,\pause ce type est décrit avec un héritage de la classe =XmlElement= \pause
    #+END_QUOTE
 
-    #+NAME: lis:diploma
-    #+BEGIN_SRC java  -n
+   #+NAME: lis:diploma
+   #+BEGIN_SRC java  -n
       public class Diploma extends XmlElement<Diploma> {
 	  /* les attributs du classe */
-
 	  @Override
 	  public boolean update(Diploma updated) {
 	      try {
@@ -134,9 +187,8 @@
 	      }
 	  }
       }
-    #+END_SRC
+   #+END_SRC
 * L’Interface Graphique
 ** L’Interface Graphique
 *** La relation entre les différents Paquets graphiques
 * Dépendances
-

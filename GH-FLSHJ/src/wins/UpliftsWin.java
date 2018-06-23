@@ -168,7 +168,6 @@ public class UpliftsWin {
 										.getFrame( ).setVisible(true);
 				} catch (Exception x) {
 					System.err.println(x.getMessage( ));
-
 				}
 			}
 		});

@@ -185,7 +185,6 @@ public class HolidayToQuitView {
 		lblElJadidaLe.setBounds(270, 816, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
-		// TODO: verify whether it's hiring date or joining date
 		JLabel lbls = new JLabel(String.format(
 			"du %s du %s", raison, DateUtil.parseDate(from, to)));
 		lbls.setFont(new Font("Dialog", Font.PLAIN, 16));

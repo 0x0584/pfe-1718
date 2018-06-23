@@ -182,7 +182,6 @@ public class Uplift extends XmlElement<Uplift> {
 	}
 
 	public Uplift previous( ) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -276,7 +275,6 @@ public class Uplift extends XmlElement<Uplift> {
 
 	@Override
 	public Element getElement( ) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

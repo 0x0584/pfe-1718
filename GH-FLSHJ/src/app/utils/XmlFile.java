@@ -121,7 +121,6 @@ public class XmlFile {
 			}
 		} catch (JDOMException | IOException e) {
 			System.out.println(e.getMessage( ));
-			// XXX: create a normal file if the original is not found
 		}
 	}
 

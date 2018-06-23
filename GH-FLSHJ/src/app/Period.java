@@ -23,8 +23,6 @@ public enum Period {
 		this.title = title;
 	}
 
-	// this is bad code
-	// TODO: make this shit better
 	public static Date getDate(Period p) {
 		return DateUtil.add(ONE_DAY, new Date( ), p.value);
 	}
