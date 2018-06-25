@@ -1,4 +1,4 @@
-#+TITLE: Informatiser le service Ressources Humaines
+#+TITLE: Informatiser le service Ressources Humaines chez la Faculté des Lettres et Science Humaines
 #+AUTHOR: Rchid Anas
 
 # Antibes Boadilla Frankfurt Juanlespins
@@ -10,8 +10,22 @@
 #+STARTUP: beamer
 #+LaTeX_CLASS_OPTIONS: [a4paper,twoside]
 #+LaTeX_CLASS_OPTIONS: [captions=tableheading]
+#+LATEX_HEADER: \usepackage{charter}
 #+LATEX_HEADER: \usetheme{Frankfurt}
-#+LATEX_HEADER: \usecolortheme{whale}
+#+LATEX_HEADER: \useinnertheme{circles}
+# #+LATEX_HEADER: \useoutertheme{split}
+#+LATEX_HEADER: \usecolortheme{seagull}
+
+#+LATEX_HEADER: \definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % UBC Blue (primary)
+#+LATEX_HEADER: \definecolor{UBCgrey}{rgb}{0.3686, 0.5255, 0.6235} % UBC Grey (secondary)
+#+LATEX_HEADER: \definecolor{UBCblack}{rgb}{0.011, 0.011, 0.011} % UBC Blue (primary)
+
+#+LATEX_HEADER: \usecolortheme[named=UBCblue]{structure}
+# #+LATEX_HEADER:\setbeamercolor{palette primary}{bg=UBCblue,fg=white}
+#+LATEX_HEADER:\setbeamercolor{palette secondary}{bg=UBCblue,fg=white}
+#+LATEX_HEADER:\setbeamercolor{palette tertiary}{bg=UBCblue,fg=white}
+#+LATEX_HEADER:\setbeamercolor{palette quaternary}{bg=UBCblack,fg=white}
+
 #+LATEX_HEADER: \usepackage[margin=0.85in]{geometry}
 #+LaTeX_CLASS: beamer
 # #+MACRO: BEAMERMODE presentation
@@ -95,56 +109,61 @@
    + =views= :: contient des pages générées pour l'impression.
 
 ** Paquet =app=
-    Ce paquet contient que les énumérations \pause
-    #+ATTR_LATEX: :width 7cm :center t
-    [[./diags/OverviewOnApp.png]]
+   Ce paquet contient que les énumérations \pause
+   #+ATTR_LATEX: :width 7cm :center t
+   [[./diags/OverviewOnApp.png]]
 ** Paquet =app.utils=
-   Ce paquet contient des classes important pour l'application. \pause
-    #+ATTR_LATEX: :width 9cm :center t
-    [[./diags/OverviewAppUtils0.png]]
-** La classe =Printer=
+   #+ATTR_LATEX: :width 7cm :center t
+   [[./diags/OverviewAppUtils1.png]]
+
+** La classe =XmlFile=
    #+BEGIN_QUOTE
-   La classe =Printer= est responsable de l'impression d'un =Component= (la classe des composants graphiques) avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
+   =XmlFile=, la couche /DAO/ de l'application. Elle est responsable a tout interaction avec le fichier =XML=. Elle est basée sur un paquet =Java= appelée =JDOM=.
    #+END_QUOTE
-   \pause
 
-*** Example de l'appel
-   #+BEGIN_SRC java
-     import app.utils.Printer;
+*** Les composant de JDOM
 
-     Printer.doPrint(/* le composant graphique */);
-   #+END_SRC
-   \pause
-*** Implementation de l'interface =java.awt.Printable=
+    + =Element= :: la représentation des tags XML en objet
+    + =Document= :: la représentation du document XML en objet
+    + =SAXBuilder= :: pour initialiser les instances =Document=
+    + =XMLOutputter= :: pour l'écriture de =Document= et fichier réal
+** Les méthodes de la classe =XmlFile=
+   #+BEGIN_QUOTE
+    En peut sauvegarder les changements dans le fichier XML avec la méthode =static write Xml()=.
+   #+END_QUOTE
 
-#+BEGIN_QUOTE
-   Aussi, =Printer= a une implémentation de la méthode abstrait =print()= de l'interface =Printable=
-#+END_QUOTE
-
-** Exsrais de la classe
-*** L'implementation du =print()=
-
-#+BEGIN_SRC java -n
-  public class Printer implements Printable {
-      private final Component comp;
-      public Printer(Component comp) {
-	  this.comp = comp;
+*** Définition de la méthode
+    #+BEGIN_SRC java -n
+      public static boolean writeXml(Document doc, Files f) {
+	  try {
+	      XMLOutputter out = new XMLOutputter( );
+	      out.setFormat(Format.getPrettyFormat( ));
+	      out.output(
+		  doc, new FileWriter(f.getFilePath( )));
+	      return true;
+	  } catch (IOException e) {
+	      return false;
+	  }
       }
-      @Override
-      public int print(Graphics g, PageFormat format,
-		       int page_index) {
-	  if (page_index > 0)
-	      return Printable.NO_SUCH_PAGE;
-	  /* ... */
-	  return Printable.PAGE_EXISTS;
+    #+END_SRC
+** Les méthodes de la classe =XmlFile=
+   #+BEGIN_QUOTE
+   Avec l'aide de =static updateOrCreate()= on peut faire une mise à jour a une valeur d'un tag dans le fichier =XML=.
+   #+END_QUOTE
+*** Définition de la méthode
+    #+BEGIN_SRC java -n
+      public static void updateOrCreate(Element el,
+					String node,
+					String value) {
+	  if (el.getChild(node) == null) {
+	      el.addContent(
+		  new Element(node).addContent(value));
+	      writeXml(el.getDocument( ));
+	  } else {
+	      el.getChild(node).setText(value);
+	  }
       }
-  }
-#+END_SRC
-** Paquet =model=
-
-   #+ATTR_LATEX: :width 11cm :center t
-   [[./diags/classes.png]]
-
+    #+END_SRC
 ** La classe =XmlElement=
    #+ATTR_LATEX: :width 5cm :center t
    #+BEGIN_SRC java -n
@@ -165,6 +184,203 @@
 	  }
       }
    #+END_SRC
+
+** La classe =DateUtil=
+   #+BEGIN_QUOTE
+   La classe =DateUtil= est utilisé pour la manipulation des dates, et la conversion des dates de/vers =String= avec l'aide du classe system =SimpleDateFormat=. Pour les dates, j'ai choisi un format standard, =YYYY-MM-DD=, pour touts les dates dans le projet.
+   #+END_QUOTE
+
+*** Extrait de la classe
+    #+BEGIN_SRC java -n
+      public class DateUtil {
+	  private SimpleDateFormat fmt;
+
+	  public DateUtil() {
+	      fmt = new SimpleDateFormat("yyyy-MM-dd");
+	  }
+      }
+    #+END_SRC
+
+
+** Suite du Paquet =app.utils=
+   Ce paquet contient des classes important pour l'application. \pause
+   #+ATTR_LATEX: :width 9cm :center t
+   [[./diags/OverviewAppUtils0.png]]
+
+** La classe =Printer=
+
+   #+BEGIN_QUOTE
+   La classe =Printer= est responsable de l'impression d'un =Component= (la classe des composants graphiques) avec l'aide de la méthode =static doPrint()= qui prend un =Component= comme paramètre.
+   #+END_QUOTE
+   \pause
+
+*** Example de l'appel
+    #+BEGIN_SRC java
+     import app.utils.Printer;
+
+     Printer.doPrint(/* le composant graphique */);
+    #+END_SRC
+    \pause
+*** Implémentation de l'interface =java.awt.Printable=
+
+    #+BEGIN_QUOTE
+    Aussi, =Printer= a une implémentation de la méthode abstrait =print()= de l'interface =Printable=
+    #+END_QUOTE
+
+** Extrais de la classe =Printer=
+*** L'implémentation du =print()=
+
+    #+BEGIN_SRC java -n
+      public class Printer implements Printable {
+	  private final Component comp;
+	  public Printer(Component comp) {
+	      this.comp = comp;
+	  }
+	  @Override
+	  public int print(Graphics g, PageFormat format,
+			   int page_index) {
+	      if (page_index > 0)
+		  return Printable.NO_SUCH_PAGE;
+	      /* ... */
+	      return Printable.PAGE_EXISTS;
+	  }
+      }
+    #+END_SRC
+
+** La classe =JTableCellListener=
+   #+BEGIN_QUOTE
+   Cette classe est responsable à réagir avec une modification qui passe au niveau des cellules d'un =JTable=. Cette classe est à l'écoute des modifications apportées aux données de la table via =TableCellEditor= du paquet =javax.swing.table= avec l'aide du interface =PropertyChangeListener= du paquet =java.beans=.
+   #+END_QUOTE
+   \pause
+
+*** Principe de listener
+    #+BEGIN_QUOTE
+    Lorsque l'édition est démarrée, la valeur de la cellule est enregistrée. Lorsque l'édition est arrêtée, la nouvelle valeur est enregistrée en tant que =Object=. Lorsque l'ancienne et la nouvelle valeur sont différentes, l'action fournie est invoquée.
+    #+END_QUOTE
+** Extrais de la classe =JTableCellListener=
+*** Les attribut de la classe =JTableCellListener=
+    #+BEGIN_SRC java -n
+     public class JTableCellListener implements
+				     PropertyChangeListener,
+				     Runnable {
+	 private JTable table;
+	 private Action action;
+	 private int row, column;
+	 private Object oldValue, newValue;
+     }
+    #+END_SRC
+
+** Les constricteurs de la classe =JTableCellListener=
+   #+BEGIN_QUOTE
+   Le constructeur par défaut utilisé pour créer un /Listener/, prend la table correspondante et une action.
+   #+END_QUOTE
+
+*** Constructeur public
+    #+BEGIN_SRC java -n
+  public JTableCellListener(JTable table,
+			    Action action) {
+      this.table = table;
+      this.action = action;
+      // ajouter cette classe au Listener du table
+      this.table.addPropertyChangeListener(this);
+  }
+    #+END_SRC
+
+** Les constricteurs de la classe =JTableCellListener=
+   #+BEGIN_QUOTE
+   Ce constricteur est utilise dans la methode =processEditingStopped()= pour intialise une instance de la classe déclenché pour réagir à l'événement.
+   #+END_QUOTE
+*** Constructeur privé
+    #+BEGIN_SRC java -n
+      private JTableCellListener(JTable table,
+				 int row, int column,
+				 Object oldValue,
+				 Object newValue) {
+	  this.table = table;
+	  this.row = row;
+	  this.column = column;
+	  this.oldValue = oldValue;
+	  this.newValue = newValue;
+      }
+    #+END_SRC
+
+** Implémentation de l'interface =PropertyChangeListener=
+
+   #+BEGIN_QUOTE
+   La classe =JTableCellListener= doit contient une implementation a la	 methode =propertyChange()=
+   #+END_QUOTE
+   \pause
+
+*** Extrais de l'implementation
+
+    #+BEGIN_SRC java -n
+      @Override
+      public void propertyChange(PropertyChangeEvent e) {
+	  String prop_name = "tableCellEditor";
+	  boolean isediting = this.table.isEditing( );
+
+	  if (prop_name.equals(e.getPropertyName( ))) {
+	      if (isediting) processEditingStarted( );
+	      else processEditingStopped( );
+	  }
+      }
+    #+END_SRC
+** Suite de l'implementation de =PropertyChangeListener=
+*** Au démarrage de la processus d'édition
+    #+BEGIN_SRC java -n
+     private void processEditingStarted( ) {
+	 SwingUtilities.invokeLater(this);
+     }
+    #+END_SRC
+    \pause
+*** La relation avec l'interface =Runnable=
+    #+BEGIN_QUOTE
+Aussi, on est besoin de réagir avec des événements par exécuté des actions, donc on doit implémenter la méthode =run()= qui est été appelée avec le protocole =SwingUtilities.invokeLater()= dans =processEditingStarted()=.
+    #+END_QUOTE
+
+** Implémentation de l'interface =Runnable=
+   #+BEGIN_QUOTE
+   Le rôle de cet appel est de récupérer la valeur actuelle de la cellule.
+   #+END_QUOTE
+*** Mettre à jour les valeurs de la classe =JTableCellListener=
+    #+BEGIN_SRC java -n
+      @Override
+      public void run( ) {
+	  row = table.convertRowIndexToModel(
+	      table.getEditingRow( ));
+	  column = table.convertColumnIndexToModel(
+	      table.getEditingColumn( ));
+
+	  oldValue = table.getModel( ).getValueAt(
+	      row, column);
+	  newValue = null; /* réinitialisation */
+      }
+    #+END_SRC
+
+** À la fin de la processus d'édition
+   #+BEGIN_SRC java -n
+     private void processEditingStopped( ) {
+	 newValue = table.getModel( ).getValueAt(row, column);
+	 if (!newValue.equals(oldValue)) {
+	     action.actionPerformed(
+		 new ActionEvent(
+		     new JTableCellListener(
+			 table, row, column,
+			 oldValue, NewValue
+		     ),
+		     ActionEvent.ACTION_PERFORMED,
+		     "JTableCellEditor"
+		 )
+	     );
+	 }
+     }
+   #+END_SRC
+
+** Paquet =model=
+
+   #+ATTR_LATEX: :width 11cm :center t
+   [[./diags/classes.png]]
+
 
 ** Héritage de la classe =XmlElement=
 

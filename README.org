@@ -531,7 +531,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Dans la figure [[fig:apputils1]] aussi, il y a la classe [[lis:xml][=XmlFile=]], la couche /DAO/ de l'application. Elle est responsable a tout interaction avec le [[Stockage des donn%C3%A9es en XML][fichier =XML=]].\\
 
-    Avec l'aide de =static updateOrCreate()= on peut faire une mise a jour a une valeur d'un tag dans le fichier =XML=.
+    Avec l'aide de =static updateOrCreate()= on peut faire une mise à jour a une valeur d'un tag dans le fichier =XML=.
 
     #+BEGIN_SRC java -n
       public static void updateOrCreate(Element el, String node, String value) {
