@@ -7,7 +7,6 @@ import java.util.Iterator;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
-import app.Cadre;
 import app.utils.DateUtil;
 import app.utils.XmlFile;
 

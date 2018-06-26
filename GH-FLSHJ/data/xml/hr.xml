@@ -205,4 +205,30 @@
       </uplift>
     </administrative>
   </employee>
+  <employee department="" reference="67=86">
+    <notes />
+    <personal>
+      <name>sdsd</name>
+      <familyname>sdsd</familyname>
+      <birth>2018-06-26</birth>
+      <brithplace />
+      <address />
+      <phone />
+      <state married="nil" />
+      <nationality ma="t" />
+      <partner name="" job="" />
+      <children number="0" />
+    </personal>
+    <administrative>
+      <cin>6876</cin>
+      <mission />
+      <jday>2018-06-26</jday>
+      <hday>2018-06-26</hday>
+      <reason>exam</reason>
+      <pjob />
+      <cjob />
+      <cadre />
+      <fstatus>5675675</fstatus>
+    </administrative>
+  </employee>
 </Employee>

@@ -14,10 +14,8 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,7 +34,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.Cadre;
 import app.utils.DateUtil;
 import model.Diploma;
 import model.Employee;
@@ -693,16 +690,16 @@ public class InfoCrud {
 					
 					nempl.add( );
 
-					Uplift u = new Uplift( );
-					u.setEmployeeReference(nempl.getEmployeeReference( ));
-					u.setId(1);
-					u.setGrade((short) 9);
-					u.setRank((short) 1);
-					u.setIndice("127");
-					u.setDate(DateUtil.parseDate(new Date( ).toString( )));
-					u.add( );
-					
-					new UpliftCrud(nempl).getFrame( ).setVisible(true);
+//					Uplift u = new Uplift( );
+//					u.setEmployeeReference(nempl.getEmployeeReference( ));
+//					u.setId(1);
+//					u.setGrade((short) 9);
+//					u.setRank((short) 1);
+//					u.setIndice("127");
+//					u.setDate(DateUtil.parseDate(new Date( ).toString( )));
+//					u.add( );
+//					
+//					new UpliftCrud(nempl).getFrame( ).setVisible(true);
 
 					// frame.dispose( );
 				}

@@ -406,5 +406,32 @@ Aussi, on est besoin de réagir avec des événements par exécuté des actions,
    #+END_SRC
 * L’Interface Graphique
 ** L’Interface Graphique
-*** La relation entre les différents Paquets graphiques
-* Dépendances
+   #+ATTR_LATEX: :width 10cm :center t
+  [[./diags/OverviewOnWinsAnd.png]]
+
+** La fenêtre principale =MainWin=
+  #+ATTR_LATEX: :width 10cm :center t
+    [[./diags/MainWin.png]]
+** La fenêtre de suivi des avancements de grade =UpliftsWin=
+  #+ATTR_LATEX: :width 9cm :center t
+     [[./diags/UpliftsWin.png]]
+
+** Gestion des Employés =InfoCrud=
+     #+ATTR_LATEX: :width 7cm :center t
+     [[./diags/InfoWin.png]]
+
+** Démonstration
+
+* Conclusion
+** Conclusion
+#+BEGIN_QUOTE
+/Ce projet a été sous plusieurs aspects riches d'enseignements./
+/Le projet consistait à realiser une application permetant la gestion des carriers des ressoures humaines. C'etait une opportunité pour améliorer mes connaissances au matiere de codage =Java=./\\
+
+/En conclusion, mon projet ma permetais de mettre en oeuvre mes competances scolaires, professionnelles et humaines pour un sujet intéresant. J'ai acquis des nouvelles compétances dans le domain de développement/
+#+END_QUOTE
+
+** Conclusion
+   #+BEGIN_QUOTE
+   /Merci de votre attention/
+   #+END_QUOTE
