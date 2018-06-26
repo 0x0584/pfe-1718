@@ -23,6 +23,7 @@ import com.alee.laf.WebLookAndFeel;
 import app.utils.DateUtil;
 import model.Employee;
 import model.MedicalCertif;
+import java.awt.Font;
 
 public class MedicalCrud {
 
@@ -74,6 +75,7 @@ public class MedicalCrud {
 		frame.setBounds(100, 100, 553, 431);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
+		frame.setResizable(false);
 
 		JPanel panel = new JPanel( );
 		panel.setBounds(13, 38, 528, 317);
@@ -84,33 +86,40 @@ public class MedicalCrud {
 		panel.add(scrollPane, BorderLayout.CENTER);
 
 		tf_s = new JTextField( );
+		tf_s.setFont(new Font("Arial", Font.PLAIN, 15));
 		tf_s.setColumns(10);
-		tf_s.setBounds(427, 2, 114, 24);
+		tf_s.setBounds(432, 2, 114, 24);
 		frame.getContentPane( ).add(tf_s);
 
 		tf_ndays = new JTextField( );
-		tf_ndays.setBounds(72, 0, 114, 24);
+		tf_ndays.setFont(new Font("Arial", Font.PLAIN, 15));
+		tf_ndays.setBounds(64, 0, 114, 24);
 		frame.getContentPane( ).add(tf_ndays);
 		tf_ndays.setColumns(10);
 
 		tf_from = new JTextField( );
-		tf_from.setBounds(258, 0, 114, 24);
+		tf_from.setFont(new Font("Arial", Font.PLAIN, 15));
+		tf_from.setBounds(254, 0, 114, 24);
 		frame.getContentPane( ).add(tf_from);
 		tf_from.setColumns(10);
 
 		JLabel lblFrom = new JLabel("تاريخ البدئ");
-		lblFrom.setBounds(187, 5, 70, 15);
+		lblFrom.setFont(new Font("Arial", Font.BOLD, 15));
+		lblFrom.setBounds(181, 5, 70, 15);
 		frame.getContentPane( ).add(lblFrom);
 
 		JLabel lblNdays = new JLabel("عدد الأيام");
-		lblNdays.setBounds(1, 5, 70, 15);
+		lblNdays.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNdays.setBounds(3, 5, 58, 15);
 		frame.getContentPane( ).add(lblNdays);
 
 		JLabel lblPeriod = new JLabel("الأسدس");
-		lblPeriod.setBounds(373, 5, 58, 15);
+		lblPeriod.setFont(new Font("Arial", Font.BOLD, 15));
+		lblPeriod.setBounds(371, 5, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JButton btnModify = new JButton("تعديل");
+		btnModify.setFont(new Font("Arial", Font.BOLD, 15));
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -135,6 +144,7 @@ public class MedicalCrud {
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
+		btnDelete.setFont(new Font("Arial", Font.BOLD, 15));
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 			int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -153,6 +163,7 @@ public class MedicalCrud {
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
+		btnAdd.setFont(new Font("Arial", Font.BOLD, 15));
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
@@ -184,6 +195,7 @@ public class MedicalCrud {
 		frame.getContentPane( ).add(btnAdd);
 
 		table = new JTable(MedicalCertif.getMedicalModel(empl));
+		table.setFont(new Font("Arial", Font.PLAIN, 15));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {

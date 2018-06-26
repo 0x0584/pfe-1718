@@ -41,15 +41,17 @@
 #+BEGIN_EXPORT latex
 \begin{abstract}
 
-Ce projet est le résultat d'un stage que j'avais passé chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le thème {\it informatiser le service Ressources Humaines}. Sous l'encadrement de {\bf Mr. A. Madani}, et la supervision du chef de service; {\bf Mr. Driss Dibaji}.\\
+Ce projet est le résultat d'un stage que j'avais passé chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le thème {\it informatiser le service Ressources Humaines}. Sous l'encadrement de {\bf Mr. A. Madani}, et la supervision du chef de service; {\bf Mr. Driss DIBAJI}.\\
 
 Je tiens à remercier toutes les personnes qui ont contribué au succès de mon stage et qui m'ont aidé lors de la rédaction de ce rapport.\\
 
-Tout d'abord, j'adresse mes remerciements au mes professeurs, {\bf Mr. A. Madani}, {\bf Mr. S. Riffi}, {\bf Mr. A. Silkan} et finalemment {\bf Mme S. Belqziz}, qui m'a beaucoup aidé pendant cette formation, ca serait un grand plaisire.\\
+Tout d'abord, j'aimrais remecier {\bf Mr. Abdellah MADANI} pour sa patience, pour son suivie interompu, pour ses conseils judicieux qui m'ont aidé à mener à bout se travail et son appui tout au long de ce projet.	 \\
 
-Je tiens à remercier vivement mon maitre de stage, {\bf Mr D. Dibaji}, chef du service Ressources Humaines au sein de la {\it Faculté des Lettres et Science Humaines}, El Jadida, pour son accueil, le temps passé ensemble et le partage de son expertise au quotidien. Grâce aussi à sa confiance j'ai pu m'accomplir totalement dans mes missions. Il fut d'une aide précieuse dans les moments les plus délicats.\\
+J'adresse mes remerciements au mes professeurs, {\bf Mr. Mohammed Essaid RIFFI}, {\bf Mr. Hassan SILKAN} et finalemment {\bf Mme Salwa BELAQZIZ}, qui m'ont beaucoup aidé pendant cette formation, c'était un grand plaisir. \\
 
-Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu lors de la rédaction de ce rapport de stage : ma famille, mon ami {\bf H. Hamza} et {\bf B. Aya}.\\
+Je tiens à remercier vivement mon maitre de stage, {\bf Mr Driss DIBAJI}, chef du service Ressources Humaines au sein de la {\it Faculté des Lettres et Science Humaines}, El Jadida, pour son accueil et le partage de son expertise. Grâce aussi à sa confiance j'ai pu m'accomplir totalement dans mes missions. Il fut d'une aide précieuse dans les moments les plus délicats.\\
+
+Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu lors de la rédaction de ce rapport de stage : ma famille, mon ami {\bf H. Hamza}, {\bf R. Yassine} et {\bf B. Aya}.\\
 \end{abstract}
 #+END_EXPORT
 
@@ -60,7 +62,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
   #+END_QUOTE
 
   #+BEGIN_QUOTE
-  Pour realiser cela, il y a deux parties. Stockage des données et l'application bureau. Pour la première, j'ai choisi /XML/; un langage markup écrit dans un fichier texte. Tout simplement parce qu'il est simple à utiliser et/ou modifier ainsi qu'il gratuit. Et pour la deuxième, j'ai développé une application en /Java/, car il est un langage Oriente-Objet qui facilite le processus de développement.
+  Pour realiser cela, il y a deux parties. Stockage des données et l'application bureau. Pour la première, j'ai choisi /XML/; un langage markup écrit dans un fichier texte. Tout simplement parce qu'il est simple à utiliser et/ou modifier ainsi qu'il est gratuit. Et pour la deuxième, j'ai développé une application en /Java/, car il est un langage Orienté-Objet qui facilite le processus de développement.
   #+END_QUOTE
 
   \vspace*{\fill}
@@ -69,7 +71,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
   \vspace*{\fill}
   #+BEGIN_QUOTE
-  D'après son nom, /Service des ressources humaines/ est un service qui est responsable de la gestion des employés et fonctionnaires, leurs diplômes et grades, ainsi que donner des attestations du travail et des autorisations de congé, suivi d'absence, rémunération du travail les jours fériés et finalement une notation annuelle.\\
+  /Service des ressources humaines/ est un service qui est responsable de la gestion des employés et fonctionnaires, leurs diplômes et grades, ainsi que donner des attestations du travail et des autorisations de congé, suivi d'absence, suivi des remboursements pour travailler les jours de congé et finalement donner des fiches notation annuelle.\\
   #+END_QUOTE
 
   Donc, on en déduit que le /cahier des charges/ est le suivant :\\
@@ -78,7 +80,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
   + Gérer les diplômes et les grades
   + Suivi des grades
   + Suivi d'absence
-  + Suivi de rémunération du travail les fériés
+  + Suivi des remboursements pour travailler les jours de congé
   + Générer des attestations de travail
   + Générer des autorisations de congé
   + Générer des fiches de notation annuelle
@@ -86,7 +88,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
 * Conception
 ** Stockage des données en XML
-   Les données sont stockées dans un fichier =XML=, =data/xml/hr.xml=  puisqu'il est lisible à la fois par la machine et l'humain. Au suivant, les règles du gestion est schéma général du fichier.
+   Les données sont stockées dans un fichier =XML=, =data/xml/hr.xml=  puisqu'il est lisible à la fois par la machine et l'humain. Au suivant, les règles du gestion et schéma général du fichier.
 
 *** Règles de gestion du fichier =XML=
     Le root-tag est =<Employee>= et qui contient plusieurs tags de type =<employee>= qui représente des employées. Chaque tag =<employee>= contient un seul tag =<personal>= et un seul tag =<administrative>= qui peut contient =0= ou plusieurs tags =<uplift>=. Le tag =<employee>= peut aussi avoir =0= ou plusieurs tags de type =<diploma>=, =<medicalcertif>= et =<repayment>=.\\
@@ -166,7 +168,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Ce paquet contient les modèles de l'application, ce sont des classes =Java= pour modéliser les informations stockées dans le fichier XML [[Stockage des donn%C3%A9es en XML][=data/xml/hr.xml=]].
 
-    #+CAPTION: La relation entre les classes du paquet [[Paquet =model=][=model=]] et la classe abstrait =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
+    #+CAPTION: La relation entre les classes du paquet [[Paquet =model=][=model=]] et la classe abstraite =XmlElement= du paquet [[Paquet =app.utils=][=app.utils=]]
     #+NAME:   fig:models
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewOnClasses.png]]
@@ -221,7 +223,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Le paquet =app= contient que les énumérations, décrites dans le figure [[fig:app]].
 
-    #+CAPTION: Les enumeration dans paquet =app=
+    #+CAPTION: Les énumérations dans le paquet =app=
     #+NAME:	  fig:app
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewOnApp.png]]
@@ -233,7 +235,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     + =Holiday= :: utilisé dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]] pour la génération du congé
     + =SearchField= :: utilisé pour la recherche dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
     + =EmployeeType= :: utilisé pour filtrer les employé et fonctionnaire dans [[La fen%C3%AAtre principale =MainWin=][=MainWin.java=]]
-    + =Files= :: contient des énumérations qui concernent les différents fichiers =XML= utilisé.
+    + =Files= :: concernent les différents fichiers =XML= utilisé.
 
     #+LATEX: \clearpage
 
@@ -248,7 +250,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     #+ATTR_LATEX: :width 14cm :center t
     [[./diags/OverviewAppUtils0.png]]
 
-    Aussi, [[lis:print][=Printer=]] a une implémentation de la méthode abstrait [[lis:print][=print()=]] de l'interface =Printable=, =doPrint()= faire un appel à cette méthode avec l'aide des autres classes du paquet =java.awt.print= comme =PrinterJob= et =PageFormat=. \\
+    Aussi, [[lis:print][=Printer=]] a une implémentation de la méthode abstraite [[lis:print][=print()=]] de l'interface =Printable=, =doPrint()= faire un appel à cette méthode avec l'aide des autres classes du paquet =java.awt.print= comme =PrinterJob= et =PageFormat=. \\
 
     #+BEGIN_QUOTE
     /Note:/ Principalement, L'appelle de la méthode [[lis:print][=print()=]] se fait par la classe =PrinterJob()= du paquet =java.awt.print.PrinterJob=. La méthode utilise dans l'application c'est =static doPrint()=.\\
@@ -256,7 +258,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Au suivant, un extrait du classe [[lis:print][=Printer=]] qui montre l'implémentation de la méthode [[lis:print][=print()=]].
 
-    #+CAPTION: Extrait de la classe =Printer= qui montre l'implémentation de la méthode abstrait =print()= de l'interface =java.awt.Printable=
+    #+CAPTION: Extrait de la classe =Printer= qui montre l'implémentation de la méthode abstraite =print()= de l'interface =java.awt.Printable=
     #+NAME: lis:print
     #+BEGIN_SRC java -n
       import java.awt.Component;
@@ -269,7 +271,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
       public class Printer implements Printable {
 	  private final Component comp;
 	  /**
-	   ,* méthode abstrait dans l'interface java.awt.Printable, l'appelle
+	   ,* méthode abstraite dans l'interface java.awt.Printable, l'appel
 	   ,* se fait par la classe java.awt.PrinterJob
 	   ,*
 	   ,* @param g une graphique du classe java.awt.Graphics
@@ -346,7 +348,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
       }
     #+END_SRC
 
-    Lorsque l'édition est démarrée, la valeur de la cellule est enregistrée. Lorsque l'édition est arrêtée, la nouvelle valeur est enregistrée en tant que =Object=. Lorsque l'ancienne et la nouvelle valeur sont différentes, l'action fournie est invoquée. La classe doit appeller des classes selon l'état de l'édition, alors on doit aussi implémenter la méthode [[lis:run][=run()=]] dans l'interface =Runnable=. Au suivant un extrait du classe [[lis:jtablelistener][=JTableCellListener=]]. Par la suit, des extraits du classe et ses méthodes. \\
+    Lorsque l'édition est démarrée, la valeur de la cellule est enregistrée. Lorsque l'édition est arrêtée, la nouvelle valeur est enregistrée en tant que =Object=. Lorsque l'ancienne et la nouvelle valeur sont différentes, l'action fournie est invoquée. La classe doit appeller des classes selon l'état de l'édition, alors on doit aussi implémenter la méthode [[lis:run][=run()=]] dans l'interface =Runnable=. Au suivant un extrait du classe [[lis:jtablelistener][=JTableCellListener=]] et ses méthodes. \\
 
     La classe possède un constricteur privé qui prend en paramètre la table, numéro du ligne et colonne, et les deux valeurs, l'ancien et nouvelle. Ce constricteur est utilisé dans la méthode [[lis:propstart][=processEditingStopped()=]] pour créer une sauvegarde de la cellule concernée.
 
@@ -447,7 +449,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     [[./diags/OverviewAppUtils1.png]]
     #+LATEX: \clearpage
 
-    La classe [[lis:dateu][=DateUtil=]] dans la figure [[fig:apputils1]] est utilisé pour la manipulation des dates, et la conversion des dates de/vers =String= avec l'aide du classe system [[lis:dateu][=SimpleDateFormat=]]. Pour les dates, j'ai choisi un format standard, =YYYY-MM-DD=, pour touts les dates dans le projet. \\
+    La classe [[lis:dateu][=DateUtil=]] dans la figure [[fig:apputils1]] est utilisé pour la manipulation des dates, et la conversion des dates de/en =String= avec l'aide du classe system [[lis:dateu][=SimpleDateFormat=]]. Pour les dates, j'ai choisi un format standard, =YYYY-MM-DD=, pour touts les dates dans le projet. \\
 
     #+CAPTION: Extrait de la classe =DateUtil=
     #+NAME: lis:dateu
@@ -471,7 +473,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
     #+NAME: lis:dateparse
     #+BEGIN_SRC java -n 12
       /**
-       ,* Convertir une date vers une chaine des caractères
+       ,* Convertir une date en une chaine des caractères
        ,*/
       public static String parseDate(Date date) {
 	  try {
@@ -570,7 +572,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 	  }
 
 	  /**
-	   ,* A chaque fois on change l'emplacement du fichier, on doit
+	   ,* À chaque fois on change l'emplacement du fichier, on doit
 	   ,* initialiser le Document XML ainsi que la racine du document
 	   ,*
 	   ,* @param filepath l'emplacement du fichier
@@ -663,12 +665,12 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
       #+ATTR_LATEX: :width 14cm :center t
       [[./diags/UpliftsWin.png]]
 
-      Après la comfirmation d'un avancement, une [[Gestion des Grades][fenetre]] s'ouvert pour ajouter les informations du avancement.
+     Après la confirmation d'un avancement, une [[Gestion des Grades][fenêtre]] s'ouver pour ajouter les informations du avancement.
 
       #+LATEX: \clearpage
 *** Paquet =wins.crud=
     #+BEGIN_QUOTE
-    /Toutes les formes suivantes avaient le même princip des données du texte (ou combos) qui permet de la modification de employé éxistant déjà, l'ajout d'un nouveau pour la suppression d'un ancien./ \\
+    /Toutes les formes suivantes avaient le même princip: des données du texte (ou combos) qui permet de la modification de employé éxistant déjà, l'ajout d'un nouveau, ou la suppression d'un ancien./ \\
     #+END_QUOTE
 
 **** Gestion des Employés =InfoCrud=
@@ -677,7 +679,7 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
      Pour l'image, le programme lit une image qui doit existe dans le répertoire =data/imgs= et contient le même CIN de l'employé concerné.
 
-     #+CAPTION: Aperçu sur la ficher des informations personnelle et administrative
+     #+CAPTION: Aperçu sur la fiche des informations personnelle et administrative
      #+NAME:   fig:uplifts-win
      #+ATTR_LATEX: :width 14cm :center t
      [[./diags/InfoWin.png]]
@@ -706,6 +708,15 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
 [[./diags/att.png]]
 
+* Conclusion
+\vspace*{\fill}
+#+BEGIN_QUOTE
+/Ce projet a été sous plusieurs aspects riches d'enseignements./
+/Le projet consistait à realiser une application permetant la gestion des carriers des ressoures humaines. C'etait une opportunité pour améliorer mes connaissances au matiere de codage =Java=./\\
+
+/En conclusion, mon projet ma permetais de mettre en oeuvre mes competances scolaires, professionnelles et humaines pour un sujet intéresant. J'ai acquis des nouvelles compétances dans le domain de développement/
+#+END_QUOTE
+\vspace*{\fill}
 * Dépendances
   # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
   + JDOM :: http://jdom.org/ Bibliothèque =Java= pour analyser XML

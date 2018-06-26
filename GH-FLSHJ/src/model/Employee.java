@@ -12,7 +12,7 @@ import app.utils.DateUtil;
 import app.utils.XmlFile;
 
 public class Employee extends Person {
-	protected Cadre cadre;
+	protected String cadre;
 	protected String CIN, dep;
 	// financial status
 	protected String fstatus;
@@ -136,11 +136,11 @@ public class Employee extends Person {
 		return jdate;
 	}
 
-	public Cadre getCadre( ) {
+	public String getCadre( ) {
 		return cadre;
 	}
 
-	public void setCadre(Cadre cadre) {
+	public void setCadre(String cadre) {
 		this.cadre = cadre;
 	}
 
@@ -157,7 +157,7 @@ public class Employee extends Person {
 	}
 
 	public void setDepartment(String dep) {
-		this.dep = dep.compareTo("nil") == 0 ? null : dep;
+		this.dep = dep;
 	}
 
 	public boolean isProfessor( ) {
@@ -463,7 +463,7 @@ public class Employee extends Person {
 		empl.setReason(bar.getChildTextTrim("reason"));
 		empl.setPreviousJob(bar.getChildTextTrim("pjob"));
 		empl.setCurrentJob(bar.getChildTextTrim("cjob"));
-		empl.setCadre(Cadre.parseCadre(bar.getChildTextTrim("cadre")));
+		empl.setCadre(bar.getChildTextTrim("cadre"));
 		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
 		//
 		empl.setUplifts(Uplift.getUplifts(e));

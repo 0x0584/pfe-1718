@@ -45,6 +45,7 @@ import app.Period;
 import javax.swing.JLabel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.Font;
 
 public class MainWin {
 
@@ -102,6 +103,7 @@ public class MainWin {
 		frame.setBounds(100, 100, 632, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
+		frame.setResizable(false);
 
 		JPanel panel = new JPanel( );
 		panel.setBounds(12, 47, 608, 240);
@@ -110,6 +112,7 @@ public class MainWin {
 
 		// add all the employee to the table
 		table = new JTable(MainWin.getDefaultModel(type));
+		table.setFont(new Font("Arial", Font.PLAIN, 15));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setupJTable(table);
 
@@ -117,10 +120,12 @@ public class MainWin {
 		panel.add(scrollPane, BorderLayout.CENTER);
 
 		JCheckBox profchk = new JCheckBox("أساتذة");
+		profchk.setFont(new Font("Arial", Font.BOLD, 16));
 		profchk.setSelected(true);
 		profchk.setBounds(475, 332, 65, 23);
 
 		JCheckBox emplchk = new JCheckBox("موظفين");
+		emplchk.setFont(new Font("Arial", Font.BOLD, 16));
 		emplchk.setSelected(true);
 		emplchk.setBounds(544, 332, 76, 23);
 
@@ -148,6 +153,7 @@ public class MainWin {
 		frame.getContentPane( ).add(profchk);
 
 		JButton button = new JButton("السجل الكامل");
+		button.setFont(new Font("Arial", Font.BOLD, 16));
 		button.addActionListener(new ActionListener( ) {
 			// this would create a new `Employee` based on the selected row and
 			// create a new `InfoWin` to show all of it's info
@@ -161,10 +167,12 @@ public class MainWin {
 		frame.getContentPane( ).add(button);
 
 		JCheckBox chckbx1 = new JCheckBox("شهادة العمل");
+		chckbx1.setFont(new Font("Arial", Font.BOLD, 16));
 		chckbx1.setBounds(12, 12, 102, 23);
 		frame.getContentPane( ).add(chckbx1);
 
 		JCheckBox chckbx2 = new JCheckBox("إجازة");
+		chckbx2.setFont(new Font("Arial", Font.BOLD, 16));
 		chckbx2.addChangeListener(new ChangeListener( ) {
 			public void stateChanged(ChangeEvent e) {
 				frame.setSize(
@@ -175,10 +183,12 @@ public class MainWin {
 		frame.getContentPane( ).add(chckbx2);
 
 		JCheckBox chckbx4 = new JCheckBox("بطاقة التنقيط");
+		chckbx4.setFont(new Font("Arial", Font.BOLD, 16));
 		chckbx4.setBounds(197, 12, 112, 23);
 		frame.getContentPane( ).add(chckbx4);
 
 		JComboBox<SearchField> comboFields = new JComboBox<SearchField>( );
+		comboFields.setFont(new Font("Arial", Font.BOLD, 16));
 		comboFields.setModel(
 			new DefaultComboBoxModel<SearchField>(SearchField.values( )));
 		comboFields.setBounds(539, 11, 81, 24);
@@ -329,6 +339,7 @@ public class MainWin {
 		frame.getContentPane( ).add(lblerr);
 
 		JButton btnConfirm = new JButton("إستخراج");
+		btnConfirm.setFont(new Font("Arial", Font.BOLD, 16));
 		btnConfirm.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbx1.isSelected( )) {
@@ -379,6 +390,7 @@ public class MainWin {
 		frame.getContentPane( ).add(btnConfirm);
 
 		JButton button_1 = new JButton("التعويضات");
+		button_1.setFont(new Font("Arial", Font.BOLD, 16));
 		button_1.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				new RepaymentCrud(getSelectedEmployee(table)).getFrame( )
@@ -389,6 +401,7 @@ public class MainWin {
 		frame.getContentPane( ).add(button_1);
 
 		JButton button_2 = new JButton("شواهد طبية");
+		button_2.setFont(new Font("Arial", Font.BOLD, 16));
 		button_2.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				new MedicalCrud(getSelectedEmployee(table)).getFrame( )
@@ -410,6 +423,7 @@ public class MainWin {
 		frame.getContentPane( ).add(button_3);
 
 		JButton button_4 = new JButton("تتبع الترقيات");
+		button_4.setFont(new Font("Arial", Font.BOLD, 16));
 		button_4.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				new UpliftsWin( ).getFrame( ).setVisible(true);

@@ -23,6 +23,7 @@ import com.alee.laf.WebLookAndFeel;
 import app.utils.DateUtil;
 import model.Employee;
 import model.Uplift;
+import java.awt.Font;
 
 public class UpliftCrud {
 
@@ -96,6 +97,7 @@ public class UpliftCrud {
 		frame.setBounds(100, 100, 662, 542);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
+		frame.setResizable(false);
 
 		JPanel panel = new JPanel( );
 		panel.setBounds(12, 66, 638, 396);
@@ -106,42 +108,51 @@ public class UpliftCrud {
 		panel.add(scrollPane, BorderLayout.CENTER);
 
 		tf_rank = new JTextField(rank);
+		tf_rank.setFont(new Font("Arial", Font.PLAIN, 15));
 		tf_rank.setColumns(10);
-		tf_rank.setBounds(495, 30, 114, 24);
+		tf_rank.setBounds(462, 30, 147, 24);
 		frame.getContentPane( ).add(tf_rank);
 
 		tf_date = new JTextField(date);
-		tf_date.setBounds(172, 0, 114, 24);
+		tf_date.setFont(new Font("Arial", Font.PLAIN, 15));
+		tf_date.setBounds(124, 0, 162, 24);
 		frame.getContentPane( ).add(tf_date);
 		tf_date.setColumns(10);
 
 		tf_indice = new JTextField(indice);
-		tf_indice.setBounds(495, 0, 114, 24);
+		tf_indice.setFont(new Font("Arial", Font.PLAIN, 15));
+		tf_indice.setBounds(462, 0, 147, 24);
 		frame.getContentPane( ).add(tf_indice);
 		tf_indice.setColumns(10);
 
 		tf_grade = new JTextField(grade);
+		tf_grade.setFont(new Font("Arial", Font.PLAIN, 15));
 		tf_grade.setColumns(10);
-		tf_grade.setBounds(172, 30, 114, 24);
+		tf_grade.setBounds(124, 30, 162, 24);
 		frame.getContentPane( ).add(tf_grade);
 
 		JLabel label = new JLabel("السلم");
+		label.setFont(new Font("Arial", Font.BOLD, 15));
 		label.setBounds(63, 35, 58, 15);
 		frame.getContentPane( ).add(label);
 
 		JLabel lblFrom = new JLabel("الرقم الإستدلالي");
+		lblFrom.setFont(new Font("Arial", Font.BOLD, 15));
 		lblFrom.setBounds(337, 5, 107, 15);
 		frame.getContentPane( ).add(lblFrom);
 
 		JLabel lbldate = new JLabel("التاريخ");
+		lbldate.setFont(new Font("Arial", Font.BOLD, 15));
 		lbldate.setBounds(57, 5, 70, 15);
 		frame.getContentPane( ).add(lbldate);
 
 		JLabel lblPeriod = new JLabel("الرتبة");
+		lblPeriod.setFont(new Font("Arial", Font.BOLD, 15));
 		lblPeriod.setBounds(361, 35, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JButton btnModify = new JButton("تعديل");
+		btnModify.setFont(new Font("Arial", Font.BOLD, 15));
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -168,6 +179,7 @@ public class UpliftCrud {
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
+		btnDelete.setFont(new Font("Arial", Font.BOLD, 15));
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -188,6 +200,7 @@ public class UpliftCrud {
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
+		btnAdd.setFont(new Font("Arial", Font.BOLD, 15));
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
@@ -224,6 +237,7 @@ public class UpliftCrud {
 		frame.getContentPane( ).add(btnAdd);
 
 		table = new JTable(Uplift.getUpliftModel(empl));
+		table.setFont(new Font("Arial", Font.PLAIN, 15));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {

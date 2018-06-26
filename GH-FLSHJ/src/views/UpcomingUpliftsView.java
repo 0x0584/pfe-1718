@@ -72,27 +72,29 @@ public class UpcomingUpliftsView {
 		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
-		frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
+//		frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
+		frame.setBounds(100, 100, 733, 1054);
+
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
-
+		
 		JLabel lblRoyaumeDuMaroc = new JLabel("Royaume du Maroc");
-		lblRoyaumeDuMaroc.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblRoyaumeDuMaroc.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblRoyaumeDuMaroc.setBounds(20, 12, 154, 15);
 		frame.getContentPane( ).add(lblRoyaumeDuMaroc);
 
 		JLabel lblNewLabel = new JLabel("Faculté des Lettres et des Sciences");
-		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNewLabel.setBounds(20, 65, 263, 15);
 		frame.getContentPane( ).add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Université Chouaib Doukkali");
-		lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNewLabel_1.setBounds(20, 39, 202, 15);
 		frame.getContentPane( ).add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Humaines - El Jadida");
-		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNewLabel_2.setBounds(20, 97, 152, 15);
 		frame.getContentPane( ).add(lblNewLabel_2);
 
@@ -142,7 +144,7 @@ public class UpcomingUpliftsView {
 
 		JLabel lblElJadidaLe = new JLabel(
 			String.format("El Jadida le: %s", fmt.format(new Date( ))));
-		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblElJadidaLe.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblElJadidaLe.setBounds(528, 888, 181, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 		

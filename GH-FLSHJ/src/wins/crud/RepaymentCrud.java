@@ -21,6 +21,7 @@ import com.alee.laf.WebLookAndFeel;
 
 import model.Employee;
 import model.Repayment;
+import java.awt.Font;
 
 public class RepaymentCrud {
 
@@ -72,6 +73,7 @@ public class RepaymentCrud {
 		frame.setBounds(100, 100, 639, 426);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
+		frame.setResizable(false);
 
 		JPanel panel = new JPanel( );
 		panel.setBounds(13, 32, 614, 317);
@@ -83,36 +85,41 @@ public class RepaymentCrud {
 
 		tf_holiday = new JTextField( );
 		tf_holiday.setColumns(10);
-		tf_holiday.setBounds(518, 0, 114, 24);
+		tf_holiday.setBounds(510, 0, 114, 24);
 		frame.getContentPane( ).add(tf_holiday);
 
 		tf_ndays = new JTextField( );
-		tf_ndays.setBounds(84, 0, 114, 24);
+		tf_ndays.setBounds(80, 0, 114, 24);
 		frame.getContentPane( ).add(tf_ndays);
 		tf_ndays.setColumns(10);
 
 		tf_repayed = new JTextField( );
-		tf_repayed.setBounds(332, 0, 114, 24);
+		tf_repayed.setBounds(316, 0, 114, 24);
 		frame.getContentPane( ).add(tf_repayed);
 		tf_repayed.setColumns(10);
 
 		JLabel lblFrom = new JLabel("عدد الأيام المعوضة");
-		lblFrom.setBounds(205, 5, 120, 15);
+		lblFrom.setFont(new Font("Arial", Font.BOLD, 15));
+		lblFrom.setBounds(205, 5, 100, 15);
 		frame.getContentPane( ).add(lblFrom);
 
 		JLabel lblNdays = new JLabel("عدد الأيام");
-		lblNdays.setBounds(7, 5, 70, 15);
+		lblNdays.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNdays.setBounds(11, 5, 58, 15);
 		frame.getContentPane( ).add(lblNdays);
 
 		JLabel lblPeriod = new JLabel("السبب");
-		lblPeriod.setBounds(453, 5, 58, 15);
+		lblPeriod.setFont(new Font("Arial", Font.BOLD, 15));
+		lblPeriod.setBounds(441, 5, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JLabel lbltotal = new JLabel("");
+		lbltotal.setFont(new Font("Arial", Font.BOLD, 15));
 		lbltotal.setBounds(23, 361, 85, 15);
 		frame.getContentPane( ).add(lbltotal);
 
 		JButton btnModify = new JButton("تعديل");
+		btnModify.setFont(new Font("Arial", Font.BOLD, 15));
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -138,6 +145,7 @@ public class RepaymentCrud {
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
+		btnDelete.setFont(new Font("Arial", Font.BOLD, 15));
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -156,6 +164,7 @@ public class RepaymentCrud {
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
+		btnAdd.setFont(new Font("Arial", Font.BOLD, 15));
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -190,6 +199,7 @@ public class RepaymentCrud {
 		frame.getContentPane( ).add(btnAdd);
 
 		table = new JTable(Repayment.getRepaymentModel(empl));
+		table.setFont(new Font("Arial", Font.PLAIN, 15));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -216,6 +226,7 @@ public class RepaymentCrud {
 		lbltotal.setText(getTotal(table));
 		
 		JLabel label = new JLabel("مجموع الأيام المعوضة");
+		label.setFont(new Font("Arial", Font.BOLD, 15));
 		label.setBounds(120, 361, 142, 15);
 		frame.getContentPane().add(label);
 	}

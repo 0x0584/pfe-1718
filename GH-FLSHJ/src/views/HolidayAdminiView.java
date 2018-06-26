@@ -71,47 +71,49 @@ public class HolidayAdminiView {
 
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
-		frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
+//		frame.setBounds(100, 100, 733, 1092);
+		//frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
+		frame.setBounds(100, 100, 733, 1054);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
 		JLabel lblRoyaumeDuMaroc = new JLabel("Royaume du Maroc");
-		lblRoyaumeDuMaroc.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblRoyaumeDuMaroc.setFont(new Font("Arial", Font.BOLD, 15));
 		lblRoyaumeDuMaroc.setBounds(20, 12, 154, 15);
 		frame.getContentPane( ).add(lblRoyaumeDuMaroc);
 
 		JLabel lblNewLabel = new JLabel("Faculté des Lettres et des Sciences");
-		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		lblNewLabel.setBounds(20, 65, 263, 15);
 		frame.getContentPane( ).add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Université Chouaib Doukkali");
-		lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(20, 39, 202, 15);
 		frame.getContentPane( ).add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Humaines - El Jadida");
-		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 15));
 		lblNewLabel_2.setBounds(20, 97, 152, 15);
 		frame.getContentPane( ).add(lblNewLabel_2);
 
 		JLabel label = new JLabel("المملكة المغربية");
-		label.setFont(new Font("Arial", Font.PLAIN, 16));
-		label.setBounds(626, 12, 77, 15);
+		label.setFont(new Font("Arial", Font.BOLD, 15));
+		label.setBounds(625, 12, 78, 15);
 		frame.getContentPane( ).add(label);
 
 		JLabel label_1 = new JLabel("جامعة شعيب دكالي");
-		label_1.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_1.setFont(new Font("Arial", Font.BOLD, 15));
 		label_1.setBounds(609, 39, 100, 15);
 		frame.getContentPane( ).add(label_1);
 
 		JLabel label_2 = new JLabel("كلية الآدب والعلوم الإنسانية");
-		label_2.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_2.setFont(new Font("Arial", Font.BOLD, 15));
 		label_2.setBounds(566, 65, 143, 15);
 		frame.getContentPane( ).add(label_2);
 
 		JLabel label_3 = new JLabel("الجديدة");
-		label_3.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_3.setFont(new Font("Arial", Font.BOLD, 15));
 		label_3.setBounds(662, 97, 41, 15);
 		frame.getContentPane( ).add(label_3);
 
@@ -141,126 +143,126 @@ public class HolidayAdminiView {
 
 		JLabel lblLeDoyenDe = new JLabel(
 			"Le Doyen de la faculte des Lettres et des Sciences Humaines");
-		lblLeDoyenDe.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblLeDoyenDe.setFont(new Font("Arial", Font.BOLD, 16));
 		lblLeDoyenDe.setBounds(110, 235, 485, 33);
 		frame.getContentPane( ).add(lblLeDoyenDe);
 
 		JLabel lblAttesteQueMr = new JLabel("d'El Jadida");
-		lblAttesteQueMr.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblAttesteQueMr.setFont(new Font("Arial", Font.BOLD, 16));
 		lblAttesteQueMr.setBounds(70, 249, 525, 36);
 		frame.getContentPane( ).add(lblAttesteQueMr);
 
 		JLabel lblNomCompletes = new JLabel(String.format(
 			"Nom complete: %s %s", e.getFamilyName( ), e.getName( )));
-		lblNomCompletes.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNomCompletes.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNomCompletes.setBounds(110, 557, 431, 29);
 		frame.getContentPane( ).add(lblNomCompletes);
 
 		JLabel label_5 = new JLabel(String.format(
 			"Nationalite: %s", e.isMoroccan( ) ? "Maroccaine" : "Etrange"));
-		label_5.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_5.setFont(new Font("Arial", Font.BOLD, 16));
 		label_5.setBounds(110, 580, 431, 33);
 		frame.getContentPane( ).add(label_5);
 
 		JLabel label_6 = new JLabel(String.format(
 			"Grade: %s",
 			String.format("Grade: %s", e.getCurrentUplift( ).getGrade( ))));
-		label_6.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_6.setFont(new Font("Arial", Font.BOLD, 16));
 		label_6.setBounds(110, 607, 159, 33);
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
 			String.format("S.O.M.: %s", e.getEmployeeReference( )));
-		label_7.setFont(new Font("Dialog", Font.PLAIN, 16));
+		label_7.setFont(new Font("Arial", Font.BOLD, 16));
 		label_7.setBounds(110, 634, 431, 33);
 		frame.getContentPane( ).add(label_7);
 
 		JLabel lblExerceSeFonctions = new JLabel(
 			"L'interesse(e) est autorise(e) a quitter le territoire national durant");
-		lblExerceSeFonctions.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblExerceSeFonctions.setFont(new Font("Arial", Font.BOLD, 16));
 		lblExerceSeFonctions.setBounds(110, 708, 513, 39);
 		frame.getContentPane( ).add(lblExerceSeFonctions);
 
 		JLabel lblElJadidaLe = new JLabel(
 			String.format("El Jadida le: %s", DateUtil.parseDate(new Date( ))));
-		lblElJadidaLe.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblElJadidaLe.setFont(new Font("Arial", Font.BOLD, 16));
 		lblElJadidaLe.setBounds(270, 831, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		JLabel lbls = new JLabel(" la period sus-indique");
-		lbls.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbls.setFont(new Font("Arial", Font.BOLD, 16));
 		lbls.setBounds(70, 731, 566, 29);
 		frame.getContentPane( ).add(lbls);
 
 		JLabel lblLinteresseeEstTenue = new JLabel(
 			"L'interesse(e) est tenu(e) d'aviser le service competent de la reprise de");
-		lblLinteresseeEstTenue.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblLinteresseeEstTenue.setFont(new Font("Arial", Font.BOLD, 16));
 		lblLinteresseeEstTenue.setBounds(70, 759, 566, 33);
 		frame.getContentPane( ).add(lblLinteresseeEstTenue);
 
 		JLabel lblSonTravailA = new JLabel(
 			"son travail a l'experation de son conge");
-		lblSonTravailA.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblSonTravailA.setFont(new Font("Arial", Font.BOLD, 16));
 		lblSonTravailA.setBounds(70, 774, 356, 33);
 		frame.getContentPane( ).add(lblSonTravailA);
 
 		JLabel lblAttestationDeTravail = new JLabel(
 			"Decision de Conge Administratif");
 		lblAttestationDeTravail.setFont(
-			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+			new Font("Arial", Font.BOLD, 22));
 		lblAttestationDeTravail.setBounds(188, 161, 356, 29);
 		frame.getContentPane( ).add(lblAttestationDeTravail);
 
 		JLabel lblVueLrDahir = new JLabel(
 			"Vue le Dahir N 1.58.008 du 04 Chaabane 1377 (24/02/1958)");
-		lblVueLrDahir.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblVueLrDahir.setFont(new Font("Arial", Font.BOLD, 16));
 		lblVueLrDahir.setBounds(110, 280, 485, 36);
 		frame.getContentPane( ).add(lblVueLrDahir);
 
 		JLabel lblPortantStautGeneral = new JLabel(
 			"portant staut general de la fontion publique tel qu'ill a ete modifie ");
-		lblPortantStautGeneral.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblPortantStautGeneral.setFont(new Font("Arial", Font.BOLD, 16));
 		lblPortantStautGeneral.setBounds(70, 314, 525, 36);
 		frame.getContentPane( ).add(lblPortantStautGeneral);
 
 		JLabel lblEtComplete = new JLabel("et complete");
-		lblEtComplete.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblEtComplete.setFont(new Font("Arial", Font.BOLD, 16));
 		lblEtComplete.setBounds(70, 330, 525, 36);
 		frame.getContentPane( ).add(lblEtComplete);
 
 		JLabel lblDecide = new JLabel("DECIDE");
-		lblDecide.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+		lblDecide.setFont(new Font("Arial", Font.BOLD, 22));
 		lblDecide.setBounds(322, 410, 88, 15);
 		frame.getContentPane( ).add(lblDecide);
 
 		JLabel lblArticleUnique = new JLabel("Article 1");
 		lblArticleUnique.setFont(
-			new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+			new Font("Arial", Font.BOLD, 22));
 		lblArticleUnique.setBounds(70, 478, 158, 15);
 		frame.getContentPane( ).add(lblArticleUnique);
 
 		JLabel lblVueLrDahir_1 = new JLabel(
 			"Vue le Dahir N 1.11.10 du 14 Rabiaa I 1432 (18/02/2011)");
-		lblVueLrDahir_1.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblVueLrDahir_1.setFont(new Font("Arial", Font.BOLD, 16));
 		lblVueLrDahir_1.setBounds(110, 297, 485, 36);
 		frame.getContentPane( ).add(lblVueLrDahir_1);
 
 		JLabel lblArticle = new JLabel("Article 2");
-		lblArticle.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 19));
+		lblArticle.setFont(new Font("Arial", Font.BOLD, 22));
 		lblArticle.setBounds(70, 693, 158, 15);
 		frame.getContentPane( ).add(lblArticle);
 
 		JLabel lblUnCongeAdministratif = new JLabel(String.format(
 			"Un conge administratif a partir du %s est accorde ",
 			DateUtil.parseDate(from)));
-		lblUnCongeAdministratif.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblUnCongeAdministratif.setFont(new Font("Arial", Font.BOLD, 16));
 		lblUnCongeAdministratif.setBounds(110, 494, 566, 33);
 		frame.getContentPane( ).add(lblUnCongeAdministratif);
 
 		@SuppressWarnings("deprecation")
 		JLabel lblAuTitreDe = new JLabel(
-			String.format(" au titre de l'annee %s", from.getYear( )));
-		lblAuTitreDe.setFont(new Font("Dialog", Font.PLAIN, 16));
+			String.format(" au titre de l'annee %s", from.getYear( )+1900));
+		lblAuTitreDe.setFont(new Font("Arial", Font.BOLD, 16));
 		lblAuTitreDe.setBounds(70, 511, 566, 33);
 		frame.getContentPane( ).add(lblAuTitreDe);
 
@@ -272,6 +274,7 @@ public class HolidayAdminiView {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				menuBar.setVisible(false);
+				frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
 				Printer.doPrint(frame);
 				menuBar.setVisible(true);
 			}

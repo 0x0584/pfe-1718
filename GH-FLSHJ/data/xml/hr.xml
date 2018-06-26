@@ -7,7 +7,7 @@
       <familyname_ar>ارشيد</familyname_ar>
       <brithplace_ar>رأس العين</brithplace_ar>
       <address_ar>99 إبن سينا، أولاد فرج، الجديدة</address_ar>
-      <name>A</name>
+      <name>Anas</name>
       <familyname>Rchid</familyname>
       <birth>1994-09-15</birth>
       <nationality ma="t" />
@@ -51,7 +51,7 @@
       </uplift>
     </administrative>
     <diplomas id="2">
-      <diploma mention="Bien">TSDI</diploma>
+      <diploma mention="Très bien">TSDI</diploma>
       <institute city="ElJadida">COOL</institute>
       <session>2015-2017</session>
     </diplomas>
@@ -171,6 +171,38 @@
       <cjob>0909</cjob>
       <cadre>Engenieur 1er Grade</cadre>
       <fstatus>75757</fstatus>
+    </administrative>
+  </employee>
+  <employee department="" reference="4578">
+    <notes />
+    <personal>
+      <name>ss</name>
+      <familyname>ss</familyname>
+      <birth>2018-06-26</birth>
+      <brithplace />
+      <address />
+      <phone />
+      <state married="nil" />
+      <nationality ma="t" />
+      <partner name="" job="" />
+      <children number="0" />
+    </personal>
+    <administrative>
+      <cin />
+      <mission />
+      <jday>2018-06-26</jday>
+      <hday>2018-06-26</hday>
+      <reason>ssss</reason>
+      <pjob />
+      <cjob />
+      <cadre />
+      <fstatus>1245</fstatus>
+      <uplift id="1" state="current">
+        <scale>9</scale>
+        <echlon>1</echlon>
+        <indice>127</indice>
+        <update>2018-06-26</update>
+      </uplift>
     </administrative>
   </employee>
 </Employee>

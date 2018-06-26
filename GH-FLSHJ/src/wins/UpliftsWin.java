@@ -26,6 +26,7 @@ import views.UpcomingUpliftsView;
 import wins.crud.InfoCrud;
 import wins.crud.UpliftCrud;
 import app.InNext;
+import java.awt.Font;
 
 public class UpliftsWin {
 
@@ -74,6 +75,7 @@ public class UpliftsWin {
 		frame.setBounds(100, 100, 662, 539);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
+		frame.setResizable(false);
 
 		JPanel panel = new JPanel( );
 		panel.setBounds(12, 38, 638, 197);
@@ -84,9 +86,11 @@ public class UpliftsWin {
 		panel.add(scrollPane, BorderLayout.CENTER);
 
 		tbl_upcoming = new JTable(Uplift.getUpcomingUplifts(Period.TODAY));
+		tbl_upcoming.setFont(new Font("Arial", Font.PLAIN, 16));
 		scrollPane.setViewportView(tbl_upcoming);
 
 		JButton button = new JButton("السجل الكامل");
+		button.setFont(new Font("Arial", Font.BOLD, 15));
 		button.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -102,6 +106,7 @@ public class UpliftsWin {
 		frame.getContentPane( ).add(button);
 
 		JComboBox<Period> cmbx = new JComboBox<Period>( );
+		cmbx.setFont(new Font("Arial", Font.BOLD, 15));
 		cmbx.addItemListener(new ItemListener( ) {
 			public void itemStateChanged(ItemEvent e) {
 				tbl_upcoming.setModel(
@@ -122,9 +127,11 @@ public class UpliftsWin {
 		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
 		tbl_pending = new JTable(Uplift.getPendingUplifts( ));
+		tbl_pending.setFont(new Font("Arial", Font.PLAIN, 15));
 		scrollPane_1.setViewportView(tbl_pending);
 
 		JButton btnConfirm = new JButton("مصادقة");
+		btnConfirm.setFont(new Font("Arial", Font.BOLD, 15));
 		btnConfirm.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				Uplift u = getSelectedUplift(tbl_pending);
@@ -135,14 +142,17 @@ public class UpliftsWin {
 		frame.getContentPane( ).add(btnConfirm);
 
 		JLabel lblUpcoming = new JLabel("الترقيات المقبلة");
+		lblUpcoming.setFont(new Font("Arial", Font.BOLD, 15));
 		lblUpcoming.setBounds(202, 17, 108, 15);
 		frame.getContentPane( ).add(lblUpcoming);
 
 		JLabel lblWaitingForComfirmation = new JLabel("ترقيات تنتضر المصادقة");
+		lblWaitingForComfirmation.setFont(new Font("Arial", Font.BOLD, 15));
 		lblWaitingForComfirmation.setBounds(127, 247, 147, 15);
 		frame.getContentPane( ).add(lblWaitingForComfirmation);
 
 		JLabel label = new JLabel("تحديد الأجل");
+		label.setFont(new Font("Arial", Font.BOLD, 15));
 		label.setBounds(435, 17, 70, 15);
 		frame.getContentPane( ).add(label);
 
@@ -160,6 +170,7 @@ public class UpliftsWin {
 		frame.getContentPane( ).add(button_1);
 
 		JButton button_2 = new JButton("السجل الكامل");
+		button_2.setFont(new Font("Arial", Font.BOLD, 15));
 		button_2.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -175,11 +186,13 @@ public class UpliftsWin {
 		frame.getContentPane( ).add(button_2);
 		
 		JComboBox<InNext> combx = new JComboBox<InNext>();
+		combx.setFont(new Font("Arial", Font.BOLD, 15));
 		combx.setModel(new DefaultComboBoxModel<InNext>(InNext.values()));
 		combx.setBounds(110, 12, 80, 24);
 		frame.getContentPane().add(combx);
 		
 		JButton button_3 = new JButton("إستخراج");
+		button_3.setFont(new Font("Arial", Font.BOLD, 15));
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i = Integer.parseInt(combx.getSelectedItem( ).toString( ));

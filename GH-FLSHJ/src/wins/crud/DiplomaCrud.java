@@ -24,6 +24,7 @@ import com.alee.laf.WebLookAndFeel;
 import app.Mention;
 import model.Diploma;
 import model.Employee;
+import java.awt.Font;
 
 public class DiplomaCrud {
 
@@ -75,6 +76,7 @@ public class DiplomaCrud {
 		frame.setBounds(100, 100, 526, 519);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
+		frame.setResizable(false);
 
 		JPanel panel = new JPanel( );
 		panel.setBounds(12, 69, 499, 378);
@@ -85,42 +87,51 @@ public class DiplomaCrud {
 		panel.add(scrollPane, BorderLayout.CENTER);
 
 		tf_ins = new JTextField( );
+		tf_ins.setFont(new Font("Arial", Font.PLAIN, 16));
 		tf_ins.setBounds(132, 0, 114, 24);
 		frame.getContentPane( ).add(tf_ins);
 		tf_ins.setColumns(10);
 
 		tf_session = new JTextField( );
+		tf_session.setFont(new Font("Arial", Font.PLAIN, 16));
 		tf_session.setBounds(378, 0, 114, 24);
 		frame.getContentPane( ).add(tf_session);
 		tf_session.setColumns(10);
 
 		tf_title = new JTextField( );
+		tf_title.setFont(new Font("Arial", Font.PLAIN, 16));
 		tf_title.setColumns(10);
 		tf_title.setBounds(132, 33, 114, 24);
 		frame.getContentPane( ).add(tf_title);
 
 		JLabel label = new JLabel("الشهادة");
+		label.setFont(new Font("Arial", Font.BOLD, 15));
 		label.setBounds(34, 38, 70, 15);
 		frame.getContentPane( ).add(label);
 
 		JComboBox<Mention> comboMen = new JComboBox<Mention>( );
+		comboMen.setFont(new Font("Arial", Font.BOLD, 15));
 		comboMen.setModel(new DefaultComboBoxModel<Mention>(Mention.values( )));
 		comboMen.setBounds(378, 33, 114, 24);
 		frame.getContentPane( ).add(comboMen);
 
 		JLabel lblFrom = new JLabel("تاريخ");
+		lblFrom.setFont(new Font("Arial", Font.BOLD, 15));
 		lblFrom.setBounds(277, 5, 70, 15);
 		frame.getContentPane( ).add(lblFrom);
 
 		JLabel lblNdays = new JLabel("المؤسسة");
+		lblNdays.setFont(new Font("Arial", Font.BOLD, 15));
 		lblNdays.setBounds(31, 5, 70, 15);
 		frame.getContentPane( ).add(lblNdays);
 
 		JLabel lblPeriod = new JLabel("الميزة");
+		lblPeriod.setFont(new Font("Arial", Font.BOLD, 15));
 		lblPeriod.setBounds(283, 39, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JButton btnModify = new JButton("تعديل");
+		btnModify.setFont(new Font("Arial", Font.BOLD, 15));
 		btnModify.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -145,6 +156,7 @@ public class DiplomaCrud {
 		frame.getContentPane( ).add(btnModify);
 
 		JButton btnDelete = new JButton("حذف");
+		btnDelete.setFont(new Font("Arial", Font.BOLD, 15));
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
@@ -163,6 +175,7 @@ public class DiplomaCrud {
 		frame.getContentPane( ).add(btnDelete);
 
 		JButton btnAdd = new JButton("إضافة");
+		btnAdd.setFont(new Font("Arial", Font.BOLD, 15));
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
@@ -196,6 +209,7 @@ public class DiplomaCrud {
 		frame.getContentPane( ).add(btnAdd);
 
 		table = new JTable(Diploma.getDiplomasModel(empl));
+		table.setFont(new Font("Arial", Font.PLAIN, 15));
 		table.addMouseListener(new MouseAdapter( ) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
