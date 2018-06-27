@@ -1,22 +1,20 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.jdom2.Attribute;
-import org.jdom2.Element;
-
 import app.InNext;
 import app.Period;
+import app.utils.DAO;
+import app.utils.DAObject;
 import app.utils.DateUtil;
-import app.utils.XmlElement;
-import app.utils.XmlFile;
 
-public class Uplift extends XmlElement<Uplift> {
+public class Uplift extends DAObject<Uplift> {
 	private int id;
 	private String indice;
 	private Date date;
@@ -186,96 +184,30 @@ public class Uplift extends XmlElement<Uplift> {
 	}
 
 	@Override
-	public boolean add( ) {
-		try {
-			Element empl = Employee.getEmployeeElement(empl_ref);
-			Uplift.setOldUplift(empl);
-
-			Element xml_repayed = new Element("uplift");
-			Element scale = new Element("scale");
-			Element echlon = new Element("echlon");
-			Element indice = new Element("indice");
-			Element update = new Element("update");
-
-			scale.addContent("" + this.grade);
-			echlon.addContent("" + this.rank);
-			indice.addContent(this.indice);
-			update.addContent(DateUtil.parseDate(date));
-
-			Attribute id = new Attribute("id",
-				"" + (Uplift.getLastUpliftXmlId(empl) + 1));
-			Attribute state = new Attribute("state", "current");
-
-			xml_repayed.setAttribute(id);
-			xml_repayed.setAttribute(state);
-			xml_repayed.addContent(scale);
-			xml_repayed.addContent(echlon);
-			xml_repayed.addContent(indice);
-			xml_repayed.addContent(update);
-			empl.getChild("administrative").addContent(xml_repayed);
-
-			System.err.println(empl.toString( ));
-			XmlFile.writeXml(empl.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void add( ) {
+		String query = "insert into uplift values( '" + empl_ref + "','" + id
+						+ "','" + grade + "','" + rank + "','" + indice + "','"
+						+ DateUtil.parseDate(date) + "')";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean update(Uplift updated) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChild("administrative")
-							.getChildren("uplift");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
-					el.getChild("echlon").setText("" + updated.getGrade( ));
-					el.getChild("scale").setText("" + updated.getRank( ));
-					el.getChild("indice").setText("" + updated.getIndice( ));
-					el.getChild("update").setText(
-						DateUtil.parseDate(updated.getDate( )));
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void update(Uplift u) {
+		String query = "update uplift set scalee='" + u.grade + "', echlon='"
+						+ u.rank + "',indice='" + u.indice + "', updatee='"
+						+ DateUtil.parseDate(u.date) + "'" + " where refe='"
+						+ empl_ref + "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean remove( ) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChild("administrative")
-							.getChildren("uplift");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
-					el.detach( );
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
-	}
-
-	@Override
-	public Element getElement( ) {
-		return null;
+	public void remove( ) {
+		String query = "delete from uplift where refe='" + empl_ref
+						+ "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	/**
@@ -325,8 +257,7 @@ public class Uplift extends XmlElement<Uplift> {
 			model.addColumn(str);
 		}
 
-		for (Uplift u : getUplifts(
-			Employee.getEmployeeElement(empl.getEmployeeReference( )))) {
+		for (Uplift u : getUplifts(empl.getEmployeeReference( ))) {
 			model.addRow(new String[] {
 							DateUtil.parseDate(u.getDate( )), u.getIndice( ),
 							"" + u.getRank( ), "" + u.getGrade( )
@@ -336,81 +267,49 @@ public class Uplift extends XmlElement<Uplift> {
 		return model;
 	}
 
-	public static void setOldUplift(Element empl) {
-		List<Element> dlist = empl.getChild("administrative")
-						.getChildren("uplift");
-
-		for (Element e : dlist) {
-			if (e.getAttributeValue("state").compareTo("current") == 0) {
-				e.getAttribute("state").setValue("old");
-				System.err.println(e.toString( ));
-				XmlFile.writeXml(e.getDocument( ));
-				break;
-			}
-		}
-	}
-
-	public static ArrayList<Uplift> getUplifts(Employee empl) {
-		return getUplifts(empl.getElement( ));
-	}
-
-	public static ArrayList<Uplift> getUplifts(Element empl) {
+	public static ArrayList<Uplift> getUplifts(String ref) {
 		ArrayList<Uplift> tmp = new ArrayList<Uplift>( );
-		List<Element> dlist = empl.getChild("administrative")
-						.getChildren("uplift");
+		String query = "select * from uplift where refe = '" + ref
+						+ "' order by id desc";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
 
-		for (Element e : dlist) {
-			Uplift u = new Uplift( );
-			u.setEmployeeReference(empl.getAttributeValue("reference"));
-			u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
-			u.setDate(DateUtil.parseDate(e.getChildTextTrim("update")));
-			u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
-			u.setIndice(e.getChildTextTrim("indice"));
-			tmp.add(u);
+		try {
+			while (r.next( )) {
+				Uplift u = new Uplift( );
+				u.setEmployeeReference(ref);
+				u.setRank(r.getShort("echlon"));
+				u.setDate(DateUtil.parseDate(r.getString("updatee")));
+				u.setGrade(r.getShort("scalee"));
+				u.setIndice(r.getString("indice"));
+				tmp.add(u);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
 		}
 
 		return tmp;
 	}
 
-	public static int getUpliftXmlId(Element empl, int limit) {
-		int lastid = 0;
+	public static Uplift getCurrentUplift(String ref) {
+		String query = "select * from uplift where refe = '" + ref
+						+ "' order by id desc";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
 
-		List<Element> list = empl.getChild("administrative")
-						.getChildren("uplift");
-
-		for (Element el : list) {
-			lastid = Integer.parseInt(el.getAttributeValue("id"));
-			if (limit == 0) {
-				break;
-			} else {
-				--limit;
-			}
-		}
-		return lastid;
-	}
-
-	public static int getLastUpliftXmlId(Element empl) {
-		return Uplift.getUpliftXmlId(empl, Integer.MAX_VALUE);
-	}
-
-	public static Uplift getCurrentUplift(Employee empl) {
-		return getCurrentUplift(empl.getElement( ));
-	}
-
-	public static Uplift getCurrentUplift(Element empl) {
-		List<Element> dlist = empl.getChild("administrative")
-						.getChildren("uplift");
 		Uplift u = new Uplift( );
 
-		for (Element e : dlist) {
-			if (e.getAttributeValue("state").compareTo("current") == 0) {
-				u.setEmployeeReference(empl.getAttributeValue("reference"));
-				u.setRank(Short.parseShort(e.getChildTextTrim("echlon")));
-				u.setDate(DateUtil.parseDate(e.getChildTextTrim("update")));
-				u.setGrade(Short.parseShort(e.getChildTextTrim("scale")));
-				u.setIndice(e.getChildTextTrim("indice"));
+		try {
+			while (r.next( )) {
+				u.setEmployeeReference(ref);
+				u.setRank(r.getShort("echlon"));
+				u.setDate(DateUtil.parseDate(r.getString("updatee")));
+				u.setGrade(r.getShort("scalee"));
+				u.setIndice(r.getString("indice"));
 				break;
 			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
 		}
 
 		return u;

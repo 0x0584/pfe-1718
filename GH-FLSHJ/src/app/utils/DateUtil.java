@@ -47,12 +47,6 @@ public class DateUtil {
 	 */
 	public static Date parseDate(String str) {
 		Date d;
-		try {
-			d = new DateUtil( ).fmt.parse(str);
-			return d;
-		} catch (Exception e) {
-			System.err.println(e.getMessage( ));
-		}
 
 		try {
 			d = new DateUtil( ).fmt.parse(str);

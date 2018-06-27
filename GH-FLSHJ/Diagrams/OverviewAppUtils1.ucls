@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="app.utils.XmlElement" project="GH-FLSHJ" 
-    file="/GH-FLSHJ/src/app/utils/XmlElement.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="356" y="638"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
-      <operations public="false" package="false" protected="false" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="app.utils.XmlFile" project="GH-FLSHJ" file="/GH-FLSHJ/src/app/utils/XmlFile.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="517" y="173"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
-      <operations public="true" package="false" protected="false" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="org.jdom2.Document" project="GH-FLSHJ" 
+  <class id="1" language="java" name="org.jdom2.Document" project="GH-FLSHJ" 
     file="/home/arubu/Workspace/Projet/GH-FLSHJ/jars/jdom-2.0.6.jar" binary="true" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="517" y="455"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -28,7 +10,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="java.io.File" project="GH-FLSHJ" file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" 
+  <class id="2" language="java" name="java.io.File" project="GH-FLSHJ" file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" 
     binary="true" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="692" y="455"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -37,7 +19,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="app.utils.DateUtil" project="GH-FLSHJ" 
+  <class id="3" language="java" name="app.utils.DateUtil" project="GH-FLSHJ" 
     file="/GH-FLSHJ/src/app/utils/DateUtil.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="198" y="128"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -46,7 +28,7 @@
       <operations public="true" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="java.text.SimpleDateFormat" project="GH-FLSHJ" 
+  <class id="4" language="java" name="java.text.SimpleDateFormat" project="GH-FLSHJ" 
     file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="198" y="374"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -55,7 +37,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="org.jdom2.Element" project="GH-FLSHJ" 
+  <class id="5" language="java" name="org.jdom2.Element" project="GH-FLSHJ" 
     file="/home/arubu/Workspace/Projet/GH-FLSHJ/jars/jdom-2.0.6.jar" binary="true" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="355" y="455"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -64,52 +46,16 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <dependency id="8">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <association id="9">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="10" name="doc">        
-        <position height="0" width="0" x="-61" y="90"/>      
+  <association id="6">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="7" name="fmt">        
+        <position height="0" width="0" x="237" y="249"/>      
       </attribute>      
-      <multiplicity id="11" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-61" y="90"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="12">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="13" name="file">        
-        <position height="0" width="0" x="318" y="232"/>      
-      </attribute>      
-      <multiplicity id="14" minimum="0" maximum="1">        
-        <position height="0" width="0" x="318" y="232"/>      
+      <multiplicity id="8" minimum="0" maximum="1">        
+        <position height="0" width="0" x="237" y="249"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="15">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="16" name="root"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="18">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="19" name="fmt">        
-        <position height="0" width="0" x="237" y="249"/>      
-      </attribute>      
-      <multiplicity id="20" minimum="0" maximum="1">        
-        <position height="0" width="0" x="237" y="249"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

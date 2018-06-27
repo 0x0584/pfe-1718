@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -20,6 +22,7 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
+import app.utils.DAO;
 import app.utils.DateUtil;
 import model.Employee;
 import model.Uplift;
@@ -204,11 +207,27 @@ public class UpliftCrud {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+					int dialogResult = JOptionPane
+									.showConfirmDialog(null, "Sure?");
 					if (dialogResult != JOptionPane.YES_OPTION) return;
-					Uplift new_r = new Uplift(
-						Uplift.getLastUpliftXmlId(empl.getElement( )) + 1,
-						tf_indice.getText( ),
+
+					int lastid = 0;
+
+					String query = "select id from uplift where refe = '"
+									+ empl.getEmployeeReference( )
+									+ "' order by id desc";
+					System.err.println(query);
+					ResultSet r = new DAO( ).exec(query, false);
+					try {
+						while (r.next( )) {
+							lastid = r.getInt("id");
+							break;
+						}
+					} catch (SQLException e1) {
+						System.err.println(e1.getMessage( ));
+					}
+
+					Uplift new_r = new Uplift(lastid + 1, tf_indice.getText( ),
 						DateUtil.parseDate(tf_date.getText( )),
 						Short.parseShort(tf_grade.getText( )),
 						Short.parseShort(tf_rank.getText( )));
@@ -217,7 +236,8 @@ public class UpliftCrud {
 					table.setModel(
 						Uplift.getUpliftModel(
 							Employee.initEmployee(
-								new Employee( ), empl.getEmployeeReference( ))));
+								new Employee( ),
+								empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
 					btnModify.setEnabled(true);
@@ -278,8 +298,22 @@ public class UpliftCrud {
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 							.toString( ));
 
-		int theID = Uplift.getUpliftXmlId(
-			empl.getElement( ), table.getSelectedRow( ));
+		int theID = 1;
+
+		String query = "select id from uplift where refe = '"
+						+ empl.getEmployeeReference( ) + "' and updatee = '"
+						+ DateUtil.parseDate(date) + "' and scalee = '" + grade
+						+ "' and echlon = '" + rank + "'";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		try {
+			while (r.next( )) {
+				theID = r.getInt("id");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
+		}
 		Uplift u = new Uplift(theID, indice, date, grade, rank);
 		u.setEmployeeReference(empl.getEmployeeReference( ));
 		return u;

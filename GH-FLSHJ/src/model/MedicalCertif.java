@@ -1,21 +1,19 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.jdom2.Attribute;
-import org.jdom2.Element;
-
 import app.Period;
+import app.utils.DAO;
+import app.utils.DAObject;
 import app.utils.DateUtil;
-import app.utils.XmlElement;
-import app.utils.XmlFile;
 
-public class MedicalCertif extends XmlElement<MedicalCertif> {
+public class MedicalCertif extends DAObject<MedicalCertif> {
 	private int id, ndays;
 	private Date from;
 	private String period;
@@ -76,92 +74,29 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 	}
 
 	@Override
-	public boolean add( ) {
-		try {
-			Element empl = Employee.getEmployeeElement(empl_ref);
-			Element med = new Element("medicalcertif");
-			Element from = new Element("from");
-			Element ndays = new Element("ndays");
-			Element period = new Element("period");
-
-			from.addContent(DateUtil.parseDate(this.from));
-			ndays.addContent("" + this.ndays);
-			period.addContent(this.period);
-
-			Attribute id = new Attribute("id",
-				"" + (MedicalCertif.getLastMedicalXmlId(empl) + 1));
-			med.setAttribute(id);
-			med.addContent(from);
-			med.addContent(ndays);
-			med.addContent(period);
-			empl.addContent(med);
-
-			System.err.println(empl.toString( ));
-			XmlFile.writeXml(empl.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void add( ) {
+		String query = "insert into medical value('" + empl_ref + "','" + id
+						+ "','" + DateUtil.parseDate(from) + "','" + ndays
+						+ "','" + period + "');";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean update(MedicalCertif updated) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChildren("medicalcertif");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
-					el.getChild("from")
-									.setText(DateUtil.parseDate(updated.from));
-					el.getChild("ndays").setText("" + updated.ndays);
-					el.getChild("period").setText(updated.period);
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void update(MedicalCertif u) {
+		String query = "update medical set fromm='" + DateUtil.parseDate(u.from)
+						+ "', ndays='" + u.ndays + "',period='" + u.period + "'"
+						+ " where refe='" + empl_ref + "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean remove( ) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChildren("medicalcertif");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + this.id) == 0) {
-					el.detach( );
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
-	}
-
-	@Override
-	public Element getElement( ) {
-		Element empl = Employee.getEmployeeElement(empl_ref);
-		List<Element> dlist = empl.getChildren("medicalcertif");
-
-		for (Element e : dlist) {
-			if (e.getAttributeValue("id").compareTo("" + id) == 0) { return e; }
-		}
-
-		return null;
+	public void remove( ) {
+		String query = "delete from medical where refe='" + empl_ref
+						+ "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	public static TableModel getMedicalModel(Employee empl) {
@@ -172,7 +107,7 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 			model.addColumn(col);
 		}
 		for (MedicalCertif c : getMedicalCertifs(
-			Employee.getEmployeeElement(empl.getEmployeeReference( )))) {
+			empl.getEmployeeReference( ))) {
 			Date from = c.getFrom( );
 			Date to = DateUtil.add(
 				Period.ONE_DAY, c.getFrom( ), c.getNumberOfDays( ));
@@ -181,37 +116,34 @@ public class MedicalCertif extends XmlElement<MedicalCertif> {
 							"" + c.getNumberOfDays( ), c.getPeriod( )
 			});
 		}
-	
+
 		return model;
 	}
 
-	public static ArrayList<MedicalCertif> getMedicalCertifs(Employee empl) {
-		return getMedicalCertifs(empl.getElement( ));
-	}
+	public static ArrayList<MedicalCertif> getMedicalCertifs(String ref) {
 
-	public static ArrayList<MedicalCertif> getMedicalCertifs(Element empl) {
-		List<Element> dlist = empl.getChildren("medicalcertif");
 		ArrayList<MedicalCertif> tmp = new ArrayList<MedicalCertif>( );
-		for (Element e : dlist) {
-			MedicalCertif m = new MedicalCertif( );
-			m.setEmployeeReference(empl.getAttributeValue("reference"));
-			m.setId(Integer.parseInt(e.getAttributeValue("id")));
-			m.setFrom(DateUtil.parseDate(e.getChildTextTrim("from")));
-			m.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
-			m.setPeriod(e.getChildTextTrim("period"));
+		String query = "select * from medical where refe = '" + ref
+						+ "' order by id desc";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
 
-			tmp.add(m);
+		try {
+			while (r.next( )) {
+				MedicalCertif m = new MedicalCertif( );
+				m.setEmployeeReference(ref);
+				m.setId(r.getInt("id"));
+				m.setFrom(DateUtil.parseDate(r.getString("fromm")));
+				m.setNumberOfDays(r.getInt("ndays"));
+				m.setPeriod(r.getString("period"));
+
+				tmp.add(m);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
 		}
-
 		return tmp;
-	}
-
-	public static int getMedicalCertifXmlId(Element empl, int limit) {
-		return XmlFile.getChildId("medicalcertif", empl, limit);
-	}
-
-	public static int getLastMedicalXmlId(Element empl) {
-		return XmlFile.getChildId("medicalcertif", empl, Integer.MAX_VALUE);
 	}
 
 }

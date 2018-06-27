@@ -1,11 +1,11 @@
 package app;
 
 public enum SearchField {
-	Nom("الإسم", "name", "personal"),
+	Nom("الإسم", "fisrt_name", "personal"),
 
-	Prenom("النسب", "familyname", "personal"),
+	Prenom("النسب", "last_name", "personal"),
 
-	SOM("ر.ت.", "reference", "administrative"),
+	SOM("ر.ت.", "refe", "administrative"),
 
 	CIN("ب.ت.و.", "cin", "administrative");
 

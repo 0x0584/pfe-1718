@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -20,6 +22,7 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
+import app.utils.DAO;
 import app.utils.DateUtil;
 import model.Employee;
 import model.MedicalCertif;
@@ -124,7 +127,7 @@ public class MedicalCrud {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
-				
+
 				MedicalCertif oldc = getSelectedMedical(empl, table);
 				MedicalCertif newc = new MedicalCertif(oldc.getId( ),
 					DateUtil.parseDate(tf_from.getText( )),
@@ -147,8 +150,8 @@ public class MedicalCrud {
 		btnDelete.setFont(new Font("Arial", Font.BOLD, 15));
 		btnDelete.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-			int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
-			if (dialogResult != JOptionPane.YES_OPTION) return;
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+				if (dialogResult != JOptionPane.YES_OPTION) return;
 				MedicalCertif oldc = getSelectedMedical(empl, table);
 				oldc.remove( );
 				table.setModel(
@@ -167,17 +170,36 @@ public class MedicalCrud {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+					int dialogResult = JOptionPane
+									.showConfirmDialog(null, "Sure?");
 					if (dialogResult != JOptionPane.YES_OPTION) return;
-					MedicalCertif m = new MedicalCertif(
-						MedicalCertif.getLastMedicalXmlId(empl.getElement( )) + 1,
+
+					int lastid = 0;
+
+					String query = "select id from medical where refe = '"
+									+ empl.getEmployeeReference( )
+									+ "' order by id desc";
+					System.err.println(query);
+					ResultSet r = new DAO( ).exec(query, false);
+					try {
+						while (r.next( )) {
+							lastid = r.getInt("id");
+							break;
+						}
+					} catch (SQLException e1) {
+						System.err.println(e1.getMessage( ));
+					}
+
+					MedicalCertif m = new MedicalCertif(lastid + 1,
 						DateUtil.parseDate(tf_from.getText( )),
 						Integer.parseInt(tf_ndays.getText( )), tf_s.getText( ));
+					m.setEmployeeReference(empl.getEmployeeReference( ));
 					m.add( );
 					table.setModel(
 						MedicalCertif.getMedicalModel(
 							Employee.initEmployee(
-								new Employee( ), empl.getEmployeeReference( ))));
+								new Employee( ),
+								empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
 					btnModify.setEnabled(true);
@@ -230,11 +252,26 @@ public class MedicalCrud {
 							.toString( ));
 		String period = table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 						.toString( );
-		int theID = MedicalCertif.getMedicalCertifXmlId(
-			empl.getElement( ), table.getSelectedRow( ));
+		int theID = 1;
+
+		String query = "select id from medical where refe = '"
+						+ empl.getEmployeeReference( ) + "' and from = '"
+						+ DateUtil.parseDate(from) + "' and ndays = '" + ndays
+						+ "' and period = '" + period + "'";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		try {
+			while (r.next( )) {
+				theID = r.getInt("id");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
+		}
+		
 		MedicalCertif m = new MedicalCertif(theID, from, ndays, period);
 		m.setEmployeeReference(empl.getEmployeeReference( ));
-		
+
 		return m;
 	}
 

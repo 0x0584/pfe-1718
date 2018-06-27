@@ -2,14 +2,15 @@ package wins.crud;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,10 +22,9 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
-import app.Mention;
+import app.utils.DAO;
 import model.Diploma;
 import model.Employee;
-import java.awt.Font;
 
 public class DiplomaCrud {
 
@@ -38,6 +38,7 @@ public class DiplomaCrud {
 	private JTextField tf_ins;
 	private JTextField tf_session;
 	private JTextField tf_title;
+	private JTextField tf_men;
 
 	/**
 	 * Launch the application.
@@ -86,6 +87,12 @@ public class DiplomaCrud {
 		JScrollPane scrollPane = new JScrollPane( );
 		panel.add(scrollPane, BorderLayout.CENTER);
 
+		tf_men = new JTextField( );
+		tf_men.setFont(new Font("Arial", Font.PLAIN, 16));
+		tf_men.setColumns(10);
+		tf_men.setBounds(388, 33, 114, 24);
+		frame.getContentPane( ).add(tf_men);
+
 		tf_ins = new JTextField( );
 		tf_ins.setFont(new Font("Arial", Font.PLAIN, 16));
 		tf_ins.setBounds(132, 0, 114, 24);
@@ -108,12 +115,6 @@ public class DiplomaCrud {
 		label.setFont(new Font("Arial", Font.BOLD, 15));
 		label.setBounds(34, 38, 70, 15);
 		frame.getContentPane( ).add(label);
-
-		JComboBox<Mention> comboMen = new JComboBox<Mention>( );
-		comboMen.setFont(new Font("Arial", Font.BOLD, 15));
-		comboMen.setModel(new DefaultComboBoxModel<Mention>(Mention.values( )));
-		comboMen.setBounds(378, 33, 114, 24);
-		frame.getContentPane( ).add(comboMen);
 
 		JLabel lblFrom = new JLabel("تاريخ");
 		lblFrom.setFont(new Font("Arial", Font.BOLD, 15));
@@ -139,8 +140,7 @@ public class DiplomaCrud {
 				Diploma old = getSelectedDiploma(empl, table);
 				Diploma d = new Diploma(old.getId( ), tf_title.getText( ),
 					tf_ins.getText( ), tf_session.getText( ),
-					Mention.parseMention(
-						comboMen.getSelectedItem( ).toString( )));
+					tf_men.getText( ));
 				d.setEmployeeReference(empl.getEmployeeReference( ));
 				old.update(d);
 				table.setModel(
@@ -149,6 +149,8 @@ public class DiplomaCrud {
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_session.setText("");
 				tf_ins.setText("");
+				tf_title.setText("");
+				tf_men.setText("");
 			}
 
 		});
@@ -169,6 +171,8 @@ public class DiplomaCrud {
 							new Employee( ), empl.getEmployeeReference( ))));
 				tf_session.setText("");
 				tf_ins.setText("");
+				tf_title.setText("");
+				tf_men.setText("");
 			}
 		});
 		btnDelete.setBounds(273, 459, 70, 25);
@@ -179,19 +183,36 @@ public class DiplomaCrud {
 		btnAdd.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
+					int dialogResult = JOptionPane
+									.showConfirmDialog(null, "Sure?");
 					if (dialogResult != JOptionPane.YES_OPTION) return;
-					Diploma d = new Diploma(
-						Diploma.getLastDiplomaXmlId(empl.getElement( )) + 1,
-						tf_title.getText( ), tf_ins.getText( ),
-						tf_session.getText( ), Mention.parseMention(
-							comboMen.getSelectedItem( ).toString( )));
+					int lastid = 0;
+
+					String query = "select id from diploma where refe = '"
+									+ empl.getEmployeeReference( )
+									+ "' order by id desc";
+					System.err.println(query);
+					ResultSet r = new DAO( ).exec(query, false);
+					try {
+						while (r.next( )) {
+							lastid = r.getInt("id");
+							break;
+						}
+					} catch (SQLException e1) {
+						System.err.println(e1.getMessage( ));
+					}
+
+					Diploma d = new Diploma(lastid + 1, tf_title.getText( ),
+						tf_ins.getText( ), tf_session.getText( ),
+						tf_men.getText( ));
+					d.setEmployeeReference(empl.getEmployeeReference( ));
 					d.add( );
 
 					table.setModel(
 						Diploma.getDiplomasModel(
 							Employee.initEmployee(
-								new Employee( ), empl.getEmployeeReference( ))));
+								new Employee( ),
+								empl.getEmployeeReference( ))));
 					setupJTable(table);
 					btnAdd.setText("جديد");
 					btnModify.setEnabled(true);
@@ -220,7 +241,7 @@ public class DiplomaCrud {
 				tf_session.setText(r.getSession( ));
 				tf_ins.setText(r.getInstitue( ));
 				tf_title.setText(r.getTitle( ));
-				comboMen.setSelectedIndex(r.getMention( ).ordinal( ));
+				tf_men.setText(r.getMention( ));
 			}
 		});
 		/*
@@ -244,13 +265,28 @@ public class DiplomaCrud {
 						.getValueAt(table.getSelectedRow( ), 1).toString( );
 		String session = table.getModel( )
 						.getValueAt(table.getSelectedRow( ), 0).toString( );
-		Mention mention = Mention.parseMention(
-			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
-							.toString( ));
-		int theID = Diploma.getDiplomaXmlId(
-			empl.getElement( ), table.getSelectedRow( ));
+		String mention = table.getModel( )
+						.getValueAt(table.getSelectedRow( ), 2).toString( );
+		int theID = 1;
+
+		String query = "select id from diploma where refe = '"
+						+ empl.getEmployeeReference( ) + "' and title = '"
+						+ title + "' and sess = '" + session
+						+ "' and menstion = '" + mention + "'";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		try {
+			while (r.next( )) {
+				theID = r.getInt("id");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
+		}
+
 		Diploma d = new Diploma(theID, title, institue, session, mention);
 		d.setEmployeeReference(empl.getEmployeeReference( ));
+
 		return d;
 	}
 

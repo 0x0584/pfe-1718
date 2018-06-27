@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
@@ -20,6 +22,8 @@ import javax.swing.JTable;
 import com.alee.laf.WebLookAndFeel;
 
 import app.Period;
+import app.utils.DAO;
+import app.utils.DateUtil;
 import model.Employee;
 import model.Uplift;
 import views.UpcomingUpliftsView;
@@ -209,19 +213,37 @@ public class UpliftsWin {
 	protected Uplift getSelectedUplift(JTable table) {
 		Employee empl = new Employee(table.getModel( )
 						.getValueAt(table.getSelectedRow( ), 0).toString( ));
-		String indice = "";
-		Date date = new Date( );
+		
+		String indice = table.getModel( ).getValueAt(table.getSelectedRow( ), 1)
+						.toString( );
+		Date date = DateUtil.parseDate(
+			table.getModel( ).getValueAt(table.getSelectedRow( ), 0)
+							.toString( ));
 		short grade = Short.parseShort(
-			table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
+			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
 		short rank = Short.parseShort(
-			table.getModel( ).getValueAt(table.getSelectedRow( ), 4)
+			table.getModel( ).getValueAt(table.getSelectedRow( ), 3)
 							.toString( ));
 
-		int theID = Uplift.getLastUpliftXmlId(empl.getElement( )) + 1;
+		int theID = 1;
+
+		String query = "select id from uplift where refe = '"
+						+ empl.getEmployeeReference( ) + "' and updatee = '"
+						+ DateUtil.parseDate(date) + "' and scalee = '" + grade
+						+ "' and echlon = '" + rank + "'";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		try {
+			while (r.next( )) {
+				theID = r.getInt("id");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
+		}
 		Uplift u = new Uplift(theID, indice, date, grade, rank);
 		u.setEmployeeReference(empl.getEmployeeReference( ));
-
 		return u;
 	}
 }

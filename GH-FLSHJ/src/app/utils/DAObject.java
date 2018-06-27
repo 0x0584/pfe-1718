@@ -1,8 +1,6 @@
 package app.utils;
 
-import org.jdom2.Element;
-
-public abstract class XmlElement<T> {
+public abstract class DAObject<T> {
 	/**
 	 * this is the reference of the Employee
 	 */
@@ -21,7 +19,7 @@ public abstract class XmlElement<T> {
 	 *
 	 * @return true if it succeeded
 	 */
-	public abstract boolean add( );
+	public abstract void add( );
 
 	/**
 	 * @param updated
@@ -29,17 +27,12 @@ public abstract class XmlElement<T> {
 	 * 
 	 * @return true if it succeeded
 	 */
-	public abstract boolean update(T updated);
+	public abstract void update(T updated);
 
 	/**
 	 * removes the object from the XML file
 	 *
 	 * @return true if it succeeded
 	 */
-	public abstract boolean remove( );
-
-	/**
-	 * @return XML element of the corresponding object
-	 */
-	public abstract Element getElement( );
+	public abstract void remove( );
 }

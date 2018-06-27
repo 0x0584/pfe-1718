@@ -1,9 +1,11 @@
 package wins.crud;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -26,7 +28,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -38,10 +39,6 @@ import app.utils.DateUtil;
 import model.Diploma;
 import model.Employee;
 import model.Uplift;
-import wins.crud.DiplomaCrud;
-import wins.crud.UpliftCrud;
-import java.awt.Color;
-import java.awt.Font;
 
 public class InfoCrud {
 
@@ -417,13 +414,13 @@ public class InfoCrud {
 		label_11.setFont(new Font("Arial", Font.BOLD, 15));
 		label_11.setBounds(46, 10, 53, 15);
 		panel_2.add(label_11);
-		
+
 		tf_cadre = new JTextField("");
 		tf_cadre.setFont(new Font("Arial", Font.PLAIN, 15));
 		tf_cadre.setColumns(10);
 		tf_cadre.setBounds(410, 8, 148, 29);
 		panel_2.add(tf_cadre);
-		
+
 		textField_1 = new JTextField(empl.getReason( ));
 		textField_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		textField_1.setColumns(10);
@@ -558,12 +555,6 @@ public class InfoCrud {
 			panel_4.add(lblNewLabel);
 		}
 
-		JTextPane tp_notes = new JTextPane( );
-		tp_notes.setFont(new Font("Arial", Font.PLAIN, 15));
-		tp_notes.setText(empl.getNotes( ));
-		tp_notes.setBounds(134, 66, 425, 49);
-		panel_3.add(tp_notes);
-
 		JLabel lblM = new JLabel(
 			String.format("ب.ت.و.: %s", empl.getEmployeeReference( )));
 		lblM.setFont(new Font("Arial", Font.BOLD, 15));
@@ -582,7 +573,6 @@ public class InfoCrud {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Employee nempl = new Employee(empl.getEmployeeReference( ));
-				nempl.setNotes(tp_notes.getText( ));
 				nempl.setDepartment(tf_d.getText( ));
 
 				nempl.setNameArabic(tf_name_ar.getText( ));
@@ -647,7 +637,6 @@ public class InfoCrud {
 				} else {
 					btnnew.setText("جديد");
 					Employee nempl = new Employee( );
-					nempl.setNotes(tp_notes.getText( ));
 					nempl.setDepartment(tf_d.getText( ));
 
 					nempl.setName(tf_name.getText( ));
@@ -670,9 +659,7 @@ public class InfoCrud {
 							spin_nchildren.getValue( ).toString( )));
 					nempl.setPartnerName(tf_partner_name.getText( ));
 					nempl.setPartnerJob(tf_partner_job.getText( ));
-					String strr = tf_ref.getText( ).compareTo("") == 0 ? ""
-									+ (Employee.getLastEmployeeXmlReference( )
-													+ 1)
+					String strr = tf_ref.getText( ).compareTo("") == 0 ? "PAS"
 									: tf_ref.getText( );
 					nempl.setEmployeeReference(strr);
 					nempl.setCIN(tf_cin.getText( ));
@@ -687,26 +674,25 @@ public class InfoCrud {
 					nempl.setCadre(tf_cadre.getText( ));
 					nempl.setFinancialStatus(tf_finance.getText( ));
 					nempl.setReason(textField_1.getText( ));
-					
+
 					nempl.add( );
 
-//					Uplift u = new Uplift( );
-//					u.setEmployeeReference(nempl.getEmployeeReference( ));
-//					u.setId(1);
-//					u.setGrade((short) 9);
-//					u.setRank((short) 1);
-//					u.setIndice("127");
-//					u.setDate(DateUtil.parseDate(new Date( ).toString( )));
-//					u.add( );
-//					
-//					new UpliftCrud(nempl).getFrame( ).setVisible(true);
+					// Uplift u = new Uplift( );
+					// u.setEmployeeReference(nempl.getEmployeeReference( ));
+					// u.setId(1);
+					// u.setGrade((short) 9);
+					// u.setRank((short) 1);
+					// u.setIndice("127");
+					// u.setDate(DateUtil.parseDate(new Date( ).toString( )));
+					// u.add( );
+					//
+					// new UpliftCrud(nempl).getFrame( ).setVisible(true);
 
 					// frame.dispose( );
 				}
 			}
 
 			private void clearFields( ) {
-				tp_notes.setText("");
 				tf_addr.setText("");
 				tf_bdate.setText(DateUtil.parseDate(new Date( )));
 				tf_bplace.setText("");

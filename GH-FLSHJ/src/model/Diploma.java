@@ -1,23 +1,20 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.jdom2.Attribute;
-import org.jdom2.Element;
+import app.utils.DAO;
+import app.utils.DAObject;
 
-import app.Mention;
-import app.utils.XmlElement;
-import app.utils.XmlFile;
-
-public class Diploma extends XmlElement<Diploma> {
+public class Diploma extends DAObject<Diploma> {
 	private int id;
 	private String title, institue;
 	private String session; // e.g. 2017-2018
-	private Mention mention;
+	private String mention;
 
 	public Diploma() {
 		super( );
@@ -32,7 +29,7 @@ public class Diploma extends XmlElement<Diploma> {
 	 * @param mention
 	 */
 	public Diploma(	int id, String title, String institue, String session,
-					Mention mention) {
+					String mention) {
 		super( );
 		this.setId(id);
 		this.title = title;
@@ -79,157 +76,84 @@ public class Diploma extends XmlElement<Diploma> {
 		this.session = session;
 	}
 
-	public Mention getMention( ) {
+	public String getMention( ) {
 		return mention;
 	}
 
-	public void setMention(Mention mention) {
+	public void setMention(String mention) {
 		this.mention = mention;
 	}
 
 	@Override
-	public boolean add( ) {
-		try {
-			Element empl = Employee.getEmployeeElement(empl_ref);
-			Element diploma = new Element("diplomas");
-			Element title = new Element("diploma");
-			Element inst = new Element("institute");
-			Element sess = new Element("session");
-			title.addContent(title);
-			title.setAttribute(new Attribute("mention", mention.toString( )));
-			inst.addContent(institue);
-			sess.addContent(session);
-
-			Attribute id = new Attribute("id",
-				"" + (Diploma.getLastDiplomaXmlId(empl) + 1));
-			diploma.setAttribute(id);
-			diploma.addContent(title);
-			diploma.addContent(inst);
-			diploma.addContent(sess);
-			empl.addContent(diploma);
-
-			System.err.println(empl.toString( ));
-			XmlFile.writeXml(empl.getDocument( ));
-
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void add( ) {
+		String query = "insert into diploma value('" + empl_ref + "','" + id
+						+ "','" + title + "','" + mention.toString( ) + "','"
+						+ institue + "','" + session + "');";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean update(Diploma updated) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChildren("diplomas");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
-					Element diploma = el.getChild("diploma");
-					diploma.getAttribute("mention").setValue(
-						updated.getMention( ).toString( ));
-					diploma.setText(updated.getTitle( ));
-					el.getChild("institute").setText(updated.getInstitue( ));
-					el.getChild("session").setText(updated.getSession( ));
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void update(Diploma u) {
+		String query = "update diploma set title='" + u.title + "', menstion='"
+						+ u.mention + "',insti='" + u.institue + "', sess='"
+						+ u.session + "'" + " where refe='" + empl_ref
+						+ "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean remove( ) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChildren("diplomas");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
-					el.detach( );
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
-	}
-
-	@Override
-	public Element getElement( ) {
-		Element empl = Employee.getEmployeeElement(empl_ref);
-		List<Element> dlist = empl.getChildren("diplomas");
-
-		for (Element e : dlist) {
-			if (e.getAttributeValue("id").compareTo("" + id) == 0) return e;
-		}
-
-		return null;
+	public void remove( ) {
+		String query = "delete from diploma where refe='" + empl_ref
+						+ "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	public static TableModel getDiplomasModel(Employee empl) {
 		DefaultTableModel model = new DefaultTableModel( );
-	
+
 		for (String str : new String[] {
 						"تاريخ الحصول عليها", "المؤسسة",
-	
+
 						"الميزة", "الشهادات",
 		}) {
 			model.addColumn(str);
 		}
-	
-		for (Diploma d : getDiplomas(
-			Employee.getEmployeeElement(empl.getEmployeeReference( )))) {
+
+		for (Diploma d : getDiplomas(empl.getEmployeeReference( ))) {
 			model.addRow(new String[] {
-							d.getSession( ), d.getInstitue( ),
-							d.getMention( ).toString( ), d.getTitle( )
+							d.getSession( ), d.getInstitue( ), d.getMention( ),
+							d.getTitle( )
 			});
 		}
-	
+
 		return model;
 	}
 
-	public static int getLastDiplomaXmlId(Element empl) {
-		return XmlFile.getChildId("diplomas", empl, Integer.MAX_VALUE);
-	}
-
-	public static ArrayList<Diploma> getDiplomas(Employee empl) {
-		return getDiplomas(empl.getElement( ));
-	}
-
-	public static ArrayList<Diploma> getDiplomas(Element empl) {
+	public static ArrayList<Diploma> getDiplomas(String refe) {
 		ArrayList<Diploma> tmp = new ArrayList<Diploma>( );
-		List<Element> dlist = empl.getChildren("diplomas");
+		String query = "select * from diploma where refe = '" + refe
+						+ "' order by id desc";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
 
-		for (Element e : dlist) {
-			Diploma d = new Diploma( );
-			d.setEmployeeReference(empl.getAttributeValue("reference"));
-			d.setInstitue(e.getChildTextTrim("institute"));
-			d.setMention(
-				Mention.parseMention(
-					e.getChild("diploma").getAttributeValue("mention")));
-			d.setSession(e.getChildTextTrim("session"));
-			d.setTitle(e.getChildTextTrim("diploma"));
-			tmp.add(d);
+		try {
+			while (r.next( )) {
+				Diploma d = new Diploma( );
+				d.setId(r.getInt("id"));
+				d.setEmployeeReference(refe);
+				d.setInstitue(r.getString("insti"));
+				d.setSession(r.getString("sess"));
+				d.setMention(r.getString("menstion"));
+				d.setTitle(r.getString("title"));
+				tmp.add(d);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
 		}
 
 		return tmp;
 	}
-
-	public static int getDiplomaXmlId(Element empl, int limit) {
-		return XmlFile.getChildId("diplomas", empl, limit);
-	}
-
 }

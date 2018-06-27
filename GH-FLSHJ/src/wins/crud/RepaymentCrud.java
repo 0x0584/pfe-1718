@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +21,7 @@ import javax.swing.ListSelectionModel;
 
 import com.alee.laf.WebLookAndFeel;
 
+import app.utils.DAO;
 import model.Employee;
 import model.Repayment;
 import java.awt.Font;
@@ -169,18 +172,36 @@ public class RepaymentCrud {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
-				if (e.getActionCommand( ).compareTo("" + "إضافة") == 0) {
-					Repayment r = new Repayment(
-						Repayment.getLastRepaymentXmlId(empl.getElement( )) + 1,
+				String st_fucking_r = "إضافة";
+				if (e.getActionCommand( ).compareTo(st_fucking_r) == 0) {
+					int lastid = 0;
+
+					String query = "select id from repayment where refe = '"
+									+ empl.getEmployeeReference( )
+									+ "' order by id desc";
+					System.err.println(query);
+					ResultSet r = new DAO( ).exec(query, false);
+					
+					try {
+						while (r.next( )) {
+							lastid = r.getInt("id");
+							break;
+						}
+					} catch (SQLException e1) {
+						System.err.println(e1.getMessage( ));
+					}
+
+					Repayment re = new Repayment(lastid + 1,
 						tf_holiday.getText( ),
 						Integer.parseInt(tf_repayed.getText( )),
 						Integer.parseInt(tf_ndays.getText( )));
-					r.setEmployeeReference(empl.getEmployeeReference( ));
-					r.add( );
+					re.setEmployeeReference(empl.getEmployeeReference( ));
+					re.add( );
 					table.setModel(
 						Repayment.getRepaymentModel(
 							Employee.initEmployee(
-								new Employee( ), empl.getEmployeeReference( ))));
+								new Employee( ),
+								empl.getEmployeeReference( ))));
 					setupJTable(table);
 					lbltotal.setText(getTotal(table));
 					btnAdd.setText("جديد");
@@ -224,11 +245,11 @@ public class RepaymentCrud {
 		setupJTable(table);
 		scrollPane.setViewportView(table);
 		lbltotal.setText(getTotal(table));
-		
+
 		JLabel label = new JLabel("مجموع الأيام المعوضة");
 		label.setFont(new Font("Arial", Font.BOLD, 15));
 		label.setBounds(120, 361, 142, 15);
-		frame.getContentPane().add(label);
+		frame.getContentPane( ).add(label);
 	}
 
 	private String getTotal(JTable table) {
@@ -251,19 +272,33 @@ public class RepaymentCrud {
 		int repayed = Integer.parseInt(
 			table.getModel( ).getValueAt(table.getSelectedRow( ), 2)
 							.toString( ));
-		int theID = Repayment.getRepaymentXmlId(
-			empl.getElement( ), table.getSelectedRow( ));
-		Repayment r = new Repayment(theID, period, ndays, repayed);
-		r.setEmployeeReference(empl.getEmployeeReference( ));
-		return r;
+
+		int theID = 1;
+
+		String query = "select id from repayment where refe = '"
+						+ empl.getEmployeeReference( ) + "' and period = '"
+						+ period + "' and ndays = '" + ndays
+						+ "' and repayed = '" + repayed + "'";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		try {
+			while (r.next( )) {
+				theID = r.getInt("id");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
+		}
+
+		Repayment rr = new Repayment(theID, period, ndays, repayed);
+		rr.setEmployeeReference(empl.getEmployeeReference( ));
+
+		return rr;
 	}
 
 	private void setupJTable(JTable table) {
 		if (table.getRowCount( ) != 0) {
-			// just in case
 			table.clearSelection( );
-			// select first line
-			// table.addRowSelectionInterval(0, 0);
 		}
 	}
 }

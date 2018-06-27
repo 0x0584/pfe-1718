@@ -1,21 +1,19 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
-
+import app.utils.DAO;
 import app.utils.DateUtil;
-import app.utils.XmlFile;
 
 public class Employee extends Person {
 	protected String cadre;
 	protected String CIN, dep;
 	// financial status
 	protected String fstatus;
-	protected String mission, reason, notes;
+	protected String mission, reason;
 	// previous and current jobs
 	protected String pjob, cjob;
 	// hiring and joining date
@@ -24,10 +22,9 @@ public class Employee extends Person {
 	protected ArrayList<Diploma> diplomas;
 	protected ArrayList<MedicalCertif> certifs;
 	protected ArrayList<Repayment> repayments;
-	private Uplift current;
-
+	
 	public Employee() {
-		this("0112358");
+		this("111");
 	}
 
 	public Employee(String ref) {
@@ -44,7 +41,27 @@ public class Employee extends Person {
 	}
 
 	public ArrayList<Repayment> getRepayments( ) {
-		return repayments;
+		ArrayList<Repayment> tmp = new ArrayList<Repayment>( );
+		String query = "select * from repayment where refe = '" + empl_ref
+						+ "' order by id desc";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		try {
+			while (r.next( )) {
+				Repayment rr = new Repayment( );
+				rr.setEmployeeReference(empl_ref);
+				rr.setId(r.getInt("id"));
+				rr.setNumberOfDays(r.getInt("ndays"));
+				rr.setPeriod(r.getString("period"));
+				rr.setRepayedDays(r.getInt("repayed"));
+				tmp.add(rr);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
+		}
+
+		return tmp;
 	}
 
 	public void setRepayments(ArrayList<Repayment> repayments) {
@@ -119,14 +136,6 @@ public class Employee extends Person {
 		return reason;
 	}
 
-	public String getNotes( ) {
-		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
 	public Date getHiringDate( ) {
 		return hdate;
 	}
@@ -164,337 +173,165 @@ public class Employee extends Person {
 	}
 
 	public Uplift getCurrentUplift( ) {
-		return current;
+		String query = "select * from uplift where refe = '" + empl_ref
+						+ "' order by id desc";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		Uplift u = new Uplift( );
+
+		try {
+			while (r.next( )) {
+				u.setEmployeeReference(empl_ref);
+				u.setRank(r.getShort("echlon"));
+				u.setDate(DateUtil.parseDate(r.getString("updatee")));
+				u.setGrade(r.getShort("scalee"));
+				u.setIndice(r.getString("indice"));
+				break;
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
+		}
+
+		return u;
 	}
 
 	public void setCurrentUplift(Uplift current) {
-		this.current = current;
 	}
 
 	@Override
-	public boolean add( ) {
-		try {
-			Employee nempl = this;
+	public void add( ) {
+		String query = "insert into employee values('" + empl_ref + "','" + name
+						+ "','" + fname + "','" + bplace + "','"
+						+ DateUtil.parseDate(bday) + "','" + ismoroccan + "','"
+						+ addr + "','" + phone + "','" + ismarried + "','"
+						+ partnerName + "','" + partnerJob + "','" + nchildren
+						+ "','" + bplace_ar + "','" + name_ar + "','" + fname_ar
+						+ "','" + addr_ar + "')";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 
-			Element e = new Element("employee");
-			e.setAttribute("department", nempl.getDepartment( ));
-			e.setAttribute("reference", nempl.getEmployeeReference( ));
+		query = "insert into admini values('" + empl_ref + "','" + cadre + "','"
+						+ fstatus + "','" + CIN + "','" + mission + "','"
+						+ DateUtil.parseDate(hdate) + "','"
+						+ DateUtil.parseDate(jdate) + "','" + reason + "','"
+						+ pjob + "','" + cjob + "','" + dep + "')";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 
-			Element notes = new Element("notes");
-			notes.setText(nempl.getNotes( ));
-			e.addContent(notes);
-
-			Element personal = new Element("personal");
-			Element name = new Element("name");
-			name.setText(nempl.getName( ) + " ");
-
-			Element fname = new Element("familyname");
-			fname.setText(nempl.getFamilyName( ) + " ");
-
-			Element bplace = new Element("brithplace");
-			bplace.setText(nempl.getBirthPlace( ) + " ");
-
-			Element bday = new Element("birth");
-			bday.setText(DateUtil.parseDate(nempl.getBirthDay( )));
-
-			Element addr = new Element("address");
-			addr.setText(nempl.getAddress( ) + " ");
-
-			Element phone = new Element("phone");
-			phone.setText(nempl.getPhone( ) + " ");
-
-			Element state = new Element("state");
-			state.setAttribute("married", nempl.isMarried( ) ? "t" : "nil");
-
-			Element isma = new Element("nationality");
-			isma.setAttribute("ma", nempl.isMoroccan( ) ? "t" : "nil");
-
-			Element partner = new Element("partner");
-			partner.setAttribute("name", nempl.getPartnerName( ));
-			partner.setAttribute("job", nempl.getPartnerJob( ));
-
-			Element children = new Element("children");
-			children.setAttribute("number", "" + nempl.getNumberOfChildren( ));
-
-			personal.addContent(name);
-			personal.addContent(fname);
-			personal.addContent(bday);
-			personal.addContent(bplace);
-			personal.addContent(addr);
-			personal.addContent(phone);
-			personal.addContent(state);
-			personal.addContent(isma);
-			personal.addContent(partner);
-			personal.addContent(children);
-			e.addContent(personal);
-
-			// administrative tag
-			Element admini = new Element("administrative");
-
-			Element cin = new Element("cin");
-			cin.setText(nempl.getCIN( ) + " ");
-
-			Element mission = new Element("mission");
-			mission.setText(nempl.getMission( ) + " ");
-
-			Element jday = new Element("jday");
-			jday.setText(DateUtil.parseDate(nempl.getJoinDate( )));
-
-			Element hday = new Element("hday");
-			hday.setText(DateUtil.parseDate(nempl.getHiringDate( )));
-
-			Element reason = new Element("reason");
-			reason.setText(nempl.getReason( ) + " ");
-
-			Element pjob = new Element("pjob");
-			pjob.setText(nempl.getPreviousJob( ));
-
-			Element cjob = new Element("cjob");
-			cjob.setText(nempl.getCurrentJob( ));
-
-			Element cadre = new Element("cadre");
-			cadre.setText(nempl.getCadre( ).toString( ));
-
-			Element fstate = new Element("fstatus");
-			fstate.setText(nempl.getFinancialStatus( ));
-
-			admini.addContent(cin);
-			admini.addContent(mission);
-			admini.addContent(jday);
-			admini.addContent(hday);
-			admini.addContent(reason);
-			admini.addContent(pjob);
-			admini.addContent(cjob);
-			admini.addContent(cadre);
-			admini.addContent(fstate);
-			e.addContent(admini);
-
-			XmlFile xml = new XmlFile( );
-			Document doc = xml.getDoc( );
-			Element root = xml.getRoot( );
-
-			root.addContent(e);
-			doc.setContent(root);
-
-			XmlFile.writeXml(doc);
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
 	}
 
 	@Override
-	public boolean update(Employee newempl) {
-		try {
-			Element empl = getElement( ), personal, admini;
+	public void update(Employee e) {
+		String query = "update employee set dep = '" + e.dep + "',fisrt_name ='"
+						+ e.name + "',last_name='" + e.fname + "',bplace='"
+						+ e.bplace + "',bdate='" + DateUtil.parseDate(e.bday)
+						+ "',nationa='" + e.ismoroccan + "',address='" + e.addr
+						+ "',phone='" + e.phone + "',ismarried='" + e.ismarried
+						+ "',partner_name='" + e.partnerName + "',partner_job='"
+						+ e.partnerJob + "',children='" + e.nchildren
+						+ "',bplace_ar='" + e.bplace_ar + "',fisrt_name_ar='"
+						+ e.name_ar + "',last_name_ar='" + e.fname_ar
+						+ "',address_ar='" + e.addr_ar + "' where refe = '"
+						+ empl_ref + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 
-			empl.getChild("notes").setText(newempl.getNotes( ));
-			empl.getAttribute("department").setValue(newempl.getDepartment( ));
-			empl.getAttribute("reference")
-							.setValue(newempl.getEmployeeReference( ));
-
-			// personal tag
-			personal = empl.getChild("personal");
-
-			XmlFile.updateOrCreate(personal, "name", newempl.getName( ));
-
-			XmlFile.updateOrCreate(
-				personal, "name_ar", newempl.getNameArabic( ));
-			XmlFile.updateOrCreate(
-				personal, "familyname_ar", newempl.getFamilyNameArabic( ));
-			XmlFile.updateOrCreate(
-				personal, "address_ar", newempl.getAddressArabic( ));
-			XmlFile.updateOrCreate(
-				personal, "birthplace_ar", newempl.getBirthPlaceArabic( ));
-
-			XmlFile.updateOrCreate(
-				personal, "familyname", newempl.getFamilyName( ));
-
-			personal.getChild("nationality").getAttribute("ma")
-							.setValue(newempl.isMoroccan( ) ? "t" : "nil");
-			personal.getChild("birth").setText(
-				DateUtil.parseDate(newempl.getBirthDay( )));
-
-			XmlFile.updateOrCreate(personal, "address", newempl.getAddress( ));
-			XmlFile.updateOrCreate(
-				personal, "birthplace", newempl.getBirthPlace( ));
-			XmlFile.updateOrCreate(personal, "phone", newempl.getPhone( ));
-			personal.getChild("state").getAttribute("married")
-							.setValue(newempl.isMarried( ) ? "t" : "nil");
-
-			try {
-				Element tmp = personal.getChild("partner");
-				personal.getChild("children").getAttribute("number")
-								.setValue("" + newempl.getNumberOfChildren( ));
-
-				tmp.getAttribute("name").setValue(newempl.getPartnerName( ));
-				tmp.getAttribute("job").setValue(newempl.getPartnerJob( ));
-			} catch (Exception ex) {}
-
-			// administrative tag
-			admini = empl.getChild("administrative");
-
-			XmlFile.updateOrCreate(admini, "cin", newempl.getCIN( ));
-			XmlFile.updateOrCreate(admini, "mission", newempl.getMission( ));
-			XmlFile.updateOrCreate(admini, "reason", newempl.getReason( ));
-			XmlFile.updateOrCreate(admini, "pjob", newempl.getPreviousJob( ));
-			XmlFile.updateOrCreate(admini, "cjob", newempl.getCurrentJob( ));
-			XmlFile.updateOrCreate(
-				admini, "fstatus", newempl.getFinancialStatus( ));
-
-			admini.getChild("cin").setText(newempl.getCIN( ));
-			admini.getChild("jday").setText(
-				DateUtil.parseDate(newempl.getJoinDate( )));
-			admini.getChild("hday").setText(
-				DateUtil.parseDate(newempl.getHiringDate( )));
-			admini.getChild("cadre").setText(newempl.getCadre( ).toString( ));
-
-			System.err.println(empl);
-			XmlFile.writeXml(empl.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+		query = "update admini set cadre = '" + e.cadre + "',fstatus='"
+						+ fstatus + "',cin='" + e.CIN + "',mission='"
+						+ e.mission + "',hday='" + DateUtil.parseDate(e.hdate)
+						+ "',jday='" + DateUtil.parseDate(e.jdate)
+						+ "',reason='" + reason + "',pjob='" + e.pjob
+						+ "',cjob='" + e.cjob + "' where refe = '" + empl_ref
+						+ "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean remove( ) {
-		try {
-			Element e = getElement( );
-			Document d = e.getDocument( );
-			e.detach( );
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(d);
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
-	}
+	public void remove( ) {
+		String query = "delete from employee where refe='" + empl_ref + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 
-	@Override
-	public Element getElement( ) {
-		Iterator<Element> i;
-		Element e;
-
-		i = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
-		while (i.hasNext( )) {
-			e = i.next( );
-			if (e.getAttributeValue("reference").compareTo(empl_ref) != 0) {
-				continue;
-			} else return e;
-		}
-
-		return null;
-	}
-
-	public static Element getEmployeeElement(String ref) {
-		Iterator<Element> i;
-		Element e;
-
-		i = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
-		while (i.hasNext( )) {
-			e = i.next( );
-			if (e.getAttributeValue("reference").compareTo(ref) != 0) {
-				continue;
-			} else return e;
-		}
-
-		return null;
+		query = "delete from admini where refe='" + empl_ref + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	public static Employee initEmployee(Employee empl, String ref) {
-		Element e = Employee.getEmployeeElement(ref), foo, bar;
-		// List<Element> dips, ups;
 
-		empl.setNotes(e.getChildTextTrim("notes"));
-		empl.setDepartment(e.getAttributeValue("department"));
-
-		// personal tag
-		foo = e.getChild("personal");
-
-		empl.setNameArabic((String) foo.getChildTextTrim("name_ar"));
-		empl.setFamilyNameArabic(
-			(String) foo.getChildTextTrim("familyname_ar"));
-		empl.setBirthPlaceArabic(
-			(String) foo.getChildTextTrim("brithplace_ar"));
-		empl.setAddressArabic((String) foo.getChildTextTrim("address_ar"));
-
-		empl.setName(foo.getChildTextTrim("name"));
-		empl.setFamilyName(foo.getChildTextTrim("familyname"));
-		empl.setName(foo.getChildTextTrim("name"));
-		empl.setFamilyName(foo.getChildTextTrim("familyname"));
-		empl.setIsMoroccan(
-			foo.getChild("nationality").getAttributeValue("ma")
-							.compareTo("t") == 0);
-		empl.setBirthDay(DateUtil.parseDate(foo.getChildTextTrim("birth")));
-
-		empl.setBirthPlace(foo.getChildTextTrim("brithplace"));
-		empl.setAddress(foo.getChildTextTrim("address"));
-
-		empl.setPhone(foo.getChildTextTrim("phone"));
-		empl.setIsMarried(
-			foo.getChild("state").getAttributeValue("married")
-							.compareTo("t") == 0);
+		String query = "select * from employee e, admini a"
+						+ " where e.refe = a.refe and e.refe = '" + ref + "'";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
 
 		try {
-			Element tmp = foo.getChild("partner");
-			String str = foo.getChild("children").getAttributeValue("number");
-			empl.setNumberOfchildren(Short.parseShort(str));
-			empl.setPartnerName(tmp.getAttributeValue("name"));
-			empl.setPartnerJob(tmp.getAttributeValue("job"));
-		} catch (Exception ex) {
-			empl.setPartnerName(null);
-			empl.setPartnerJob(null);
-			empl.setNumberOfchildren((short) 0);
+			while (r.next( )) {
+				empl.setDepartment(r.getString("dep"));
+				empl.setNameArabic(r.getString("first_name_ar"));
+				empl.setFamilyNameArabic(r.getString("last_name_ar"));
+				empl.setBirthPlaceArabic(r.getString("bplace_ar"));
+				empl.setAddressArabic(r.getString("address_ar"));
+
+				empl.setName(r.getString("fisrt_name"));
+				empl.setFamilyName(r.getString("last_name_ar"));
+				empl.setIsMoroccan(r.getBoolean("nationa"));
+				empl.setBirthDay(DateUtil.parseDate(r.getString("bdate")));
+
+				empl.setBirthPlace(r.getString("bplace"));
+				empl.setAddress(r.getString("address"));
+
+				empl.setPhone(r.getString("phone"));
+				empl.setIsMarried(r.getBoolean("ismarried"));
+
+				empl.setNumberOfchildren(r.getShort("children"));
+				empl.setPartnerName(r.getString("partner_name"));
+				empl.setPartnerJob(r.getString("partner_job"));
+
+				empl.setEmployeeReference(ref);
+				empl.setCIN(r.getString("cin"));
+				empl.setMission(r.getString("mission"));
+				empl.setJoinDate(DateUtil.parseDate(r.getString("jday")));
+				empl.setHiringDate(DateUtil.parseDate(r.getString("hday")));
+				empl.setReason(r.getString("reason"));
+				empl.setPreviousJob(r.getString("pjob"));
+				empl.setCurrentJob(r.getString("cjob"));
+				empl.setCadre(r.getString("cadre"));
+				empl.setFinancialStatus(r.getString("fstatus"));
+
+				empl.setUplifts(Uplift.getUplifts(ref));
+				empl.setCurrentUplift(Uplift.getCurrentUplift(ref));
+				empl.setDiplomas(Diploma.getDiplomas(ref));
+				empl.setMedicalCertifs(MedicalCertif.getMedicalCertifs(ref));
+				empl.setRepayments(Repayment.getRepayments(ref));
+
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
 		}
-
-		// administrative tag
-		bar = e.getChild("administrative");
-
-		empl.setEmployeeReference(ref);
-		empl.setCIN(bar.getChildTextTrim("cin"));
-		empl.setMission(bar.getChildTextTrim("mission"));
-		empl.setJoinDate(DateUtil.parseDate(bar.getChildTextTrim("jday")));
-		empl.setHiringDate(DateUtil.parseDate(bar.getChildTextTrim("hday")));
-		empl.setReason(bar.getChildTextTrim("reason"));
-		empl.setPreviousJob(bar.getChildTextTrim("pjob"));
-		empl.setCurrentJob(bar.getChildTextTrim("cjob"));
-		empl.setCadre(bar.getChildTextTrim("cadre"));
-		empl.setFinancialStatus(bar.getChildTextTrim("fstatus"));
-		//
-		empl.setUplifts(Uplift.getUplifts(e));
-		empl.setCurrentUplift(Uplift.getCurrentUplift(e));
-		empl.setDiplomas(Diploma.getDiplomas(e));
-		empl.setMedicalCertifs(MedicalCertif.getMedicalCertifs(e));
-		empl.setRepayments(Repayment.getRepayments(e));
 
 		return empl;
 	}
 
-	public static int getLastEmployeeXmlReference( ) {
-		int lastid = 0, limit = Integer.MAX_VALUE;
+	public static ArrayList<Employee> getAllEmployees( ) {
+		ArrayList<Employee> list = new ArrayList<Employee>( );
+		ArrayList<String> str = new ArrayList<String>( );
 
-		for (Element el : new XmlFile( ).getRoot( ).getChildren( )) {
-			lastid = Integer.parseInt(el.getAttributeValue("reference"));
-			if (limit == 0) break;
-			else limit--;
+		String query = "select refe from employee ";
+		System.err.println(query);
+
+		ResultSet r = new DAO( ).exec(query, false);
+		try {
+			while (r.next( )) {
+				str.add(r.getString("refe"));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
 		}
 
-		return lastid;
-	}
-
-	public static ArrayList<Employee> getAllEmployees( ) {
-		Iterator<Element> i;
-		Element e;
-		ArrayList<Employee> list = new ArrayList<Employee>( );
-
-		i = new XmlFile( ).getRoot( ).getChildren( ).iterator( );
-		while (i.hasNext( )) {
-			e = i.next( );
-			list.add(new Employee(e.getAttributeValue("reference")));
+		for (String ref : str) {
+			list.add(Employee.initEmployee(new Employee( ), ref));
 		}
 
 		return list;

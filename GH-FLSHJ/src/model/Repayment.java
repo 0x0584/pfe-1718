@@ -1,18 +1,16 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.jdom2.Attribute;
-import org.jdom2.Element;
+import app.utils.DAO;
+import app.utils.DAObject;
 
-import app.utils.XmlElement;
-import app.utils.XmlFile;
-
-public class Repayment extends XmlElement<Repayment> {
+public class Repayment extends DAObject<Repayment> {
 	private int id, ndays, repayed_days;
 	private String period;
 
@@ -32,7 +30,7 @@ public class Repayment extends XmlElement<Repayment> {
 	}
 
 	public int getRest( ) {
-		return ndays - repayed_days;
+		return Math.abs(ndays - repayed_days);
 	}
 
 	public String getPeriod( ) {
@@ -68,91 +66,29 @@ public class Repayment extends XmlElement<Repayment> {
 	}
 
 	@Override
-	public boolean add( ) {
-		try {
-			Element empl = Employee.getEmployeeElement(empl_ref);
-			Element xml_repayed = new Element("repayment");
-			Element ndays = new Element("ndays");
-			Element repayed = new Element("repayed");
-			Element period = new Element("period");
-
-			repayed.addContent("" + repayed_days);
-			ndays.addContent("" + ndays);
-			period.addContent(period);
-
-			Attribute id = new Attribute("id",
-				"" + (Repayment.getLastRepaymentXmlId(empl) + 1));
-			xml_repayed.setAttribute(id);
-			xml_repayed.addContent(repayed);
-			xml_repayed.addContent(ndays);
-			xml_repayed.addContent(period);
-			empl.addContent(xml_repayed);
-
-			System.err.println(empl.toString( ));
-			XmlFile.writeXml(empl.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void add( ) {
+		String query = "insert into repayment value('" + empl_ref + "','" + id
+						+ "','" + repayed_days + "','" + ndays + "','" + period
+						+ "');";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean update(Repayment updated) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChildren("repayment");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
-					el.getChild("repayed").setText("" + updated.repayed_days);
-					el.getChild("ndays").setText("" + updated.ndays);
-					el.getChild("period").setText(updated.period);
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
+	public void update(Repayment u) {
+		String query = "update repayment set repayed='" + u.repayed_days
+						+ "', ndays='" + u.ndays + "',period='" + u.period
+						+ "' where refe='" + empl_ref + "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	@Override
-	public boolean remove( ) {
-		try {
-			Element e = Employee.getEmployeeElement(empl_ref);
-			List<Element> list = e.getChildren("repayment");
-
-			for (Element el : list) {
-				if (el.getAttributeValue("id").compareTo("" + id) == 0) {
-					el.detach( );
-					break;
-				}
-			}
-
-			System.err.println(e.toString( ));
-			XmlFile.writeXml(e.getDocument( ));
-			return true;
-		} catch (Exception x) {
-			System.err.println(x.getMessage( ));
-			return false;
-		}
-	}
-
-	@Override
-	public Element getElement( ) {
-		Element empl = Employee.getEmployeeElement(empl_ref);
-		List<Element> dlist = empl.getChildren("repayment");
-
-		for (Element e : dlist) {
-			if (e.getAttributeValue("id").compareTo("" + id) == 0) { return e; }
-		}
-
-		return null;
+	public void remove( ) {
+		String query = "delete from repayment where refe='" + empl_ref
+						+ "' and id='" + id + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
 	}
 
 	public static TableModel getRepaymentModel(Employee empl) {
@@ -164,40 +100,37 @@ public class Repayment extends XmlElement<Repayment> {
 		}
 		for (Repayment r : empl.getRepayments( )) {
 			model.addRow(new String[] {
-							r.getPeriod( ), "" + r.getNumberOfDays( ),
-							"" + r.getRepayedDays( ), "" + r.getRest( )
+							r.getPeriod( ), "" + r.getRepayedDays( ),
+							"" + r.getNumberOfDays( ), "" + r.getRest( )
 			});
 		}
-	
+
 		return model;
 	}
 
-	public static ArrayList<Repayment> getRepayments(Employee empl) {
-		return getRepayments(empl.getElement( ));
-	}
-	
-	public static ArrayList<Repayment> getRepayments(Element empl) {
-		List<Element> dlist = empl.getChildren("repayment");
+	public static ArrayList<Repayment> getRepayments(String ref) {
+
 		ArrayList<Repayment> tmp = new ArrayList<Repayment>( );
-		for (Element e : dlist) {
-			Repayment r = new Repayment( );
-			r.setEmployeeReference(empl.getAttributeValue("reference"));
-			r.setId(Integer.parseInt(e.getAttributeValue("id")));
-			r.setNumberOfDays(Integer.parseInt(e.getChildTextTrim("ndays")));
-			r.setPeriod(e.getChildTextTrim("period"));
-			r.setRepayedDays(Integer.parseInt(e.getChildTextTrim("repayed")));
-			tmp.add(r);
+		String query = "select * from repayment where refe = '" + ref
+						+ "' order by id desc";
+		System.err.println(query);
+		ResultSet r = new DAO( ).exec(query, false);
+
+		try {
+			while (r.next( )) {
+				Repayment rr = new Repayment( );
+				rr.setEmployeeReference(ref);
+				rr.setId(r.getInt("id"));
+				rr.setNumberOfDays(r.getInt("ndays"));
+				rr.setPeriod(r.getString("period"));
+				rr.setRepayedDays(r.getInt("repayed"));
+				tmp.add(rr);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage( ));
 		}
 
 		return tmp;
-	}
-
-	public static int getRepaymentXmlId(Element empl, int limit) {
-		return XmlFile.getChildId("repayment", empl, limit);
-	}
-
-	public static int getLastRepaymentXmlId(Element empl) {
-		return XmlFile.getChildId("repayment", empl, Integer.MAX_VALUE);
 	}
 
 }

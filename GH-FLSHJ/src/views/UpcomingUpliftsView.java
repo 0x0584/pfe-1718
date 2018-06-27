@@ -73,7 +73,7 @@ public class UpcomingUpliftsView {
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
 //		frame.setBounds(100, 100, Printer.A4_STD_WIDTH, Printer.A4_STD_HEIGHT);
-		frame.setBounds(100, 100, 733, 1054);
+		frame.setBounds(100, 100, 733, 792);
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
@@ -145,12 +145,12 @@ public class UpcomingUpliftsView {
 		JLabel lblElJadidaLe = new JLabel(
 			String.format("El Jadida le: %s", fmt.format(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblElJadidaLe.setBounds(528, 888, 181, 48);
+		lblElJadidaLe.setBounds(528, 706, 181, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setEnabled(false);
-		scrollPane.setBounds(20, 172, 682, 704);
+		scrollPane.setBounds(20, 172, 682, 518);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable(model);
