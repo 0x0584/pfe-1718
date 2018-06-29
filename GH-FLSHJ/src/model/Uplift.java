@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import app.InNext;
 import app.Period;
 import app.utils.DAO;
 import app.utils.DAObject;
@@ -252,7 +251,7 @@ public class Uplift extends DAObject<Uplift> {
 		for (String str : new String[] {
 						"التاريخ", "الرقم الإستدلالي",
 
-						"الرتبة", "السلم",
+						"السلم", "الرتبة",
 		}) {
 			model.addColumn(str);
 		}
@@ -260,7 +259,7 @@ public class Uplift extends DAObject<Uplift> {
 		for (Uplift u : getUplifts(empl.getEmployeeReference( ))) {
 			model.addRow(new String[] {
 							DateUtil.parseDate(u.getDate( )), u.getIndice( ),
-							"" + u.getRank( ), "" + u.getGrade( )
+							"" + u.getGrade( ), "" + u.getRank( ),
 			});
 		}
 
@@ -317,7 +316,7 @@ public class Uplift extends DAObject<Uplift> {
 
 	@SuppressWarnings("deprecation")
 	public static TableModel getInNextModel(int i) {
-		Date todate = InNext.parse(i);
+	
 		DefaultTableModel model = new DefaultTableModel( );
 		String[] cols = new String[] {
 						"ر. التأجير", "ب.ت.و.", "الإسم الكامل",
@@ -334,7 +333,7 @@ public class Uplift extends DAObject<Uplift> {
 			Uplift next = e.getCurrentUplift( ).next( );
 			Date nextdate = next.getDate( );
 
-			if (nextdate.getYear( ) == todate.getYear( )) {
+			if (nextdate.getYear( ) == i) {
 				String fullname = e.getName( ) + " "
 								+ e.getFamilyName( ).toUpperCase( );
 				model.addRow(new String[] {

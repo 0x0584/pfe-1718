@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class DAO {
 	public static String driver = "com.mysql.jdbc.Driver",
-					con = "jdbc:mysql://localhost:3306/mydb", req = "";
+					con = "jdbc:mysql://127.0.0.1:3306/mydb", req = "";
 
 	Connection conn;
 	Statement st;

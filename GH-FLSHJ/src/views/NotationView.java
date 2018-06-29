@@ -315,7 +315,7 @@ public class NotationView {
 		lbl_bday.setBounds(370, 50, 145, 15);
 		panel.add(lbl_bday);
 
-		JLabel lbl_ismarried = new JLabel(e.isMarried( ) ? "نعم" : "لا");
+		JLabel lbl_ismarried = new JLabel(e.isMarried( ));
 		lbl_ismarried.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_ismarried.setBounds(370, 69, 145, 18);
 		panel.add(lbl_ismarried);
@@ -623,9 +623,9 @@ public class NotationView {
 		panel_10.setBounds(0, 0, 690, 23);
 		panel_9.add(panel_10);
 
-		JLabel label_29 = new JLabel("النقطة الممنوحة");
+		JLabel label_29 = new JLabel("معدل النقط المحصل عليها");
 		label_29.setFont(new Font("Arial", Font.BOLD, 18));
-		label_29.setBounds(564, 1, 97, 25);
+		label_29.setBounds(503, 1, 158, 25);
 		panel_10.add(label_29);
 
 		JPanel panel_11 = new JPanel( );
@@ -691,9 +691,9 @@ public class NotationView {
 		panel_13.setBounds(0, 12, 690, 23);
 		panel_12.add(panel_13);
 
-		JLabel label_35 = new JLabel("النقطة الممنوحة");
+		JLabel label_35 = new JLabel("نسق الترقية في الرتبة");
 		label_35.setFont(new Font("Arial", Font.BOLD, 18));
-		label_35.setBounds(564, 1, 97, 25);
+		label_35.setBounds(519, 1, 142, 25);
 		panel_13.add(label_35);
 
 	}

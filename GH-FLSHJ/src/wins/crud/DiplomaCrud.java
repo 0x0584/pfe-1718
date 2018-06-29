@@ -164,6 +164,7 @@ public class DiplomaCrud {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Diploma d = getSelectedDiploma(empl, table);
+				d.setEmployeeReference(empl.getEmployeeReference( ));
 				d.remove( );
 				table.setModel(
 					Diploma.getDiplomasModel(

@@ -99,7 +99,8 @@ public class UpliftsWin {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					new InfoCrud(new Employee(tbl_upcoming.getModel( )
-									.getValueAt(tbl_upcoming.getSelectedRow( ), 0)
+									.getValueAt(
+										tbl_upcoming.getSelectedRow( ), 0)
 									.toString( ))).getFrame( ).setVisible(true);
 				} catch (Exception x) {
 					System.err.println(x.getMessage( ));
@@ -138,7 +139,26 @@ public class UpliftsWin {
 		btnConfirm.setFont(new Font("Arial", Font.BOLD, 15));
 		btnConfirm.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				Uplift u = getSelectedUplift(tbl_pending);
+				Uplift u = new Uplift( );
+
+				short grade = Short.parseShort(
+					tbl_pending.getModel( )
+									.getValueAt(
+										tbl_pending.getSelectedRow( ), 3)
+									.toString( ));
+				short rank = Short.parseShort(
+					tbl_pending.getModel( )
+									.getValueAt(
+										tbl_pending.getSelectedRow( ), 4)
+									.toString( ));
+				String ref = tbl_pending.getModel( )
+								.getValueAt(tbl_pending.getSelectedRow( ), 0)
+								.toString( );
+				u.setEmployeeReference(ref);
+				u.setGrade(grade);
+				u.setRank(rank);
+				u.setDate(new Date( ));
+
 				new UpliftCrud(u).getFrame( ).setVisible(true);
 			}
 		});
@@ -178,9 +198,10 @@ public class UpliftsWin {
 		button_2.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new InfoCrud(new Employee(
-						getSelectedUplift(tbl_pending).getEmployeeReference( )))
-										.getFrame( ).setVisible(true);
+					new InfoCrud(new Employee(tbl_pending.getModel( )
+									.getValueAt(
+										tbl_pending.getSelectedRow( ), 0)
+									.toString( ))).getFrame( ).setVisible(true);
 				} catch (Exception x) {
 					System.err.println(x.getMessage( ));
 				}
@@ -188,32 +209,32 @@ public class UpliftsWin {
 		});
 		button_2.setBounds(509, 242, 129, 25);
 		frame.getContentPane( ).add(button_2);
-		
-		JComboBox<InNext> combx = new JComboBox<InNext>();
+
+		JComboBox<InNext> combx = new JComboBox<InNext>( );
 		combx.setFont(new Font("Arial", Font.BOLD, 15));
-		combx.setModel(new DefaultComboBoxModel<InNext>(InNext.values()));
+		combx.setModel(new DefaultComboBoxModel<InNext>(InNext.values( )));
 		combx.setBounds(110, 12, 80, 24);
-		frame.getContentPane().add(combx);
-		
+		frame.getContentPane( ).add(combx);
+
 		JButton button_3 = new JButton("إستخراج");
 		button_3.setFont(new Font("Arial", Font.BOLD, 15));
-		button_3.addActionListener(new ActionListener() {
+		button_3.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				int i = Integer.parseInt(combx.getSelectedItem( ).toString( ));
 				i -= 1900; // date shit!
-				new UpcomingUpliftsView(Uplift.getInNextModel(i)).getFrame( ).setVisible(true);
+				new UpcomingUpliftsView(Uplift.getInNextModel(i)).getFrame( )
+								.setVisible(true);
 			}
 		});
 		button_3.setBounds(12, 12, 86, 25);
-		frame.getContentPane().add(button_3);
-
+		frame.getContentPane( ).add(button_3);
 
 	}
 
 	protected Uplift getSelectedUplift(JTable table) {
 		Employee empl = new Employee(table.getModel( )
 						.getValueAt(table.getSelectedRow( ), 0).toString( ));
-		
+
 		String indice = table.getModel( ).getValueAt(table.getSelectedRow( ), 1)
 						.toString( );
 		Date date = DateUtil.parseDate(

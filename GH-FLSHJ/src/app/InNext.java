@@ -5,7 +5,7 @@ import java.util.Date;
 import app.utils.DateUtil;
 
 public enum InNext {
-	_0(0), _1(1), _2(2), _3(3), _4(4);
+	_0(0), _1(1), _2(2), _3(3);
 	String title;
 	int years_to_add;
 	Date date;
@@ -14,7 +14,7 @@ public enum InNext {
 	InNext(int yta) {
 		this.years_to_add = yta;
 		this.date = DateUtil.add(Period.ONE_YEAR, new Date( ), yta);
-		this.title = "" + (date.getYear( ) - 100 + 2000);
+		this.title = "" + (date.getYear( ) + 1900);
 	}
 
 	public Date getDate( ) {
@@ -26,10 +26,9 @@ public enum InNext {
 		return title;
 	}
 
-	
 	@SuppressWarnings("deprecation")
 	public static Date parse(int i) {
-		Date d = new Date();
+		Date d = new Date( );
 		d.setYear(i);
 		return d;
 	}

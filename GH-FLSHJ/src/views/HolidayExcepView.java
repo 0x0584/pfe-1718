@@ -71,7 +71,7 @@ public class HolidayExcepView {
 
 		frame = new JFrame( );
 		frame.getContentPane( ).setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 733, 1054);
+		frame.setBounds(100, 100, 733, 773);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane( ).setLayout(null);
 
@@ -142,43 +142,43 @@ public class HolidayExcepView {
 		JLabel lblLeDoyenDe = new JLabel(
 			"Le Doyen de la faculte des Lettres et des Sciences Humaines");
 		lblLeDoyenDe.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblLeDoyenDe.setBounds(110, 235, 485, 33);
+		lblLeDoyenDe.setBounds(110, 204, 485, 33);
 		frame.getContentPane( ).add(lblLeDoyenDe);
 
 		JLabel lblAttesteQueMr = new JLabel("d'El Jadida");
 		lblAttesteQueMr.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblAttesteQueMr.setBounds(70, 249, 525, 36);
+		lblAttesteQueMr.setBounds(70, 219, 525, 36);
 		frame.getContentPane( ).add(lblAttesteQueMr);
 
 		JLabel lblNomCompletes = new JLabel(String.format(
 			"Nom complete: %s %s", e.getFamilyName( ), e.getName( )));
 		lblNomCompletes.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNomCompletes.setBounds(110, 482, 431, 29);
+		lblNomCompletes.setBounds(110, 444, 431, 29);
 		frame.getContentPane( ).add(lblNomCompletes);
 
 		JLabel label_5 = new JLabel(String.format(
-			"Nationalite: %s", e.isMoroccan( ) ? "Maroccaine" : "Etrange"));
+			"Nationalite: %s", e.isMoroccan( )));
 		label_5.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_5.setBounds(110, 505, 431, 33);
+		label_5.setBounds(110, 466, 431, 33);
 		frame.getContentPane( ).add(label_5);
 
 		JLabel label_6 = new JLabel(
 			String.format("Grade: %s", e.getCurrentUplift( ).getGrade( )));
 		///
 		label_6.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_6.setBounds(110, 532, 159, 33);
+		label_6.setBounds(110, 489, 159, 33);
 		frame.getContentPane( ).add(label_6);
 
 		JLabel label_7 = new JLabel(
 			String.format("S.O.M.: %s", e.getEmployeeReference( )));
 		label_7.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_7.setBounds(110, 559, 431, 33);
+		label_7.setBounds(110, 514, 431, 33);
 		frame.getContentPane( ).add(label_7);
 
 		JLabel lblElJadidaLe = new JLabel(
 			String.format("El Jadida le: %s", DateUtil.parseDate(new Date( ))));
 		lblElJadidaLe.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblElJadidaLe.setBounds(270, 816, 193, 48);
+		lblElJadidaLe.setBounds(270, 674, 193, 48);
 		frame.getContentPane( ).add(lblElJadidaLe);
 
 		JLabel lblAttestationDeTravail = new JLabel("Conge Exceptionnel");
@@ -196,75 +196,75 @@ public class HolidayExcepView {
 		JLabel lblVueLrDahir = new JLabel(
 			"Vue le Dahir N 1.58.008 du 04 Chaabane 1377 (24/02/1958)");
 		lblVueLrDahir.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblVueLrDahir.setBounds(110, 280, 485, 36);
+		lblVueLrDahir.setBounds(110, 251, 485, 36);
 		frame.getContentPane( ).add(lblVueLrDahir);
 
 		JLabel lblPortantStautGeneral = new JLabel(
 			"portant staut general de la fontion publique tel qu'ill a ete modifie ");
 		lblPortantStautGeneral.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblPortantStautGeneral.setBounds(70, 295, 525, 36);
+		lblPortantStautGeneral.setBounds(70, 273, 525, 36);
 		frame.getContentPane( ).add(lblPortantStautGeneral);
 
 		JLabel lblEtComplete = new JLabel("et complete");
 		lblEtComplete.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblEtComplete.setBounds(70, 311, 525, 36);
+		lblEtComplete.setBounds(70, 296, 525, 36);
 		frame.getContentPane( ).add(lblEtComplete);
 
 		JLabel lblDecide = new JLabel("Arrete");
 		lblDecide.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 19));
-		lblDecide.setBounds(322, 404, 88, 15);
+		lblDecide.setBounds(322, 394, 88, 15);
 		frame.getContentPane( ).add(lblDecide);
 
 		JLabel lblArticleUnique = new JLabel("Article 1");
 		lblArticleUnique.setFont(
 			new Font("Arial", Font.BOLD | Font.ITALIC, 19));
-		lblArticleUnique.setBounds(70, 435, 158, 15);
+		lblArticleUnique.setBounds(70, 414, 158, 15);
 		frame.getContentPane( ).add(lblArticleUnique);
 
 		JLabel label_8 = new JLabel("- Vu la demande de l'interesse(e) ");
 		label_8.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_8.setBounds(70, 343, 525, 36);
+		label_8.setBounds(70, 321, 525, 36);
 		frame.getContentPane( ).add(label_8);
 
 		JLabel label_9 = new JLabel(
 			"- Vu l'avis favorable du chef du departement concerne: ");
 		label_9.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_9.setBounds(70, 363, 525, 36);
+		label_9.setBounds(70, 346, 525, 36);
 		frame.getContentPane( ).add(label_9);
 
 		JLabel label_10 = new JLabel(
 			"L'interesse(e) est autorise(e) a quitter le territoire national durant");
 		label_10.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_10.setBounds(110, 653, 513, 39);
+		label_10.setBounds(110, 570, 513, 39);
 		frame.getContentPane( ).add(label_10);
 
 		JLabel label_11 = new JLabel(
 			String.format(" la period susvise pour: %s", raison));
 		label_11.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_11.setBounds(70, 676, 566, 29);
+		label_11.setBounds(70, 597, 566, 29);
 		frame.getContentPane( ).add(label_11);
 
 		JLabel label_12 = new JLabel(
 			"L'interesse(e) doit, a l'expiration de ce conge aviser le service competent");
 		label_12.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_12.setBounds(70, 704, 566, 33);
+		label_12.setBounds(70, 620, 566, 33);
 		frame.getContentPane( ).add(label_12);
 
 		JLabel label_13 = new JLabel("de la reprise de ses fonction");
 		label_13.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_13.setBounds(70, 719, 356, 33);
+		label_13.setBounds(70, 643, 356, 33);
 		frame.getContentPane( ).add(label_13);
 
 		JLabel label_14 = new JLabel("Article 2");
 		label_14.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 19));
-		label_14.setBounds(70, 638, 158, 15);
+		label_14.setBounds(70, 555, 158, 15);
 		frame.getContentPane( ).add(label_14);
 
 		JLabel label_15 = new JLabel(String.format(
 			"un conge exceptionnel du %s a %s", DateUtil.parseDate(from),
 			DateUtil.parseDate(to)));
 		label_15.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_15.setBounds(176, 426, 566, 33);
+		label_15.setBounds(176, 407, 566, 33);
 		frame.getContentPane( ).add(label_15);
 
 		JMenuBar menuBar = new JMenuBar( );

@@ -9,7 +9,7 @@ public abstract class Person extends DAObject<Employee> {
 	protected String name_ar, fname_ar, addr_ar, bplace_ar;
 	protected String bplace;
 	protected Date bday;
-	protected boolean ismoroccan, ismarried;
+	protected String ismoroccan, ismarried;
 	protected String partnerName, partnerJob;
 	protected short nchildren;
 
@@ -29,8 +29,8 @@ public abstract class Person extends DAObject<Employee> {
 	 * @param nchildren
 	 */
 	public Person(	String name, String fname, String addr, String phone,
-					String bplace, Date bday, boolean ismoroccan,
-					boolean ismarried, short nchildren) {
+					String bplace, Date bday, String ismoroccan,
+					String ismarried, short nchildren) {
 		super( );
 		this.name = name;
 		this.fname = fname;
@@ -132,19 +132,19 @@ public abstract class Person extends DAObject<Employee> {
 		this.bday = bday;
 	}
 
-	public boolean isMoroccan( ) {
+	public String isMoroccan( ) {
 		return ismoroccan;
 	}
 
-	public void setIsMoroccan(boolean ismoroccan) {
+	public void setIsMoroccan(String ismoroccan) {
 		this.ismoroccan = ismoroccan;
 	}
 
-	public boolean isMarried( ) {
+	public String isMarried( ) {
 		return ismarried;
 	}
 
-	public void setIsMarried(boolean ismarried) {
+	public void setIsMarried(String ismarried) {
 		this.ismarried = ismarried;
 	}
 

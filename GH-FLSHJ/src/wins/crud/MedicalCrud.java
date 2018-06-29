@@ -153,6 +153,7 @@ public class MedicalCrud {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
 				MedicalCertif oldc = getSelectedMedical(empl, table);
+				oldc.setEmployeeReference(empl.getEmployeeReference( ));
 				oldc.remove( );
 				table.setModel(
 					MedicalCertif.getMedicalModel(

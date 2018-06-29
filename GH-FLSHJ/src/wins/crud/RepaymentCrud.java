@@ -153,7 +153,9 @@ public class RepaymentCrud {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
-				getSelectedRepayment(empl, table).remove( );
+				Repayment r = getSelectedRepayment(empl, table);
+				r.setEmployeeReference(empl.getEmployeeReference( ));
+				r.remove( );
 				table.setModel(
 					Repayment.getRepaymentModel(
 						Employee.initEmployee(

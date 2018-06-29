@@ -136,12 +136,12 @@ public class UpliftCrud {
 
 		JLabel label = new JLabel("السلم");
 		label.setFont(new Font("Arial", Font.BOLD, 15));
-		label.setBounds(63, 35, 58, 15);
+		label.setBounds(63, 39, 58, 15);
 		frame.getContentPane( ).add(label);
 
 		JLabel lblFrom = new JLabel("الرقم الإستدلالي");
 		lblFrom.setFont(new Font("Arial", Font.BOLD, 15));
-		lblFrom.setBounds(337, 5, 107, 15);
+		lblFrom.setBounds(323, 5, 107, 15);
 		frame.getContentPane( ).add(lblFrom);
 
 		JLabel lbldate = new JLabel("التاريخ");
@@ -151,7 +151,7 @@ public class UpliftCrud {
 
 		JLabel lblPeriod = new JLabel("الرتبة");
 		lblPeriod.setFont(new Font("Arial", Font.BOLD, 15));
-		lblPeriod.setBounds(361, 35, 58, 15);
+		lblPeriod.setBounds(347, 35, 58, 15);
 		frame.getContentPane( ).add(lblPeriod);
 
 		JButton btnModify = new JButton("تعديل");
@@ -188,6 +188,7 @@ public class UpliftCrud {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Sure?");
 				if (dialogResult != JOptionPane.YES_OPTION) return;
 				Uplift r = getSelectedUplift(empl, table);
+				r.setEmployeeReference(empl.getEmployeeReference( ));
 				r.remove( );
 				table.setModel(
 					Uplift.getUpliftModel(

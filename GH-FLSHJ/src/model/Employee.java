@@ -22,7 +22,7 @@ public class Employee extends Person {
 	protected ArrayList<Diploma> diplomas;
 	protected ArrayList<MedicalCertif> certifs;
 	protected ArrayList<Repayment> repayments;
-	
+
 	public Employee() {
 		this("111");
 	}
@@ -169,7 +169,8 @@ public class Employee extends Person {
 	}
 
 	public boolean isProfessor( ) {
-		return dep != null;
+		if (dep == null) return false;
+		return dep.trim( ).compareTo("") != 0;
 	}
 
 	public Uplift getCurrentUplift( ) {
@@ -196,8 +197,7 @@ public class Employee extends Person {
 		return u;
 	}
 
-	public void setCurrentUplift(Uplift current) {
-	}
+	public void setCurrentUplift(Uplift current) {}
 
 	@Override
 	public void add( ) {
@@ -223,27 +223,27 @@ public class Employee extends Person {
 
 	@Override
 	public void update(Employee e) {
-		String query = "update employee set dep = '" + e.dep + "',fisrt_name ='"
-						+ e.name + "',last_name='" + e.fname + "',bplace='"
-						+ e.bplace + "',bdate='" + DateUtil.parseDate(e.bday)
+		String query = "update employee set fisrt_name ='" + e.name
+						+ "',last_name='" + e.fname + "',bplace='" + e.bplace
+						+ "',bdate='" + DateUtil.parseDate(e.bday)
 						+ "',nationa='" + e.ismoroccan + "',address='" + e.addr
 						+ "',phone='" + e.phone + "',ismarried='" + e.ismarried
 						+ "',partner_name='" + e.partnerName + "',partner_job='"
 						+ e.partnerJob + "',children='" + e.nchildren
-						+ "',bplace_ar='" + e.bplace_ar + "',fisrt_name_ar='"
+						+ "',bplace_ar='" + e.bplace_ar + "',first_name_ar='"
 						+ e.name_ar + "',last_name_ar='" + e.fname_ar
 						+ "',address_ar='" + e.addr_ar + "' where refe = '"
 						+ empl_ref + "'";
 		System.err.println(query);
 		new DAO( ).exec(query, true);
 
-		query = "update admini set cadre = '" + e.cadre + "',fstatus='"
-						+ fstatus + "',cin='" + e.CIN + "',mission='"
-						+ e.mission + "',hday='" + DateUtil.parseDate(e.hdate)
-						+ "',jday='" + DateUtil.parseDate(e.jdate)
-						+ "',reason='" + reason + "',pjob='" + e.pjob
-						+ "',cjob='" + e.cjob + "' where refe = '" + empl_ref
-						+ "'";
+		query = "update admini set dep = '" + e.dep + "',cadre = '" + e.cadre
+						+ "',fstatus='" + fstatus + "',cin='" + e.CIN
+						+ "',mission='" + e.mission + "',hday='"
+						+ DateUtil.parseDate(e.hdate) + "',jday='"
+						+ DateUtil.parseDate(e.jdate) + "',reason='" + reason
+						+ "',pjob='" + e.pjob + "',cjob='" + e.cjob
+						+ "' where refe = '" + empl_ref + "'";
 		System.err.println(query);
 		new DAO( ).exec(query, true);
 	}
@@ -255,6 +255,22 @@ public class Employee extends Person {
 		new DAO( ).exec(query, true);
 
 		query = "delete from admini where refe='" + empl_ref + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
+		
+		query = "delete from uplift where refe='" + empl_ref + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
+		
+		query = "delete from medical where refe='" + empl_ref + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
+		
+		query = "delete from repayment where refe='" + empl_ref + "'";
+		System.err.println(query);
+		new DAO( ).exec(query, true);
+		
+		query = "delete from diploma where refe='" + empl_ref + "'";
 		System.err.println(query);
 		new DAO( ).exec(query, true);
 	}
@@ -275,15 +291,15 @@ public class Employee extends Person {
 				empl.setAddressArabic(r.getString("address_ar"));
 
 				empl.setName(r.getString("fisrt_name"));
-				empl.setFamilyName(r.getString("last_name_ar"));
-				empl.setIsMoroccan(r.getBoolean("nationa"));
+				empl.setFamilyName(r.getString("last_name"));
+				empl.setIsMoroccan(r.getString("nationa"));
 				empl.setBirthDay(DateUtil.parseDate(r.getString("bdate")));
 
 				empl.setBirthPlace(r.getString("bplace"));
 				empl.setAddress(r.getString("address"));
 
 				empl.setPhone(r.getString("phone"));
-				empl.setIsMarried(r.getBoolean("ismarried"));
+				empl.setIsMarried(r.getString("ismarried"));
 
 				empl.setNumberOfchildren(r.getShort("children"));
 				empl.setPartnerName(r.getString("partner_name"));

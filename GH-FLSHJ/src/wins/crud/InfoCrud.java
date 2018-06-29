@@ -15,22 +15,18 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.alee.laf.WebLookAndFeel;
@@ -73,6 +69,8 @@ public class InfoCrud {
 	private JTextField tf_bplace_ar;
 	private JTextField tf_cadre;
 	private JTextField textField_1;
+	private JTextField tf_isma;
+	private JTextField tf_ismaried;
 
 	/**
 	 * Launch the application.
@@ -222,29 +220,6 @@ public class InfoCrud {
 		tf_partner_job.setBounds(403, 103, 148, 29);
 		panel_1.add(tf_partner_job);
 
-		JRadioButton rd_ismarried_yes = new JRadioButton("نعم");
-		rd_ismarried_yes.setFont(new Font("Arial", Font.BOLD, 15));
-		rd_ismarried_yes.addChangeListener(new ChangeListener( ) {
-			public void stateChanged(ChangeEvent e) {
-				tf_partner_job.setEnabled(rd_ismarried_yes.isSelected( ));
-				tf_partner_name.setEnabled(rd_ismarried_yes.isSelected( ));
-				spin_nchildren.setEnabled(rd_ismarried_yes.isSelected( ));
-			}
-		});
-		rd_ismarried_yes.setSelected(empl.isMarried( ));
-		rd_ismarried_yes.setBounds(424, 42, 61, 19);
-		panel_1.add(rd_ismarried_yes);
-
-		JRadioButton rd_ismarried_no = new JRadioButton("لا");
-		rd_ismarried_no.setFont(new Font("Arial", Font.BOLD, 15));
-		rd_ismarried_no.setSelected(false);
-		rd_ismarried_no.setBounds(490, 42, 61, 19);
-		panel_1.add(rd_ismarried_no);
-
-		ButtonGroup bg = new ButtonGroup( );
-		bg.add(rd_ismarried_yes);
-		bg.add(rd_ismarried_no);
-
 		JPanel panel_5 = new JPanel( );
 		panel_5.setLayout(null);
 		panel_5.setBounds(12, 170, 542, 153);
@@ -283,6 +258,12 @@ public class InfoCrud {
 		label_10.setFont(new Font("Arial", Font.BOLD, 15));
 		label_10.setBounds(327, 11, 54, 15);
 		panel_1.add(label_10);
+
+		tf_ismaried = new JTextField(empl.isMarried( ));
+		tf_ismaried.setFont(new Font("Arial", Font.PLAIN, 15));
+		tf_ismaried.setColumns(10);
+		tf_ismaried.setBounds(403, 37, 148, 29);
+		panel_1.add(tf_ismaried);
 
 		JPanel panel_2 = new JPanel( );
 		tabbedPane.addTab("الوضعية الإدارية", null, panel_2, null);
@@ -415,7 +396,7 @@ public class InfoCrud {
 		label_11.setBounds(46, 10, 53, 15);
 		panel_2.add(label_11);
 
-		tf_cadre = new JTextField("");
+		tf_cadre = new JTextField(empl.getCadre( ));
 		tf_cadre.setFont(new Font("Arial", Font.PLAIN, 15));
 		tf_cadre.setColumns(10);
 		tf_cadre.setBounds(410, 8, 148, 29);
@@ -430,29 +411,6 @@ public class InfoCrud {
 		JPanel panel_7 = new JPanel( );
 		tabbedPane.addTab("معلومات إضافية", null, panel_7, null);
 		panel_7.setLayout(null);
-
-		JRadioButton rd_isma_yes = new JRadioButton("نعم");
-		rd_isma_yes.setFont(new Font("Arial", Font.BOLD, 15));
-		rd_ismarried_yes.addChangeListener(new ChangeListener( ) {
-			public void stateChanged(ChangeEvent e) {
-				tf_partner_job.setEnabled(rd_isma_yes.isSelected( ));
-				tf_partner_name.setEnabled(rd_isma_yes.isSelected( ));
-				spin_nchildren.setEnabled(rd_isma_yes.isSelected( ));
-			}
-		});
-		rd_isma_yes.setSelected(empl.isMoroccan( ));
-		rd_isma_yes.setBounds(431, 17, 61, 19);
-		panel_7.add(rd_isma_yes);
-
-		JRadioButton rd_isma_no = new JRadioButton("لا");
-		rd_isma_no.setFont(new Font("Arial", Font.BOLD, 15));
-		rd_isma_no.setSelected(false);
-		rd_isma_no.setBounds(497, 17, 61, 19);
-		panel_7.add(rd_isma_no);
-
-		ButtonGroup bg_ma = new ButtonGroup( );
-		bg_ma.add(rd_isma_yes);
-		bg_ma.add(rd_isma_no);
 
 		JLabel label_12 = new JLabel("العنوان بالعربية");
 		label_12.setFont(new Font("Arial", Font.BOLD, 15));
@@ -513,6 +471,12 @@ public class InfoCrud {
 		lblDepartment.setFont(new Font("Arial", Font.BOLD, 15));
 		lblDepartment.setBounds(12, 19, 44, 15);
 		panel_7.add(lblDepartment);
+
+		tf_isma = new JTextField(empl.isMoroccan( ));
+		tf_isma.setFont(new Font("Arial", Font.PLAIN, 15));
+		tf_isma.setColumns(10);
+		tf_isma.setBounds(406, 5, 148, 29);
+		panel_7.add(tf_isma);
 
 		JPanel panel_3 = new JPanel( );
 		panel_3.setBounds(12, 12, 571, 127);
@@ -582,13 +546,13 @@ public class InfoCrud {
 
 				nempl.setName(tf_name.getText( ));
 				nempl.setFamilyName(tf_fname.getText( ));
-				nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
+				nempl.setIsMoroccan(tf_isma.getText( ));
 				nempl.setBirthDay(DateUtil.parseDate(tf_bdate.getText( )));
 
 				nempl.setBirthPlace(tf_bplace.getText( ));
 				nempl.setAddress(tf_addr.getText( ));
 				nempl.setPhone(tf_phone.getText( ));
-				nempl.setIsMarried(rd_ismarried_yes.isSelected( ));
+				nempl.setIsMarried(tf_ismaried.getText( ));
 
 				nempl.setNumberOfchildren(
 					Short.parseShort(spin_nchildren.getValue( ).toString( )));
@@ -641,7 +605,7 @@ public class InfoCrud {
 
 					nempl.setName(tf_name.getText( ));
 					nempl.setFamilyName(tf_fname.getText( ));
-					nempl.setIsMoroccan(rd_isma_yes.isSelected( ));
+					nempl.setIsMoroccan(tf_isma.getText( ));
 					nempl.setBirthDay(DateUtil.parseDate(tf_bdate.getText( )));
 
 					nempl.setNameArabic(tf_name_ar.getText( ));
@@ -652,7 +616,7 @@ public class InfoCrud {
 					nempl.setBirthPlace(tf_bplace.getText( ));
 					nempl.setAddress(tf_addr.getText( ));
 					nempl.setPhone(tf_phone.getText( ));
-					nempl.setIsMarried(rd_ismarried_yes.isSelected( ));
+					nempl.setIsMarried(tf_ismaried.getText( ));
 
 					nempl.setNumberOfchildren(
 						Short.parseShort(
@@ -677,16 +641,16 @@ public class InfoCrud {
 
 					nempl.add( );
 
-					// Uplift u = new Uplift( );
-					// u.setEmployeeReference(nempl.getEmployeeReference( ));
-					// u.setId(1);
-					// u.setGrade((short) 9);
-					// u.setRank((short) 1);
-					// u.setIndice("127");
-					// u.setDate(DateUtil.parseDate(new Date( ).toString( )));
-					// u.add( );
+					 Uplift u = new Uplift( );
+					 u.setEmployeeReference(nempl.getEmployeeReference( ));
+					 u.setId(1);
+					 u.setGrade((short) 9);
+					 u.setRank((short) 1);
+					 u.setIndice("127");
+					 u.setDate(DateUtil.parseDate(new Date( ).toString( )));
+					 u.add( );
 					//
-					// new UpliftCrud(nempl).getFrame( ).setVisible(true);
+					 new UpliftCrud(nempl).getFrame( ).setVisible(true);
 
 					// frame.dispose( );
 				}
@@ -713,8 +677,8 @@ public class InfoCrud {
 				spin_nchildren.setValue(0);
 				tbl_diplomas.setModel(new DefaultTableModel( ));
 				tbl_uplifts.setModel(new DefaultTableModel( ));
-				rd_isma_yes.setSelected(true);
-				rd_ismarried_no.setSelected(true);
+				tf_isma.setText("");
+				tf_ismaried.setText("");
 			}
 		});
 		btnnew.setBounds(413, 525, 80, 25);
