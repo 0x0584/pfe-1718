@@ -38,25 +38,20 @@
 #+LATEX: \listoffigures
 #+LATEX: \listoflistings
 
-#+BEGIN_EXPORT latex
-\begin{abstract}
-
-Ce projet est le résultat d'un stage que j'avais passé chez la {\it Faculté des Lettres et Science Humaines}, El Jadida sous le thème {\it informatiser le service Ressources Humaines}. Sous l'encadrement de {\bf Mr. A. Madani}, et la supervision du chef de service; {\bf Mr. Driss DIBAJI}.\\
+* Abstract
+Ce projet est le résultat d'un stage que j'avais passé chez la Faculté des Lettres et Science Humaines, El Jadida sous le thème informatiser le service Ressources Humaines. Sous l'encadrement de Mr. A. Madani, et la supervision du chef de service; Mr. Driss DIBAJI.\\
 
 Je tiens à remercier toutes les personnes qui ont contribué au succès de mon stage et qui m'ont aidé lors de la rédaction de ce rapport.\\
 
-Tout d'abord, j'aimrais remecier {\bf Mr. Abdellah MADANI} pour sa patience, pour son suivie interompu, pour ses conseils judicieux qui m'ont aidé à mener à bout se travail et son appui tout au long de ce projet.	 \\
+Tout d'abord, j'aimrais remecier Mr. Abdellah MADANI pour sa patience, pour son suivie interompu, pour ses conseils judicieux qui m'ont aidé à mener à bout se travail et son appui tout au long de ce projet.	 \\
 
-J'adresse mes remerciements au mes professeurs, {\bf Mr. Mohammed Essaid RIFFI}, {\bf Mr. Hassan SILKAN} et finalemment {\bf Mme Salwa BELAQZIZ}, qui m'ont beaucoup aidé pendant cette formation, c'était un grand plaisir. \\
+J'adresse mes remerciements au mes professeurs, Mr. Mohammed Essaid RIFFI, Mr. Hassan SILKAN et finalemment Mme Salwa BELAQZIZ, qui m'ont beaucoup aidé pendant cette formation, c'était un grand plaisir. \\
 
 Je tiens à remercier vivement mon maitre de stage, {\bf Mr Driss DIBAJI}, chef du service Ressources Humaines au sein de la {\it Faculté des Lettres et Science Humaines}, El Jadida, pour son accueil et le partage de son expertise. Grâce aussi à sa confiance j'ai pu m'accomplir totalement dans mes missions. Il fut d'une aide précieuse dans les moments les plus délicats.\\
 
-Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu lors de la rédaction de ce rapport de stage : ma famille, mon ami {\bf H. Hamza}, {\bf R. Yassine} et {\bf B. Aya}.\\
-\end{abstract}
-#+END_EXPORT
+Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu lors de la rédaction de ce rapport de stage : ma famille, mon ami H. Hamza, R. Yassine} et B. Aya.\\
 
 * Intoduction
-  \vspace*{\fill}
   #+BEGIN_QUOTE
   Pour obtenir ce besoin, j'avais la responsabilité de développer un environnement pour gérer les différents taches décrites en [[Cahier des Charges][cahier des charges]]\\
   #+END_QUOTE
@@ -65,11 +60,8 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
   Pour realiser cela, il y a deux parties. Stockage des données et l'application bureau. Pour la première, j'ai choisi /XML/; un langage markup écrit dans un fichier texte. Tout simplement parce qu'il est simple à utiliser et/ou modifier ainsi qu'il est gratuit. Et pour la deuxième, j'ai développé une application en /Java/, car il est un langage Orienté-Objet qui facilite le processus de développement.
   #+END_QUOTE
 
-  \vspace*{\fill}
-
 * Cahier des Charges
 
-  \vspace*{\fill}
   #+BEGIN_QUOTE
   /Service des ressources humaines/ est un service qui est responsable de la gestion des employés et fonctionnaires, leurs diplômes et grades, ainsi que donner des attestations du travail et des autorisations de congé, suivi d'absence, suivi des remboursements pour travailler les jours de congé et finalement donner des fiches notation annuelle.\\
   #+END_QUOTE
@@ -84,7 +76,6 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
   + Générer des attestations de travail
   + Générer des autorisations de congé
   + Générer des fiches de notation annuelle
-  \vspace*{\fill}
 
 * Conception
 ** Stockage des données en XML
@@ -155,13 +146,11 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
    + [[Paquet =wins=][=wins=]] :: contient des interfaces graphiques, y compris celles qui sont responsables des opérations CRUD normales qui existent dans [[Paquet =wins.crud=][=wins.crud=]]
    + [[Paquet =views=][=views=]] :: contient des pages générées pour l'impression.
 
-   \vspace*{\fill}
    #+CAPTION: Aperçu de code source du projet
    #+NAME:	  fig:overview
    #+ATTR_LATEX: :width 9cm :center t
    [[./diags/Overview.png]]
 
-   \vspace*{\fill}
    #+LATEX: \clearpage
 
 *** Paquet =model=
@@ -437,11 +426,9 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 
     Et finalement, il reste que l'implémentation de la méthode [[lis:run][=run()=]], qui est été appelée avec le protocole [[lis:propstart][=SwingUtilities.invokeLater()=]] dans [[lis:propstart][=processEditingStarted()=]]. Le rôle de cet appel est de récupérer la valeur actuelle de la cellule. \\
 
-    \vspace*{\fill}
     #+BEGIN_QUOTE
     /Note: Le but du création de cette classe/ [[lis:jtablelistener][=JTableCellListener=]] /c'est que dans/ =Java= /il n'y a pas d'un listener native, ou par défaut qui suit l'état des cellules d'un/ =JTable=. \\
     #+END_QUOTE
-    \vspace*{\fill}
 
     #+CAPTION: La relation entre =DateUtils=, =XmlFile= et =XmlElement=
     #+NAME:   fig:apputils1
@@ -632,11 +619,9 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 * L'Interface Graphique
 ** La relation entre les différents Paquets graphiques
 
-   \vspace*{\fill}
    #+CAPTION: Aperçu général sur les interfaces graphiques utilisé dans l'application
    #+NAME: fig:gui
    [[./diags/OverviewOnWinsAnd.png]]
-   \vspace*{\fill}
 
    #+LATEX: \clearpage
 
@@ -709,14 +694,12 @@ Enfin, je tiens à remercier toutes les personnes qui m'ont conseillé et relu l
 [[./diags/att.png]]
 
 * Conclusion
-\vspace*{\fill}
 #+BEGIN_QUOTE
 /Ce projet a été sous plusieurs aspects riches d'enseignements./
 /Le projet consistait à realiser une application permetant la gestion des carriers des ressoures humaines. C'etait une opportunité pour améliorer mes connaissances au matiere de codage =Java=./\\
 
 /En conclusion, mon projet ma permetais de mettre en oeuvre mes competances scolaires, professionnelles et humaines pour un sujet intéresant. J'ai acquis des nouvelles compétances dans le domain de développement/
 #+END_QUOTE
-\vspace*{\fill}
 * Dépendances
   # + Java/XML :: [[https://fr.wikibooks.org/wiki/Programmation_Java/XML][{1}]] [[https://cynober.developpez.com/tutoriel/java/xml/jdom/][{2}]]
   + JDOM :: http://jdom.org/ Bibliothèque =Java= pour analyser XML
